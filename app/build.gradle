@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 28
@@ -48,5 +50,29 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.test_espresso"
 
+    implementation "androidx.core:core-ktx:$versions.ktx"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+
+    implementation "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+
     implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+
+    implementation "androidx.preference:preference:$versions.preference"
+
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
+    implementation "androidx.paging:paging-rxjava2-ktx:$versions.paging"
+
+    implementation "com.google.firebase:firebase-core:$versions.firebase_core"
+    implementation "com.google.firebase:firebase-database:$versions.firebase_database"
+    implementation "com.google.firebase:firebase-auth:$versions.firebase_auth"
+
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
+    implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
+
+    implementation "de.psdev.licensesdialog:licensesdialog:$versions.licenses"
 }
