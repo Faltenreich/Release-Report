@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.data.dao
+package com.faltenreich.releaseradar.data.provider
 
 import com.faltenreich.releaseradar.firebase.auth.FirebaseAuth
 
