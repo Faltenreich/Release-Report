@@ -47,8 +47,11 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
     testImplementation "junit:junit:$versions.junit"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.test_espresso"
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
 
     implementation "androidx.core:core-ktx:$versions.ktx"
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"

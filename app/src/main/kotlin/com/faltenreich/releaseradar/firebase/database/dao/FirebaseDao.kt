@@ -8,8 +8,7 @@ import com.faltenreich.releaseradar.firebase.database.operation.FirebaseWriteOpe
 import com.google.firebase.FirebaseException
 import kotlin.reflect.KClass
 
-abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseApi<MODEL>,
-    FirebaseNodeProvider<MODEL> {
+abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseApi<MODEL>, FirebaseNodeProvider<MODEL> {
 
     override fun getAll(onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
         FirebaseRealtimeDatabase.read(FirebaseReadOperation(clazz, buildPath(), onSuccess, onError) { data -> data.children.mapNotNull { child -> child.getValue(clazz.java)?.apply { id = child.key } } })
