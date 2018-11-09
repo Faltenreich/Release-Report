@@ -1,6 +1,6 @@
-package com.faltenreich.releaseradar.data.dao
+package com.faltenreich.releaseradar.firebase.database.dao
 
-import com.faltenreich.releaseradar.data.model.FirebaseEntity
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 
 interface FirebaseApi<MODEL : FirebaseEntity> {
 

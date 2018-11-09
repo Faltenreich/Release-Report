@@ -1,6 +1,6 @@
 package com.faltenreich.releaseradar.firebase.database
 
-import com.faltenreich.releaseradar.data.model.FirebaseEntity
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 import com.faltenreich.releaseradar.firebase.database.operation.FirebaseReadOperation
 import com.faltenreich.releaseradar.firebase.database.operation.FirebaseWriteOperation
 import com.faltenreich.releaseradar.logging.LogLevel

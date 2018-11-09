@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.data.model
+package com.faltenreich.releaseradar.firebase.database.model
 
 internal interface FirebaseNodeProvider <MODEL : FirebaseEntity> {
 
