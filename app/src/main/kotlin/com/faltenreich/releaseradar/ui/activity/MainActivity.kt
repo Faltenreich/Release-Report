@@ -5,10 +5,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.ui.react.ToolbarInteractive
+import com.faltenreich.releaseradar.ui.react.ToolbarDelegate
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(R.layout.activity_main), ToolbarInteractive {
+class MainActivity : BaseActivity(R.layout.activity_main), ToolbarDelegate {
 
     private val navigationHostFragment: NavHostFragment
         get() = supportFragmentManager.findFragmentById(R.id.navigationHost) as NavHostFragment

@@ -10,7 +10,9 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"/>
+        android:background="?attr/colorPrimary"
+        app:search_hint="@string/search_hint"
+        app:search_hint_color="@color/gray_dark"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

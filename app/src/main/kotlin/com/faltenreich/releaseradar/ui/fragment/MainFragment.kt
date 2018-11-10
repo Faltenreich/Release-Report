@@ -20,7 +20,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun initSearchView() {
-        searchView.setOnLogoClickListener { toolbarInteractive?.onHamburgerIconClicked() }
+        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
     }
 
     private fun initViewPager() {

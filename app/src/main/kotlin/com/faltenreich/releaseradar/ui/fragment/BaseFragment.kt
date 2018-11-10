@@ -7,7 +7,7 @@ import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.faltenreich.releaseradar.ui.react.ToolbarInteractive
+import com.faltenreich.releaseradar.ui.react.ToolbarDelegate
 
 abstract class BaseFragment(
     @LayoutRes private val layoutResId: Int,
@@ -24,8 +24,8 @@ abstract class BaseFragment(
 
     var subtitle: String? = null
 
-    protected val toolbarInteractive: ToolbarInteractive?
-        get() = activity as? ToolbarInteractive
+    protected val toolbarDelegate: ToolbarDelegate?
+        get() = activity as? ToolbarDelegate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

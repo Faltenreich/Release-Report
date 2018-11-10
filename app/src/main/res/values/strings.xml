@@ -7,5 +7,6 @@
     <string name="music">Music</string>
     <string name="video_game">Video game</string>
     <string name="video_games">Video games</string>
+    <string name="search_hint">Search for releases&#8230;</string>
 
 </resources>
