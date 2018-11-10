@@ -15,7 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -37,6 +37,10 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 androidExtensions {
@@ -49,8 +53,12 @@ dependencies {
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito"
-    androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.test_espresso"
+    androidTestImplementation "androidx.test.ext:junit:$versions.test"
+    androidTestImplementation "androidx.test:rules:$versions.test_rules"
+    androidTestImplementation "androidx.test:runner:$versions.test_runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.test_espresso"
 
     implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
 

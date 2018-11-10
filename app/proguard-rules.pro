@@ -21,3 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.faltenreich.releaseradar.data.model.** { *; }
+-keep class androidx.navigation.** { *; }
