@@ -8,6 +8,10 @@
             android:id="@+id/main"
             android:title="@string/releases"/>
 
+        <item
+            android:id="@+id/calendar"
+            android:title="@string/calendar"/>
+
     </group>
 
 </menu>

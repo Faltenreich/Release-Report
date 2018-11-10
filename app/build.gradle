@@ -38,6 +38,11 @@ android {
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -88,4 +93,5 @@ dependencies {
 
     implementation "de.psdev.licensesdialog:licensesdialog:$versions.licenses"
     implementation "com.lapism:searchview:$versions.search_view"
+    implementation "com.applandeo:material-calendar-view:$versions.calendar_view"
 }
