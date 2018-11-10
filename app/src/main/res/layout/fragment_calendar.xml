@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.lapism.searchview.widget.SearchView
-        android:id="@+id/searchView"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        app:search_hint="@string/search_hint"
-        app:search_hint_color="@color/gray_dark"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <com.applandeo.materialcalendarview.CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.lapism.searchview.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    app:search_hint="@string/search_hint"
+                    app:search_hint_color="@color/gray_dark"/>
+
+                <com.applandeo.materialcalendarview.CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseMode="pin"
+                    app:headerColor="?attr/colorPrimary"
+                    app:type="classic"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
