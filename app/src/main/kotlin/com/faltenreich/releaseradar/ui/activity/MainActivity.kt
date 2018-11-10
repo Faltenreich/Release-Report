@@ -5,8 +5,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.releaseradar.R
+import com.faltenreich.releaseradar.ui.react.ToolbarInteractive
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity(R.layout.activity_main), ToolbarInteractive {
 
     private val navigationHostFragment: NavHostFragment
         get() = supportFragmentManager.findFragmentById(R.id.navigationHost) as NavHostFragment
@@ -20,6 +22,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     }
 
     override fun onSupportNavigateUp(): Boolean = findNavController(R.id.navigationHost).navigateUp()
+
+    override fun onHamburgerIconClicked() = if (drawerLayout.isDrawerOpen(navigationView)) drawerLayout.closeDrawer(navigationView) else drawerLayout.openDrawer(navigationView)
 
     private fun initLayout() {
         // Workaround: Title is not set on app start via Navigation Architecture Components, so we do it on our own

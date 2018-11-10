@@ -1,18 +1,18 @@
 package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
+import android.view.View
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.data.dao.SubscriptionDao
-import com.faltenreich.releaseradar.logging.log
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        SubscriptionDao.getAll(onSuccess = {
-            log("Created subscription")
-        }, onError = {
-            log(it.message ?: "Fetch failed")
-        })
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initLayout()
+    }
+
+    private fun initLayout() {
+        searchView.setOnLogoClickListener { toolbarInteractive?.onHamburgerIconClicked() }
     }
 }
