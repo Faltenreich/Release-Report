@@ -10,9 +10,5 @@ interface FirebaseApi<MODEL : FirebaseEntity> {
 
     fun createOrUpdate(entity: MODEL, onSuccess: ((Unit) -> Unit)? = null, onError: ((Exception) -> Unit)? = null)
 
-    fun create(entity: MODEL, onSuccess: ((Unit) -> Unit)? = null, onError: ((Exception) -> Unit)? = null)
-
-    fun update(entity: MODEL, onSuccess: ((Unit) -> Unit)? = null, onError: ((Exception) -> Unit)? = null)
-
     fun delete(entity: MODEL, onSuccess: ((Unit) -> Unit)? = null, onError: ((Exception) -> Unit)? = null)
 }

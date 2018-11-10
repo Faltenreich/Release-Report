@@ -45,19 +45,10 @@ abstract class Dao<MODEL : Entity>(clazz: KClass<MODEL>) : FirebaseDao<MODEL>(cl
         }
     }
 
-    override fun create(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
+    override fun createOrUpdate(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
         ensureUserAccount { success ->
             when (success) {
-                true -> super.create(entity, onSuccess, onError)
-                false -> onError?.invoke(LoginException())
-            }
-        }
-    }
-
-    override fun update(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
-        ensureUserAccount { success ->
-            when (success) {
-                true -> super.update(entity, onSuccess, onError)
+                true -> super.createOrUpdate(entity, onSuccess, onError)
                 false -> onError?.invoke(LoginException())
             }
         }

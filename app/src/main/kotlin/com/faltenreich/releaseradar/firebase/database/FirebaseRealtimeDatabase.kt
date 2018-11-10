@@ -16,8 +16,7 @@ internal object FirebaseRealtimeDatabase {
 
     fun generateId(path: String): String? = createReference(path).push().key
 
-    fun <MODEL : FirebaseEntity, RESPONSE : Any?> read(request: FirebaseReadOperation<MODEL, RESPONSE>) = createReference(request.path).addValueEventListener(object :
-        ValueEventListener {
+    fun <MODEL : FirebaseEntity, RESPONSE : Any?> read(request: FirebaseReadOperation<MODEL, RESPONSE>) = createReference(request.path).addValueEventListener(object : ValueEventListener {
         override fun onDataChange(data: DataSnapshot) {
             try {
                 val value = request.operation(data)

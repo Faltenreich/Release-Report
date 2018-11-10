@@ -25,14 +25,14 @@ abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<M
         else -> update(entity, onSuccess, onError)
     }
 
-    override fun create(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
+    private fun create(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
         database.generateId(buildPath())?.let { id ->
             entity.id = id
             update(entity, onSuccess, onError)
         } ?: onError?.invoke(FirebaseException("Failed to generate id"))
     }
 
-    override fun update(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
+    private fun update(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
         database.write(FirebaseWriteOperation(buildPath(entity), onSuccess, onError) { databaseReference -> databaseReference.setValue(entity) })
     }
 
