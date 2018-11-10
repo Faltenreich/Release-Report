@@ -87,4 +87,5 @@ dependencies {
     implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
 
     implementation "de.psdev.licensesdialog:licensesdialog:$versions.licenses"
+    implementation "com.lapism:searchview:$versions.search_view"
 }
