@@ -2,14 +2,13 @@ package com.faltenreich.releaseradar.firebase.database.model
 
 internal interface FirebaseNodeProvider <MODEL : FirebaseEntity> {
 
-    val nodeName: String
-
     val nodeRootPath: String
-        get() = ""
+
+    val nodeName: String
 
     fun buildPath(): String = "$nodeRootPath/$nodeName"
 
     fun buildPath(id: String): String = "${buildPath()}/$id"
 
-    fun buildPath(entity: MODEL): String = entity.id?.let { id -> buildPath(id) } ?: throw Exception("Failed to build path for id that is null")
+    fun buildPath(entity: MODEL): String = entity.id?.let { id -> buildPath(id) } ?: throw Exception("Failed to build path for entity with id that is null")
 }

@@ -2,7 +2,7 @@ package com.faltenreich.releaseradar.firebase.database.dao
 
 import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 
-interface FirebaseApi<MODEL : FirebaseEntity> {
+interface FirebaseDaoApi<MODEL : FirebaseEntity> {
 
     fun getAll(onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
 

@@ -8,7 +8,7 @@ import com.faltenreich.releaseradar.firebase.database.operation.FirebaseWriteOpe
 import com.google.firebase.FirebaseException
 import kotlin.reflect.KClass
 
-abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseApi<MODEL>, FirebaseNodeProvider<MODEL> {
+abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseDaoApi<MODEL>, FirebaseNodeProvider<MODEL> {
 
     private val database = FirebaseRealtimeDatabase
 

@@ -9,14 +9,14 @@ import kotlin.reflect.KClass
 
 abstract class Dao<MODEL : Entity>(clazz: KClass<MODEL>) : FirebaseDao<MODEL>(clazz) {
 
-    override val nodeName: String
-        get() = clazz.java.simpleName.toLowerCase()
-
     override val nodeRootPath: String
         get() = when (this) {
             is UserDependency -> nodeRootPathForCurrentUser
-            else -> super.nodeRootPath
+            else -> ""
         }
+
+    override val nodeName: String
+        get() = clazz.java.simpleName.toLowerCase()
 
     private fun ensureUserAccount(action: (success: Boolean) -> Unit) = when (this !is UserDependency || FirebaseAuth.isSignedIn) {
         true -> action(true)

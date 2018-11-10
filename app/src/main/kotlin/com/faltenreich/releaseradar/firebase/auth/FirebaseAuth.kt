@@ -7,17 +7,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 
-object FirebaseAuth {
+object FirebaseAuth : FirebaseAuthApi {
 
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
-    val currentUser: FirebaseUser?
+    override val currentUser: FirebaseUser?
         get() = auth.currentUser
 
-    val isSignedIn: Boolean
+    override val isSignedIn: Boolean
         get() = currentUser != null
 
-    fun login(onSuccess: ((FirebaseUser?) -> Unit)? = null, onError: ((Exception?) -> Unit)? = null) {
+    override fun login(onSuccess: ((FirebaseUser?) -> Unit)?, onError: ((Exception?) -> Unit)?) {
         when {
             !isSignedIn -> signInAnonymously(onSuccess, onError)
             else -> onSuccess?.invoke(currentUser)
