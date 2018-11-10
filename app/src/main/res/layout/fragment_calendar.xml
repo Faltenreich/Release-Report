@@ -32,13 +32,15 @@
                     app:search_hint="@string/search_hint"
                     app:search_hint_color="@color/gray_dark"/>
 
-                <com.applandeo.materialcalendarview.CalendarView
+                <com.github.sundeepk.compactcalendarview.CompactCalendarView
                     android:id="@+id/calendarView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_collapseMode="pin"
-                    app:headerColor="?attr/colorPrimary"
-                    app:type="classic"/>
+                    android:layout_height="280dp"
+                    app:compactCalendarDisplayOtherMonthDays="true"
+                    app:compactCalendarMultiEventIndicatorColor="@android:color/black"
+                    app:compactCalendarOtherMonthDaysTextColor="@color/gray_light"
+                    app:compactCalendarTextColor="@android:color/black"
+                    app:compactCalendarTextSize="14sp"/>
 
             </LinearLayout>
 
