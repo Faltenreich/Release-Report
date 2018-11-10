@@ -8,5 +8,5 @@ interface UserDependency {
         get() = FirebaseAuth.currentUser?.uid
 
     val nodeRootPathForCurrentUser: String
-        get() = "users/$userId"
+        get() = "user/$userId"
 }
