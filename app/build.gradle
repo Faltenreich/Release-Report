@@ -96,4 +96,5 @@ dependencies {
     implementation "com.lapism:searchview:$versions.search_view"
     implementation "com.github.sundeepk:compact-calendar-view:$versions.calendar_view"
     implementation "com.faltenreich:skeletonlayout:$versions.skeleton"
+    implementation "com.whiteelephant:monthandyearpicker:$versions.month_picker"
 }

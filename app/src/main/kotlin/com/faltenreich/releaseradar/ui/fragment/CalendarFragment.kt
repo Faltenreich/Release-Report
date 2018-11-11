@@ -7,6 +7,7 @@ import com.faltenreich.releaseradar.data.dao.ReleaseDao
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
+import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_calendar.*
@@ -33,6 +34,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
 
     private fun initLayout() {
         calendarView.setListener(this)
+
+        monthLabel.setOnClickListener { openMonthPicker() }
         monthButtonPrevious.setOnClickListener { date = date.minusMonths(1) }
         monthButtonNext.setOnClickListener { date = date.plusMonths(1) }
         invalidateMonth()
@@ -53,9 +56,11 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
 
     private fun invalidateMonth() {
         calendarView.date.let { date ->
-            monthLabel.text = "${date.printMonth()} ${date.printYear()}"
+            monthLabel.text = "%s %s".format(date.printMonth(), date.printYear())
         }
     }
+
+    private fun openMonthPicker() = MonthPicker.show(context, date) { selectedDate -> date = selectedDate }
 
     override fun onDayClick(dateClicked: Date?) = Unit
 
