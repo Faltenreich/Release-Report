@@ -1,15 +1,20 @@
 package com.faltenreich.releaseradar.ui.fragment
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
+import com.faltenreich.releaseradar.data.dao.ReleaseDao
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
+import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalendarView.CompactCalendarViewListener {
+
+    private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
 
     private var date: LocalDate
         get() = calendarView.date
@@ -28,6 +33,16 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
         monthButtonPrevious.setOnClickListener { date = date.minusMonths(1) }
         monthButtonNext.setOnClickListener { date = date.plusMonths(1) }
         invalidateMonth()
+
+        listView.layoutManager = LinearLayoutManager(context)
+        listView.adapter = listAdapter
+
+        ReleaseDao.getAll(onSuccess = { releases ->
+            listAdapter?.apply {
+                addAll(releases)
+                notifyDataSetChanged()
+            }
+        })
     }
 
     private fun invalidateMonth() {
