@@ -7,14 +7,17 @@ import com.faltenreich.releaseradar.data.dao.ReleaseDao
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
+import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.view_calendar_header.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalendarView.CompactCalendarViewListener {
 
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
+    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release) }
 
     private var date: LocalDate
         get() = calendarView.date
@@ -37,10 +40,13 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
         listView.layoutManager = LinearLayoutManager(context)
         listView.adapter = listAdapter
 
+        skeleton.showSkeleton()
+
         ReleaseDao.getAll(onSuccess = { releases ->
             listAdapter?.apply {
                 addAll(releases)
                 notifyDataSetChanged()
+                skeleton.showOriginal()
             }
         })
     }
