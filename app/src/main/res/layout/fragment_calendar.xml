@@ -61,7 +61,10 @@
                             android:gravity="center"
                             android:textColor="@android:color/white"
                             android:background="?attr/selectableItemBackground"
-                            tools:text="Heute"/>
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:textSize="@dimen/text_size_medium"
+                            tools:text="November 2018"/>
 
                         <ImageButton
                             android:id="@+id/monthButtonNext"
