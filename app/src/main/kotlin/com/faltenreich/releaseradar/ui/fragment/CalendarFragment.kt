@@ -6,6 +6,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.dao.ReleaseDao
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
+import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -17,6 +18,7 @@ import java.util.*
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalendarView.CompactCalendarViewListener {
 
+    private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release) }
 

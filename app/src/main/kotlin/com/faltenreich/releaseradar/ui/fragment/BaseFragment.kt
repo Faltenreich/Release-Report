@@ -6,15 +6,19 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.faltenreich.releaseradar.data.provider.ViewModelCreator
 import com.faltenreich.releaseradar.ui.react.ToolbarDelegate
+import kotlin.reflect.KClass
 
 abstract class BaseFragment(
     @LayoutRes private val layoutResId: Int,
     @MenuRes private val menuResId: Int? = null,
     @StringRes private val titleResId: Int? = null,
     @StringRes private val subtitleResId: Int? = null
-) : Fragment() {
+) : Fragment(), ViewModelCreator {
 
     var title: String? = null
         set(value) {
@@ -26,6 +30,8 @@ abstract class BaseFragment(
 
     protected val toolbarDelegate: ToolbarDelegate?
         get() = activity as? ToolbarDelegate
+
+    override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T = ViewModelProviders.of(this).get(clazz.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
