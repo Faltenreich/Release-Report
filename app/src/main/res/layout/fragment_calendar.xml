@@ -3,6 +3,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,30 +20,74 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:cardCornerRadius="0dp"
+                app:cardElevation="4dp">
 
-                <com.lapism.searchview.widget.SearchView
-                    android:id="@+id/searchView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorPrimary"
-                    app:search_hint="@string/search_hint"
-                    app:search_hint_color="@color/gray_dark"/>
+                    android:orientation="vertical">
 
-                <com.github.sundeepk.compactcalendarview.CompactCalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    app:compactCalendarDisplayOtherMonthDays="true"
-                    app:compactCalendarMultiEventIndicatorColor="@android:color/black"
-                    app:compactCalendarOtherMonthDaysTextColor="@color/gray_light"
-                    app:compactCalendarTextColor="@android:color/black"
-                    app:compactCalendarTextSize="14sp"/>
+                    <com.lapism.searchview.widget.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/colorPrimary"
+                        app:search_hint="@string/search_hint"
+                        app:search_hint_color="@color/gray_dark"/>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_touch_size"
+                        android:orientation="horizontal"
+                        android:background="?attr/colorPrimary">
+
+                        <ImageButton
+                            android:id="@+id/monthButtonPrevious"
+                            android:layout_width="@dimen/standard_touch_size"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/month_previous"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            app:srcCompat="@drawable/ic_arrow_back"/>
+
+                        <TextView
+                            android:id="@+id/monthLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:background="?attr/selectableItemBackground"
+                            tools:text="Heute"/>
+
+                        <ImageButton
+                            android:id="@+id/monthButtonNext"
+                            android:layout_width="@dimen/standard_touch_size"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/month_next"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            app:srcCompat="@drawable/ic_arrow_forward"/>
+
+                    </LinearLayout>
+
+                    <com.faltenreich.releaseradar.ui.view.CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        app:compactCalendarTextColor="@android:color/black"
+                        app:compactCalendarTextSize="14sp"
+                        app:compactCalendarCurrentDayBackgroundColor="@color/gray_lighter"
+                        app:compactCalendarCurrentSelectedDayTextColor="@android:color/white"
+                        app:compactCalendarCurrentSelectedDayBackgroundColor="?attr/colorPrimary"
+                        app:compactCalendarDisplayOtherMonthDays="true"
+                        app:compactCalendarOtherMonthDaysTextColor="@color/gray"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

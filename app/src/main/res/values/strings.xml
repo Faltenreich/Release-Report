@@ -9,5 +9,7 @@
     <string name="video_game">Video game</string>
     <string name="video_games">Video games</string>
     <string name="search_hint">Search for releases&#8230;</string>
+    <string name="month_previous">Previous month</string>
+    <string name="month_next">Next month</string>
 
 </resources>
