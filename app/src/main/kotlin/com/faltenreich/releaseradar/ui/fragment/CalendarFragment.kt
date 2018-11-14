@@ -3,7 +3,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.data.dao.ReleaseDao
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
@@ -32,6 +31,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+        initData()
     }
 
     private fun initLayout() {
@@ -44,16 +44,17 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
 
         listView.layoutManager = LinearLayoutManager(context)
         listView.adapter = listAdapter
+    }
 
+    private fun initData() {
         skeleton.showSkeleton()
-
-        ReleaseDao.getAll(onSuccess = { releases ->
+        viewModel.observeReleases(this) { releases ->
             listAdapter?.apply {
                 addAll(releases)
                 notifyDataSetChanged()
-                skeleton.showOriginal()
             }
-        })
+            skeleton.showOriginal()
+        }
     }
 
     private fun invalidateMonth() {

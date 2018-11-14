@@ -5,9 +5,9 @@ import android.view.View
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.ui.adapter.ReleaseViewPagerAdapter
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_release_pager.*
 
-class MainFragment : BaseFragment(R.layout.fragment_main) {
+class ReleasePagerFragment : BaseFragment(R.layout.fragment_release_pager) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="com.faltenreich.releaseradar.ui.fragment.MainFragment"
+        android:name="com.faltenreich.releaseradar.ui.fragment.ReleasePagerFragment"
         android:label="@string/releases"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_release_pager">
     </fragment>
 
     <fragment
