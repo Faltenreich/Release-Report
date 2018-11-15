@@ -1,4 +1,5 @@
 package com.faltenreich.releaseradar.ui.fragment
+
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +10,7 @@ import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
 import com.faltenreich.releaseradar.ui.adapter.EntityDiffCallback
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
+import com.faltenreich.releaseradar.ui.adapter.VerticalPaddingItemDecoration
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
@@ -44,8 +46,11 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
         monthButtonNext.setOnClickListener { date = date.plusMonths(1) }
         invalidateMonth()
 
-        listView.layoutManager = LinearLayoutManager(context)
-        listView.adapter = listAdapter
+        context?.let { context ->
+            listView.layoutManager = LinearLayoutManager(context)
+            listView.addItemDecoration(VerticalPaddingItemDecoration(context, R.dimen.margin_padding_size_small))
+            listView.adapter = listAdapter
+        }
     }
 
     private fun initData() {

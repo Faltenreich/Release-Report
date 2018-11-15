@@ -42,6 +42,8 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/margin_padding_size_medium"
+        android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:padding="@dimen/margin_padding_size_medium">
-
-    <ImageView
-        android:id="@+id/release_cover"
-        android:layout_width="@dimen/standard_element_size"
-        android:layout_height="@dimen/standard_element_size"
-        tools:src="@tools:sample/avatars"/>
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_padding_size_medium"
-        android:paddingStart="@dimen/margin_padding_size_medium"
-        android:paddingRight="@dimen/margin_padding_size_medium"
-        android:paddingEnd="@dimen/margin_padding_size_medium">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/release_name"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@android:color/black"
-            tools:text="@tools:sample/lorem"/>
+        <ImageView
+            android:id="@+id/release_cover"
+            android:layout_width="@dimen/standard_element_size"
+            android:layout_height="@dimen/standard_element_size"
+            tools:src="@tools:sample/avatars"/>
 
-        <TextView
-            android:id="@+id/release_description"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="20dp"
-            android:layout_marginTop="@dimen/margin_padding_size_xsmall"
-            tools:text="@tools:sample/lorem"/>
+            android:orientation="vertical"
+            android:padding="@dimen/margin_padding_size_medium">
+
+            <TextView
+                android:id="@+id/release_name"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textColor="@android:color/black"
+                tools:text="@tools:sample/lorem"/>
+
+            <TextView
+                android:id="@+id/release_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="20dp"
+                android:layout_marginTop="@dimen/margin_padding_size_xsmall"
+                tools:text="@tools:sample/lorem"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
