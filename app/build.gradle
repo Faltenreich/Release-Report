@@ -66,8 +66,6 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.test_espresso"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.test_espresso"
 
-    implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
-
     implementation "androidx.core:core-ktx:$versions.ktx"
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
@@ -81,7 +79,6 @@ dependencies {
     implementation "androidx.preference:preference:$versions.preference"
 
     implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
-    implementation "androidx.paging:paging-rxjava2-ktx:$versions.paging"
 
     implementation "com.google.firebase:firebase-core:$versions.firebase_core"
     implementation "com.google.firebase:firebase-database:$versions.firebase_database"

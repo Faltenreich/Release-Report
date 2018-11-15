@@ -50,6 +50,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
         skeleton.showSkeleton()
         viewModel.observeReleases(this) { releases ->
             listAdapter?.apply {
+                clear()
                 addAll(releases)
                 notifyDataSetChanged()
             }

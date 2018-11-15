@@ -5,14 +5,15 @@ import com.whiteelephant.monthpicker.MonthPickerDialog
 import org.threeten.bp.LocalDate
 
 object MonthPicker {
+    private const val MAX_YEAR_OFFSET = 20L
+    private val MAX_YEAR by lazy { LocalDate.now().plusYears(MAX_YEAR_OFFSET).year }
 
-    private val MAX_YEAR by lazy { LocalDate.now().plusYears(30).year }
-
-    fun show(context: Context?, currentDate: LocalDate, onDateSet: (LocalDate) -> Unit) {
-        val listener = MonthPickerDialog.OnDateSetListener { selectedMonth, selectedYear ->
-            onDateSet(currentDate.withMonth(selectedMonth + 1).withYear(selectedYear))
-        }
-        MonthPickerDialog.Builder(context, listener, currentDate.year, currentDate.monthValue - 1).apply {
+    fun show(context: Context?, givenDate: LocalDate, onDateSet: (LocalDate) -> Unit) {
+        // MonthPickerDialog has zero-based months
+        val listener = MonthPickerDialog.OnDateSetListener { month, year -> onDateSet(givenDate.withMonth(month + 1).withYear(year)) }
+        val year = givenDate.year
+        val month = givenDate.monthValue - 1
+        MonthPickerDialog.Builder(context, listener, year, month).apply {
             setMaxYear(MAX_YEAR)
         }.build().show()
     }

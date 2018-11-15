@@ -1,7 +1,7 @@
 def versions = [:]
 ext.versions = versions
 
-versions.kotlin = "1.3.0"
+versions.kotlin = "1.3.10"
 versions.android_gradle_plugin = "3.2.1"
 versions.google_play_services = "4.0.1"
 
@@ -12,7 +12,6 @@ versions.test_rules = "1.1.0"
 versions.test_runner = "1.0.2"
 versions.test_espresso = "3.1.0"
 
-versions.rxkotlin = "2.3.0"
 versions.ktx = "1.0.1"
 versions.material = "1.0.0"
 versions.lifecycle = "2.0.0"
