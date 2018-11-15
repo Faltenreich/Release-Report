@@ -10,7 +10,8 @@ data class Release(
     @get:PropertyName("type") @set:PropertyName("type")
     var mediaTypeKey: String? = null,
     var description: String? = null,
-    var durationInSeconds: Long? = null
+    var durationInSeconds: Long? = null,
+    var imageUrl: String? = null
 ) : Entity(), NameProvider {
 
     @get:Exclude @set:Exclude

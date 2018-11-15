@@ -48,7 +48,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
 
         context?.let { context ->
             listView.layoutManager = LinearLayoutManager(context)
-            listView.addItemDecoration(VerticalPaddingItemDecoration(context, R.dimen.margin_padding_size_small))
+            listView.addItemDecoration(VerticalPaddingItemDecoration(context, R.dimen.margin_padding_size_medium))
             listView.adapter = listAdapter
         }
     }

@@ -15,7 +15,9 @@
         <ImageView
             android:id="@+id/release_cover"
             android:layout_width="@dimen/standard_element_size"
-            android:layout_height="@dimen/standard_element_size"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars"/>
 
         <LinearLayout
