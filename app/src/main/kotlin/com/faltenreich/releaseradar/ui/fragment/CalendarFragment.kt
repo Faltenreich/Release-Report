@@ -1,11 +1,13 @@
 package com.faltenreich.releaseradar.ui.fragment
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
+import com.faltenreich.releaseradar.ui.adapter.EntityDiffCallback
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -50,9 +52,10 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), CompactCalend
         skeleton.showSkeleton()
         viewModel.observeReleases(this) { releases ->
             listAdapter?.apply {
+                val diff = DiffUtil.calculateDiff(EntityDiffCallback(items, releases))
                 clear()
                 addAll(releases)
-                notifyDataSetChanged()
+                diff.dispatchUpdatesTo(this)
             }
             skeleton.showOriginal()
         }
