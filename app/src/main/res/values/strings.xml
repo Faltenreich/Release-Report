@@ -11,5 +11,6 @@
     <string name="search_hint">Search for releases&#8230;</string>
     <string name="month_previous">Previous month</string>
     <string name="month_next">Next month</string>
+    <string name="release_title" translatable="false">%1$s - %2$s</string>
 
 </resources>

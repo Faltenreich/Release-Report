@@ -11,7 +11,8 @@ data class Release(
     var mediaTypeKey: String? = null,
     var description: String? = null,
     var durationInSeconds: Long? = null,
-    var imageUrl: String? = null
+    var imageUrl: String? = null,
+    var artistName: String? = null
 ) : Entity(), NameProvider {
 
     @get:Exclude @set:Exclude
