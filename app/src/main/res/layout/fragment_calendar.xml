@@ -3,7 +3,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,7 +19,7 @@
             android:background="?attr/colorPrimary"
             app:search_hint="@string/search_hint"
             app:search_hint_color="@color/gray_dark"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"/>
 
         <include layout="@layout/view_calendar_header"/>
 
