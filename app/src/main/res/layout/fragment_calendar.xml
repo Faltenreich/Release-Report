@@ -12,28 +12,35 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.lapism.searchview.widget.SearchView
-            android:id="@+id/searchView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            app:search_hint="@string/search_hint"
-            app:search_hint_color="@color/gray_dark"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"/>
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
-        <include layout="@layout/view_calendar_header"/>
+            <com.lapism.searchview.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:search_hint="@string/search_hint"
+                app:search_hint_color="@color/gray_dark"/>
 
-        <com.faltenreich.releaseradar.ui.view.CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            app:compactCalendarTextColor="@android:color/black"
-            app:compactCalendarTextSize="14sp"
-            app:compactCalendarCurrentDayBackgroundColor="@color/gray_lighter"
-            app:compactCalendarCurrentSelectedDayTextColor="@android:color/white"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="?attr/colorPrimary"
-            app:compactCalendarDisplayOtherMonthDays="true"
-            app:compactCalendarOtherMonthDaysTextColor="@color/gray"/>
+            <include layout="@layout/view_calendar_header"/>
+
+            <com.faltenreich.releaseradar.ui.view.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                app:compactCalendarTextColor="@android:color/black"
+                app:compactCalendarTextSize="14sp"
+                app:compactCalendarCurrentDayBackgroundColor="@color/gray_lighter"
+                app:compactCalendarCurrentSelectedDayTextColor="@android:color/white"
+                app:compactCalendarCurrentSelectedDayBackgroundColor="?attr/colorPrimary"
+                app:compactCalendarDisplayOtherMonthDays="true"
+                app:compactCalendarOtherMonthDaysTextColor="@color/gray"/>
+
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

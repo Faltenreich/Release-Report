@@ -16,6 +16,7 @@ internal object FirebaseRealtimeDatabase {
 
     fun generateId(path: String): String? = createReference(path).push().key
 
+    // TODO: Support pagination via reference.limitToLast()
     fun <MODEL : FirebaseEntity, RESPONSE : Any?> read(request: FirebaseReadOperation<MODEL, RESPONSE>) = createReference(request.path).addValueEventListener(object : ValueEventListener {
         override fun onDataChange(data: DataSnapshot) {
             try {
