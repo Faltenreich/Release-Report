@@ -1,13 +1,29 @@
 package com.faltenreich.releaseradar.data
 
-import org.threeten.bp.DateTimeUtils
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
+import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.format.FormatStyle
 import org.threeten.bp.format.TextStyle
 import java.util.*
+
+private const val DATE_FORMAT_FIREBASE = "yyyy-MM-dd"
+
+val String?.asLocalDate: LocalDate?
+    get() = try {
+        LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
+    } catch (exception: DateTimeParseException) {
+        println(exception)
+        null
+    }
+
+val LocalDate.asString: String?
+    get() = try {
+        format(DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
+    } catch (exception: DateTimeException) {
+        println(exception)
+        null
+    }
 
 val LocalDate.date: Date
     get() = DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())

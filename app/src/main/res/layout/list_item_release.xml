@@ -49,8 +49,9 @@
                 android:id="@+id/release_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_size_xsmall"
                 android:minHeight="20dp"
+                android:layout_marginTop="@dimen/margin_padding_size_xsmall"
+                android:maxLines="3"
                 tools:text="@tools:sample/lorem"/>
 
         </LinearLayout>

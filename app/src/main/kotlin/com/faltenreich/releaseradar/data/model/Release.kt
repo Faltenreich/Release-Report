@@ -1,6 +1,7 @@
 package com.faltenreich.releaseradar.data.model
 
 import com.faltenreich.releaseradar.data.enum.MediaType
+import com.faltenreich.releaseradar.data.provider.DateProvider
 import com.faltenreich.releaseradar.data.provider.NameProvider
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.PropertyName
@@ -13,15 +14,13 @@ data class Release(
     var description: String? = null,
     var durationInSeconds: Long? = null,
     var imageUrl: String? = null,
-    var artistName: String? = null
-) : Entity(), NameProvider {
+    var artistName: String? = null,
+    @get:PropertyName("releasedAt") @set:PropertyName("releasedAt")
+    override var releasedAtString: String? = null
+) : Entity(), NameProvider, DateProvider {
 
     @get:Exclude @set:Exclude
     var mediaType: MediaType?
         get() = mediaTypeKey?.let { type -> MediaType.valueForKey(type) }
         set(value) { mediaTypeKey = value?.key }
-
-    // TODO: Implement dynamic date
-    val releasedAt: LocalDate
-        get() = LocalDate.now().minusDays(5)
 }

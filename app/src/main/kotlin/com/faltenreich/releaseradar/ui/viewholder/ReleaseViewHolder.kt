@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.list_item_release.*
 
 class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release, parent) {
     override fun onBind(data: Release) {
-        release_date.text = data.releasedAt.print()
-        release_name.text = context.getString(R.string.release_title, data.artistName, data.name)
+        release_date.text = data.releaseDate?.print()
+        release_name.text = data.artistName?.let { artist -> "$artist - ${data.name}" } ?: data.name
         release_description.text = data.description
         data.imageUrl?.let { imageUrl ->
             release_cover.setImageAsync(imageUrl)
