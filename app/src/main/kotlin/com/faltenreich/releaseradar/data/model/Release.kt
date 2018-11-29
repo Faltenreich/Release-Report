@@ -16,7 +16,10 @@ data class Release(
     var imageUrl: String? = null,
     var artistName: String? = null,
     @get:PropertyName("releasedAt") @set:PropertyName("releasedAt")
-    override var releasedAtString: String? = null
+    override var releasedAtString: String? = null,
+    var popularity: Float? = null,
+    var rating: Float? = null,
+    var rateCount: Int? = null
 ) : Entity(), NameProvider, DateProvider {
 
     @get:Exclude @set:Exclude
