@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    app:titleTextColor="@android:color/white"
+    app:subtitleTextColor="@color/gray_lighter"
+    tools:title="@string/app_name"
+    tools:subtitle="@tools:sample/lorem/random"
+    tools:background="?attr/colorPrimary"/>

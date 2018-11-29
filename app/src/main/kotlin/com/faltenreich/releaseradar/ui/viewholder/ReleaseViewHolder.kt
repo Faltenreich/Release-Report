@@ -28,10 +28,7 @@ class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Re
             release_rating.setBackgroundResource(Rating.valueOf(rating).colorResId)
             release_rating.text = rating.toString()
         }
-        release_container.setOnClickListener {
-            Toast.makeText(context, "Test", Toast.LENGTH_LONG).show()
-            openRelease(data)
-        }
+        release_container.setOnClickListener { openRelease(data) }
     }
 
     private fun openRelease(release: Release) {
