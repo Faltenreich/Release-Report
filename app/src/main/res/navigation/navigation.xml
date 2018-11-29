@@ -31,6 +31,9 @@
         android:id="@+id/release_detail"
         android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment"
         tools:layout="@layout/fragment_release_detail">
+        <argument
+            android:name="releaseId"
+            app:argType="string"/>
     </fragment>
 
 </navigation>
