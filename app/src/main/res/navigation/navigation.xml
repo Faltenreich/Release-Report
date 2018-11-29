@@ -18,6 +18,19 @@
         android:name="com.faltenreich.releaseradar.ui.fragment.CalendarFragment"
         android:label="@string/calendar"
         tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/open_release"
+            app:destination="@+id/release_detail">
+            <argument
+                android:name="releaseId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/release_detail"
+        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment"
+        tools:layout="@layout/fragment_release_detail">
     </fragment>
 
 </navigation>
