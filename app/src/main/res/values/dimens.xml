@@ -22,6 +22,7 @@
     <dimen name="text_size_xxlarge">45sp</dimen>
     <dimen name="text_size_xxxlarge">56sp</dimen>
 
+    <dimen name="image_size_smaller">20dp</dimen>
     <dimen name="image_size_small">24dp</dimen>
     <dimen name="image_size_medium">60dp</dimen>
     <dimen name="image_size_large">72dp</dimen>
