@@ -6,7 +6,6 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.releaseradar.setImageAsync
 import kotlinx.android.synthetic.main.fragment_release_detail.*
-import kotlinx.android.synthetic.main.view_toolbar.*
 
 class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 

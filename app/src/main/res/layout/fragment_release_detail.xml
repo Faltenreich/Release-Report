@@ -10,15 +10,16 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="220dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleEnabled="false"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
             tools:contentScrim="?attr/colorPrimary">
 
             <ImageView
@@ -34,16 +35,20 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="74dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/scrim_bottom"/>
 
-            <include
-                layout="@layout/view_toolbar"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="@android:color/white"
+                app:subtitleTextColor="@color/gray_lighter"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                tools:title="@string/app_name"
+                tools:subtitle="@tools:sample/lorem/random"
+                tools:background="?attr/colorPrimary"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
