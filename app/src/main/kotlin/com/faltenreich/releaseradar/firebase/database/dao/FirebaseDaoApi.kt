@@ -4,7 +4,9 @@ import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 
 interface FirebaseDaoApi<MODEL : FirebaseEntity> {
 
-    fun getAll(onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
+    fun generateId(path: String): String?
+
+    fun getAll(filter: Pair<String, String>? = null, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
 
     fun getById(id: String, onSuccess: (MODEL?) -> Unit, onError: ((Exception) -> Unit)? = null)
 

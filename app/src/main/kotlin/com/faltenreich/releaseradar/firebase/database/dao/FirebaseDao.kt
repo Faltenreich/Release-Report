@@ -3,21 +3,54 @@ package com.faltenreich.releaseradar.firebase.database.dao
 import com.faltenreich.releaseradar.firebase.database.FirebaseRealtimeDatabase
 import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 import com.faltenreich.releaseradar.firebase.database.model.FirebaseNodeProvider
-import com.faltenreich.releaseradar.firebase.database.operation.FirebaseReadOperation
-import com.faltenreich.releaseradar.firebase.database.operation.FirebaseWriteOperation
 import com.google.firebase.FirebaseException
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlin.reflect.KClass
 
 abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseDaoApi<MODEL>, FirebaseNodeProvider<MODEL> {
 
     private val database = FirebaseRealtimeDatabase
 
-    override fun getAll(onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
-        database.read(FirebaseReadOperation(clazz, buildPath(), onSuccess, onError) { data -> data.children.mapNotNull { child -> child.getValue(clazz.java)?.apply { id = child.key } } })
+    override fun generateId(path: String): String? = database.createReference(path).push().key
+
+    override fun getAll(filter: Pair<String, String>?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
+        database.createReference(buildPath()).run { filter?.run { orderByChild(first).equalTo(second) } ?: this }.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                try {
+                    val value = data.children.mapNotNull { child -> child.getValue(clazz.java)?.apply { id = child.key } }
+                    println("Successfully read data: $value")
+                    onSuccess(value)
+                } catch (exception: Exception) {
+                    println("Failed to parse data: ${exception.message}")
+                    onError?.invoke(exception)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                println("Failed to read data: ${error.message}")
+                onError?.invoke(error.toException())
+            }
+        })
     }
 
     override fun getById(id: String, onSuccess: (MODEL?) -> Unit, onError: ((Exception) -> Unit)?) {
-        database.read(FirebaseReadOperation(clazz, buildPath(id), onSuccess, onError) { data -> data.getValue(clazz.java)?.apply { this.id = data.key } })
+        database.createReference(buildPath(id)).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                try {
+                    val value = data.getValue(clazz.java)?.apply { this.id = data.key }
+                    println("Successfully read data: $value")
+                    onSuccess(value)
+                } catch (exception: Exception) {
+                    println("Failed to parse data: ${exception.message}")
+                    onError?.invoke(exception)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                println("Failed to read data: ${error.message}")
+                onError?.invoke(error.toException())
+            }
+        })
     }
 
     override fun createOrUpdate(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?): Unit = when (entity.id) {
@@ -26,17 +59,27 @@ abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<M
     }
 
     private fun create(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
-        database.generateId(buildPath())?.let { id ->
+        generateId(buildPath())?.let { id ->
             entity.id = id
             update(entity, onSuccess, onError)
         } ?: onError?.invoke(FirebaseException("Failed to generate id"))
     }
 
     private fun update(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
-        database.write(FirebaseWriteOperation(buildPath(entity), onSuccess, onError) { databaseReference -> databaseReference.setValue(entity) })
+        database.createReference(buildPath(entity)).setValue(entity) { error, _ ->
+            when (error) {
+                null -> onSuccess?.invoke(Unit)
+                else -> onError?.invoke(error.toException())
+            }
+        }
     }
 
     override fun delete(entity: MODEL, onSuccess: ((Unit) -> Unit)?, onError: ((Exception) -> Unit)?) {
-        database.write(FirebaseWriteOperation(buildPath(entity), onSuccess, onError) { databaseReference -> databaseReference.removeValue() })
+        database.createReference(buildPath(entity)).removeValue { error, _ ->
+            when (error) {
+                null -> onSuccess?.invoke(Unit)
+                else -> onError?.invoke(error.toException())
+            }
+        }
     }
 }
