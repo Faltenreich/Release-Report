@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarTextAppearance"
             tools:contentScrim="?attr/colorPrimary">
 
             <ImageView
@@ -35,7 +34,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="74dp"
+                android:layout_height="96dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/scrim_bottom"/>
 
@@ -47,8 +46,7 @@
                 app:subtitleTextColor="@color/gray_lighter"
                 app:layout_collapseMode="pin"
                 tools:title="@string/app_name"
-                tools:subtitle="@tools:sample/lorem/random"
-                tools:background="?attr/colorPrimary"/>
+                tools:subtitle="@tools:sample/lorem/random"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

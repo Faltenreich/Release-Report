@@ -18,9 +18,7 @@
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
-    <dimen name="text_size_xlarge">34sp</dimen>
-    <dimen name="text_size_xxlarge">45sp</dimen>
-    <dimen name="text_size_xxxlarge">56sp</dimen>
+    <dimen name="text_size_xlarge">26sp</dimen>
 
     <dimen name="image_size_smaller">20dp</dimen>
     <dimen name="image_size_small">24dp</dimen>
