@@ -4,6 +4,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.provider.ColorProvider
 import com.faltenreich.releaseradar.data.provider.IconProvider
 import com.faltenreich.releaseradar.data.provider.NameResProvider
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseEnum
 
 enum class MediaType(
         override val key: String,

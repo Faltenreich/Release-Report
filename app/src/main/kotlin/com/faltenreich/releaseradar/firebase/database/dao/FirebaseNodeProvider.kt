@@ -1,9 +1,9 @@
-package com.faltenreich.releaseradar.firebase.database.model
+package com.faltenreich.releaseradar.firebase.database.dao
+
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 
 internal interface FirebaseNodeProvider <MODEL : FirebaseEntity> {
-
     val nodeRootPath: String
-
     val nodeName: String
 
     fun buildPath(): String = "$nodeRootPath/$nodeName"
