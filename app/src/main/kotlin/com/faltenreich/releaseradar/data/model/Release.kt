@@ -13,7 +13,8 @@ data class Release(
     var mediaTypeKey: String? = null,
     var description: String? = null,
     var durationInSeconds: Long? = null,
-    var imageUrl: String? = null,
+    var imageUrlForCover: String? = null,
+    var imageUrlForWallpaper: String? = null,
     var artistName: String? = null,
     @get:PropertyName("releasedAt") @set:PropertyName("releasedAt")
     override var releasedAtString: String? = null,

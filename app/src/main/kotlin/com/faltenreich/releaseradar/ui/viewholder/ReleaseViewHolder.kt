@@ -16,7 +16,7 @@ class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Re
         release_date.text = data.releaseDate?.print()
         release_name.text = data.artistName?.let { artist -> "$artist - ${data.name}" } ?: data.name
         release_description.text = data.description
-        data.imageUrl?.let { imageUrl -> release_cover.setImageAsync(imageUrl) }
+        data.imageUrlForCover?.let { imageUrl -> release_cover.setImageAsync(imageUrl) }
         data.mediaType?.let { mediaType ->
             release_type.setImageResource(mediaType.iconResId)
             release_type.tint = ContextCompat.getColor(context, mediaType.colorResId)
