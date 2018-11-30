@@ -2,11 +2,9 @@ package com.faltenreich.releaseradar.ui.viewholder
 
 import android.content.Context
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.data.enum.Rating
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.setImageAsync
@@ -23,10 +21,6 @@ class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Re
         data.mediaType?.let { mediaType ->
             release_type.setImageResource(mediaType.iconResId)
             release_type.tint = ContextCompat.getColor(context, mediaType.colorResId)
-        }
-        data.rating?.let { rating ->
-            release_rating.setBackgroundResource(Rating.valueOf(rating).colorResId)
-            release_rating.text = rating.toString()
         }
         release_container.setOnClickListener { openRelease(data) }
     }
