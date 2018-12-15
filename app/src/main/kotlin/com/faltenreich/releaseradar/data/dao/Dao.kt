@@ -4,7 +4,7 @@ import com.faltenreich.releaseradar.data.model.Entity
 import com.faltenreich.releaseradar.data.provider.UserDependency
 import com.faltenreich.releaseradar.firebase.auth.FirebaseAuth
 import com.faltenreich.releaseradar.firebase.database.dao.FirebaseDao
-import com.faltenreich.releaseradar.firebase.database.model.FirebaseQuery
+import com.faltenreich.releaseradar.firebase.database.dao.FirebaseQuery
 import javax.security.auth.login.LoginException
 import kotlin.reflect.KClass
 

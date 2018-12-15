@@ -2,43 +2,16 @@ package com.faltenreich.releaseradar.firebase.database.dao
 
 import com.faltenreich.releaseradar.firebase.database.FirebaseRealtimeDatabase
 import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
-import com.faltenreich.releaseradar.firebase.database.model.FirebaseQuery
+import com.faltenreich.releaseradar.firebase.database.query
 import com.google.firebase.FirebaseException
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlin.reflect.KClass
 
 abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseDaoApi<MODEL>, FirebaseNodeProvider<MODEL> {
 
     private val database = FirebaseRealtimeDatabase
-
-    private fun DatabaseReference.query(query: FirebaseQuery): Query {
-        val ordered = query.orderBy?.let { orderBy -> orderByChild(orderBy) } ?: this
-        val filtered = query.equalTo?.let { equalTo ->
-            when (equalTo) {
-                is Boolean -> ordered.equalTo(equalTo)
-                is Double -> ordered.equalTo(equalTo)
-                is String -> ordered.equalTo(equalTo)
-                else -> throw IllegalArgumentException("Unsupported data type for Query.equalTo(): $equalTo")
-            }
-        } ?: ordered
-        val limitedFrom = query.startAt?.let { startAt ->
-            when (startAt) {
-                is Boolean -> filtered.startAt(startAt)
-                is Double -> filtered.startAt(startAt)
-                is String -> filtered.startAt(startAt)
-                else -> throw IllegalArgumentException("Unsupported data type for Query.startAt(): $startAt")
-            }
-        } ?: filtered
-        val limitedTo = query.endAt?.let { endAt ->
-            when (endAt) {
-                is Boolean -> limitedFrom.endAt(endAt)
-                is Double -> limitedFrom.endAt(endAt)
-                is String -> limitedFrom.endAt(endAt)
-                else -> throw IllegalArgumentException("Unsupported data type for Query.endAt(): $endAt")
-            }
-        } ?: limitedFrom
-        return limitedTo
-    }
 
     override fun generateId(path: String): String? = database.createReference(path).push().key
 
