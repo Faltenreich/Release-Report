@@ -4,6 +4,7 @@ import com.faltenreich.releaseradar.data.model.Entity
 import com.faltenreich.releaseradar.data.provider.UserDependency
 import com.faltenreich.releaseradar.firebase.auth.FirebaseAuth
 import com.faltenreich.releaseradar.firebase.database.dao.FirebaseDao
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseQuery
 import javax.security.auth.login.LoginException
 import kotlin.reflect.KClass
 
@@ -27,10 +28,10 @@ abstract class Dao<MODEL : Entity>(clazz: KClass<MODEL>) : FirebaseDao<MODEL>(cl
         })
     }
 
-    override fun getAll(filter: Pair<String, String>?, orderBy: String?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
+    override fun getAll(query: FirebaseQuery?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
         ensureUserAccount { success ->
             when (success) {
-                true -> super.getAll(filter, orderBy, onSuccess, onError)
+                true -> super.getAll(query, onSuccess, onError)
                 false -> onError?.invoke(LoginException())
             }
         }

@@ -1,12 +1,13 @@
 package com.faltenreich.releaseradar.firebase.database.dao
 
 import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseQuery
 
 interface FirebaseDaoApi<MODEL : FirebaseEntity> {
 
     fun generateId(path: String): String?
 
-    fun getAll(filter: Pair<String, String>? = null, orderBy: String? = null, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
+    fun getAll(query: FirebaseQuery? = null, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
 
     fun getById(id: String, onSuccess: (MODEL?) -> Unit, onError: ((Exception) -> Unit)? = null)
 
