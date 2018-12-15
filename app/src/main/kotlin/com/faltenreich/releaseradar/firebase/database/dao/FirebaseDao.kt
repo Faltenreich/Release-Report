@@ -15,8 +15,10 @@ abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<M
 
     override fun generateId(path: String): String? = database.createReference(path).push().key
 
-    override fun getAll(filter: Pair<String, String>?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
-        database.createReference(buildPath()).run { filter?.run { orderByChild(first).equalTo(second) } ?: this }.addListenerForSingleValueEvent(object : ValueEventListener {
+    override fun getAll(filter: Pair<String, String>?, orderBy: String?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
+        database.createReference(buildPath()).run {
+            filter?.run { orderByChild(first).equalTo(second) } ?: orderBy?.let { orderByChild(orderBy) } ?: this
+        }.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 try {
                     val value = data.children.mapNotNull { child -> child.getValue(clazz.java)?.apply { id = child.key } }

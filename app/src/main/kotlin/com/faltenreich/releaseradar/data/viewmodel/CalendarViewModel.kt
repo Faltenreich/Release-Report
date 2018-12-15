@@ -24,6 +24,6 @@ class CalendarViewModel : ViewModel() {
 
     fun observeReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getAll(onSuccess = { releases = it }, onError = { releases = listOf() })
+        ReleaseRepository.getAll(orderBy = "releasedAt", onSuccess = { releases = it }, onError = { releases = listOf() })
     }
 }

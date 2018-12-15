@@ -27,10 +27,10 @@ abstract class Dao<MODEL : Entity>(clazz: KClass<MODEL>) : FirebaseDao<MODEL>(cl
         })
     }
 
-    override fun getAll(filter: Pair<String, String>?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
+    override fun getAll(filter: Pair<String, String>?, orderBy: String?, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)?) {
         ensureUserAccount { success ->
             when (success) {
-                true -> super.getAll(filter, onSuccess, onError)
+                true -> super.getAll(filter, orderBy, onSuccess, onError)
                 false -> onError?.invoke(LoginException())
             }
         }

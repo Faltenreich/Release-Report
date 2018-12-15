@@ -6,7 +6,7 @@ interface FirebaseDaoApi<MODEL : FirebaseEntity> {
 
     fun generateId(path: String): String?
 
-    fun getAll(filter: Pair<String, String>? = null, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
+    fun getAll(filter: Pair<String, String>? = null, orderBy: String? = null, onSuccess: (List<MODEL>) -> Unit, onError: ((Exception) -> Unit)? = null)
 
     fun getById(id: String, onSuccess: (MODEL?) -> Unit, onError: ((Exception) -> Unit)? = null)
 
