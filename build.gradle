@@ -1,14 +1,19 @@
 buildscript {
-    apply from: 'versions.gradle'
+    ext {
+        kotlin = "1.3.11"
+        android_gradle_plugin = "3.2.1"
+        google_play_services = "4.0.1"
+        navigation = "1.0.0-alpha08"
+    }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.android_gradle_plugin"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
-        classpath "com.google.gms:google-services:$versions.google_play_services"
+        classpath "com.android.tools.build:gradle:$android_gradle_plugin"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigation"
+        classpath "com.google.gms:google-services:$google_play_services"
     }
 }
 
