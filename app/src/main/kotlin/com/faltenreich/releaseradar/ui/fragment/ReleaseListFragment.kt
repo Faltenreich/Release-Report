@@ -40,6 +40,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private fun initLayout() {
         context?.let { context ->
             toolbar.setOnClickListener { openMonthPicker() }
+            searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
 
             listView.layoutManager = LinearLayoutManager(context)
             listView.addItemDecoration(VerticalPaddingItemDecoration(context, R.dimen.margin_padding_size_medium))

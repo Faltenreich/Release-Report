@@ -26,7 +26,10 @@
                 app:search_hint="@string/search_hint"
                 app:search_hint_color="@color/gray_dark"/>
 
-            <include layout="@layout/view_toolbar"/>
+            <com.faltenreich.releaseradar.ui.view.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
