@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.animateHeight
 import com.faltenreich.releaseradar.data.printMonth
@@ -12,7 +12,7 @@ import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
 import com.faltenreich.releaseradar.ui.adapter.EntityDiffCallback
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
-import com.faltenreich.releaseradar.ui.adapter.VerticalPaddingItemDecoration
+import com.faltenreich.releaseradar.ui.adapter.SpaceOnEachSideItemDecoration
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
@@ -46,8 +46,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             toolbar.setOnClickListener { toggleCalendarView() }
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
 
-            listView.layoutManager = LinearLayoutManager(context)
-            listView.addItemDecoration(VerticalPaddingItemDecoration(context, R.dimen.margin_padding_size_medium))
+            listView.layoutManager = GridLayoutManager(context, 2)
+            listView.addItemDecoration(SpaceOnEachSideItemDecoration(context, R.dimen.margin_padding_size_small))
             listView.adapter = listAdapter
 
             calendarView.doOnPreDraw { view ->

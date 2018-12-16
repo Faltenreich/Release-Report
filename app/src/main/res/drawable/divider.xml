@@ -5,7 +5,7 @@
     android:shape="rectangle">
 
     <size
-        android:height="@dimen/margin_padding_size_small"
-        android:width="@dimen/margin_padding_size_small"/>
+        android:height="@dimen/margin_padding_size_medium"
+        android:width="@dimen/margin_padding_size_medium"/>
 
 </shape>
