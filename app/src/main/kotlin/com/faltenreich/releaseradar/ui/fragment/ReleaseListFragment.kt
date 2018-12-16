@@ -2,13 +2,9 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.animateHeight
-import com.faltenreich.releaseradar.data.printMonth
-import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
 import com.faltenreich.releaseradar.ui.adapter.EntityDiffCallback
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
@@ -25,12 +21,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, 9, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
 
-    private var calendarHeight: Int = 0
-
-    private var date: LocalDate
-        get() = calendarView.date
+    private var date: LocalDate = LocalDate.now()
         set(value) {
-            calendarView.date = value
+            field = value
             invalidateMonth()
         }
 
@@ -42,19 +35,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
 
     private fun initLayout() {
         context?.let { context ->
-            calendarView.setListener(this)
-            toolbar.setOnClickListener { toggleCalendarView() }
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
 
             listView.layoutManager = GridLayoutManager(context, 2)
             listView.addItemDecoration(SpaceOnEachSideItemDecoration(context, R.dimen.margin_padding_size_small))
             listView.adapter = listAdapter
-
-            calendarView.doOnPreDraw { view ->
-                calendarHeight = view.height
-                calendarView.layoutParams.height = 0
-                calendarView.requestLayout()
-            }
 
             invalidateMonth()
         }
@@ -74,14 +59,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun invalidateMonth() {
-        toolbar.title = "%s %s".format(date.printMonth(), date.printYear())
-    }
 
-    private fun toggleCalendarView() {
-        val isShowing = calendarView.layoutParams.height > 0f
-        val show = !isShowing
-        val height = if (show) calendarHeight else 0
-        calendarView.animateHeight(height)
     }
 
     private fun openMonthPicker() = MonthPicker.show(context, date) { selectedDate -> date = selectedDate }
