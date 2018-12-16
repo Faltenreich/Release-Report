@@ -2,9 +2,11 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
+import com.faltenreich.releaseradar.animateHeight
 import com.faltenreich.releaseradar.data.printMonth
 import com.faltenreich.releaseradar.data.printYear
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
@@ -15,19 +17,20 @@ import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_release_list.*
-import kotlinx.android.synthetic.main.view_toolbar.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), CompactCalendarView.CompactCalendarViewListener {
-
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, 9) }
 
-    private var date: LocalDate = LocalDate.now()
+    private var calendarHeight: Int = 0
+
+    private var date: LocalDate
+        get() = calendarView.date
         set(value) {
-            field = value
+            calendarView.date = value
             invalidateMonth()
         }
 
@@ -39,12 +42,19 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
 
     private fun initLayout() {
         context?.let { context ->
-            toolbar.setOnClickListener { openMonthPicker() }
+            calendarView.setListener(this)
+            toolbar.setOnClickListener { toggleCalendarView() }
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
 
             listView.layoutManager = LinearLayoutManager(context)
             listView.addItemDecoration(VerticalPaddingItemDecoration(context, R.dimen.margin_padding_size_medium))
             listView.adapter = listAdapter
+
+            calendarView.doOnPreDraw { view ->
+                calendarHeight = view.height
+                calendarView.layoutParams.height = 0
+                calendarView.requestLayout()
+            }
 
             invalidateMonth()
         }
@@ -65,6 +75,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
 
     private fun invalidateMonth() {
         toolbar.title = "%s %s".format(date.printMonth(), date.printYear())
+    }
+
+    private fun toggleCalendarView() {
+        val isShowing = calendarView.layoutParams.height > 0f
+        val show = !isShowing
+        val height = if (show) calendarHeight else 0
+        calendarView.animateHeight(height)
     }
 
     private fun openMonthPicker() = MonthPicker.show(context, date) { selectedDate -> date = selectedDate }

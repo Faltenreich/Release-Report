@@ -29,7 +29,20 @@
             <com.faltenreich.releaseradar.ui.view.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"/>
+
+            <com.faltenreich.releaseradar.ui.view.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/calendar_height"
+                app:compactCalendarTextColor="@android:color/black"
+                app:compactCalendarTextSize="14sp"
+                app:compactCalendarCurrentDayBackgroundColor="@color/gray_lighter"
+                app:compactCalendarCurrentSelectedDayTextColor="@android:color/white"
+                app:compactCalendarCurrentSelectedDayBackgroundColor="?attr/colorPrimary"
+                app:compactCalendarDisplayOtherMonthDays="true"
+                app:compactCalendarOtherMonthDaysTextColor="@color/gray"/>
 
         </LinearLayout>
 
