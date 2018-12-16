@@ -1,8 +1,8 @@
 <resources>
 
     <string name="app_name">Release Radar</string>
+    <string name="spotlight">Spotlight</string>
     <string name="releases">Releases</string>
-    <string name="calendar">Calendar</string>
     <string name="movie">Movie</string>
     <string name="movies">Movies</string>
     <string name="music">Music</string>

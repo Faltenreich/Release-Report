@@ -5,9 +5,9 @@ import android.view.View
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.ui.adapter.ReleaseViewPagerAdapter
-import kotlinx.android.synthetic.main.fragment_release_pager.*
+import kotlinx.android.synthetic.main.fragment_spotlight.*
 
-class ReleasePagerFragment : BaseFragment(R.layout.fragment_release_pager) {
+class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,7 +24,7 @@ class ReleasePagerFragment : BaseFragment(R.layout.fragment_release_pager) {
     }
 
     private fun initViewPager() {
-        val content = MediaType.values().map { mediaType -> getString(mediaType.pluralStringRes) to ReleaseListFragment() }
+        val content = MediaType.values().map { mediaType -> getString(mediaType.pluralStringRes) to SpotlightCategoryFragment() }
         val adapter = ReleaseViewPagerAdapter(fragmentManager, content)
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)

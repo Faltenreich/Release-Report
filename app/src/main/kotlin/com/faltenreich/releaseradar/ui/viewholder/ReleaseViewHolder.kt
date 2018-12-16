@@ -9,7 +9,7 @@ import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.setImageAsync
 import com.faltenreich.releaseradar.tint
-import com.faltenreich.releaseradar.ui.fragment.CalendarFragmentDirections
+import com.faltenreich.releaseradar.ui.fragment.ReleaseListFragmentDirections
 import kotlinx.android.synthetic.main.list_item_release.*
 
 class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release, parent) {
@@ -26,6 +26,6 @@ class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Re
     }
 
     private fun openRelease(release: Release) {
-        release.id?.let { id -> Navigation.findNavController(itemView).navigate(CalendarFragmentDirections.openRelease(id)) }
+        release.id?.let { id -> Navigation.findNavController(itemView).navigate(ReleaseListFragmentDirections.openRelease(id)) }
     }
 }

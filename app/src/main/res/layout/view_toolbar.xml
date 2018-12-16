@@ -10,5 +10,4 @@
     app:titleTextColor="@android:color/white"
     app:subtitleTextColor="@color/gray_lighter"
     tools:title="@string/app_name"
-    tools:subtitle="@tools:sample/lorem/random"
     tools:background="?attr/colorPrimary"/>

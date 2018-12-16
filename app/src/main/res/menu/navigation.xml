@@ -5,12 +5,12 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/main"
-            android:title="@string/releases"/>
+            android:id="@+id/spotlight"
+            android:title="@string/spotlight"/>
 
         <item
-            android:id="@+id/calendar"
-            android:title="@string/calendar"/>
+            android:id="@+id/releases"
+            android:title="@string/releases"/>
 
     </group>
 

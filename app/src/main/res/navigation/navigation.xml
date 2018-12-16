@@ -4,20 +4,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/calendar">
+    app:startDestination="@id/releases">
 
     <fragment
-        android:id="@+id/main"
-        android:name="com.faltenreich.releaseradar.ui.fragment.ReleasePagerFragment"
-        android:label="@string/releases"
-        tools:layout="@layout/fragment_release_pager">
+        android:id="@+id/spotlight"
+        android:name="com.faltenreich.releaseradar.ui.fragment.SpotlightFragment"
+        android:label="@string/spotlight"
+        tools:layout="@layout/fragment_spotlight">
     </fragment>
 
     <fragment
-        android:id="@+id/calendar"
-        android:name="com.faltenreich.releaseradar.ui.fragment.CalendarFragment"
-        android:label="@string/calendar"
-        tools:layout="@layout/fragment_calendar">
+        android:id="@+id/releases"
+        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseListFragment"
+        android:label="@string/releases"
+        tools:layout="@layout/fragment_release_list">
         <action
             android:id="@+id/open_release"
             app:destination="@+id/release_detail">
