@@ -6,49 +6,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/release_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:foreground="?attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/release_cover"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="@+id/release_container"
+            app:layout_constraintBottom_toBottomOf="@+id/release_container"
+            app:layout_constraintStart_toStartOf="@+id/release_container"
+            app:layout_constraintEnd_toEndOf="@+id/release_container"
             app:layout_constraintDimensionRatio="1:1"
             tools:src="@tools:sample/avatars"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_padding_size_small"
-            android:paddingLeft="@dimen/margin_padding_size_small"
-            android:paddingStart="@dimen/margin_padding_size_small"
-            android:paddingRight="@dimen/margin_padding_size_small"
-            android:paddingEnd="@dimen/margin_padding_size_small"
-            android:paddingBottom="@dimen/margin_padding_size_large"
-            android:orientation="horizontal"
-            android:background="@drawable/scrim_top">
-
-            <ImageView
-                android:id="@+id/release_type"
-                android:layout_width="@dimen/image_size_xsmall"
-                android:layout_height="@dimen/image_size_xsmall"
-                android:tint="@android:color/white"
-                android:contentDescription="@null"
-                tools:src="@drawable/ic_music"/>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/release_type"
+            android:layout_width="@dimen/image_size_xsmall"
+            android:layout_height="@dimen/image_size_xsmall"
+            android:layout_margin="@dimen/margin_padding_size_small"
+            android:tint="@android:color/white"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="@+id/release_cover"
+            app:layout_constraintStart_toStartOf="@+id/release_cover"
+            tools:src="@drawable/ic_music"/>
 
         <TextView
             android:id="@+id/release_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_padding_size_large"
             android:paddingLeft="@dimen/margin_padding_size_small"
@@ -61,6 +54,8 @@
             android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@+id/release_cover"
+            app:layout_constraintStart_toStartOf="@+id/release_cover"
+            app:layout_constraintEnd_toEndOf="@+id/release_cover"
             tools:text="@tools:sample/lorem/random"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
