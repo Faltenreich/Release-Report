@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="gray_lightest">#eeeeee</color>
     <color name="gray_lighter">#e5e5e5</color>
     <color name="gray_light">#ffd4d4d4</color>
     <color name="gray">#ababab</color>

@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.viewholder
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
@@ -15,6 +16,7 @@ class ReleaseViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Re
         cardView.setOnClickListener { openRelease(data) }
         data.imageUrlForCover?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
         releaseTypeImageView.setImageResource(data.mediaType?.iconResId ?: android.R.color.transparent)
+        releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear)?.apply { setTint(ContextCompat.getColor(context, data.mediaType?.colorResId ?: R.color.colorPrimary)) }
         releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.name}" } ?: data.name
     }
 

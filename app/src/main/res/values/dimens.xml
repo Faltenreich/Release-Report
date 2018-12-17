@@ -23,8 +23,8 @@
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="text_size_xlarge">26sp</dimen>
 
-    <dimen name="image_size_xsmall">20dp</dimen>
-    <dimen name="image_size_small">24dp</dimen>
+    <dimen name="image_size_xsmall">24dp</dimen>
+    <dimen name="image_size_small">30dp</dimen>
     <dimen name="image_size_medium">48dp</dimen>
     <dimen name="image_size_large">72dp</dimen>
 

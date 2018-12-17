@@ -30,14 +30,16 @@
 
         <ImageView
             android:id="@+id/releaseTypeImageView"
-            android:layout_width="@dimen/image_size_xsmall"
-            android:layout_height="@dimen/image_size_xsmall"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            android:tint="@android:color/white"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:padding="6dp"
+            android:background="@drawable/dogear"
             android:contentDescription="@null"
+            android:tint="@android:color/white"
             app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
-            tools:src="@drawable/ic_music"/>
+            tools:src="@drawable/ic_music"
+            tools:tint="?attr/colorPrimary"/>
 
         <TextView
             android:id="@+id/releaseNameTextView"
