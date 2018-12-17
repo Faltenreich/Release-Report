@@ -27,17 +27,17 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         releaseId?.let { id ->
             viewModel.observeRelease(id, this) { release ->
                 toolbar.title = release?.name
-                release_description.text = release?.description
+                releaseDescriptionTextView.text = release?.description
                 release?.imageUrlForWallpaper?.let { url ->
-                    release_wallpaper.setImageAsync(url)
+                    releaseWallpaperImageView.setImageAsync(url)
                 }
-                release?.imageUrlForCover?.let { imageUrl -> release_cover.setImageAsync(imageUrl) }
+                release?.imageUrlForCover?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl) }
                 release?.mediaType?.let { mediaType ->
                     collapsingToolbarLayout.setContentScrimResource(mediaType.colorResId)
                 }
                 release?.rating?.let { rating ->
-                    release_rating.setBackgroundResource(Rating.valueOf(rating).colorResId)
-                    release_rating.text = rating.toString()
+                    releaseRatingTextView.setBackgroundResource(Rating.valueOf(rating).colorResId)
+                    releaseRatingTextView.text = rating.toString()
                 }
             }
         }

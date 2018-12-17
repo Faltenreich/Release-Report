@@ -29,6 +29,6 @@ class Toolbar @JvmOverloads constructor(
     }
 
     override fun setTitle(title: CharSequence?) {
-        toolbar_title.text = title
+        toolbarTitleTextView.text = title
     }
 }

@@ -11,11 +11,8 @@ abstract class BaseListAdapter <MODEL : Any, VIEWHOLDER : BaseViewHolder<MODEL>>
     val items: List<MODEL>
         get() = internalItems.toList()
 
-    var onItemClick: ((MODEL) -> Unit)? = null
-
     override fun onBindViewHolder(holder: VIEWHOLDER, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.setOnClickListener { onItemClick?.invoke(getItem(holder.adapterPosition)) }
     }
 
     override fun getItemCount(): Int = internalItems.size

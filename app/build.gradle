@@ -116,4 +116,5 @@ dependencies {
     implementation "com.github.sundeepk:compact-calendar-view:$calendar_view"
     implementation "com.faltenreich:skeletonlayout:$skeleton"
     implementation "com.whiteelephant:monthandyearpicker:$month_picker"
+    implementation 'com.codewaves.stickyheadergrid:stickyheadergrid:0.9.7'
 }

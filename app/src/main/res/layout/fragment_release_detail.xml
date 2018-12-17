@@ -22,7 +22,7 @@
             tools:contentScrim="?attr/colorPrimary">
 
             <ImageView
-                android:id="@+id/release_wallpaper"
+                android:id="@+id/releaseWallpaperImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -64,7 +64,7 @@
             android:padding="@dimen/margin_padding_size_medium">
 
             <ImageView
-                android:id="@+id/release_cover"
+                android:id="@+id/releaseCoverImageView"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:contentDescription="@null"
@@ -72,7 +72,7 @@
                 tools:src="@tools:sample/avatars"/>
 
             <TextView
-                android:id="@+id/release_rating"
+                android:id="@+id/releaseRatingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_xsmall"
@@ -82,7 +82,7 @@
                 tools:background="@color/green"/>
 
             <TextView
-                android:id="@+id/release_description"
+                android:id="@+id/releaseDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_xsmall"
