@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
 import com.faltenreich.releaseradar.ui.adapter.EntityDiffCallback
+import com.faltenreich.releaseradar.ui.adapter.GridPaddingItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
-import com.faltenreich.releaseradar.ui.adapter.SpaceOnEachSideItemDecoration
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
@@ -38,7 +38,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
 
             listView.layoutManager = GridLayoutManager(context, 2)
-            listView.addItemDecoration(SpaceOnEachSideItemDecoration(context, R.dimen.margin_padding_size_small))
+            listView.addItemDecoration(GridPaddingItemDecoration(context, R.dimen.margin_padding_size_medium, 2, true))
             listView.adapter = listAdapter
 
             invalidateMonth()
