@@ -19,7 +19,7 @@ import java.util.*
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), CompactCalendarView.CompactCalendarViewListener {
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
-    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, 9, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
+    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, 6, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
 
     private var date: LocalDate = LocalDate.now()
         set(value) {
