@@ -47,11 +47,14 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun initData() {
-        skeleton.showSkeleton()
-        viewModel.observeReleases(this) { releases ->
-            listAdapter?.submitList(releases)
-            // FIXME: Update skeleton only if data arrives
-            skeleton.showOriginal()
+        // TODO: Find way to distinguish back navigation via Navigation Components
+        if (listAdapter?.itemCount == 0) {
+            skeleton.showSkeleton()
+            viewModel.observeReleases(this) { releases ->
+                listAdapter?.submitList(releases)
+                // FIXME: Update skeleton only if data arrives
+                skeleton.showOriginal()
+            }
         }
     }
 
