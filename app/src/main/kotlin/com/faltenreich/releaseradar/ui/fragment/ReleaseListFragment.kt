@@ -47,8 +47,10 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun initData() {
+        skeleton.showSkeleton()
         viewModel.observeReleases(this) { releases ->
             listAdapter?.submitList(releases)
+            skeleton.showOriginal()
         }
     }
 

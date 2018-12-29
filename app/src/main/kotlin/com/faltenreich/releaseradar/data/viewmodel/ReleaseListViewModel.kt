@@ -12,8 +12,7 @@ import org.threeten.bp.LocalDate
 import java.util.concurrent.Executors
 
 class ReleaseListViewModel : ViewModel() {
-    private val config: PagedList.Config by lazy  { PagedList.Config.Builder().setInitialLoadSizeHint(PAGE_SIZE).setPageSize(PAGE_SIZE).build() }
-    private val releaseLiveData: LiveData<PagedList<Release>> by lazy { LivePagedListBuilder(ReleaseDataFactory, config).build() }
+    private lateinit var releaseLiveData: LiveData<PagedList<Release>>
     private val dateLiveData = MutableLiveData<LocalDate>()
 
     var releases: List<Release> = listOf()
@@ -24,10 +23,14 @@ class ReleaseListViewModel : ViewModel() {
         set(value) = dateLiveData.postValue(value)
 
     fun observeReleases(owner: LifecycleOwner, onObserve: (PagedList<Release>) -> Unit) {
-        releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        val config = PagedList.Config.Builder().setInitialLoadSizeHint(PAGE_SIZE).setPageSize(PAGE_SIZE).build()
+        releaseLiveData = LivePagedListBuilder(ReleaseDataFactory, config).build()
+        releaseLiveData.observe(owner, Observer { releases ->
+            onObserve(releases)
+        })
     }
 
     companion object {
-        private const val PAGE_SIZE = 20
+        private const val PAGE_SIZE = 12
     }
 }
