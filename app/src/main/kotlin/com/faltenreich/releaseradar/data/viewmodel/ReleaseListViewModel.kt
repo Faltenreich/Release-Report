@@ -25,9 +25,7 @@ class ReleaseListViewModel : ViewModel() {
     fun observeReleases(owner: LifecycleOwner, onObserve: (PagedList<Release>) -> Unit) {
         val config = PagedList.Config.Builder().setInitialLoadSizeHint(PAGE_SIZE).setPageSize(PAGE_SIZE).build()
         releaseLiveData = LivePagedListBuilder(ReleaseDataFactory, config).build()
-        releaseLiveData.observe(owner, Observer { releases ->
-            onObserve(releases)
-        })
+        releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
     }
 
     companion object {

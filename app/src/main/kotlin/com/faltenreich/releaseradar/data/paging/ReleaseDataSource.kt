@@ -7,38 +7,33 @@ import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import org.threeten.bp.LocalDate
 
-object ReleaseDataSource : ItemKeyedDataSource<String, Release>() {
-
-    private val orderBy by lazy { "releasedAt" }
-    private val startAt by lazy { LocalDate.now().asString }
+class ReleaseDataSource : ItemKeyedDataSource<String, Release>() {
+    private var startAtDate: String = LocalDate.now().asString
+    private var startAtId: String? = null
 
     override fun getKey(item: Release): String = item.id ?: ""
 
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) {
-        ReleaseRepository.getAll(
-            Query(
-                orderBy = orderBy,
-                limit = params.requestedLoadSize,
-                startAt = startAt to null
-            ), onSuccess = { releases ->
-                callback.onResult(releases)
-            }, onError = {
-                callback.onResult(listOf())
-            })
-    }
+    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) = load(params.requestedLoadSize, callback)
 
     // TODO
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<Release>) = Unit
 
-    // FIXME: Ignores params.key
-    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Release>) {
+    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Release>) = load(params.requestedLoadSize, callback)
+
+    private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>) {
         ReleaseRepository.getAll(
             Query(
-                orderBy = orderBy,
-                limit = params.requestedLoadSize,
-                startAt = startAt to params.key
+                orderBy = "releasedAt",
+                limit = requestedLoadSize + 1,
+                startAt = startAtDate to startAtId
             ), onSuccess = { releases ->
-                callback.onResult(releases)
+                releases.takeIf(List<Release>::isNotEmpty)?.let {
+                    releases.last().let { nextRelease ->
+                        startAtId = nextRelease.id
+                        startAtDate = nextRelease.releasedAtString ?: startAtDate
+                    }
+                    callback.onResult(releases.dropLast(1))
+                } ?: callback.onResult(listOf())
             }, onError = {
                 callback.onResult(listOf())
             })

@@ -50,6 +50,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
         skeleton.showSkeleton()
         viewModel.observeReleases(this) { releases ->
             listAdapter?.submitList(releases)
+            // FIXME: Update skeleton only if data arrives
             skeleton.showOriginal()
         }
     }
