@@ -7,13 +7,18 @@ import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import org.threeten.bp.LocalDate
 
-class ReleaseDataSource : ItemKeyedDataSource<String, Release>() {
+class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemKeyedDataSource<String, Release>() {
     private var startAtDate: String = LocalDate.now().asString
     private var startAtId: String? = null
 
     override fun getKey(item: Release): String = item.id ?: ""
 
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) = load(params.requestedLoadSize, callback)
+    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) = load(params.requestedLoadSize, object : LoadCallback<Release>() {
+        override fun onResult(data: MutableList<Release>) {
+            onInitialLoad?.invoke()
+            callback.onResult(data)
+        }
+    })
 
     // TODO
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<Release>) = Unit

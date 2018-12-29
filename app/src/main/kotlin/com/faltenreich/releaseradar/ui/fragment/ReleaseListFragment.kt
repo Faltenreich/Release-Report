@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
@@ -50,11 +51,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
         // TODO: Find way to distinguish back navigation via Navigation Components
         if (listAdapter?.itemCount == 0) {
             skeleton.showSkeleton()
-            viewModel.observeReleases(this) { releases ->
+            viewModel.observeReleases(this, onObserve = { releases ->
                 listAdapter?.submitList(releases)
-                // FIXME: Update skeleton only if data arrives
+            }, onInitialLoad = {
                 skeleton.showOriginal()
-            }
+            })
         }
     }
 
