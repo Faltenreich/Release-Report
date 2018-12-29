@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.faltenreich.releaseradar.data.model.Entity
 
 
-class EntityDiffCallback<MODEL : Entity>(
+class EntityDiffUtilCallback<MODEL : Entity>(
     private val old: List<MODEL>,
     private val new: List<MODEL>
 ) : DiffUtil.Callback() {

@@ -17,13 +17,9 @@ val String?.asLocalDate: LocalDate?
         null
     }
 
-val LocalDate.asString: String?
-    get() = try {
-        format(DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
-    } catch (exception: DateTimeException) {
-        println(exception)
-        null
-    }
+// FIXME: Catch DateTimeException
+val LocalDate.asString: String
+    get() = format(DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
 
 val LocalDate.date: Date
     get() = DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())

@@ -5,7 +5,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Query
 
 fun DatabaseReference.query(query: FirebaseQuery): Query {
-    val ordered = query.orderBy?.let { orderBy -> orderByChild(orderBy) } ?: this
+    val ordered = query.orderBy?.let { orderBy ->
+        orderByChild(orderBy)
+    } ?: this
     val filtered = query.equalTo?.let { equalTo ->
         when (equalTo) {
             is Boolean -> ordered.equalTo(equalTo)
@@ -14,21 +16,24 @@ fun DatabaseReference.query(query: FirebaseQuery): Query {
             else -> throw IllegalArgumentException("Unsupported data type for Query.equalTo(): $equalTo")
         }
     } ?: ordered
-    val limitedFrom = query.startAt?.let { startAt ->
-        when (startAt) {
-            is Boolean -> filtered.startAt(startAt)
-            is Double -> filtered.startAt(startAt)
-            is String -> filtered.startAt(startAt)
+    val startedAt = query.startAt?.let { startAt ->
+        when (startAt.first) {
+            is Boolean -> filtered.startAt(startAt.first as Boolean, startAt.second)
+            is Double -> filtered.startAt(startAt.first as Double, startAt.second)
+            is String -> filtered.startAt(startAt.first as String, startAt.second)
             else -> throw IllegalArgumentException("Unsupported data type for Query.startAt(): $startAt")
         }
     } ?: filtered
-    val limitedTo = query.endAt?.let { endAt ->
-        when (endAt) {
-            is Boolean -> limitedFrom.endAt(endAt)
-            is Double -> limitedFrom.endAt(endAt)
-            is String -> limitedFrom.endAt(endAt)
+    val endedAt = query.endAt?.let { endAt ->
+        when (endAt.first) {
+            is Boolean -> startedAt.endAt(endAt.first as Boolean, endAt.second)
+            is Double -> startedAt.endAt(endAt.first as Double, endAt.second)
+            is String -> startedAt.endAt(endAt.first as String, endAt.second)
             else -> throw IllegalArgumentException("Unsupported data type for Query.endAt(): $endAt")
         }
-    } ?: limitedFrom
-    return limitedTo
+    } ?: startedAt
+    val limited = query.limit?.let { limit ->
+        endedAt.limitToFirst(limit)
+    } ?: endedAt
+    return limited
 }

@@ -4,6 +4,7 @@ package com.faltenreich.releaseradar.firebase.database.dao
 data class FirebaseQuery(
     val orderBy: String? = null,
     val equalTo: Any? = null,
-    val startAt: Any? = null,
-    val endAt: Any? = null
+    val limit: Int? = null,
+    val startAt: Pair<Any, String?>? = null,
+    val endAt: Pair<Any, String?>? = null
 )

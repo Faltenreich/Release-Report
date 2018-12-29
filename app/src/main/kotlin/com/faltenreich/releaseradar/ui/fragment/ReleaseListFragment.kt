@@ -5,8 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.data.viewmodel.CalendarViewModel
-import com.faltenreich.releaseradar.ui.adapter.EntityDiffCallback
+import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
+import com.faltenreich.releaseradar.ui.adapter.EntityDiffUtilCallback
 import com.faltenreich.releaseradar.ui.adapter.GridPaddingItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.view.MonthPicker
@@ -17,7 +17,7 @@ import org.threeten.bp.LocalDate
 import java.util.*
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), CompactCalendarView.CompactCalendarViewListener {
-    private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
+    private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, 6, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
 
@@ -36,9 +36,10 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private fun initLayout() {
         context?.let { context ->
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
+            searchView.setShadow(false)
 
-            listView.layoutManager = GridLayoutManager(context, 2)
-            listView.addItemDecoration(GridPaddingItemDecoration(context, R.dimen.margin_padding_size_medium, 2, true))
+            listView.layoutManager = GridLayoutManager(context, LIST_SPAN_COUNT)
+            listView.addItemDecoration(GridPaddingItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, true))
             listView.adapter = listAdapter
 
             invalidateMonth()
@@ -46,15 +47,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun initData() {
-        skeleton.showSkeleton()
         viewModel.observeReleases(this) { releases ->
-            listAdapter?.apply {
-                val diff = DiffUtil.calculateDiff(EntityDiffCallback(items, releases))
-                clear()
-                addAll(releases)
-                diff.dispatchUpdatesTo(this)
-            }
-            skeleton.showOriginal()
+            listAdapter?.submitList(releases)
         }
     }
 
@@ -67,4 +61,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     override fun onDayClick(dateClicked: Date?) = Unit
 
     override fun onMonthScroll(firstDayOfNewMonth: Date?) = invalidateMonth()
+
+    companion object {
+        private const val LIST_SPAN_COUNT = 2
+    }
 }
