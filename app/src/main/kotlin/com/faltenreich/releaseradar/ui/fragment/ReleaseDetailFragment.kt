@@ -3,7 +3,7 @@ package com.faltenreich.releaseradar.ui.fragment
 import android.os.Bundle
 import android.view.View
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.data.enum.Rating
+import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.releaseradar.setImageAsync
 import kotlinx.android.synthetic.main.fragment_release_detail.*
@@ -28,16 +28,12 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
             viewModel.observeRelease(id, this) { release ->
                 toolbar.title = release?.name
                 releaseDescriptionTextView.text = release?.description
+                releaseDateTextView.text = release?.releaseDate?.print()
                 release?.imageUrlForWallpaper?.let { url ->
                     releaseWallpaperImageView.setImageAsync(url)
                 }
-                release?.imageUrlForCover?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl) }
                 release?.mediaType?.let { mediaType ->
                     collapsingToolbarLayout.setContentScrimResource(mediaType.colorResId)
-                }
-                release?.rating?.let { rating ->
-                    releaseRatingTextView.setBackgroundResource(Rating.valueOf(rating).colorResId)
-                    releaseRatingTextView.text = rating.toString()
                 }
             }
         }
