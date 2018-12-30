@@ -10,6 +10,14 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
+fun Boolean?.isTrue() = this ?: false
+
+fun Boolean?.isTrueOrNull() = this ?: true
+
+fun Boolean?.isFalse() = this?.let { !it } ?: false
+
+fun Boolean?.isFalseOrNull() = this?.let { !it } ?: true
+
 // TODO: Placeholder and scale
 fun ImageView.setImageAsync(url: String) = Glide.with(this).load(url).into(this)
 
