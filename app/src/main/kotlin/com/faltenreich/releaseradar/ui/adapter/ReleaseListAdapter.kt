@@ -7,7 +7,7 @@ import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.isTrue
 import com.faltenreich.releaseradar.ui.viewholder.ReleaseViewHolder
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<Release, ReleaseViewHolder>(context, EntityDiffUtilItemCallback()), RecyclerSectionItemDecoration.SectionCallback {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<Release, ReleaseViewHolder>(context, EntityDiffUtilItemCallback()), ReleaseListItemDecoration.SectionCallback {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseViewHolder = ReleaseViewHolder(context, parent)
 

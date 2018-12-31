@@ -5,8 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
-import com.faltenreich.releaseradar.ui.adapter.GridPaddingItemDecoration
-import com.faltenreich.releaseradar.ui.adapter.RecyclerSectionItemDecoration
+import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -38,8 +37,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             searchView.setShadow(false)
 
             listView.layoutManager = GridLayoutManager(context, LIST_SPAN_COUNT)
-            listView.addItemDecoration(RecyclerSectionItemDecoration(0, true, listAdapter!!))
-            listView.addItemDecoration(GridPaddingItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, true))
+            listView.addItemDecoration(
+                ReleaseListItemDecoration(
+                    context.resources.getDimensionPixelSize(R.dimen.margin_padding_size_medium),
+                    LIST_SPAN_COUNT,
+                    listAdapter!!
+                )
+            )
             listView.adapter = listAdapter
 
             invalidateMonth()
