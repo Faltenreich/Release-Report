@@ -29,12 +29,21 @@ public class ReleaseListItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
+
         int position = parent.getChildAdapterPosition(view);
         int column = position % spanCount;
+        boolean isSection = sectionCallback.isSection(position);
+        if (!isSection && spanCount > 1) {
+            int prefix = 1;
+            while (!isSection && prefix < spanCount) {
+                isSection = sectionCallback.isSection(position - prefix);
+                prefix++;
+            }
+        }
 
-        if (sectionCallback.isSection(position) || sectionCallback.isSection(position - 1)) {
+        if (isSection) {
             outRect.top = headerView != null ? headerView.getHeight() + padding : 0;
         }
         outRect.bottom = padding;
@@ -43,7 +52,7 @@ public class ReleaseListItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDrawOver(canvas, parent, state);
 
         if (headerView == null) {
