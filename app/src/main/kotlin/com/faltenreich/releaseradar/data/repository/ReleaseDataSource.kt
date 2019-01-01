@@ -12,32 +12,42 @@ class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemK
     private var startAtDate: LocalDate = LocalDate.now()
     private var startAtDateAsString: String = startAtDate.asString
     private var startAtId: String? = null
+    private var endAtDateAsString: String = startAtDate.minusDays(1).asString
+    private var endAtId: String? = null
 
     override fun getKey(item: ReleaseListItem): String = item.release?.id ?: ""
 
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<ReleaseListItem>) = load(params.requestedLoadSize, object : LoadCallback<ReleaseListItem>() {
+    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<ReleaseListItem>) = load(params.requestedLoadSize, true, object : LoadCallback<ReleaseListItem>() {
         override fun onResult(data: MutableList<ReleaseListItem>) {
             onInitialLoad?.invoke()
             callback.onResult(listOf(ReleaseListItem(startAtDate, null)).plus(data))
         }
     })
 
-    // TODO
-    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = Unit
+    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, false, callback)
 
-    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, callback)
+    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, true, callback)
 
-    private fun load(requestedLoadSize: Int, callback: LoadCallback<ReleaseListItem>) {
+    private fun load(requestedLoadSize: Int, descending: Boolean, callback: LoadCallback<ReleaseListItem>) {
         ReleaseRepository.getAll(
             Query(
                 orderBy = "releasedAt",
-                limit = requestedLoadSize + 1,
-                startAt = startAtDateAsString to startAtId
+                limitToFirst = if (descending) requestedLoadSize + 1 else null,
+                limitToLast = if (!descending) requestedLoadSize + 1 else null,
+                startAt = if (descending) startAtDateAsString to startAtId else null,
+                endAt = if (!descending) endAtDateAsString to endAtId else null
             ), onSuccess = { releases ->
                 releases.takeIf(List<Release>::isNotEmpty)?.let {
-                    releases.last().let { nextRelease ->
-                        startAtId = nextRelease.id
-                        startAtDateAsString = nextRelease.releasedAtString ?: startAtDateAsString
+                    if (descending) {
+                        releases.last().let { nextRelease ->
+                            startAtId = nextRelease.id
+                            startAtDateAsString = nextRelease.releasedAtString ?: startAtDateAsString
+                        }
+                    } else {
+                        releases.first().let { previousRelease ->
+                            endAtId = previousRelease.id
+                            endAtDateAsString = previousRelease.releasedAtString ?: endAtDateAsString
+                        }
                     }
                     val releaseListItems = mutableListOf<ReleaseListItem>()
                     releases.forEachIndexed { index, release ->

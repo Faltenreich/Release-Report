@@ -33,9 +33,12 @@ fun DatabaseReference.applyQuery(query: FirebaseQuery?): Query {
                 else -> throw IllegalArgumentException("Unsupported data type for Query.endAt(): $endAt")
             }
         } ?: startedAt
-        val limited = query.limit?.let { limit ->
+        val limitedToFirst = query.limitToFirst?.let { limit ->
             endedAt.limitToFirst(limit)
         } ?: endedAt
-        return limited
+        val limitedToLast = query.limitToLast?.let { limit ->
+            limitedToFirst.limitToLast(limit)
+        } ?: limitedToFirst
+        return limitedToLast
     } ?: return this
 }
