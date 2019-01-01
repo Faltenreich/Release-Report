@@ -8,7 +8,7 @@ import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {
-    private val config by lazy { PagedList.Config.Builder().setInitialLoadSizeHint(PAGE_SIZE * 3).setPageSize(PAGE_SIZE).setPrefetchDistance(PAGE_SIZE / 2).build() }
+    private val config by lazy { PagedList.Config.Builder().setInitialLoadSizeHint(PAGE_SIZE).setPageSize(PAGE_SIZE).setPrefetchDistance(PAGE_SIZE / 2).build() }
 
     private lateinit var releaseLiveData: LiveData<PagedList<ReleaseListItem>>
     private val dateLiveData = MutableLiveData<LocalDate>()

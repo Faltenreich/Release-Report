@@ -1,6 +1,8 @@
 package com.faltenreich.releaseradar.data.repository
 
+import android.util.Log
 import androidx.paging.ItemKeyedDataSource
+import com.faltenreich.releaseradar.className
 import com.faltenreich.releaseradar.data.asString
 import com.faltenreich.releaseradar.data.dao.Query
 import com.faltenreich.releaseradar.data.model.Release
@@ -24,11 +26,14 @@ class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemK
         }
     })
 
+    // FIXME: Called on every small scroll
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, false, callback)
 
+    // FIXME: Called on every small scroll
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, true, callback)
 
     private fun load(requestedLoadSize: Int, descending: Boolean, callback: LoadCallback<ReleaseListItem>) {
+        Log.d(className, "Requesting ${if (descending) "next" else "previous"} data")
         ReleaseRepository.getAll(
             Query(
                 orderBy = "releasedAt",
@@ -37,6 +42,7 @@ class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemK
                 startAt = if (descending) startAtDateAsString to startAtId else null,
                 endAt = if (!descending) endAtDateAsString to endAtId else null
             ), onSuccess = { releases ->
+                Log.d(className, "Responding ${if (descending) "next" else "previous"} data")
                 releases.takeIf(List<Release>::isNotEmpty)?.let {
                     if (descending) {
                         releases.last().let { nextRelease ->
