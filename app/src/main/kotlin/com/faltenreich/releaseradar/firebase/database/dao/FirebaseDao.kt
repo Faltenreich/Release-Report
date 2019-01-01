@@ -1,14 +1,15 @@
 package com.faltenreich.releaseradar.firebase.database.dao
 
 import com.faltenreich.releaseradar.firebase.database.FirebaseRealtimeDatabase
-import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 import com.faltenreich.releaseradar.firebase.database.applyQuery
+import com.faltenreich.releaseradar.firebase.database.model.FirebaseEntity
 import com.google.firebase.FirebaseException
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlin.reflect.KClass
 
+// FIXME: Performance is really slow for large nodes
 abstract class FirebaseDao<MODEL : FirebaseEntity>(protected val clazz: KClass<MODEL>) : FirebaseDaoApi<MODEL>, FirebaseNodeProvider<MODEL> {
 
     private val database = FirebaseRealtimeDatabase

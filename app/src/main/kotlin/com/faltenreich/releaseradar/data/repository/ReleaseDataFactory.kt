@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.data.paging
+package com.faltenreich.releaseradar.data.repository
 
 import androidx.paging.DataSource
 import com.faltenreich.releaseradar.data.model.Release

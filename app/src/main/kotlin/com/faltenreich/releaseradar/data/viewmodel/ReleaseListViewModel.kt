@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.paging.ReleaseDataFactory
+import com.faltenreich.releaseradar.data.repository.ReleaseDataFactory
 import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {

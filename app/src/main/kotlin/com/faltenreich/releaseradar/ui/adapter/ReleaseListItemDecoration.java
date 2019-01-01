@@ -33,8 +33,10 @@ public class ReleaseListItemDecoration extends RecyclerView.ItemDecoration {
         super.getItemOffsets(outRect, view, parent, state);
 
         int position = parent.getChildAdapterPosition(view);
-        int column = position % spanCount;
         boolean isSection = sectionCallback.isSection(position);
+
+        int column = position % spanCount;
+
         if (!isSection && spanCount > 1) {
             int prefix = 1;
             while (!isSection && prefix < spanCount) {

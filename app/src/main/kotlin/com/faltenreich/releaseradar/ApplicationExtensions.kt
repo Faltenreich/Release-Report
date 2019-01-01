@@ -10,6 +10,9 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
+val Any.className: String
+    get() = javaClass.simpleName
+
 fun Boolean?.isTrue() = this ?: false
 
 fun Boolean?.isTrueOrNull() = this ?: true

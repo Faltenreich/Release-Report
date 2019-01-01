@@ -11,7 +11,7 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<Release, ReleaseVi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseViewHolder = ReleaseViewHolder(context, parent)
 
-    override fun isSection(position: Int): Boolean = position == 0 || itemCount == 0 || getItem(position - 1)?.releaseDate?.isBefore(getItem(position)?.releaseDate).isTrue()
+    override fun isSection(position: Int): Boolean = position == 0 || position >= itemCount || itemCount == 0 || getItem(position - 1)?.releaseDate?.isBefore(getItem(position)?.releaseDate).isTrue()
 
     override fun getSectionHeader(position: Int): CharSequence = takeIf { itemCount > 0  }?.let { getItem(position)?.releaseDate?.print() } ?: ""
 }
