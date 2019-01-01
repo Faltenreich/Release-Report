@@ -1,8 +1,8 @@
 package com.faltenreich.releaseradar.data.repository
 
 import androidx.paging.DataSource
-import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 
-class ReleaseDataFactory(private val onInitialLoad: (() -> Unit)? = null) : DataSource.Factory<String, Release>() {
-    override fun create(): DataSource<String, Release> = ReleaseDataSource(onInitialLoad)
+class ReleaseDataFactory(private val onInitialLoad: (() -> Unit)? = null) : DataSource.Factory<String, ReleaseListItem>() {
+    override fun create(): DataSource<String, ReleaseListItem> = ReleaseDataSource(onInitialLoad)
 }

@@ -2,16 +2,25 @@ package com.faltenreich.releaseradar.ui.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.print
-import com.faltenreich.releaseradar.isTrue
+import com.faltenreich.releaseradar.ui.viewholder.ReleaseDateViewHolder
+import com.faltenreich.releaseradar.ui.viewholder.ReleaseItemViewHolder
 import com.faltenreich.releaseradar.ui.viewholder.ReleaseViewHolder
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<Release, ReleaseViewHolder>(context, EntityDiffUtilItemCallback()), ReleaseListItemDecoration.SectionCallback {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context, ReleaseListDiffUtilItemCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseViewHolder = ReleaseViewHolder(context, parent)
+    override fun getItemViewType(position: Int): Int = when {
+        position < itemCount && getItem(position)?.release == null -> VIEW_TYPE_DATE
+        else -> VIEW_TYPE_RELEASE
+    }
 
-    override fun isSection(position: Int): Boolean = position == 0 || position >= itemCount || itemCount == 0 || getItem(position - 1)?.releaseDate?.isBefore(getItem(position)?.releaseDate).isTrue()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseViewHolder = when (viewType) {
+        VIEW_TYPE_RELEASE -> ReleaseItemViewHolder(context, parent)
+        VIEW_TYPE_DATE -> ReleaseDateViewHolder(context, parent)
+        else -> throw IllegalArgumentException("Unknown viewType: $viewType")
+    }
 
-    override fun getSectionHeader(position: Int): CharSequence = takeIf { itemCount > 0  }?.let { getItem(position)?.releaseDate?.print() } ?: ""
+    companion object {
+        const val VIEW_TYPE_RELEASE = 0
+        const val VIEW_TYPE_DATE = 1
+    }
 }

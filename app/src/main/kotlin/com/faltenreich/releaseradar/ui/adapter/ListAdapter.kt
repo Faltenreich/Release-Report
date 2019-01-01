@@ -1,20 +1,20 @@
 package com.faltenreich.releaseradar.ui.adapter
 
-interface ListAdapter <MODEL : Any> {
+interface ListAdapter <ITEM : Any> {
 
-    val items: ArrayList<MODEL>
+    val items: ArrayList<ITEM>
 
     fun getItemCount(): Int = this.items.size
 
-    fun getItem(position: Int): MODEL = this.items[position]
+    fun getItem(position: Int): ITEM = this.items[position]
 
-    fun add(item: MODEL) = this.items.add(item)
+    fun add(item: ITEM) = this.items.add(item)
 
-    fun addAt(position: Int, item: MODEL) = this.items.add(position, item)
+    fun addAt(position: Int, item: ITEM) = this.items.add(position, item)
 
-    fun addAll(items: List<MODEL>) = this.items.addAll(items)
+    fun addAll(items: List<ITEM>) = this.items.addAll(items)
 
-    fun remove(item: MODEL) = this.items.remove(item)
+    fun remove(item: ITEM) = this.items.remove(item)
 
     fun removeAt(position: Int) = this.items.removeAt(position)
 
