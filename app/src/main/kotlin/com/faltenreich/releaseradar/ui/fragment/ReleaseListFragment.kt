@@ -2,13 +2,12 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
-import com.faltenreich.releaseradar.ui.adapter.GridPaddingItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
+import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
+import com.faltenreich.releaseradar.ui.adapter.ReleaseListLayoutManager
 import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
@@ -18,7 +17,11 @@ import java.util.*
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), CompactCalendarView.CompactCalendarViewListener {
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
+    
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
+    private val listLayoutManager by lazy { context?.let { context -> ReleaseListLayoutManager(context, listAdapter) } }
+    private val listItemDecoration by lazy { context?.let { context -> ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader } } }
+
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, itemCount = LIST_SKELETON_ITEM_COUNT, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
 
     private var date: LocalDate = LocalDate.now()
@@ -27,6 +30,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             invalidateMonth()
         }
 
+    private val sectionHeader: String?
+        get() = listLayoutManager?.findFirstVisibleItemPosition()?.let { firstVisibleItemPosition -> listAdapter?.currentList?.getOrNull(firstVisibleItemPosition)?.date?.print() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
@@ -34,28 +40,14 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun initLayout() {
-        context?.let { context ->
-            searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
-            searchView.setShadow(false)
+        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
+        searchView.setShadow(false)
 
-            val layoutManager = GridLayoutManager(context, LIST_SPAN_COUNT).apply {
-                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int = when (listAdapter?.getItemViewType(position)) {
-                        ReleaseListAdapter.VIEW_TYPE_DATE -> 2
-                        else -> 1
-                    }
-                }
-            }
-            listView.layoutManager = layoutManager
-            listView.addItemDecoration(GridPaddingItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date) { stickyHeader ->
-                listAdapter?.currentList?.getOrNull(layoutManager.findFirstVisibleItemPosition())?.let { firstVisibleItem ->
-                    stickyHeader.findViewById<TextView>(R.id.releaseDateTextView).text = firstVisibleItem.date?.print()
-                }
-            })
-            listView.adapter = listAdapter
+        listView.layoutManager = listLayoutManager
+        listItemDecoration?.let { listItemDecoration -> listView.addItemDecoration(listItemDecoration) }
+        listView.adapter = listAdapter
 
-            invalidateMonth()
-        }
+        invalidateMonth()
     }
 
     private fun initData() {

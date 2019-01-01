@@ -6,15 +6,25 @@ import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.DimenRes
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class GridPaddingItemDecoration(context: Context, @DimenRes paddingResId: Int, private val spanCount: Int, @LayoutRes private val stickyHeaderResId: Int, private val onStickyHeaderUpdate: (view: View) -> Unit) : RecyclerView.ItemDecoration() {
+class ReleaseListItemDecoration(
+    context: Context,
+    @DimenRes paddingResId: Int,
+    private val spanCount: Int,
+    @LayoutRes private val stickyHeaderResId: Int,
+    @IdRes private val stickyHeaderLabelResId: Int,
+    private val getStickyHeaderLabel: () -> String?
+) : RecyclerView.ItemDecoration() {
 
     private val padding: Int by lazy { context.resources.getDimension(paddingResId).toInt() }
     private var stickyHeader: View? = null
+    private var stickyHeaderLabel: TextView? = null
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
@@ -31,16 +41,17 @@ class GridPaddingItemDecoration(context: Context, @DimenRes paddingResId: Int, p
         super.onDrawOver(canvas, parent, state)
 
         if (stickyHeader == null) {
-            stickyHeader = LayoutInflater.from(parent.context).inflate(stickyHeaderResId, parent, false).apply { fixLayoutSize(this, parent) }
+            stickyHeader = LayoutInflater.from(parent.context).inflate(stickyHeaderResId, parent, false).apply {
+                fixLayoutSize(this, parent)
+                stickyHeaderLabel = findViewById(stickyHeaderLabelResId)
+            }
         }
 
-        stickyHeader?.let { stickyHeader ->
-            onStickyHeaderUpdate(stickyHeader)
-            canvas.save()
-            canvas.translate(0f, 0f)
-            stickyHeader.draw(canvas)
-            canvas.restore()
-        }
+        stickyHeaderLabel?.text = getStickyHeaderLabel()
+        canvas.save()
+        canvas.translate(0f, 0f)
+        stickyHeader?.draw(canvas)
+        canvas.restore()
     }
 
     /**
