@@ -19,8 +19,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
-    private val listLayoutManager by lazy { context?.let { context -> ReleaseListLayoutManager(context, listAdapter) } }
-    private val listItemDecoration by lazy { context?.let { context -> ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader } } }
+    private lateinit var listLayoutManager: ReleaseListLayoutManager
+    private lateinit var listItemDecoration: ReleaseListItemDecoration
 
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, itemCount = LIST_SKELETON_ITEM_COUNT, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
 
@@ -30,8 +30,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             invalidateMonth()
         }
 
+    private val firstVisibleListItemPosition: Int
+        get() = listLayoutManager.findFirstVisibleItemPosition()
+
     private val sectionHeader: String?
-        get() = listLayoutManager?.findFirstVisibleItemPosition()?.let { firstVisibleItemPosition -> listAdapter?.currentList?.getOrNull(firstVisibleItemPosition)?.date?.print() }
+        get() = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date?.print()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,14 +43,19 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun initLayout() {
-        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
-        searchView.setShadow(false)
+        context?.let { context ->
+            searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
+            searchView.setShadow(false)
 
-        listView.layoutManager = listLayoutManager
-        listItemDecoration?.let { listItemDecoration -> listView.addItemDecoration(listItemDecoration) }
-        listView.adapter = listAdapter
+            listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
+            listItemDecoration =  ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }
 
-        invalidateMonth()
+            listView.layoutManager = listLayoutManager
+            listView.addItemDecoration(listItemDecoration)
+            listView.adapter = listAdapter
+
+            invalidateMonth()
+        }
     }
 
     private fun initData() {
