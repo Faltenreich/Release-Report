@@ -8,8 +8,6 @@ import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {
-    private val config by lazy { PagedList.Config.Builder().setInitialLoadSizeHint(PAGE_SIZE).setPageSize(PAGE_SIZE).setPrefetchDistance(PAGE_SIZE / 2).build() }
-
     private lateinit var releaseLiveData: LiveData<PagedList<ReleaseListItem>>
     private val dateLiveData = MutableLiveData<LocalDate>()
 
@@ -21,11 +19,8 @@ class ReleaseListViewModel : ViewModel() {
         set(value) = dateLiveData.postValue(value)
 
     fun observeReleases(owner: LifecycleOwner, onObserve: (PagedList<ReleaseListItem>) -> Unit, onInitialLoad: (() -> Unit)? = null) {
-        releaseLiveData = LivePagedListBuilder(ReleaseDataFactory(onInitialLoad), config).build()
+        val dataFactory = ReleaseDataFactory(onInitialLoad)
+        releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 60
     }
 }
