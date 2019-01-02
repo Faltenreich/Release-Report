@@ -10,7 +10,7 @@ import com.faltenreich.releaseradar.ui.viewholder.ReleaseViewHolder
 class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context, ReleaseListDiffUtilItemCallback()) {
 
     override fun getItemViewType(position: Int): Int = when {
-        position < itemCount && getItem(position)?.release == null -> VIEW_TYPE_DATE
+        position < itemCount && currentList?.get(position)?.release == null -> VIEW_TYPE_DATE
         else -> VIEW_TYPE_RELEASE
     }
 
