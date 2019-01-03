@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
@@ -20,7 +21,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
     }
 
     private fun initLayout() {
-
+        context?.let { context ->
+            toolbar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back)
+            toolbar.setNavigationOnClickListener { finish() }
+        }
     }
 
     private fun initData() {

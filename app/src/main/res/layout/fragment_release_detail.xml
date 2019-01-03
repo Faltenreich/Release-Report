@@ -44,6 +44,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:titleTextColor="@android:color/white"
                 app:subtitleTextColor="@color/gray_lighter"
+                app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
                 tools:title="@string/app_name"
                 tools:subtitle="@tools:sample/lorem/random"/>
