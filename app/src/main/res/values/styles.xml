@@ -7,11 +7,15 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/dark</item>
-        <item name="android:textColor">@color/gray_lightest</item>
+        <item name="android:textColor">@color/light</item>
     </style>
 
     <style name="CollapsingToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+    <style name="PaddingLayout">
+        <item name="android:padding">@dimen/margin_padding_size_medium</item>
     </style>
 
 </resources>
