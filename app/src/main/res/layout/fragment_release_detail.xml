@@ -64,12 +64,12 @@
             android:orientation="vertical"
             android:padding="@dimen/margin_padding_size_medium">
 
-            <com.faltenreich.releaseradar.ui.view.Chip
-                android:id="@+id/releaseDateChip"
-                android:layout_width="wrap_content"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/metaChipContainer"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
                 android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_date"
-                tools:text="@tools:sample/date/ddmmyy"/>
+                app:chipSpacing="@dimen/margin_padding_size_small"/>
 
             <TextView
                 android:id="@+id/releaseDescriptionTextView"

@@ -11,6 +11,8 @@
     <string name="search_hint">Search for releases&#8230;</string>
     <string name="month_previous">Previous month</string>
     <string name="month_next">Next month</string>
-    <string name="no_content_available">No content available yet</string>
+    <string name="unknown_content">No content available yet</string>
+    <string name="duration_placeholder">%d min</string>
+    <string name="placeholder">-</string>
 
 </resources>
