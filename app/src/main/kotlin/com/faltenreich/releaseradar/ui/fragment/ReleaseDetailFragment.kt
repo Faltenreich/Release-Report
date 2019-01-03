@@ -33,12 +33,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 toolbar.title = release?.name
                 releaseDescriptionTextView.text = release?.description
                 releaseDateTextView.text = release?.releaseDate?.print()
-                release?.imageUrlForWallpaper?.let { url ->
-                    releaseWallpaperImageView.setImageAsync(url)
-                }
-                release?.mediaType?.let { mediaType ->
-                    collapsingToolbarLayout.setContentScrimResource(mediaType.colorResId)
-                }
+                release?.imageUrlForWallpaper?.let { url -> releaseWallpaperImageView.setImageAsync(url) } ?: releaseWallpaperImageView.setImageResource(android.R.color.transparent)
+                release?.mediaType?.let { mediaType -> collapsingToolbarLayout.setContentScrimResource(mediaType.colorResId) }
             }
         }
     }

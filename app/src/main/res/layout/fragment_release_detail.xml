@@ -69,7 +69,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_xsmall"
-                android:textColor="@android:color/black"
                 android:textStyle="bold"
                 tools:text="@tools:sample/date/mmddyy"/>
 
@@ -78,7 +77,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_medium"
-                android:textColor="@android:color/black"
                 tools:text="@tools:sample/lorem"/>
 
         </LinearLayout>

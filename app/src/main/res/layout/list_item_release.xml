@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="?attr/colorPrimary"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +53,6 @@
             android:paddingEnd="@dimen/margin_padding_size_small"
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:background="@drawable/scrim_bottom"
-            android:textColor="@android:color/white"
             android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"

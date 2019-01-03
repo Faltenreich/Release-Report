@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
@@ -22,7 +23,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private lateinit var listLayoutManager: ReleaseListLayoutManager
     private lateinit var listItemDecoration: ReleaseListItemDecoration
 
-    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release, itemCount = LIST_SKELETON_ITEM_COUNT, cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f) }
+    private val skeleton by lazy {
+        listView.applySkeleton(R.layout.list_item_release,
+            itemCount = LIST_SKELETON_ITEM_COUNT,
+            maskColor = ContextCompat.getColor(context!!, R.color.colorPrimary),
+            shimmerColor = ContextCompat.getColor(context!!, R.color.blue_gray),
+            cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
+    }
 
     private var date: LocalDate = LocalDate.now()
         set(value) {

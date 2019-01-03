@@ -12,5 +12,4 @@
     android:paddingRight="@dimen/margin_padding_size_medium"
     android:paddingEnd="@dimen/margin_padding_size_medium"
     android:background="?attr/colorPrimary"
-    android:textColor="@android:color/white"
     tools:text="@tools:sample/date/mmddyy"/>
