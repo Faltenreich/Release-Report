@@ -48,7 +48,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             searchView.setShadow(false)
 
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
-            listItemDecoration =  ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }
+            listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }
 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
@@ -61,10 +61,14 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private fun initData() {
         // TODO: Find way to distinguish back navigation via Navigation Components
         if (listAdapter?.itemCount == 0) {
+            listItemDecoration.showOverlay = false
             skeleton.showSkeleton()
+
             viewModel.observeReleases(this, onObserve = { releases ->
                 listAdapter?.submitList(releases)
+
             }, onInitialLoad = {
+                listItemDecoration.showOverlay = true
                 skeleton.showOriginal()
             })
         }

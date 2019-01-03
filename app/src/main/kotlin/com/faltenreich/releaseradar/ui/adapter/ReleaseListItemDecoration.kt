@@ -26,32 +26,37 @@ class ReleaseListItemDecoration(
     private var stickyHeader: View? = null
     private var stickyHeaderLabel: TextView? = null
 
+    var showOverlay: Boolean = true
+
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
+        val position = layoutParams.viewAdapterPosition
         val column = layoutParams.spanIndex
 
+        outRect.top = if (!showOverlay && position < spanCount) padding else 0
+        outRect.bottom = padding
         if (layoutParams.spanSize == 1) {
             outRect.left = padding - column * padding / spanCount
             outRect.right = (column + 1) * padding / spanCount
         }
-        outRect.bottom = padding
     }
 
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(canvas, parent, state)
 
-        if (stickyHeader == null) {
-            stickyHeader = LayoutInflater.from(parent.context).inflate(stickyHeaderResId, parent, false).apply {
-                fixLayoutSize(this, parent)
-                stickyHeaderLabel = findViewById(stickyHeaderLabelResId)
+        if (showOverlay) {
+            if (stickyHeader == null) {
+                stickyHeader = LayoutInflater.from(parent.context).inflate(stickyHeaderResId, parent, false).apply {
+                    fixLayoutSize(this, parent)
+                    stickyHeaderLabel = findViewById(stickyHeaderLabelResId)
+                }
             }
+            stickyHeaderLabel?.text = getStickyHeaderLabel()
+            canvas.save()
+            canvas.translate(0f, 0f)
+            stickyHeader?.draw(canvas)
+            canvas.restore()
         }
-
-        stickyHeaderLabel?.text = getStickyHeaderLabel()
-        canvas.save()
-        canvas.translate(0f, 0f)
-        stickyHeader?.draw(canvas)
-        canvas.restore()
     }
 
     /**
