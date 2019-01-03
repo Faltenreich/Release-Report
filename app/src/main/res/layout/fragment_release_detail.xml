@@ -64,13 +64,12 @@
             android:orientation="vertical"
             android:padding="@dimen/margin_padding_size_medium">
 
-            <TextView
-                android:id="@+id/releaseDateTextView"
-                android:layout_width="match_parent"
+            <com.faltenreich.releaseradar.ui.view.Chip
+                android:id="@+id/releaseDateChip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_size_xsmall"
-                android:textStyle="bold"
-                tools:text="@tools:sample/date/mmddyy"/>
+                app:chipIcon="@drawable/ic_date"
+                tools:text="@tools:sample/date/ddmmyy"/>
 
             <TextView
                 android:id="@+id/releaseDescriptionTextView"
@@ -78,6 +77,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_medium"
                 tools:text="@tools:sample/lorem"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/genreChipContainer"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
+                android:layout_height="wrap_content"
+                app:chipSpacing="@dimen/margin_padding_size_small"/>
 
         </LinearLayout>
 
