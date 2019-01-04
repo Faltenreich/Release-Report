@@ -6,19 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.transition.TransitionInflater
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
+import com.faltenreich.releaseradar.screenSize
 import com.faltenreich.releaseradar.setImageAsync
 import com.faltenreich.releaseradar.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
 class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
-
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
-    private val releaseId: String? by lazy { ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId }
+    private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        postponeEnterTransition()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,9 +34,14 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
     }
 
     private fun initLayout() {
-        context?.let { context ->
-            toolbar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back)
+        context?.apply {
+            toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back)
             toolbar.setNavigationOnClickListener { finish() }
+
+            val transition = TransitionInflater.from(context).inflateTransition(R.transition.shared_element)
+            sharedElementEnterTransition = transition
+            sharedElementReturnTransition = transition
+            ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
         }
     }
 
@@ -39,13 +51,6 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 toolbar.title = release?.name
 
                 release?.imageUrlForWallpaper?.let { url -> releaseWallpaperImageView.setImageAsync(url) } ?: releaseWallpaperImageView.setImageResource(android.R.color.transparent)
-                release?.imageUrlForCover?.let { imageUrl ->
-                    releaseCoverImageView.visibility = View.VISIBLE
-                    releaseCoverImageView.setImageAsync(imageUrl)
-                } ?: run {
-                    releaseCoverImageView.visibility = View.GONE
-                    releaseCoverImageView.setImageResource(android.R.color.transparent)
-                }
 
                 val description = release?.description?.takeIf(String::isNotBlank)
                 releaseDescriptionTextView.text = description ?: getString(R.string.unknown_content)
@@ -59,11 +64,19 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                         genres?.forEach { genre -> addGenre(genre) }
                     }
                 }
+
+                release?.imageUrlForCover?.let { imageUrl ->
+                    releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
+                } ?: run {
+                    releaseCoverImageView.setImageResource(android.R.color.transparent)
+                    startPostponedEnterTransition()
+                }
             }
         }
     }
 
     private fun addMeta(release: Release) {
+        metaChipContainer.removeAllViews()
         addChip(metaChipContainer, release.releaseDate?.print() ?: getString(R.string.placeholder), R.drawable.ic_date)
         addChip(metaChipContainer, release.durationInSeconds?.let { durationInSeconds -> getString(R.string.duration_placeholder).format(durationInSeconds) } ?: getString(R.string.placeholder), R.drawable.ic_duration)
     }
@@ -79,5 +92,9 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
             }
         }
         container.addView(chip)
+    }
+
+    companion object {
+        const val SHARED_ELEMENT_NAME = "cover"
     }
 }
