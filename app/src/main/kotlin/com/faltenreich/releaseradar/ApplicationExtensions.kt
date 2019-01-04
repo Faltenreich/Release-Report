@@ -21,10 +21,14 @@ fun Boolean?.isFalse() = this?.let { !it } ?: false
 
 fun Boolean?.isFalseOrNull() = this?.let { !it } ?: true
 
-// TODO: Placeholder and scale
+// TODO: Placeholder
 fun ImageView.setImageAsync(url: String) {
     doOnPreDraw {
-        GlideApp.with(this).load(url).override(width, height).into(this)
+        GlideApp
+            .with(this)
+            .load(url)
+            .override(width, height)
+            .into(this)
     }
 }
 
