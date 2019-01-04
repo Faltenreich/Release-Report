@@ -1,8 +1,10 @@
 package com.faltenreich.releaseradar.ui.fragment
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.doOnPreDraw
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
@@ -49,6 +51,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
         initData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        invalidatePaddingForTranslucentStatusbar()
+    }
+
     private fun initLayout() {
         context?.let { context ->
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
@@ -78,6 +85,14 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
                 listItemDecoration.showOverlay = true
                 skeleton.showOriginal()
             })
+        }
+    }
+
+    private fun invalidatePaddingForTranslucentStatusbar() {
+        view?.doOnPreDraw {
+            val frame = Rect()
+            activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
+            appbarLayout.setPadding(0, frame.top, 0, 0)
         }
     }
 
