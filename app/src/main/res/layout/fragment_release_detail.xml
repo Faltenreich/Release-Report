@@ -20,10 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:fitsSystemWindows="true"
-            app:statusBarScrim="@null"
-            app:contentScrim="@null"
+            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:expandedTitleTextAppearance="@style/CollapsingToolbarTextAppearance">
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarTextAppearance"
+            app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
+            app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge">
 
             <ImageView
                 android:id="@+id/releaseWallpaperImageView"
@@ -39,7 +40,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/scrim_bottom"/>
 
@@ -48,11 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:titleTextColor="@android:color/white"
-                app:subtitleTextColor="@color/gray_lighter"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
-                tools:title="@string/app_name"
-                tools:subtitle="@tools:sample/lorem/random"/>
+                tools:title="@string/app_name"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
