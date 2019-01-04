@@ -12,9 +12,10 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.faltenreich.releaseradar.R
 
 class ReleaseListItemDecoration(
-    context: Context,
+    private val context: Context,
     @DimenRes paddingResId: Int,
     private val spanCount: Int,
     @LayoutRes private val stickyHeaderResId: Int,
@@ -25,15 +26,17 @@ class ReleaseListItemDecoration(
     private val padding: Int by lazy { context.resources.getDimension(paddingResId).toInt() }
     private var stickyHeader: View? = null
     private var stickyHeaderLabel: TextView? = null
+    private val stickyHeaderHeight: Int
+        get() = context.resources.getDimensionPixelSize(R.dimen.toolbar_height)
 
-    var showOverlay: Boolean = true
+    var isSkeleton: Boolean = false
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
         val position = layoutParams.viewAdapterPosition
         val column = layoutParams.spanIndex
 
-        outRect.top = if (!showOverlay && position < spanCount) padding else 0
+        outRect.top = if (isSkeleton && position < spanCount) stickyHeaderHeight + padding else 0
         outRect.bottom = padding
         if (layoutParams.spanSize == 1) {
             outRect.left = padding - column * padding / spanCount
@@ -44,19 +47,17 @@ class ReleaseListItemDecoration(
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(canvas, parent, state)
 
-        if (showOverlay) {
-            if (stickyHeader == null) {
-                stickyHeader = LayoutInflater.from(parent.context).inflate(stickyHeaderResId, parent, false).apply {
-                    fixLayoutSize(this, parent)
-                    stickyHeaderLabel = findViewById(stickyHeaderLabelResId)
-                }
+        if (stickyHeader == null) {
+            stickyHeader = LayoutInflater.from(parent.context).inflate(stickyHeaderResId, parent, false).apply {
+                fixLayoutSize(this, parent)
+                stickyHeaderLabel = findViewById(stickyHeaderLabelResId)
             }
-            stickyHeaderLabel?.text = getStickyHeaderLabel()
-            canvas.save()
-            canvas.translate(0f, 0f)
-            stickyHeader?.draw(canvas)
-            canvas.restore()
         }
+        stickyHeaderLabel?.text = getStickyHeaderLabel()
+        canvas.save()
+        canvas.translate(0f, 0f)
+        stickyHeader?.draw(canvas)
+        canvas.restore()
     }
 
     /**

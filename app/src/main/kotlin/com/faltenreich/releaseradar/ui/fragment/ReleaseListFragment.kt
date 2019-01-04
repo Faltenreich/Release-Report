@@ -42,8 +42,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private val firstVisibleListItemPosition: Int
         get() = listLayoutManager.findFirstVisibleItemPosition()
 
-    private val sectionHeader: String?
-        get() = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date?.print()
+    private val sectionHeader: String
+        get() = (listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date ?: viewModel.date ?: LocalDate.now()).print()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,7 +53,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
 
     override fun onResume() {
         super.onResume()
-        invalidatePaddingForTranslucentStatusbar()
+        invalidatePaddingForTranslucentStatusBar()
     }
 
     private fun initLayout() {
@@ -75,24 +75,25 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private fun initData() {
         // TODO: Find way to distinguish back navigation via Navigation Components
         if (listAdapter?.itemCount == 0) {
-            listItemDecoration.showOverlay = false
+            listItemDecoration.isSkeleton = true
             skeleton.showSkeleton()
 
             viewModel.observeReleases(this, onObserve = { releases ->
                 listAdapter?.submitList(releases)
 
             }, onInitialLoad = {
-                listItemDecoration.showOverlay = true
+                listItemDecoration.isSkeleton = false
                 skeleton.showOriginal()
             })
         }
     }
 
-    private fun invalidatePaddingForTranslucentStatusbar() {
+    private fun invalidatePaddingForTranslucentStatusBar() {
         view?.doOnPreDraw {
             val frame = Rect()
             activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
             appbarLayout.setPadding(0, frame.top, 0, 0)
+            statusBarBackground.layoutParams.height = frame.top
         }
     }
 
