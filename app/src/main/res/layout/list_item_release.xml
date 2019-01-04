@@ -54,6 +54,7 @@
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:background="@drawable/scrim_bottom"
             android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
             app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"

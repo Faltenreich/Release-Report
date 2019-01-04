@@ -39,6 +39,13 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 toolbar.title = release?.name
 
                 release?.imageUrlForWallpaper?.let { url -> releaseWallpaperImageView.setImageAsync(url) } ?: releaseWallpaperImageView.setImageResource(android.R.color.transparent)
+                release?.imageUrlForCover?.let { imageUrl ->
+                    releaseCoverImageView.visibility = View.VISIBLE
+                    releaseCoverImageView.setImageAsync(imageUrl)
+                } ?: run {
+                    releaseCoverImageView.visibility = View.GONE
+                    releaseCoverImageView.setImageResource(android.R.color.transparent)
+                }
 
                 val description = release?.description?.takeIf(String::isNotBlank)
                 releaseDescriptionTextView.text = description ?: getString(R.string.unknown_content)
