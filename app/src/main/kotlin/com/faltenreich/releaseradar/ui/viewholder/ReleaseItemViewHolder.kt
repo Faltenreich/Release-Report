@@ -9,8 +9,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.screenSize
-import com.faltenreich.releaseradar.setImageAsync
+import com.faltenreich.releaseradar.extension.screenSize
+import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment
 import kotlinx.android.synthetic.main.list_item_release.*

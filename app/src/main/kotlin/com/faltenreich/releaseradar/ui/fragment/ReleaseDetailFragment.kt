@@ -11,10 +11,10 @@ import androidx.transition.TransitionInflater
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
-import com.faltenreich.releaseradar.screenSize
-import com.faltenreich.releaseradar.setImageAsync
+import com.faltenreich.releaseradar.extension.print
+import com.faltenreich.releaseradar.extension.screenSize
+import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 

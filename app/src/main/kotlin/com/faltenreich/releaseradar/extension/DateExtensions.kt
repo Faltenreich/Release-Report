@@ -1,6 +1,9 @@
 package com.faltenreich.releaseradar.extension
 
-import org.threeten.bp.*
+import org.threeten.bp.DateTimeUtils
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDate
+import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.format.FormatStyle
@@ -17,7 +20,6 @@ val String?.asLocalDate: LocalDate?
         null
     }
 
-// FIXME: Catch DateTimeException
 val LocalDate.asString: String
     get() = format(DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
 

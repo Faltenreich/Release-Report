@@ -1,10 +1,10 @@
 package com.faltenreich.releaseradar.data.repository
 
 import androidx.paging.ItemKeyedDataSource
-import com.faltenreich.releaseradar.extension.asString
 import com.faltenreich.releaseradar.data.dao.Query
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.isTrue
+import com.faltenreich.releaseradar.extension.asString
+import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
