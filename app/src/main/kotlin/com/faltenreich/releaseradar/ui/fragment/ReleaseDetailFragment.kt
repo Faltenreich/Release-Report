@@ -11,7 +11,7 @@ import androidx.transition.TransitionInflater
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.print
+import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.releaseradar.screenSize
 import com.faltenreich.releaseradar.setImageAsync
@@ -65,7 +65,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                     }
                 }
 
-                release?.imageUrlForCover?.let { imageUrl ->
+                release?.imageUrlForThumbnail?.let { imageUrl ->
                     releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
                 } ?: run {
                     releaseCoverImageView.setImageResource(android.R.color.transparent)

@@ -2,8 +2,8 @@ package com.faltenreich.releaseradar.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
-import com.faltenreich.releaseradar.data.date
-import com.faltenreich.releaseradar.data.localDate
+import com.faltenreich.releaseradar.extension.date
+import com.faltenreich.releaseradar.extension.localDate
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import org.threeten.bp.LocalDate
 

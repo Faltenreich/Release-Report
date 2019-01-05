@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.data
+package com.faltenreich.releaseradar.extension
 
 import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter

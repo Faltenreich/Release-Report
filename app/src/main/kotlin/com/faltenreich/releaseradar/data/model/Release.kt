@@ -13,6 +13,7 @@ data class Release(
     var artistName: String? = null,
     var description: String? = null,
     var durationInSeconds: Long? = null,
+    var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null,
     var imageUrlForWallpaper: String? = null,
     var videoUrl: String? = null,

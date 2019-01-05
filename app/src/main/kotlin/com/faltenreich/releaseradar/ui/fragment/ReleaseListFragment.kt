@@ -6,7 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.data.print
+import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
