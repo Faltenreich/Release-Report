@@ -50,7 +50,9 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
             viewModel.observeRelease(id, this) { release ->
                 toolbar.title = release?.title
 
-                release?.imageUrlForWallpaper?.let { url -> releaseWallpaperImageView.setImageAsync(url) } ?: releaseWallpaperImageView.setImageResource(android.R.color.transparent)
+                release?.imageUrlForWallpaper?.let { url ->
+                    releaseWallpaperImageView.setImageAsync(url)
+                }
 
                 val description = release?.description?.takeIf(String::isNotBlank)
                 releaseDescriptionTextView.text = description ?: getString(R.string.unknown_description)
@@ -67,10 +69,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
                 release?.imageUrlForThumbnail?.let { imageUrl ->
                     releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
-                } ?: run {
-                    releaseCoverImageView.setImageResource(android.R.color.transparent)
-                    startPostponedEnterTransition()
-                }
+                } ?: startPostponedEnterTransition()
             }
         }
     }
