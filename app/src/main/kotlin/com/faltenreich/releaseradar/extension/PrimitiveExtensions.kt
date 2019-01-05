@@ -3,10 +3,17 @@ package com.faltenreich.releaseradar.extension
 val Any.className: String
     get() = javaClass.simpleName
 
-fun Boolean?.isTrue() = this ?: false
+val Boolean?.isTrue
+    get() = this ?: false
 
-fun Boolean?.isTrueOrNull() = this ?: true
+val Boolean?.isTrueOrNull
+    get() = this ?: true
 
-fun Boolean?.isFalse() = this?.let { !it } ?: false
+val Boolean?.isFalse
+    get() = this?.let { !it } ?: false
 
-fun Boolean?.isFalseOrNull() = this?.let { !it } ?: true
+val Boolean?.isFalseOrNull
+    get()  = this?.let { !it } ?: true
+
+val String?.nonBlank: String?
+    get() = this?.takeIf(String::isNotBlank)

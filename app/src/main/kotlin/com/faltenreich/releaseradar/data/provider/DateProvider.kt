@@ -6,10 +6,10 @@ import com.google.firebase.database.Exclude
 import org.threeten.bp.LocalDate
 
 interface DateProvider {
-    var releasedAtString: String?
+    var releasedAt: String?
 
     @get:Exclude
     var releaseDate: LocalDate?
-        get() = releasedAtString?.asLocalDate
-        set(value) { releasedAtString = value?.asString }
+        get() = releasedAt?.asLocalDate
+        set(value) { releasedAt = value?.asString }
 }

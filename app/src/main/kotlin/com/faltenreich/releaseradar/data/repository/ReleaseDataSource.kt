@@ -41,12 +41,12 @@ class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemK
                     if (descending) {
                         releases.last().let { nextRelease ->
                             startAtId = nextRelease.id
-                            startAtDateAsString = nextRelease.releasedAtString ?: startAtDateAsString
+                            startAtDateAsString = nextRelease.releasedAt ?: startAtDateAsString
                         }
                     } else {
                         releases.first().let { previousRelease ->
                             endAtId = previousRelease.id
-                            endAtDateAsString = previousRelease.releasedAtString ?: endAtDateAsString
+                            endAtDateAsString = previousRelease.releasedAt ?: endAtDateAsString
                         }
                     }
                     val releaseListItems = mutableListOf<ReleaseListItem>()
@@ -54,7 +54,7 @@ class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemK
                         releaseListItems.add(ReleaseListItem(release.releaseDate, release))
                         // Add section header
                         releases.getOrNull(index + 1)?.let { nextRelease ->
-                            if (nextRelease.releaseDate?.isAfter(release.releaseDate).isTrue()) {
+                            if (nextRelease.releaseDate?.isAfter(release.releaseDate).isTrue) {
                                 releaseListItems.add(ReleaseListItem(nextRelease.releaseDate, null))
                             }
                         }
