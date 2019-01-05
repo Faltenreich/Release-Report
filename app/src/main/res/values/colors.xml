@@ -16,9 +16,12 @@
     <color name="dark">#455a64</color>
 
     <color name="green">#478063</color>
+    <color name="green_dark">#33664c</color>
     <color name="red">#ffdd6050</color>
+    <color name="red_dark">#be4c3d</color>
     <color name="yellow">#FBC02D</color>
     <color name="blue">#ff6d82cb</color>
+    <color name="blue_dark">#596caf</color>
     <color name="blue_gray">#6a8491</color>
 
 </resources>
