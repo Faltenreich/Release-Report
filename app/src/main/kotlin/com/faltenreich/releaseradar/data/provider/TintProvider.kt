@@ -1,6 +1,6 @@
 package com.faltenreich.releaseradar.data.provider
 
-interface ColorProvider {
+interface TintProvider {
     val colorResId: Int
     val colorDarkResId: Int
 }

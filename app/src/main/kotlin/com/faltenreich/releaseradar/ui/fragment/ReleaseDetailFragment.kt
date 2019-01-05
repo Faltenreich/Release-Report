@@ -70,7 +70,20 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 release?.imageUrlForThumbnail?.let { imageUrl ->
                     releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
                 } ?: startPostponedEnterTransition()
+
+                invalidateTint()
             }
+        }
+    }
+
+    private fun invalidateTint() {
+        viewModel.release?.mediaType?.let { mediaType ->
+            val color = mediaType.colorResId
+            val colorDark = mediaType.colorDarkResId
+
+            layoutContainer.setBackgroundResource(colorDark)
+            appbarLayout.setBackgroundResource(color)
+            collapsingToolbarLayout.setContentScrimResource(color)
         }
     }
 
@@ -89,6 +102,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 setChipIconResource(iconResId)
                 // FIXME: Breaks chipIconTint
             }
+            setChipBackgroundColorResource(viewModel.release?.mediaType?.colorResId ?: R.color.colorPrimary)
         }
         container.addView(chip)
     }
