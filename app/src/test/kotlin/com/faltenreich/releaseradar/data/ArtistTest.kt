@@ -6,7 +6,7 @@ import org.junit.Test
 
 class ArtistTest {
 
-    private val artist by lazy { Artist().apply { name = "Artist" } }
+    private val artist by lazy { Artist().apply { title = "Artist" } }
 
     @Test
     fun `Validates if non-null`() {

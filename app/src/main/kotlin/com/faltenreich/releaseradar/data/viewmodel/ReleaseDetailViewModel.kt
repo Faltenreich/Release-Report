@@ -29,8 +29,8 @@ class ReleaseDetailViewModel : ViewModel() {
     fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
         genreLiveData.observe(owner, Observer { genres -> onObserve(genres) })
         // TODO: Replace when functional
-        val genreAction = Genre().apply { id = "0"; name = "Action" }
-        val genreComedy = Genre().apply { id = "1"; name = "Comedy" }
+        val genreAction = Genre().apply { id = "0"; title = "Action" }
+        val genreComedy = Genre().apply { id = "1"; title = "Comedy" }
         genres = listOf(genreAction, genreComedy)
     }
 }

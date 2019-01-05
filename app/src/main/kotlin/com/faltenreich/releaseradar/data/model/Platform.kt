@@ -1,7 +1,7 @@
 package com.faltenreich.releaseradar.data.model
 
-import com.faltenreich.releaseradar.data.provider.NameProvider
+import com.faltenreich.releaseradar.data.provider.TitleProvider
 
 data class Platform(
-    override var name: String? = null
-) : Entity(), NameProvider
+    override var title: String? = null
+) : Entity(), TitleProvider

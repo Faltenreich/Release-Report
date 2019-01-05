@@ -23,7 +23,7 @@ class ReleaseItemViewHolder(context: Context, parent: ViewGroup) : ReleaseViewHo
             release.imageUrlForCover?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
             releaseTypeImageView.setImageResource(release.mediaType?.iconResId ?: android.R.color.transparent)
             releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear)?.apply { setTint(ContextCompat.getColor(context, release.mediaType?.colorResId ?: R.color.colorPrimary)) }
-            releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.name}" } ?: release.name
+            releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
         }
     }
 

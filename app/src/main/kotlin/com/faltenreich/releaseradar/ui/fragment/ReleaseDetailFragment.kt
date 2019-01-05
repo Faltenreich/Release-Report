@@ -48,12 +48,12 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
     private fun initData() {
         releaseId?.let { id ->
             viewModel.observeRelease(id, this) { release ->
-                toolbar.title = release?.name
+                toolbar.title = release?.title
 
                 release?.imageUrlForWallpaper?.let { url -> releaseWallpaperImageView.setImageAsync(url) } ?: releaseWallpaperImageView.setImageResource(android.R.color.transparent)
 
                 val description = release?.description?.takeIf(String::isNotBlank)
-                releaseDescriptionTextView.text = description ?: getString(R.string.unknown_content)
+                releaseDescriptionTextView.text = description ?: getString(R.string.unknown_description)
                 releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
 
                 release?.let {
@@ -81,7 +81,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         addChip(metaChipContainer, release.durationInSeconds?.let { durationInSeconds -> getString(R.string.duration_placeholder).format(durationInSeconds) } ?: getString(R.string.placeholder), R.drawable.ic_duration)
     }
 
-    private fun addGenre(genre: Genre) = addChip(genreChipContainer, genre.name)
+    private fun addGenre(genre: Genre) = addChip(genreChipContainer, genre.title)
 
     private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null) = context?.let { context ->
         val chip = Chip(context).apply {

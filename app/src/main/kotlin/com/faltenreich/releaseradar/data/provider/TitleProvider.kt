@@ -1,5 +1,5 @@
 package com.faltenreich.releaseradar.data.provider
 
-interface NameProvider {
-    var name: String?
+interface TitleProvider {
+    var title: String?
 }
