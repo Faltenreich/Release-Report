@@ -16,8 +16,10 @@ data class Release(
     var videoUrl: String? = null,
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null,
-    var imageUrlForWallpaper: String? = null
-) : Entity(), TitleProvider, DateProvider {
+    var imageUrlForWallpaper: String? = null,
+    var genres: List<String>? = null,
+    var platforms: List<String>? = null
+) : Entity(), DateProvider, TitleProvider {
 
     var mediaType: MediaType?
         get() = type?.let { type -> MediaType.valueForKey(type) }
