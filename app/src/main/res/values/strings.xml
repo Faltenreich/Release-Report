@@ -14,6 +14,6 @@
     <string name="unknown_description">No description available yet</string>
     <string name="duration_placeholder">%d min</string>
     <string name="placeholder">-</string>
-    <string name="scroll_to_today">Scroll to today</string>
+    <string name="scroll_to_today">Scroll back</string>
 
 </resources>

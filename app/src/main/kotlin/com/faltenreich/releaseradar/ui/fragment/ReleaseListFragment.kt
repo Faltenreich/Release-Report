@@ -5,20 +5,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
+import androidx.navigation.fragment.findNavController
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
+import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListLayoutManager
-import com.faltenreich.releaseradar.ui.view.MonthPicker
 import com.faltenreich.skeletonlayout.applySkeleton
-import com.github.sundeepk.compactcalendarview.CompactCalendarView
+import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
-import java.util.*
 
-class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), CompactCalendarView.CompactCalendarViewListener {
+class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
@@ -32,12 +32,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             shimmerColor = ContextCompat.getColor(context!!, R.color.blue_gray),
             cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
     }
-
-    private var date: LocalDate = LocalDate.now()
-        set(value) {
-            field = value
-            invalidateMonth()
-        }
 
     private val firstVisibleListItemPosition: Int
         get() = listLayoutManager.findFirstVisibleItemPosition()
@@ -71,6 +65,15 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
                 // FIXME: Workaround to reset shadow after onRestoreInstanceState
                 searchView.setShadow(true)
             }
+            searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
+                override fun onQueryTextChange(newText: CharSequence?) {
+
+                }
+                override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+                    query?.toString()?.nonBlank?.let { findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it)) }
+                    return true
+                }
+            })
 
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
             listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }
@@ -80,8 +83,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             listView.adapter = listAdapter
 
             todayButton.setOnClickListener { focusDate(LocalDate.now()) }
-
-            invalidateMonth()
         }
     }
 
@@ -111,19 +112,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
         }
     }
 
-    private fun invalidateMonth() {
-
-    }
-
     private fun focusDate(date: LocalDate) {
-
+        // TODO
     }
-
-    private fun openMonthPicker() = MonthPicker.show(context, date) { selectedDate -> date = selectedDate }
-
-    override fun onDayClick(dateClicked: Date?) = Unit
-
-    override fun onMonthScroll(firstDayOfNewMonth: Date?) = invalidateMonth()
 
     companion object {
         private const val LIST_SPAN_COUNT = 2

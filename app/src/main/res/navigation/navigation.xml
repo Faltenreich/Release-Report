@@ -29,6 +29,17 @@
                 android:name="releaseId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/search_release"
+            app:destination="@+id/release_search"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="query"
+                app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment
@@ -37,6 +48,15 @@
         tools:layout="@layout/fragment_release_detail">
         <argument
             android:name="releaseId"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/release_search"
+        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseSearchFragment"
+        tools:layout="@layout/fragment_release_search">
+        <argument
+            android:name="query"
             app:argType="string"/>
     </fragment>
 

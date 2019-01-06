@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="@null"
             app:elevation="0dp"
             tools:paddingTop="32dp">
 
@@ -23,6 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 app:layout_scrollFlags="scroll|enterAlways"/>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -32,23 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:listitem="@layout/list_item_release"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:spanCount="2"/>
-
-        <Button
-            android:id="@+id/todayButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            android:text="@string/scroll_to_today"
-            android:backgroundTint="@android:color/white"
-            android:textColor="?attr/colorPrimary"
-            android:textAllCaps="false"
-            app:layout_anchor="@id/listView"
-            app:layout_anchorGravity="bottom|center_horizontal"
-            app:layout_behavior="com.faltenreich.releaseradar.ui.adapter.SlideOutBehavior"/>
+            tools:listitem="@layout/list_item_release_search"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <com.lapism.searchview.widget.SearchView
             android:id="@+id/searchView"

@@ -36,7 +36,6 @@
             android:padding="6dp"
             android:background="@drawable/dogear"
             android:contentDescription="@null"
-            android:tint="@android:color/white"
             app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
             tools:src="@drawable/ic_music"
