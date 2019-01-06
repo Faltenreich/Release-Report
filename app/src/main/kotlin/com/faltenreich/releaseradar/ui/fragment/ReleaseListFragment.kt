@@ -54,6 +54,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     override fun onResume() {
         super.onResume()
         invalidatePaddingForTranslucentStatusBar()
+        // FIXME: Workaround to reset shadow after onPause
+        searchView.setShadow(true)
     }
 
     override fun onPause() {
