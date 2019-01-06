@@ -4,15 +4,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:paddingTop="26dp">
+    android:background="?attr/selectableItemBackground"
+    tools:background="@android:color/white">
 
     <ImageView
         android:id="@+id/releaseCoverImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="@dimen/margin_padding_size_small"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,40 +23,43 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:src="@tools:sample/avatars"/>
 
-    <ImageView
-        android:id="@+id/releaseTypeImageView"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_margin="@dimen/margin_padding_size_small"
-        android:contentDescription="@null"
-        app:layout_constraintTop_toTopOf="parent"
+    <TextView
+        android:id="@+id/releaseDateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:textColor="@color/gray_dark"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/ic_music"
-        tools:tint="@android:color/white"/>
+        tools:text="@tools:sample/date/ddmmyy"/>
 
     <TextView
         android:id="@+id/releaseNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_size_small"
-        android:layout_marginStart="@dimen/margin_padding_size_medium"
-        android:layout_marginEnd="@dimen/margin_padding_size_medium"
+        android:layout_marginTop="@dimen/margin_padding_size_xsmall"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:textColor="@android:color/black"
         android:maxLines="2"
         android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+        app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
+        app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
+        app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
         tools:text="@tools:sample/lorem/random"/>
 
-    <TextView
-        android:id="@+id/releaseDateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_size_small"
-        android:textColor="@color/gray_light"
-        app:layout_constraintTop_toBottomOf="@id/releaseNameTextView"
-        app:layout_constraintStart_toStartOf="@id/releaseNameTextView"
-        app:layout_constraintEnd_toEndOf="@id/releaseNameTextView"
-        tools:text="@tools:sample/date/ddmmyy"/>
+    <ImageView
+        android:id="@+id/releaseTypeImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="@dimen/margin_padding_size_xsmall"
+        android:layout_marginEnd="@dimen/margin_padding_size_medium"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@drawable/ic_music"
+        tools:tint="?attr/colorPrimary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
