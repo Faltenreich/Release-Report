@@ -5,14 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.releaseradar.data.model.Genre
+import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.GenreRepository
+import com.faltenreich.releaseradar.data.repository.PlatformRepository
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 
 class ReleaseDetailViewModel : ViewModel() {
 
     private val releaseLiveData = MutableLiveData<Release>()
     private val genreLiveData = MutableLiveData<List<Genre>>()
+    private val platformLiveData = MutableLiveData<List<Platform>>()
 
     var release: Release?
         get() = releaseLiveData.value
@@ -22,23 +25,43 @@ class ReleaseDetailViewModel : ViewModel() {
         get() = genreLiveData.value
         set(value) = genreLiveData.postValue(value)
 
+    var platforms: List<Platform>?
+        get() = platformLiveData.value
+        set(value) = platformLiveData.postValue(value)
+
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
-        releaseLiveData.observe(owner, Observer { release -> onObserve(release) })
+        releaseLiveData.observe(owner, Observer { onObserve(it) })
         ReleaseRepository.getById(id, onSuccess = { release = it }, onError = { release = null })
     }
 
     fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
-        genreLiveData.observe(owner, Observer { genres -> onObserve(genres) })
-        release.genres?.takeIf(List<String>::isNotEmpty)?.let { genreIds ->
-            val newGenres = mutableListOf<Genre>()
-            genreIds.forEachIndexed { index, genreId ->
-                val onNext: (Genre?) -> Unit = { genre ->
-                    genre?.let { newGenres.add(it) }
-                    if (index == genreIds.size - 1) {
-                        genres = newGenres
+        genreLiveData.observe(owner, Observer { onObserve(it) })
+        release.genres?.takeIf(List<String>::isNotEmpty)?.let { ids ->
+            val new = mutableListOf<Genre>()
+            ids.forEachIndexed { index, id ->
+                val onNext: (Genre?) -> Unit = { entity ->
+                    entity?.let { new.add(it) }
+                    if (index == ids.size - 1) {
+                        genres = new
                     }
                 }
-                GenreRepository.getById(genreId, onSuccess = { onNext(it) }, onError = { onNext(null) })
+                GenreRepository.getById(id, onSuccess = { onNext(it) }, onError = { onNext(null) })
+            }
+        }
+    }
+
+    fun observePlatforms(release: Release, owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
+        platformLiveData.observe(owner, Observer { onObserve(it) })
+        release.platforms?.takeIf(List<String>::isNotEmpty)?.let { ids ->
+            val new = mutableListOf<Platform>()
+            ids.forEachIndexed { index, id ->
+                val onNext: (Platform?) -> Unit = { entity ->
+                    entity?.let { new.add(it) }
+                    if (index == ids.size - 1) {
+                        platforms = new
+                    }
+                }
+                PlatformRepository.getById(id, onSuccess = { onNext(it) }, onError = { onNext(null) })
             }
         }
     }

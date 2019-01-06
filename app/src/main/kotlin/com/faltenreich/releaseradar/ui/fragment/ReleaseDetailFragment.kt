@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.transition.TransitionInflater
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
-import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
@@ -59,11 +59,16 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
 
                 release?.let {
-                    addMeta(release)
+                    metaChipContainer.removeAllViews()
+                    addChip(metaChipContainer, release.releaseDate?.print(), R.drawable.ic_date)
 
                     viewModel.observeGenres(release, this) { genres ->
                         genreChipContainer.removeAllViews()
                         genres?.forEach { genre -> addGenre(genre) }
+                    }
+
+                    viewModel.observePlatforms(release, this) { platforms ->
+                        platforms?.forEach { platform -> addPlatform(platform) }
                     }
                 }
 
@@ -87,13 +92,9 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         }
     }
 
-    private fun addMeta(release: Release) {
-        metaChipContainer.removeAllViews()
-        addChip(metaChipContainer, release.releaseDate?.print() ?: getString(R.string.placeholder), R.drawable.ic_date)
-        addChip(metaChipContainer, release.durationInSeconds?.let { durationInSeconds -> getString(R.string.duration_placeholder).format(durationInSeconds) } ?: getString(R.string.placeholder), R.drawable.ic_duration)
-    }
-
     private fun addGenre(genre: Genre) = addChip(genreChipContainer, genre.title)
+
+    private fun addPlatform(platform: Platform) = addChip(metaChipContainer, platform.title)
 
     private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null) = context?.let { context ->
         val chip = Chip(context).apply {
