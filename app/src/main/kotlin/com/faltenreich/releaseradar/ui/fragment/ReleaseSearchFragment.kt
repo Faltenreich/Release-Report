@@ -64,15 +64,14 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                query?.toString()?.nonBlank?.let { newQuery ->
-                    viewModel.observeReleases(newQuery, this@ReleaseSearchFragment) { releases -> listAdapter?.submitList(releases) }
-                }
+                viewModel.query = query?.toString()?.nonBlank
                 return true
             }
         })
     }
 
     private fun initData() {
+        viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
         searchView.setQuery(query, true)
     }
 }
