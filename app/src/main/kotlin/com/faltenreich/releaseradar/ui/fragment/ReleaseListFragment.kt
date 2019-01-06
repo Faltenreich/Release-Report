@@ -56,9 +56,19 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
         invalidatePaddingForTranslucentStatusBar()
     }
 
+    override fun onPause() {
+        super.onPause()
+        // FIXME: Workaround to prevent visible shadow onResume
+        searchView.setShadow(false)
+    }
+
     private fun initLayout() {
         context?.let { context ->
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
+            searchView.doOnPreDraw {
+                // FIXME: Workaround to reset shadow after onRestoreInstanceState
+                searchView.setShadow(true)
+            }
 
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
             listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }

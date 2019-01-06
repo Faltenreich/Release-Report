@@ -36,9 +36,10 @@
         <com.lapism.searchview.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:search_hint="@string/search_hint"
             app:search_hint_color="@color/gray_dark"
+            app:layout_behavior="com.lapism.searchview.widget.SearchBehavior"
             tools:paddingTop="24dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
