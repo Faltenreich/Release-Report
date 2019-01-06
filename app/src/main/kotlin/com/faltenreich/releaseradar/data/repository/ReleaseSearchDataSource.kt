@@ -7,6 +7,7 @@ import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 
 class ReleaseSearchDataSource(private val query: String) : ItemKeyedDataSource<String, ReleaseListItem>() {
     private var startAtId: String? = null
+    private var isFinished: Boolean = false
 
     override fun getKey(item: ReleaseListItem): String = item.release?.id ?: ""
 
@@ -21,14 +22,24 @@ class ReleaseSearchDataSource(private val query: String) : ItemKeyedDataSource<S
             Query(
                 orderBy = "title",
                 limitToFirst = requestedLoadSize,
-                startAt = query to null,
-                endAt = "\uf8ff" to null
+                startAt = query to startAtId,
+                endAt = "$query\uf8ff" to null
             ), onSuccess = { releases ->
-                releases.takeIf(List<Release>::isNotEmpty)?.let {
-                    releases.last().let { nextRelease -> startAtId = nextRelease.id }
-                    val releaseListItems = releases.map { release -> ReleaseListItem(release.releaseDate, release) }
-                    callback.onResult(releaseListItems.dropLast(1))
-                } ?: callback.onResult(listOf())
+                if (isFinished) {
+                    callback.onResult(listOf())
+                } else {
+                    releases.takeIf(List<Release>::isNotEmpty)?.let {
+                        isFinished = releases.size < requestedLoadSize
+                        val releaseListItems = releases.map { release -> ReleaseListItem(release.releaseDate, release) }
+                        if (isFinished) {
+                            startAtId = null
+                            callback.onResult(releaseListItems)
+                        } else {
+                            releases.last().let { nextRelease -> startAtId = nextRelease.id }
+                            callback.onResult(releaseListItems.dropLast(1))
+                        }
+                    } ?: callback.onResult(listOf())
+                }
             }, onError = {
                 callback.onResult(listOf())
             })
