@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.data.repository.GenreRepository
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 
 class ReleaseDetailViewModel : ViewModel() {
@@ -28,9 +29,17 @@ class ReleaseDetailViewModel : ViewModel() {
 
     fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
         genreLiveData.observe(owner, Observer { genres -> onObserve(genres) })
-        // TODO: Replace when functional
-        val genreAction = Genre().apply { id = "0"; title = "Action" }
-        val genreComedy = Genre().apply { id = "1"; title = "Comedy" }
-        genres = listOf(genreAction, genreComedy)
+        release.genres?.takeIf(List<String>::isNotEmpty)?.let { genreIds ->
+            val newGenres = mutableListOf<Genre>()
+            genreIds.forEachIndexed { index, genreId ->
+                val onNext: (Genre?) -> Unit = { genre ->
+                    genre?.let { newGenres.add(it) }
+                    if (index == genreIds.size - 1) {
+                        genres = newGenres
+                    }
+                }
+                GenreRepository.getById(genreId, onSuccess = { onNext(it) }, onError = { onNext(null) })
+            }
+        }
     }
 }
