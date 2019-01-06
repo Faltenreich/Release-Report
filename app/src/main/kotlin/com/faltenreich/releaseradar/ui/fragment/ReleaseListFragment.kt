@@ -6,8 +6,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
+import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListLayoutManager
@@ -59,7 +59,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     private fun initLayout() {
         context?.let { context ->
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
-            searchView.setShadow(false)
 
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
             listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }
@@ -93,6 +92,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             val frame = Rect()
             activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
             appbarLayout.setPadding(0, frame.top, 0, 0)
+            searchView.setPadding(0, frame.top, 0, 0)
             statusBarBackground.layoutParams.height = frame.top
         }
     }

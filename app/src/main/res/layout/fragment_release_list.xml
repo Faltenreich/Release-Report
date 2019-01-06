@@ -16,17 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:elevation="0dp">
+            app:elevation="0dp"
+            tools:paddingTop="32dp">
 
-            <com.lapism.searchview.widget.SearchView
-                android:id="@+id/searchView"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                app:search_hint="@string/search_hint"
-                app:search_hint_color="@color/gray_dark"
-                app:layout_scrollFlags="scroll|enterAlways"
-                tools:paddingTop="24dp"/>
+                app:layout_scrollFlags="scroll|enterAlways"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,6 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <com.lapism.searchview.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:search_hint="@string/search_hint"
+            app:search_hint_color="@color/gray_dark"
+            tools:paddingTop="24dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

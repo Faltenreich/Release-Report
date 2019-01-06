@@ -89,6 +89,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
             layoutContainer.setBackgroundResource(colorDark)
             appbarLayout.setBackgroundResource(color)
             collapsingToolbarLayout.setContentScrimResource(color)
+            collapsingToolbarLayout.setStatusBarScrimResource(color)
         }
     }
 
