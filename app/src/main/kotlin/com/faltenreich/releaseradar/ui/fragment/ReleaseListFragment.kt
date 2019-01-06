@@ -77,6 +77,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
             listView.addItemDecoration(listItemDecoration)
             listView.adapter = listAdapter
 
+            todayButton.setOnClickListener { focusDate(LocalDate.now()) }
+
             invalidateMonth()
         }
     }
@@ -108,6 +110,10 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list), Compac
     }
 
     private fun invalidateMonth() {
+
+    }
+
+    private fun focusDate(date: LocalDate) {
 
     }
 

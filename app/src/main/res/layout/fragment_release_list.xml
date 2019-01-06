@@ -42,6 +42,20 @@
             app:layout_behavior="com.lapism.searchview.widget.SearchBehavior"
             tools:paddingTop="24dp"/>
 
+        <Button
+            android:id="@+id/todayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_margin="@dimen/margin_padding_size_small"
+            android:text="@string/back"
+            android:backgroundTint="@android:color/white"
+            android:textColor="?attr/colorPrimary"
+            android:textAllCaps="false"
+            app:layout_anchor="@id/listView"
+            app:layout_anchorGravity="bottom|center_horizontal"
+            app:layout_behavior="com.faltenreich.releaseradar.ui.adapter.SlideOutBehavior"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <View

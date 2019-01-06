@@ -14,5 +14,6 @@
     <string name="unknown_description">No description available yet</string>
     <string name="duration_placeholder">%d min</string>
     <string name="placeholder">-</string>
+    <string name="back">Back</string>
 
 </resources>
