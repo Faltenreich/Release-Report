@@ -3,6 +3,7 @@ package com.faltenreich.releaseradar.ui.fragment
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
@@ -83,6 +84,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             listView.adapter = listAdapter
 
             todayButton.setOnClickListener { focusDate(LocalDate.now()) }
+            todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
         }
     }
 
