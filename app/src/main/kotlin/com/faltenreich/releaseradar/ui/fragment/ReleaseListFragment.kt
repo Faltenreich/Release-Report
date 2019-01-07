@@ -4,16 +4,20 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
+import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListLayoutManager
+import com.faltenreich.releaseradar.ui.adapter.SlideOutBehavior
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_list.*
@@ -60,7 +64,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun initLayout() {
-        context?.let { context ->
+        context?.also { context ->
             searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
             searchView.doOnPreDraw {
                 // FIXME: Workaround to reset shadow after onRestoreInstanceState
@@ -85,12 +89,32 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
             todayButton.setOnClickListener { focusDate(LocalDate.now()) }
             todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
+
+
+            (todayButton.layoutParams as? CoordinatorLayout.LayoutParams)?.let { layoutParams ->
+                val behavior = SlideOutBehavior(context)
+                behavior.maySlideIn = false
+                layoutParams.behavior = behavior
+
+                listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        // TODO: Set depending on viewport for today
+                        behavior.maySlideIn = listAdapter?.let { listAdapter ->
+                            val today = LocalDate.now()
+                            val isBeforeToday = listAdapter.getListItemAt(listLayoutManager.findLastVisibleItemPosition())?.date?.isBefore(today).isTrue
+                            val isAfterToday = listAdapter.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date?.isAfter(today).isTrue
+                            isBeforeToday || isAfterToday
+                        } ?: false
+                    }
+                })
+            }
         }
     }
 
-    private fun initData() {
+    private fun initData(force: Boolean = false) {
         // TODO: Find way to distinguish back navigation via Navigation Components
-        if (listAdapter?.itemCount == 0) {
+        if (force || listAdapter?.itemCount == 0) {
             listItemDecoration.isSkeleton = true
             skeleton.showSkeleton()
 
@@ -115,7 +139,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun focusDate(date: LocalDate) {
-        // TODO
+        listAdapter?.getFirstPositionForDate(date)?.let { position ->
+            listLayoutManager.scrollToPosition(position)
+        } ?: initData()
     }
 
     companion object {

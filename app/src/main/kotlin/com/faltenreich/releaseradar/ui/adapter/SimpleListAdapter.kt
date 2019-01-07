@@ -9,6 +9,6 @@ abstract class SimpleListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>
     override val listItems: ArrayList<ITEM> = ArrayList()
 
     override fun onBindViewHolder(holder: VIEWHOLDER, position: Int) {
-        holder.bind(getListItemAt(position))
+        getListItemAt(position)?.let { item -> holder.bind(item) }
     }
 }

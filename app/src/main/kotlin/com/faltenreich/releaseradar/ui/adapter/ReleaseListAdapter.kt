@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import com.faltenreich.releaseradar.ui.viewholder.ReleaseDateViewHolder
 import com.faltenreich.releaseradar.ui.viewholder.ReleaseItemViewHolder
 import com.faltenreich.releaseradar.ui.viewholder.ReleaseViewHolder
+import org.threeten.bp.LocalDate
 
 class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context, ReleaseListDiffUtilItemCallback()) {
 
     override fun getItemViewType(position: Int): Int = when {
-        position < itemCount && getListItemAt(position).release == null -> VIEW_TYPE_DATE
+        position < itemCount && getListItemAt(position)?.release == null -> VIEW_TYPE_DATE
         else -> VIEW_TYPE_RELEASE
     }
 
@@ -18,6 +19,8 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, R
         VIEW_TYPE_DATE -> ReleaseDateViewHolder(context, parent)
         else -> throw IllegalArgumentException("Unknown viewType: $viewType")
     }
+
+    fun getFirstPositionForDate(date: LocalDate): Int? = listItems.indexOfFirst { item -> item.date?.isEqual(date) ?: false }.takeIf { index -> index >= 0 }
 
     companion object {
         const val VIEW_TYPE_RELEASE = 0

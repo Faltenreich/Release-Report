@@ -47,8 +47,7 @@
             android:textColor="?attr/colorPrimary"
             android:textAllCaps="false"
             app:layout_anchor="@id/listView"
-            app:layout_anchorGravity="bottom|center_horizontal"
-            app:layout_behavior="com.faltenreich.releaseradar.ui.adapter.SlideOutBehavior"/>
+            app:layout_anchorGravity="bottom|center_horizontal"/>
 
         <com.lapism.searchview.widget.SearchView
             android:id="@+id/searchView"
