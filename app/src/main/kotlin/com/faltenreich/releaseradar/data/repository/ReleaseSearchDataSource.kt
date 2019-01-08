@@ -3,9 +3,13 @@ package com.faltenreich.releaseradar.data.repository
 import androidx.paging.ItemKeyedDataSource
 import com.faltenreich.releaseradar.data.dao.Query
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.extension.asString
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
+import org.threeten.bp.LocalDate
 
 class ReleaseSearchDataSource(private val query: String?) : ItemKeyedDataSource<String, ReleaseListItem>() {
+    private var startAtDate: LocalDate = LocalDate.now()
+    private var startAtDateAsString: String = startAtDate.asString
     private var startAtId: String? = null
     private var isFinished: Boolean = false
 
@@ -21,14 +25,14 @@ class ReleaseSearchDataSource(private val query: String?) : ItemKeyedDataSource<
         query?.let { query ->
             ReleaseRepository.getAll(
                 Query(
-                    orderBy = "title",
+                    orderBy = "releasedAt",
                     limitToFirst = requestedLoadSize,
-                    startAt = query to startAtId,
-                    endAt = "$query\uf8ff" to null
-                ), onSuccess = { releases ->
+                    startAt = startAtDateAsString to startAtId
+                ), onSuccess = { result ->
                     if (isFinished) {
                         callback.onResult(listOf())
                     } else {
+                        val releases = result.filter { release -> release.matches(query) }
                         releases.takeIf(List<Release>::isNotEmpty)?.let {
                             isFinished = releases.size < requestedLoadSize
                             val releaseListItems = releases.map { release -> ReleaseListItem(release.releaseDate, release) }
@@ -36,7 +40,10 @@ class ReleaseSearchDataSource(private val query: String?) : ItemKeyedDataSource<
                                 startAtId = null
                                 callback.onResult(releaseListItems)
                             } else {
-                                releases.last().let { nextRelease -> startAtId = nextRelease.id }
+                                releases.last().let { nextRelease ->
+                                    startAtId = nextRelease.id
+                                    startAtDateAsString = nextRelease.releasedAt ?: startAtDateAsString
+                                }
                                 callback.onResult(releaseListItems.dropLast(1))
                             }
                         } ?: callback.onResult(listOf())

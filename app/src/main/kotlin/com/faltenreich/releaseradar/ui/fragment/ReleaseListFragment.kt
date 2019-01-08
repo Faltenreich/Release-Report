@@ -151,7 +151,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private fun toggleTodayButton(animated: Boolean) {
         val translationY = if (showTodayButton) 0f else todayButton.height + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat()
         if (animated) {
-            todayButton.animate().translationY(translationY).setDuration(100).start()
+            todayButton.animate().translationY(translationY).setDuration(TODAY_BUTTON_TOGGLE_DURATION).start()
         } else {
             todayButton.translationY = translationY
         }
@@ -168,5 +168,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     companion object {
         private const val LIST_SPAN_COUNT = 2
         private const val LIST_SKELETON_ITEM_COUNT = 8
+        private const val TODAY_BUTTON_TOGGLE_DURATION = 200L
     }
 }
