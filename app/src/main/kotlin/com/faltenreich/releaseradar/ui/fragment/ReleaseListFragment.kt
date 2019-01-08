@@ -149,6 +149,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         } ?: false
         if (showTodayButton != show) {
             showTodayButton = show
+            todayButtonBehavior.isEnabled = show
             if (commit) {
                 toggleTodayButton(true)
             }

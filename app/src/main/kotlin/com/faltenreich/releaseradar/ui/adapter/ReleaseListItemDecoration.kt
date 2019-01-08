@@ -23,11 +23,10 @@ class ReleaseListItemDecoration(
     private val getStickyHeaderLabel: () -> String?
 ) : RecyclerView.ItemDecoration() {
 
-    private val padding: Int by lazy { context.resources.getDimension(paddingResId).toInt() }
     private var stickyHeader: View? = null
     private var stickyHeaderLabel: TextView? = null
-    private val stickyHeaderHeight: Int
-        get() = context.resources.getDimensionPixelSize(R.dimen.toolbar_height)
+    private val stickyHeaderHeight: Int = context.resources.getDimensionPixelSize(R.dimen.toolbar_height)
+    private val padding: Int = context.resources.getDimension(paddingResId).toInt()
 
     var isSkeleton: Boolean = false
 
