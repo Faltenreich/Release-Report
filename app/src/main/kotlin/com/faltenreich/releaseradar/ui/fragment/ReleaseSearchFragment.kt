@@ -51,6 +51,7 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listView.adapter = listAdapter
 
+        searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) {
@@ -70,7 +71,7 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         // TODO: Find way to distinguish back navigation via Navigation Components
         if (listAdapter?.itemCount == 0) {
             viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
-            searchView.setQuery(query, true)
+            searchView.setQuery(query, false)
         }
     }
 

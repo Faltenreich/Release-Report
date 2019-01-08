@@ -56,6 +56,12 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     override fun onResume() {
         super.onResume()
         invalidatePaddingForTranslucentStatusBar()
+
+        searchView.logo = Search.Logo.HAMBURGER_ARROW
+        searchView.setQuery(null, false)
+        searchView.clearFocus()
+        view?.requestFocus()
+        searchView.hideKeyboard()
         // FIXME: Workaround to reset shadow after onPause
         searchView.setShadow(true)
     }
@@ -74,11 +80,12 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
                 searchView.setShadow(true)
             }
             searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-                override fun onQueryTextChange(newText: CharSequence?) {
-
-                }
+                override fun onQueryTextChange(newText: CharSequence?) = Unit
                 override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                    query?.toString()?.nonBlank?.let { findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it)) }
+                    query?.toString()?.nonBlank?.let {
+                        searchView.logo = Search.Logo.ARROW
+                        findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it))
+                    }
                     return true
                 }
             })
