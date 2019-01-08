@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/releaseTypeImageView"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:padding="6dp"
             android:background="@drawable/dogear"
             android:contentDescription="@null"

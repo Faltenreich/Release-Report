@@ -12,6 +12,9 @@ import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.adapter.ReleaseSearchListAdapter
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
@@ -29,14 +32,6 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
     override fun onResume() {
         super.onResume()
         invalidatePaddingForTranslucentStatusBar()
-        // FIXME: Workaround to reset shadow after onPause
-        searchView.setShadow(true)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // FIXME: Workaround to prevent visible shadow onResume
-        searchView.setShadow(false)
     }
 
     private fun invalidatePaddingForTranslucentStatusBar() {
@@ -56,22 +51,30 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listView.adapter = listAdapter
 
-        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
-        searchView.doOnPreDraw {
-            // FIXME: Workaround to reset shadow after onRestoreInstanceState
-            searchView.setShadow(true)
-        }
+        searchView.setOnLogoClickListener { finish() }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence?) = Unit
-            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                viewModel.query = query?.toString()?.nonBlank
-                return true
+            override fun onQueryTextChange(newText: CharSequence?) {
+                val query = newText?.toString().nonBlank
+                GlobalScope.launch {
+                    delay(QUERY_DELAY)
+                    if (searchView.query.toString().nonBlank == query) {
+                        viewModel.query = query
+                    }
+                }
             }
+            override fun onQueryTextSubmit(query: CharSequence?): Boolean = false
         })
     }
 
     private fun initData() {
-        viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
-        searchView.setQuery(query, true)
+        // TODO: Find way to distinguish back navigation via Navigation Components
+        if (listAdapter?.itemCount == 0) {
+            viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
+            searchView.setQuery(query, true)
+        }
+    }
+
+    companion object {
+        private const val QUERY_DELAY = 500L
     }
 }
