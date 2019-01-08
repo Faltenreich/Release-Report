@@ -8,11 +8,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 
 class SlideOutBehavior @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : StepAsideBehavior(context, attrs) {
-
-    var maySlideIn = true
-    var maySlideOut = true
-
     private var margin: Float = -1f
+    var isEnabled = true
 
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, directTargetChild: View, target: View, axes: Int, type: Int): Boolean {
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type)
@@ -21,13 +18,10 @@ class SlideOutBehavior @JvmOverloads constructor(context: Context, attrs: Attrib
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
         if (margin < 0f) {
-            margin = if (child.layoutParams is ViewGroup.MarginLayoutParams) (child.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat() else 0f
+            margin = (child.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat()
         }
-        val offset = when {
-            !maySlideIn -> Math.min(child.translationY + 1, child.height.toFloat())
-            maySlideOut -> dy.toFloat()
-            else -> child.translationY
+        if (isEnabled) {
+            child.translationY = Math.max(0f, Math.min(child.height + margin, child.translationY + dy.toFloat()))
         }
-        child.translationY = Math.max(0f, Math.min(child.height + margin, child.translationY + offset))
     }
 }

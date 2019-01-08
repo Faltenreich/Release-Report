@@ -29,6 +29,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
     private lateinit var listItemDecoration: ReleaseListItemDecoration
+    private lateinit var todayButtonBehavior: SlideOutBehavior
 
     private val skeleton by lazy {
         listView.applySkeleton(R.layout.list_item_release,
@@ -43,6 +44,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     private val sectionHeader: String
         get() = (listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date ?: viewModel.date ?: LocalDate.now()).print()
+
+    private var showTodayButton: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,25 +93,17 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             todayButton.setOnClickListener { focusDate(LocalDate.now()) }
             todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
 
+            todayButtonBehavior = SlideOutBehavior(context)
+            (todayButton.layoutParams as CoordinatorLayout.LayoutParams).behavior = todayButtonBehavior
+            toggleTodayButton(false)
 
-            (todayButton.layoutParams as? CoordinatorLayout.LayoutParams)?.let { layoutParams ->
-                val behavior = SlideOutBehavior(context)
-                behavior.maySlideIn = false
-                layoutParams.behavior = behavior
-
-                listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        // TODO: Set depending on viewport for today
-                        behavior.maySlideIn = listAdapter?.let { listAdapter ->
-                            val today = LocalDate.now()
-                            val isBeforeToday = listAdapter.getListItemAt(listLayoutManager.findLastVisibleItemPosition())?.date?.isBefore(today).isTrue
-                            val isAfterToday = listAdapter.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date?.isAfter(today).isTrue
-                            isBeforeToday || isAfterToday
-                        } ?: false
-                    }
-                })
-            }
+            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val isScrollingUp = dy < 0
+                    invalidateTodayButton(isScrollingUp)
+                }
+            })
         }
     }
 
@@ -138,9 +133,39 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         }
     }
 
+    private fun invalidateTodayButton(commit: Boolean) {
+        val show = listAdapter?.let { listAdapter ->
+            val today = LocalDate.now()
+            val isBeforeToday = listAdapter.getListItemAt(listLayoutManager.findLastVisibleItemPosition())?.date?.isBefore(today).isTrue
+            val isAfterToday = listAdapter.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date?.isAfter(today).isTrue
+            isBeforeToday || isAfterToday
+        } ?: false
+        if (showTodayButton != show) {
+            showTodayButton = show
+            if (commit) {
+                toggleTodayButton(true)
+            }
+        }
+    }
+
+    private fun toggleTodayButton(animated: Boolean) {
+        val translationY = if (showTodayButton) 0f else todayButton.height + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat()
+        if (animated) {
+            todayButton.animate().translationY(translationY).setDuration(100).start()
+        } else {
+            todayButton.translationY = translationY
+        }
+    }
+
     private fun focusDate(date: LocalDate) {
-        listAdapter?.getFirstPositionForDate(date)?.let { position ->
+        listAdapter?.getFirstPositionForDate(date)?.let { positionForDate ->
+            val position = when (positionForDate > listLayoutManager.findLastVisibleItemPosition()) {
+                true -> positionForDate + 1
+                false -> positionForDate
+            }
+            listView.stopScroll()
             listLayoutManager.scrollToPosition(position)
+            invalidateTodayButton(true)
         } ?: initData()
     }
 
