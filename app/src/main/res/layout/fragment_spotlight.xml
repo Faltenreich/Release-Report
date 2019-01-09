@@ -37,6 +37,12 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
         <com.lapism.searchview.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
@@ -47,11 +53,6 @@
             tools:paddingTop="24dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
     <View
         android:id="@+id/statusBarBackground"

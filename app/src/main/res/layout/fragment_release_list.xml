@@ -67,7 +67,7 @@
             app:search_hint="@string/search_hint"
             app:search_hint_color="@color/gray_dark"
             app:layout_behavior="com.lapism.searchview.widget.SearchBehavior"
-            tools:paddingTop="24dp"/>
+            tools:paddingTop="@dimen/status_bar_height"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

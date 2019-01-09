@@ -15,5 +15,7 @@
     <string name="duration_placeholder">%d min</string>
     <string name="placeholder">-</string>
     <string name="scroll_to_today">Scroll back</string>
+    <string name="this_week">This week</string>
+    <string name="for_you">For you</string>
 
 </resources>
