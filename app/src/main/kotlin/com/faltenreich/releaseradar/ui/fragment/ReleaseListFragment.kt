@@ -167,9 +167,15 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     private fun focusDate(date: LocalDate) {
         listAdapter?.getFirstPositionForDate(date)?.let { position ->
+
             listView.stopScroll()
             listLayoutManager.scrollToPositionWithOffset(position, 0)
-            invalidateTodayButton(true)
+
+            val show = date != LocalDate.now()
+            showTodayButton = show
+            todayButtonBehavior.isEnabled = show
+            toggleTodayButton(true)
+
         } ?: initData()
     }
 

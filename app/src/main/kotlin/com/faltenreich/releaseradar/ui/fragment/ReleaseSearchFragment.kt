@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseSearchViewModel
+import com.faltenreich.releaseradar.extension.doAfter
 import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.adapter.ReleaseSearchListAdapter
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
@@ -56,8 +54,7 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) {
                 val query = newText?.toString().nonBlank
-                GlobalScope.launch {
-                    delay(QUERY_DELAY)
+                doAfter(QUERY_DELAY) {
                     if (searchView.query.toString().nonBlank == query) {
                         viewModel.query = query
                     }
