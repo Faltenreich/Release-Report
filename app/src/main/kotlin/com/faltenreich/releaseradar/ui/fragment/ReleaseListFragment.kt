@@ -1,6 +1,5 @@
 package com.faltenreich.releaseradar.ui.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,9 @@ import kotlinx.android.synthetic.main.list_item_release_date.*
 import org.threeten.bp.LocalDate
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
+
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
+    private val searchable by lazy { SearchableObserver() }
     
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
@@ -48,6 +49,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     private var showTodayButton: Boolean = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(searchable)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
@@ -56,48 +62,43 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     override fun onResume() {
         super.onResume()
-        invalidatePaddingForTranslucentStatusBar()
-
         searchView.logo = Search.Logo.HAMBURGER_ARROW
-        searchView.setQuery(null, false)
-        searchView.clearFocus()
-        view?.requestFocus()
-        searchView.hideKeyboard()
-        // FIXME: Workaround to reset shadow after onPause
-        searchView.setShadow(true)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // FIXME: Workaround to prevent visible shadow onResume
-        searchView.setShadow(false)
     }
 
     private fun initLayout() {
-        context?.also { context ->
-            searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
-            searchView.doOnPreDraw {
-                // FIXME: Workaround to reset shadow after onRestoreInstanceState
-                searchView.setShadow(true)
-            }
-            searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-                override fun onQueryTextChange(newText: CharSequence?) = Unit
-                override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                    query?.toString()?.nonBlank?.let {
-                        searchView.logo = Search.Logo.ARROW
-                        findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it))
-                    }
-                    return true
-                }
-            })
+        searchable.properties = SearchableProperties(this, searchView, appbarLayout, statusBarBackground)
+        initSearch()
+        initList()
+        initTodayButton()
+    }
 
+    private fun initSearch() {
+        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
+        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
+            override fun onQueryTextChange(newText: CharSequence?) = Unit
+            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+                query?.toString()?.nonBlank?.let {
+                    searchView.logo = Search.Logo.ARROW
+                    findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it))
+                }
+                return true
+            }
+        })
+    }
+
+    private fun initList() {
+        context?.let { context ->
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
             listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT)
 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
             listView.adapter = listAdapter
+        }
+    }
 
+    private fun initTodayButton() {
+        context?.let { context ->
             todayButton.setOnClickListener { focusDate(LocalDate.now()) }
             todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
 
@@ -129,16 +130,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
                 listItemDecoration.isSkeleton = false
                 skeleton.showOriginal()
             })
-        }
-    }
-
-    private fun invalidatePaddingForTranslucentStatusBar() {
-        view?.doOnPreDraw {
-            val frame = Rect()
-            activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
-            appbarLayout.setPadding(0, frame.top, 0, 0)
-            searchView.setPadding(0, frame.top, 0, 0)
-            statusBarBackground.layoutParams.height = frame.top
         }
     }
 

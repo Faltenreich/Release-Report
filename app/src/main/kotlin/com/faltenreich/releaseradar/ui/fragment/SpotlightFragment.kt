@@ -1,19 +1,22 @@
 package com.faltenreich.releaseradar.ui.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnPreDraw
+import androidx.navigation.fragment.findNavController
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
+import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.adapter.ReleaseViewPagerAdapter
+import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
 class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
-    override fun onResume() {
-        super.onResume()
-        invalidatePaddingForTranslucentStatusBar()
+    private val searchable by lazy { SearchableObserver() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(searchable)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,23 +24,29 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
         initLayout()
     }
 
-    private fun invalidatePaddingForTranslucentStatusBar() {
-        view?.doOnPreDraw {
-            val frame = Rect()
-            activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
-            appbarLayout.setPadding(0, frame.top, 0, 0)
-            searchView.setPadding(0, frame.top, 0, 0)
-            statusBarBackground.layoutParams.height = frame.top
-        }
+    override fun onResume() {
+        super.onResume()
+        searchView.logo = Search.Logo.HAMBURGER_ARROW
     }
 
     private fun initLayout() {
+        searchable.properties = SearchableProperties(this, searchView, appbarLayout, statusBarBackground)
         initViewPager()
-        initSearchView()
+        initSearch()
     }
 
-    private fun initSearchView() {
+    private fun initSearch() {
         searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
+        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
+            override fun onQueryTextChange(newText: CharSequence?) = Unit
+            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+                query?.toString()?.nonBlank?.let {
+                    searchView.logo = Search.Logo.ARROW
+                    findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it))
+                }
+                return true
+            }
+        })
     }
 
     private fun initViewPager() {
