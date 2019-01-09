@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.model.Release
@@ -36,6 +37,12 @@ class ReleaseDetailViewModel : ViewModel() {
                 UserPreferences.favoriteReleaseIds = UserPreferences.favoriteReleaseIds.filter { otherId -> otherId != id }.toMutableSet().apply { if (value) add(id) }
             }
         }
+
+    val color: Int
+        get() = release?.mediaType?.colorResId ?: R.color.colorPrimary
+
+    val colorDark
+        get() = release?.mediaType?.colorDarkResId ?: R.color.colorPrimaryDark
 
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { onObserve(it) })

@@ -89,19 +89,17 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
     }
 
     private fun invalidateTint() {
-        viewModel.release?.mediaType?.let { mediaType ->
-            val color = mediaType.colorResId
-            val colorDark = mediaType.colorDarkResId
-            layoutContainer.setBackgroundResource(colorDark)
-            appbarLayout.setBackgroundResource(color)
-            collapsingToolbarLayout.setContentScrimResource(color)
-            collapsingToolbarLayout.setStatusBarScrimResource(color)
-        }
+        val color = viewModel.color
+        val colorDark = viewModel.colorDark
+        layoutContainer.setBackgroundResource(colorDark)
+        appbarLayout.setBackgroundResource(color)
+        collapsingToolbarLayout.setContentScrimResource(color)
+        collapsingToolbarLayout.setStatusBarScrimResource(color)
     }
 
     private fun invalidateFavorite() {
         val isFavorite = viewModel.isFavorite
-        fab.backgroundTintResource = if (isFavorite) R.color.orange else R.color.colorAccent
+        fab.backgroundTintResource = if (isFavorite) R.color.colorAccent else viewModel.color
         fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
 
