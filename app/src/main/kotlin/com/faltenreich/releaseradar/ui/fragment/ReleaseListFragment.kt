@@ -21,6 +21,7 @@ import com.faltenreich.releaseradar.ui.adapter.SlideOutBehavior
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_list.*
+import kotlinx.android.synthetic.main.list_item_release_date.*
 import org.threeten.bp.LocalDate
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
@@ -91,7 +92,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             })
 
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
-            listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT, R.layout.list_item_release_date, R.id.releaseDateTextView) { sectionHeader }
+            listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT)
 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
@@ -109,6 +110,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
                     super.onScrolled(recyclerView, dx, dy)
                     val isScrollingUp = dy < 0
                     invalidateTodayButton(isScrollingUp)
+                    releaseDateTextView.text = sectionHeader
                 }
             })
         }
