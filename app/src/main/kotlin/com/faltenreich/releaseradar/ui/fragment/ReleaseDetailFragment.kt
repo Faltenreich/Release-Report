@@ -12,6 +12,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
+import com.faltenreich.releaseradar.extension.backgroundTintResource
 import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
@@ -35,13 +36,18 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
     private fun initLayout() {
         context?.apply {
-            toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back)
-            toolbar.setNavigationOnClickListener { finish() }
-
             val transition = TransitionInflater.from(context).inflateTransition(R.transition.shared_element)
             sharedElementEnterTransition = transition
             sharedElementReturnTransition = transition
             ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
+
+            toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back)
+            toolbar.setNavigationOnClickListener { finish() }
+
+            fab.setOnClickListener {
+                viewModel.isFavorite = !viewModel.isFavorite
+                invalidateFavorite()
+            }
         }
     }
 
@@ -77,6 +83,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 } ?: startPostponedEnterTransition()
 
                 invalidateTint()
+                invalidateFavorite()
             }
         }
     }
@@ -85,12 +92,17 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         viewModel.release?.mediaType?.let { mediaType ->
             val color = mediaType.colorResId
             val colorDark = mediaType.colorDarkResId
-
             layoutContainer.setBackgroundResource(colorDark)
             appbarLayout.setBackgroundResource(color)
             collapsingToolbarLayout.setContentScrimResource(color)
             collapsingToolbarLayout.setStatusBarScrimResource(color)
         }
+    }
+
+    private fun invalidateFavorite() {
+        val isFavorite = viewModel.isFavorite
+        fab.backgroundTintResource = if (isFavorite) R.color.orange else R.color.colorAccent
+        fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
 
     private fun addGenre(genre: Genre) = addChip(genreChipContainer, genre.title)

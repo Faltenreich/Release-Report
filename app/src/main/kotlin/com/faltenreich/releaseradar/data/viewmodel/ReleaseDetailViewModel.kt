@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.data.preference.UserPreferences
 import com.faltenreich.releaseradar.data.repository.GenreRepository
 import com.faltenreich.releaseradar.data.repository.PlatformRepository
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 
 class ReleaseDetailViewModel : ViewModel() {
-
     private val releaseLiveData = MutableLiveData<Release>()
     private val genreLiveData = MutableLiveData<List<Genre>>()
     private val platformLiveData = MutableLiveData<List<Platform>>()
@@ -28,6 +28,14 @@ class ReleaseDetailViewModel : ViewModel() {
     var platforms: List<Platform>?
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)
+
+    var isFavorite: Boolean
+        get() = release?.id?.let { id -> UserPreferences.favoriteReleaseIds.contains(id) } ?: false
+        set(value) {
+            release?.id?.let { id ->
+                UserPreferences.favoriteReleaseIds = UserPreferences.favoriteReleaseIds.filter { otherId -> otherId != id }.toMutableSet().apply { if (value) add(id) }
+            }
+        }
 
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { onObserve(it) })

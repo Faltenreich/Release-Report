@@ -3,7 +3,6 @@ package com.faltenreich.releaseradar.ui.viewholder
 import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -12,7 +11,7 @@ import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
-import com.faltenreich.releaseradar.extension.tint
+import com.faltenreich.releaseradar.extension.tintResource
 import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment
 import kotlinx.android.synthetic.main.list_item_release_search.*
@@ -24,7 +23,7 @@ class ReleaseSearchViewHolder(context: Context, parent: ViewGroup) : ReleaseView
             container.setOnClickListener { openRelease(release) }
             release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
             releaseTypeImageView.setImageResource(release.mediaType?.iconResId ?: android.R.color.transparent)
-            releaseTypeImageView.tint = ContextCompat.getColor(context, release.mediaType?.colorResId ?: R.color.colorPrimary)
+            releaseTypeImageView.tintResource = release.mediaType?.colorResId ?: R.color.colorPrimary
             releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
             releaseDateTextView.text = release.releaseDate?.print()
         }
