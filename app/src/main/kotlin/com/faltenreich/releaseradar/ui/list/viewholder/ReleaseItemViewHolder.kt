@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.viewholder
+package com.faltenreich.releaseradar.ui.list.viewholder
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
-import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
+import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment
 import kotlinx.android.synthetic.main.list_item_release.*
 

@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.list.adapter
 
 import android.util.Log
 import com.faltenreich.releaseradar.extension.className

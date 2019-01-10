@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.adapter;
+package com.faltenreich.releaseradar.ui.list.behavior;
 
 import android.content.Context;
 import android.util.AttributeSet;

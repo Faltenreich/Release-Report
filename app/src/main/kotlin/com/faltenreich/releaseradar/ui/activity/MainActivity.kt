@@ -6,7 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.faltenreich.releaseradar.R
-import com.faltenreich.releaseradar.ui.react.ToolbarDelegate
+import com.faltenreich.releaseradar.ui.ToolbarDelegate
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(R.layout.activity_main), ToolbarDelegate {

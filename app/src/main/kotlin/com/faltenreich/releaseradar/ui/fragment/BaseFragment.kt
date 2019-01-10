@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.faltenreich.releaseradar.data.provider.ViewModelCreator
-import com.faltenreich.releaseradar.ui.react.ToolbarDelegate
+import com.faltenreich.releaseradar.ui.ToolbarDelegate
 import kotlin.reflect.KClass
 
 abstract class BaseFragment(

@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.viewholder
+package com.faltenreich.releaseradar.ui.list.viewholder
 
 import android.content.Context
 import android.os.Bundle

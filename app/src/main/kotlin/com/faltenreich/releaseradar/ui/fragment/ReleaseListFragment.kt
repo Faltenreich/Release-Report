@@ -13,10 +13,10 @@ import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.extension.print
-import com.faltenreich.releaseradar.ui.adapter.ReleaseListAdapter
-import com.faltenreich.releaseradar.ui.adapter.ReleaseListItemDecoration
-import com.faltenreich.releaseradar.ui.adapter.ReleaseListLayoutManager
-import com.faltenreich.releaseradar.ui.adapter.SlideOutBehavior
+import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListAdapter
+import com.faltenreich.releaseradar.ui.list.decoration.ReleaseListItemDecoration
+import com.faltenreich.releaseradar.ui.list.layoutmanager.ReleaseListLayoutManager
+import com.faltenreich.releaseradar.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_list.*
@@ -89,7 +89,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private fun initList() {
         context?.let { context ->
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
-            listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT)
+            listItemDecoration =
+                    ReleaseListItemDecoration(context, R.dimen.margin_padding_size_medium, LIST_SPAN_COUNT)
 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)

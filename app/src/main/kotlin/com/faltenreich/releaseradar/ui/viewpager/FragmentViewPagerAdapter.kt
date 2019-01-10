@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

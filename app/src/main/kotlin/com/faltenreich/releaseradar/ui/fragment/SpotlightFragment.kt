@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.extension.nonBlank
-import com.faltenreich.releaseradar.ui.adapter.ReleaseViewPagerAdapter
+import com.faltenreich.releaseradar.ui.viewpager.ReleaseViewPagerAdapter
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 

@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.react
+package com.faltenreich.releaseradar.ui
 
 interface ToolbarDelegate {
     fun onHamburgerIconClicked()

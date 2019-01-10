@@ -1,9 +1,12 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.list.layoutmanager
 
 import android.content.Context
 import androidx.recyclerview.widget.GridLayoutManager
+import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListAdapter
 
-class ReleaseListLayoutManager(context: Context, private val listAdapter: ReleaseListAdapter?) : GridLayoutManager(context, SPAN_COUNT) {
+class ReleaseListLayoutManager(context: Context, private val listAdapter: ReleaseListAdapter?) : GridLayoutManager(context,
+    SPAN_COUNT
+) {
 
     init {
         spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

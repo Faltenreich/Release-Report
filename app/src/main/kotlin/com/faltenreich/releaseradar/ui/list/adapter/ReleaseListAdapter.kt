@@ -1,13 +1,16 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.releaseradar.ui.viewholder.ReleaseDateViewHolder
-import com.faltenreich.releaseradar.ui.viewholder.ReleaseItemViewHolder
-import com.faltenreich.releaseradar.ui.viewholder.ReleaseViewHolder
+import com.faltenreich.releaseradar.ui.list.diffutil.ReleaseListItemDiffUtilCallback
+import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseDateViewHolder
+import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseItemViewHolder
+import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseViewHolder
 import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context, ReleaseListItemDiffUtilCallback()) {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context,
+    ReleaseListItemDiffUtilCallback()
+) {
 
     override fun getItemViewType(position: Int): Int = when {
         position < itemCount && getListItemAt(position)?.release == null -> VIEW_TYPE_DATE

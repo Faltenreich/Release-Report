@@ -6,7 +6,6 @@ import androidx.paging.PagedList
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseDataFactory
 import com.faltenreich.releaseradar.data.repository.ReleaseSearchDataSource
-import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 
 class ReleaseSearchViewModel : ViewModel() {
     private lateinit var releaseLiveData: LiveData<PagedList<Release>>

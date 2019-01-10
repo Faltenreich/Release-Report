@@ -1,7 +1,8 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.viewpager
 
 import androidx.fragment.app.FragmentManager
 import com.faltenreich.releaseradar.ui.fragment.SpotlightCategoryFragment
+import com.faltenreich.releaseradar.ui.viewpager.FragmentViewPagerAdapter
 
 class ReleaseViewPagerAdapter(
         fragmentManager: FragmentManager?,

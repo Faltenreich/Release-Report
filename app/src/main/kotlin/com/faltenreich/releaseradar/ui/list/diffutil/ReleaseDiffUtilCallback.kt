@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.list.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.faltenreich.releaseradar.data.model.Release

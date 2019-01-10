@@ -1,8 +1,8 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.list.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import com.faltenreich.releaseradar.ui.viewholder.BaseViewHolder
+import com.faltenreich.releaseradar.ui.list.viewholder.BaseViewHolder
 
 abstract class SimpleListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>(val context: Context) : RecyclerView.Adapter<VIEWHOLDER>(), ListAdapter<ITEM> {
 

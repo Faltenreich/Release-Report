@@ -10,7 +10,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseSearchViewModel
 import com.faltenreich.releaseradar.extension.doAfter
 import com.faltenreich.releaseradar.extension.nonBlank
-import com.faltenreich.releaseradar.ui.adapter.ReleaseSearchListAdapter
+import com.faltenreich.releaseradar.ui.list.adapter.ReleaseSearchListAdapter
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
 

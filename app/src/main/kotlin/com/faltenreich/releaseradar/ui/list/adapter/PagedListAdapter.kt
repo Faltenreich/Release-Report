@@ -1,9 +1,9 @@
-package com.faltenreich.releaseradar.ui.adapter
+package com.faltenreich.releaseradar.ui.list.adapter
 
 import android.content.Context
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.faltenreich.releaseradar.ui.viewholder.BaseViewHolder
+import com.faltenreich.releaseradar.ui.list.viewholder.BaseViewHolder
 
 abstract class PagedListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>(val context: Context, diffCallback: DiffUtil.ItemCallback<ITEM>) : PagedListAdapter<ITEM, VIEWHOLDER>(diffCallback), ListAdapter<ITEM> {
 
