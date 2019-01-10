@@ -3,8 +3,8 @@ package com.faltenreich.releaseradar.data.viewmodel
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.faltenreich.releaseradar.data.repository.ReleaseDataFactory
-import com.faltenreich.releaseradar.data.repository.ReleaseDataSource
+import com.faltenreich.releaseradar.ui.list.paging.PagingDataFactory
+import com.faltenreich.releaseradar.ui.list.paging.ReleaseDataSource
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
@@ -21,7 +21,7 @@ class ReleaseListViewModel : ViewModel() {
 
     fun observeReleases(owner: LifecycleOwner, onObserve: (PagedList<ReleaseListItem>) -> Unit, onInitialLoad: (() -> Unit)? = null) {
         val dataSource = ReleaseDataSource(onInitialLoad)
-        val dataFactory = ReleaseDataFactory(dataSource)
+        val dataFactory = PagingDataFactory(dataSource)
         releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
     }

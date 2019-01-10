@@ -2,7 +2,7 @@ package com.faltenreich.releaseradar.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.releaseradar.ui.list.diffutil.ReleaseListItemDiffUtilCallback
+import com.faltenreich.releaseradar.ui.list.paging.ReleaseListItemDiffUtilCallback
 import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseDateViewHolder
 import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseItemViewHolder
 import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseViewHolder

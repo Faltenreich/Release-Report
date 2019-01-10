@@ -1,14 +1,14 @@
-package com.faltenreich.releaseradar.data.repository
+package com.faltenreich.releaseradar.ui.list.paging
 
-import androidx.paging.ItemKeyedDataSource
 import com.faltenreich.releaseradar.data.dao.Query
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import com.faltenreich.releaseradar.extension.asString
 import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
-class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : ItemKeyedDataSource<String, ReleaseListItem>() {
+class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : PagingDataSource<ReleaseListItem>() {
     private var startAtDate: LocalDate = LocalDate.now()
     private var startAtDateAsString: String = startAtDate.asString
     private var startAtId: String? = null

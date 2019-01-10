@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.list.diffutil
+package com.faltenreich.releaseradar.ui.list.paging
 
 import androidx.recyclerview.widget.DiffUtil
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem

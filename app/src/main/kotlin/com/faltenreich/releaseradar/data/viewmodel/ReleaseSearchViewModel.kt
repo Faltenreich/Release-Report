@@ -4,8 +4,8 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.repository.ReleaseDataFactory
-import com.faltenreich.releaseradar.data.repository.ReleaseSearchDataSource
+import com.faltenreich.releaseradar.ui.list.paging.PagingDataFactory
+import com.faltenreich.releaseradar.ui.list.paging.ReleaseSearchDataSource
 
 class ReleaseSearchViewModel : ViewModel() {
     private lateinit var releaseLiveData: LiveData<PagedList<Release>>
@@ -21,7 +21,7 @@ class ReleaseSearchViewModel : ViewModel() {
     fun observe(owner: LifecycleOwner, onObserve: (PagedList<Release>) -> Unit) {
         queryLiveData.observe(owner, Observer {
             val dataSource = ReleaseSearchDataSource(query)
-            val dataFactory = ReleaseDataFactory(dataSource)
+            val dataFactory = PagingDataFactory(dataSource)
             releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
             releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
         })
