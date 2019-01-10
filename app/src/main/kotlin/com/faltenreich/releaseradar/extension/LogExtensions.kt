@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.logging
+package com.faltenreich.releaseradar.extension
 
 import android.util.Log
 
@@ -10,4 +10,12 @@ fun Any.log(message: String, logLevel: LogLevel = LogLevel.DEBUG) = javaClass.si
         LogLevel.WARN -> Log.w(tag, message)
         LogLevel.ERROR -> Log.e(tag, message)
     }
+}
+
+enum class LogLevel {
+    VERBOSE,
+    DEBUG,
+    INFO,
+    WARN,
+    ERROR
 }

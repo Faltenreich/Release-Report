@@ -1,10 +1,10 @@
 package com.faltenreich.releaseradar.firebase.auth
 
-import com.faltenreich.releaseradar.logging.LogLevel
-import com.faltenreich.releaseradar.logging.log
+import com.faltenreich.releaseradar.extension.LogLevel
+import com.faltenreich.releaseradar.extension.log
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 object FirebaseAuth : FirebaseAuthApi {

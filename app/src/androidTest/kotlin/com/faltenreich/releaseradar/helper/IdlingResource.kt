@@ -2,7 +2,7 @@ package com.faltenreich.releaseradar.helper
 
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.idling.CountingIdlingResource
-import com.faltenreich.releaseradar.logging.log
+import com.faltenreich.releaseradar.extension.log
 
 object IdlingResource {
 
