@@ -1,64 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:paddingTop="@dimen/status_bar_height">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:elevation="0dp"
-            tools:paddingTop="32dp">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways|snap"/>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                app:tabIndicatorColor="@android:color/white"
-                app:tabTextColor="@color/gray_light"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabIndicatorHeight="4dp"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-        <com.lapism.searchview.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:search_hint="@string/search_hint"
-            app:search_hint_color="@color/gray_dark"
-            app:layout_behavior="com.lapism.searchview.widget.SearchBehavior"
-            tools:paddingTop="24dp"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <View
-        android:id="@+id/statusBarBackground"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        tools:layout_height="24dp"/>
+        android:orientation="vertical"
+        android:divider="@drawable/divider"
+        android:showDividers="middle">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_padding_size_medium"
+                android:paddingStart="@dimen/margin_padding_size_medium"
+                android:paddingEnd="@dimen/margin_padding_size_medium"
+                android:text="@string/this_week"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/weekListView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="@dimen/margin_padding_size_medium"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/list_item_spotlight"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/margin_padding_size_medium"
+                android:paddingEnd="@dimen/margin_padding_size_medium"
+                android:text="@string/for_you"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favoriteListView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="@dimen/margin_padding_size_medium"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/list_item_spotlight"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

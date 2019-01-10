@@ -11,11 +11,11 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
-import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment
+import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import kotlinx.android.synthetic.main.list_item_release.*
 
-class ReleaseItemViewHolder(context: Context, parent: ViewGroup) : ReleaseViewHolder(context, R.layout.list_item_release, parent) {
+class ReleaseItemViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseListItem>(context, R.layout.list_item_release, parent) {
 
     override fun onBind(data: ReleaseListItem) {
         data.release?.let { release ->

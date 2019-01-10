@@ -44,7 +44,6 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
 
     private fun initLayout() {
         listLayoutManager = LinearLayoutManager(context)
-
         listView.layoutManager = listLayoutManager
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listView.adapter = listAdapter

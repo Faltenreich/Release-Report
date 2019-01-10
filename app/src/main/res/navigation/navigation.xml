@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/spotlight"
-        android:name="com.faltenreich.releaseradar.ui.fragment.SpotlightFragment"
+        android:name="com.faltenreich.releaseradar.ui.fragment.SpotlightViewPagerFragment"
         android:label="@string/spotlight"
-        tools:layout="@layout/fragment_spotlight">
+        tools:layout="@layout/fragment_spotlight_viewpager">
     </fragment>
 
     <fragment
