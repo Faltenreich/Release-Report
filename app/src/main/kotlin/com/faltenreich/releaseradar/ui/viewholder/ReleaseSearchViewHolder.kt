@@ -12,21 +12,18 @@ import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.extension.tintResource
-import com.faltenreich.releaseradar.ui.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment
 import kotlinx.android.synthetic.main.list_item_release_search.*
 
-class ReleaseSearchViewHolder(context: Context, parent: ViewGroup) : ReleaseViewHolder(context, R.layout.list_item_release_search, parent) {
+class ReleaseSearchViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release_search, parent) {
 
-    override fun onBind(data: ReleaseListItem) {
-        data.release?.let { release ->
-            container.setOnClickListener { openRelease(release) }
-            release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
-            releaseTypeImageView.setImageResource(release.mediaType?.iconResId ?: android.R.color.transparent)
-            releaseTypeImageView.tintResource = release.mediaType?.colorResId ?: R.color.colorPrimary
-            releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
-            releaseDateTextView.text = release.releaseDate?.print()
-        }
+    override fun onBind(data: Release) {
+        container.setOnClickListener { openRelease(data) }
+        data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
+        releaseTypeImageView.setImageResource(data.mediaType?.iconResId ?: android.R.color.transparent)
+        releaseTypeImageView.tintResource = data.mediaType?.colorResId ?: R.color.colorPrimary
+        releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
+        releaseDateTextView.text = data.releaseDate?.print()
     }
 
     private fun openRelease(release: Release) {

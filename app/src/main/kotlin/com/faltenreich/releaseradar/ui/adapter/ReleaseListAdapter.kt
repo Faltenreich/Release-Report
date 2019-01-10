@@ -7,7 +7,7 @@ import com.faltenreich.releaseradar.ui.viewholder.ReleaseItemViewHolder
 import com.faltenreich.releaseradar.ui.viewholder.ReleaseViewHolder
 import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context, ReleaseListDiffUtilItemCallback()) {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, ReleaseViewHolder>(context, ReleaseListItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int = when {
         position < itemCount && getListItemAt(position)?.release == null -> VIEW_TYPE_DATE
