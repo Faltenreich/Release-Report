@@ -49,7 +49,7 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     }
 
     private fun initViewPager() {
-        val content = MediaType.values().map { mediaType -> getString(mediaType.pluralStringRes) to SpotlightFragment() }
+        val content = MediaType.values().map { type -> getString(type.pluralStringRes) to SpotlightFragment.newInstance(type) }
         val adapter = ReleaseViewPagerAdapter(fragmentManager, content)
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)

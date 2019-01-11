@@ -8,6 +8,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.format.FormatStyle
 import org.threeten.bp.format.TextStyle
+import org.threeten.bp.temporal.WeekFields
 import java.util.*
 
 private const val DATE_FORMAT_FIREBASE = "yyyy-MM-dd"
@@ -34,3 +35,6 @@ fun LocalDate.print(): String = DateTimeFormatter.ofLocalizedDate(FormatStyle.LO
 fun LocalDate.printMonth(): String = month.getDisplayName(TextStyle.FULL, Locale.getDefault())
 
 fun LocalDate.printYear(): String = year.toString()
+
+val LocalDate.calendarWeek: Int
+    get() = get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear())

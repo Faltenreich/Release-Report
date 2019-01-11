@@ -11,4 +11,6 @@ abstract class SimpleListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>
     override fun onBindViewHolder(holder: VIEWHOLDER, position: Int) {
         getListItemAt(position)?.let { item -> holder.bind(item) }
     }
+
+    override fun getItemCount(): Int = listItems.size
 }
