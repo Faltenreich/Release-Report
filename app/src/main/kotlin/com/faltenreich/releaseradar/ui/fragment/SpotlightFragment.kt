@@ -2,12 +2,12 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.SpotlightViewModel
 import com.faltenreich.releaseradar.ui.list.adapter.SpotlightListAdapter
+import com.faltenreich.releaseradar.ui.list.decoration.HorizontalPaddingDecoration
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
 class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
@@ -22,9 +22,11 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun initLayout() {
-        weekListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        weekListView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        weekListView.adapter = weekListAdapter
+        context?.let { context ->
+            weekListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            weekListView.addItemDecoration(HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small))
+            weekListView.adapter = weekListAdapter
+        }
     }
 
     private fun fetchData() {

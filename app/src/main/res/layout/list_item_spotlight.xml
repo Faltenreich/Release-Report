@@ -12,9 +12,8 @@
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/releaseCoverImageView"
@@ -31,7 +30,7 @@
 
         <TextView
             android:id="@+id/releaseNameTextView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_padding_size_large"
             android:paddingLeft="@dimen/margin_padding_size_small"
