@@ -9,7 +9,7 @@
     android:orientation="horizontal"
     android:background="?attr/colorPrimary"
     android:showDividers="beginning|middle|end"
-    android:divider="@drawable/divider">
+    android:divider="@drawable/divider_medium">
 
     <ImageButton
         android:id="@+id/monthButtonPrevious"

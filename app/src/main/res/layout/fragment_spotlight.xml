@@ -16,12 +16,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_padding_size_medium"
+            android:divider="@drawable/divider_medium"
+            android:showDividers="middle">
+
+            <ImageView
+                android:id="@+id/spotlightReleaseCoverImageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                tools:src="@tools:sample/avatars"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/spotlightReleaseDateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_light"
+                    tools:text="@tools:sample/date/ddmmyy"/>
+
+                <TextView
+                    android:id="@+id/spotlightReleaseNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    tools:text="@tools:sample/lorem"/>
+
+                <TextView
+                    android:id="@+id/spotlightReleaseDescriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_padding_size_small"
+                    android:ellipsize="end"
+                    tools:text="@tools:sample/lorem"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_padding_size_medium"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
                 android:text="@string/this_week"

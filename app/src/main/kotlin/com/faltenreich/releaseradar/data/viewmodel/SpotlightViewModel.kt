@@ -31,7 +31,7 @@ class SpotlightViewModel : ViewModel() {
         ReleaseRepository.getAll(
             Query(
                 orderBy = "indexForSpotlight",
-                limitToLast = CHUNK_SIZE,
+                limitToLast = CHUNK_SIZE + 1,
                 startAt = filter to null,
                 endAt = "$filter\uf8ff" to null
             ), onSuccess = { releases ->

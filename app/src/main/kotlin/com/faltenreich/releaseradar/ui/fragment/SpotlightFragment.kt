@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
+import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.viewmodel.SpotlightViewModel
+import com.faltenreich.releaseradar.extension.print
+import com.faltenreich.releaseradar.extension.screenSize
+import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.list.adapter.SpotlightListAdapter
 import com.faltenreich.releaseradar.ui.list.decoration.HorizontalPaddingDecoration
 import kotlinx.android.synthetic.main.fragment_spotlight.*
@@ -38,20 +42,36 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     private fun fetchData() {
         type?.also { type ->
-            weekListAdapter?.let { adapter ->
-                viewModel.observeReleasesOfWeek(type, this) { releases ->
-                    adapter.removeListItems()
-                    adapter.addListItems(releases)
-                    adapter.notifyDataSetChanged()
-                }
+            viewModel.observeReleasesOfWeek(type, this) { releases ->
+                setSpotlightRelease(releases.firstOrNull())
+                setReleasesOfWeek(releases.drop(1))
             }
-            favoriteListAdapter?.let { adapter ->
-                viewModel.observeFollowing(type, this) { releases ->
-                    adapter.removeListItems()
-                    adapter.addListItems(releases)
-                    adapter.notifyDataSetChanged()
-                }
-            }
+            viewModel.observeFollowing(type, this) { releases -> setFavoriteReleases(releases) }
+        }
+    }
+
+    private fun setSpotlightRelease(release: Release?) {
+        context?.let { context ->
+            release?.imageUrlForThumbnail?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(android.R.color.transparent)
+            spotlightReleaseDateTextView.text = release?.releaseDate?.print()
+            spotlightReleaseNameTextView.text = release?.title
+            spotlightReleaseDescriptionTextView.text = release?.description
+        }
+    }
+
+    private fun setReleasesOfWeek(releases: List<Release>) {
+        weekListAdapter?.let { adapter ->
+            adapter.removeListItems()
+            adapter.addListItems(releases)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun setFavoriteReleases(releases: List<Release>) {
+        favoriteListAdapter?.let { adapter ->
+            adapter.removeListItems()
+            adapter.addListItems(releases)
+            adapter.notifyDataSetChanged()
         }
     }
 
