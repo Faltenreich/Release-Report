@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.extension.nonBlank
-import com.faltenreich.releaseradar.ui.viewpager.ReleaseViewPagerAdapter
+import com.faltenreich.releaseradar.ui.viewpager.FragmentViewPagerAdapter
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_spotlight_viewpager.*
 
@@ -49,9 +49,11 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     }
 
     private fun initViewPager() {
-        val content = MediaType.values().map { type -> getString(type.pluralStringRes) to SpotlightFragment.newInstance(type) }
-        val adapter = ReleaseViewPagerAdapter(fragmentManager, content)
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        if (viewPager.childCount == 0) {
+            val content = MediaType.values().map { type -> getString(type.pluralStringRes) to SpotlightFragment.newInstance(type) }
+            val adapter = FragmentViewPagerAdapter(fragmentManager, content)
+            viewPager.adapter = adapter
+            tabLayout.setupWithViewPager(viewPager)
+        }
     }
 }

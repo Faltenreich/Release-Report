@@ -26,11 +26,11 @@ class SpotlightViewModel : ViewModel() {
         ReleaseRepository.getAll(
             Query(
                 orderBy = "indexForSpotlight",
-                limitToFirst = 10,
+                limitToLast = 10,
                 startAt = filter to null,
                 endAt = "$filter\uf8ff" to null
             ), onSuccess = { releases ->
-                releasesOfWeek = releases
+                releasesOfWeek = releases.reversed()
             }, onError = {
                 releasesOfWeek = null
             })

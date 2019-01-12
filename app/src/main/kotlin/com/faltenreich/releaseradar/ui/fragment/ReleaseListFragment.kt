@@ -56,20 +56,16 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLayout()
+        searchable.properties = SearchableProperties(this, searchView, appbarLayout, statusBarBackground)
+        initSearch()
+        initList()
+        initTodayButton()
         initData()
     }
 
     override fun onResume() {
         super.onResume()
         searchView.logo = Search.Logo.HAMBURGER_ARROW
-    }
-
-    private fun initLayout() {
-        searchable.properties = SearchableProperties(this, searchView, appbarLayout, statusBarBackground)
-        initSearch()
-        initList()
-        initTodayButton()
     }
 
     private fun initSearch() {
