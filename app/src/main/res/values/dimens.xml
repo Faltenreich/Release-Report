@@ -29,4 +29,6 @@
     <dimen name="image_size_medium">48dp</dimen>
     <dimen name="image_size_large">72dp</dimen>
 
+    <dimen name="spotlight_list_height">160dp</dimen>
+
 </resources>
