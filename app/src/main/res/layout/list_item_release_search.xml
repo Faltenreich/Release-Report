@@ -68,10 +68,9 @@
         android:id="@+id/releaseTypeImageView"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="@dimen/margin_padding_size_xsmall"
         android:layout_marginEnd="@dimen/margin_padding_size_small"
         android:contentDescription="@null"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
         app:layout_constraintEnd_toEndOf="parent"
         tools:src="@drawable/ic_music"
         tools:tint="?attr/colorPrimary"/>

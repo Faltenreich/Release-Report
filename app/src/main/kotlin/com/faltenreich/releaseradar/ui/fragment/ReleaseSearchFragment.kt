@@ -10,6 +10,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseSearchViewModel
 import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseSearchListAdapter
+import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
 
@@ -20,9 +21,10 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
     private val listAdapter by lazy { context?.let { context -> ReleaseSearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
 
+    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_search, itemCount = 6) }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
         initLayout()
     }
 
@@ -46,6 +48,12 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         listView.layoutManager = listLayoutManager
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listView.adapter = listAdapter
+
+        skeleton.showSkeleton()
+        viewModel.observe(this) { releases ->
+            skeleton.showOriginal()
+            listAdapter?.submitList(releases)
+        }
 
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
