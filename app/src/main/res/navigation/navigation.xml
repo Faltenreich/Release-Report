@@ -22,6 +22,17 @@
                 android:name="releaseId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/search_release"
+            app:destination="@+id/release_search"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="query"
+                app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment
