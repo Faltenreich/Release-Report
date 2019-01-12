@@ -6,11 +6,18 @@
 
         <item
             android:id="@+id/spotlight"
-            android:title="@string/spotlight"/>
+            android:title="@string/spotlight"
+            android:icon="@drawable/ic_home"/>
 
         <item
             android:id="@+id/releases"
-            android:title="@string/releases"/>
+            android:title="@string/releases"
+            android:icon="@drawable/ic_calendar"/>
+
+        <item
+            android:id="@+id/following"
+            android:title="@string/following"
+            android:icon="@drawable/ic_favorite_on"/>
 
     </group>
 
