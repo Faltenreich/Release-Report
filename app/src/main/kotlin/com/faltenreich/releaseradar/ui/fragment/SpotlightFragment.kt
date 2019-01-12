@@ -16,6 +16,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     private val type by lazy { arguments?.getSerializable(ARGUMENT_MEDIA_TYPE) as? MediaType }
 
     private val weekListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
+    private val favoriteListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,20 +29,27 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
             weekListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             weekListView.addItemDecoration(HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small))
             weekListView.adapter = weekListAdapter
+
+            favoriteListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            favoriteListView.addItemDecoration(HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small))
+            favoriteListView.adapter = favoriteListAdapter
         }
     }
 
     private fun fetchData() {
-        // TODO: Find way to distinguish back navigation via Navigation Components
-        type?.let { type ->
+        type?.also { type ->
             weekListAdapter?.let { adapter ->
-                if (adapter.itemCount == 0) {
-                    viewModel.observeReleasesOfWeek(type, this) { releases ->
-                        // TODO: Use DiffUtil
-                        adapter.removeListItems()
-                        adapter.addListItems(releases)
-                        adapter.notifyDataSetChanged()
-                    }
+                viewModel.observeReleasesOfWeek(type, this) { releases ->
+                    adapter.removeListItems()
+                    adapter.addListItems(releases)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+            favoriteListAdapter?.let { adapter ->
+                viewModel.observeFollowing(type, this) { releases ->
+                    adapter.removeListItems()
+                    adapter.addListItems(releases)
+                    adapter.notifyDataSetChanged()
                 }
             }
         }

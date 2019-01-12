@@ -14,19 +14,24 @@ import org.threeten.bp.LocalDate
 class SpotlightViewModel : ViewModel() {
 
     private val releasesOfWeekLiveData = MutableLiveData<List<Release>>()
+    private val favoriteReleasesLiveData = MutableLiveData<List<Release>>()
+    private val today = LocalDate.now()
 
-    var releasesOfWeek: List<Release>?
+    private var releasesOfWeek: List<Release>?
         get() = releasesOfWeekLiveData.value
         set(value) = releasesOfWeekLiveData.postValue(value)
 
+    private var favoriteReleases: List<Release>?
+        get() = favoriteReleasesLiveData.value
+        set(value) = favoriteReleasesLiveData.postValue(value)
+
     fun observeReleasesOfWeek(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
-        val today = LocalDate.now()
         val filter = "${type.key}-${today.year}-${today.calendarWeek}-"
         releasesOfWeekLiveData.observe(owner, Observer { releases -> onObserve(releases) })
         ReleaseRepository.getAll(
             Query(
                 orderBy = "indexForSpotlight",
-                limitToLast = 10,
+                limitToLast = CHUNK_SIZE,
                 startAt = filter to null,
                 endAt = "$filter\uf8ff" to null
             ), onSuccess = { releases ->
@@ -34,5 +39,17 @@ class SpotlightViewModel : ViewModel() {
             }, onError = {
                 releasesOfWeek = null
             })
+    }
+
+    fun observeFollowing(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
+        favoriteReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        ReleaseRepository.getFavorites(type, from = today) { releases ->
+            val sorted = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE)
+            favoriteReleases = sorted
+        }
+    }
+
+    companion object {
+        private const val CHUNK_SIZE = 10
     }
 }
