@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
-                android:text="@string/soon_for_you"
+                android:text="@string/for_you"
                 android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -76,11 +76,11 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
-                android:text="@string/recently_released"
+                android:text="@string/recently"
                 android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recentReleasesListView"
+                android:id="@+id/recentlyListView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:padding="@dimen/margin_padding_size_medium"
