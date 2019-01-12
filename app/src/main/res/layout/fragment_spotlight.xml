@@ -47,7 +47,7 @@
                     android:id="@+id/spotlightReleaseNameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:textSize="@dimen/text_size_large"
                     android:maxLines="2"
                     android:ellipsize="end"
                     tools:text="@tools:sample/lorem"/>
@@ -56,7 +56,7 @@
                     android:id="@+id/spotlightReleaseDescriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_padding_size_small"
+                    android:layout_marginTop="@dimen/margin_padding_size_xsmall"
                     android:ellipsize="end"
                     tools:text="@tools:sample/lorem"/>
 
