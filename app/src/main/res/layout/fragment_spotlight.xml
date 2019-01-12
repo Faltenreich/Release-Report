@@ -11,9 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:divider="@drawable/divider"
-        android:showDividers="middle">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +24,8 @@
                 android:paddingTop="@dimen/margin_padding_size_medium"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
-                android:text="@string/this_week"/>
+                android:text="@string/this_week"
+                android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/weekListView"
@@ -51,10 +50,37 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
-                android:text="@string/soon_for_you"/>
+                android:text="@string/soon_for_you"
+                android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favoriteListView"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:padding="@dimen/margin_padding_size_medium"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/list_item_spotlight"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/margin_padding_size_medium"
+                android:paddingEnd="@dimen/margin_padding_size_medium"
+                android:text="@string/recently_released"
+                android:textStyle="bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recentReleasesListView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:padding="@dimen/margin_padding_size_medium"

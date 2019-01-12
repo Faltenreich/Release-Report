@@ -28,22 +28,36 @@
             app:layout_constraintDimensionRatio="1:1"
             tools:src="@tools:sample/avatars"/>
 
+        <View
+            android:id="@+id/scrim"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="@drawable/scrim_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/releaseCoverImageView"
+            app:layout_constraintStart_toStartOf="@id/releaseCoverImageView"
+            app:layout_constraintEnd_toEndOf="@id/releaseCoverImageView"/>
+
+        <TextView
+            android:id="@+id/releaseDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toTopOf="@id/releaseNameTextView"
+            app:layout_constraintStart_toStartOf="@id/releaseNameTextView"
+            app:layout_constraintEnd_toEndOf="@id/releaseNameTextView"
+            tools:text="@tools:sample/date/ddmmyy"/>
+
         <TextView
             android:id="@+id/releaseNameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_padding_size_large"
-            android:paddingLeft="@dimen/margin_padding_size_small"
-            android:paddingStart="@dimen/margin_padding_size_small"
-            android:paddingRight="@dimen/margin_padding_size_small"
-            android:paddingEnd="@dimen/margin_padding_size_small"
-            android:paddingBottom="@dimen/margin_padding_size_small"
-            android:background="@drawable/scrim_bottom"
-            android:maxLines="2"
+            android:layout_margin="@dimen/margin_padding_size_small"
+            android:maxLines="1"
             android:ellipsize="end"
-            app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
-            app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"
+            app:layout_constraintBottom_toBottomOf="@id/scrim"
+            app:layout_constraintStart_toStartOf="@id/scrim"
+            app:layout_constraintEnd_toEndOf="@id/scrim"
             tools:text="@tools:sample/lorem/random"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

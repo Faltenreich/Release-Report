@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment
@@ -19,6 +20,7 @@ class SpotlightViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<
         cardView.setOnClickListener { openRelease(data) }
         data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
         releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
+        releaseDateTextView.text = data.releaseDate?.print()
     }
 
     private fun openRelease(release: Release) {
