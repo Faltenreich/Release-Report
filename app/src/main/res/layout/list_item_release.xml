@@ -9,12 +9,13 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="?attr/colorPrimary"
-    app:cardCornerRadius="@dimen/card_corner_radius">
+    app:cardCornerRadius="@dimen/card_corner_radius" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:paddingTop="@dimen/status_bar_height">
 
         <ImageView
             android:id="@+id/releaseCoverImageView"
@@ -34,7 +35,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:padding="6dp"
-            android:background="@drawable/dogear"
+            android:background="@drawable/dogear_top_start"
             android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
@@ -58,6 +59,18 @@
             app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
             app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"
             tools:text="@tools:sample/lorem/random"/>
+
+        <ImageView
+            android:id="@+id/releaseFavoriteImageView"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="6dp"
+            android:background="@drawable/dogear_top_end"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_favorite_on"
+            android:tint="@android:color/white"
+            app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
+            app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

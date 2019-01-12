@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.list.viewholder
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -22,8 +23,9 @@ class ReleaseItemViewHolder(context: Context, parent: ViewGroup) : BaseViewHolde
             cardView.setOnClickListener { openRelease(release) }
             release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
             releaseTypeImageView.setImageResource(release.mediaType?.iconResId ?: android.R.color.transparent)
-            releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear)?.apply { setTint(ContextCompat.getColor(context, release.mediaType?.colorResId ?: R.color.colorPrimary)) }
+            releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_top_start)?.apply { setTint(ContextCompat.getColor(context, release.mediaType?.colorResId ?: R.color.colorPrimary)) }
             releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
+            releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
         }
     }
 

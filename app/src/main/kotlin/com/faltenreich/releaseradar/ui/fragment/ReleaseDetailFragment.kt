@@ -45,7 +45,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
             toolbar.setNavigationOnClickListener { finish() }
 
             fab.setOnClickListener {
-                viewModel.isFavorite = !viewModel.isFavorite
+                viewModel.release?.isFavorite = !(viewModel.release?.isFavorite ?: false)
                 invalidateFavorite()
             }
         }
@@ -98,7 +98,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
     }
 
     private fun invalidateFavorite() {
-        val isFavorite = viewModel.isFavorite
+        val isFavorite = viewModel.release?.isFavorite ?: false
         fab.backgroundTintResource = if (isFavorite) R.color.colorAccent else viewModel.color
         fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
