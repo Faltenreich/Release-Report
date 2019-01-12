@@ -8,11 +8,11 @@ import com.faltenreich.releaseradar.ui.list.paging.PagingDataFactory
 import com.faltenreich.releaseradar.ui.list.paging.ReleaseSearchDataSource
 
 class ReleaseSearchViewModel : ViewModel() {
+    private val queryLiveData = MutableLiveData<String?>()
     private lateinit var releaseLiveData: LiveData<PagedList<Release>>
-    private val queryLiveData: MutableLiveData<String?> = MutableLiveData()
 
-    var releases: List<Release> = listOf()
-        get() = releaseLiveData.value ?: listOf()
+    var releases: PagedList<Release>? = null
+        get() = releaseLiveData.value
 
     var query: String?
         get() = queryLiveData.value

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseSearchViewModel
-import com.faltenreich.releaseradar.extension.doAfter
 import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseSearchListAdapter
 import com.lapism.searchview.Search
@@ -23,8 +22,8 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
         initLayout()
-        initData()
     }
 
     override fun onResume() {
@@ -51,27 +50,12 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence?) {
-                val query = newText?.toString().nonBlank
-                doAfter(QUERY_DELAY) {
-                    if (searchView.query.toString().nonBlank == query) {
-                        viewModel.query = query
-                    }
-                }
+            override fun onQueryTextChange(newText: CharSequence?) = Unit
+            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+                viewModel.query = query?.toString().nonBlank
+                return false
             }
-            override fun onQueryTextSubmit(query: CharSequence?): Boolean = false
         })
-    }
-
-    private fun initData() {
-        // TODO: Find way to distinguish back navigation via Navigation Components
-        if (listAdapter?.itemCount == 0) {
-            viewModel.observe(this) { releases -> listAdapter?.submitList(releases) }
-            searchView.setQuery(query, false)
-        }
-    }
-
-    companion object {
-        private const val QUERY_DELAY = 500L
+        searchView.setQuery(query, true)
     }
 }
