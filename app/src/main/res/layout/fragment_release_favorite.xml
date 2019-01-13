@@ -24,7 +24,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
                 app:title="@string/following"
                 app:layout_scrollFlags="scroll|enterAlways"/>
 

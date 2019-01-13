@@ -68,7 +68,7 @@
         android:id="@+id/following"
         android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseFavoriteListFragment"
         android:label="@string/following"
-        tools:layout="@layout/fragment_favorite">
+        tools:layout="@layout/fragment_release_favorite">
         <action
             android:id="@+id/open_release"
             app:destination="@+id/release_detail"
