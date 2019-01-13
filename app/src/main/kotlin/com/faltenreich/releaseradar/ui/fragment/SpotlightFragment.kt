@@ -2,6 +2,9 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
@@ -64,6 +67,18 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
             spotlightReleaseDateTextView.text = release?.releaseDate?.print()
             spotlightReleaseNameTextView.text = release?.title
             spotlightReleaseDescriptionTextView.text = release?.description
+
+            spotlightContainer.setOnClickListener {
+                release?.id?.let { id ->
+                    ViewCompat.setTransitionName(spotlightReleaseCoverImageView, ReleaseDetailFragment.SHARED_ELEMENT_NAME)
+                    findNavController().navigate(
+                        R.id.open_release,
+                        Bundle().apply { putString("releaseId", id) },
+                        null,
+                        FragmentNavigatorExtras(spotlightReleaseCoverImageView to ReleaseDetailFragment.SHARED_ELEMENT_NAME)
+                    )
+                }
+            }
         }
     }
 
