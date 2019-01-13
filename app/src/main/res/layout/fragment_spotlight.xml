@@ -17,25 +17,26 @@
             android:id="@+id/spotlightReleaseCoverImageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_size_medium"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_small"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintEnd_toStartOf="@+id/spotlightReleaseDateTextView"
             tools:src="@tools:sample/avatars"/>
 
         <TextView
             android:id="@+id/spotlightReleaseDateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginStart="@dimen/margin_padding_size_small"
             android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:textColor="@color/gray_light"
-            app:layout_constraintStart_toEndOf="@id/spotlightReleaseCoverImageView"
+            app:layout_constraintStart_toEndOf="@+id/spotlightReleaseCoverImageView"
             app:layout_constraintTop_toTopOf="@id/spotlightReleaseCoverImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
             tools:text="@tools:sample/date/ddmmyy"/>
 
         <TextView
@@ -115,7 +116,7 @@
             tools:orientation="horizontal"/>
 
         <TextView
-            android:id="@+id/recentlyLabel"
+            android:id="@+id/recentLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
@@ -127,7 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/favoriteListView"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recentlyListView"
+            android:id="@+id/recentListView"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
             android:padding="@dimen/margin_padding_size_medium"
@@ -135,7 +136,7 @@
             android:nestedScrollingEnabled="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recentlyLabel"
+            app:layout_constraintTop_toBottomOf="@id/recentLabel"
             tools:listitem="@layout/list_item_spotlight"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>

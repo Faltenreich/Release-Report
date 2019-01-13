@@ -21,6 +21,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     private val weekListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
     private val favoriteListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
+    private val recentListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,23 +31,30 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     private fun initLayout() {
         context?.let { context ->
+            val decoration = HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small)
+            
             weekListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            weekListView.addItemDecoration(HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small))
+            weekListView.addItemDecoration(decoration)
             weekListView.adapter = weekListAdapter
 
             favoriteListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            favoriteListView.addItemDecoration(HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small))
+            favoriteListView.addItemDecoration(decoration)
             favoriteListView.adapter = favoriteListAdapter
+
+            recentListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            recentListView.addItemDecoration(decoration)
+            recentListView.adapter = recentListAdapter
         }
     }
 
     private fun fetchData() {
         type?.also { type ->
-            viewModel.observeReleasesOfWeek(type, this) { releases ->
+            viewModel.observeWeeklyReleases(type, this) { releases ->
                 setSpotlightRelease(releases.firstOrNull())
                 setReleasesOfWeek(releases.drop(1))
             }
-            viewModel.observeFollowing(type, this) { releases -> setFavoriteReleases(releases) }
+            viewModel.observeFavoriteReleases(type, this) { releases -> setFavoriteReleases(releases) }
+            viewModel.observeRecentReleases(type, this) { releases -> setRecentReleases(releases) }
         }
     }
 
@@ -69,6 +77,14 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     private fun setFavoriteReleases(releases: List<Release>) {
         favoriteListAdapter?.let { adapter ->
+            adapter.removeListItems()
+            adapter.addListItems(releases)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun setRecentReleases(releases: List<Release>) {
+        recentListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)
             adapter.notifyDataSetChanged()
