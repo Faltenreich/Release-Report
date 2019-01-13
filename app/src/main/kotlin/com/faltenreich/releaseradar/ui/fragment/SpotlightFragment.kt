@@ -32,7 +32,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     private fun initLayout() {
         context?.let { context ->
             val decoration = HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small)
-            
+
             weekListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             weekListView.addItemDecoration(decoration)
             weekListView.adapter = weekListAdapter

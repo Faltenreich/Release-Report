@@ -6,7 +6,7 @@
     <dimen name="toolbar_height">48dp</dimen>
     <dimen name="calendar_height">280dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
-    <dimen name="status_bar_height">26dp</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
 
     <dimen name="margin_padding_size_xxsmall">2dp</dimen>
     <dimen name="margin_padding_size_xsmall">4dp</dimen>

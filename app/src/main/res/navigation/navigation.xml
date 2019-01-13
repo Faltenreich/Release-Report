@@ -65,6 +65,24 @@
     </fragment>
 
     <fragment
+        android:id="@+id/following"
+        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseFavoriteListFragment"
+        android:label="@string/following"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/open_release"
+            app:destination="@+id/release_detail"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="releaseId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
         android:id="@+id/release_detail"
         android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment"
         tools:layout="@layout/fragment_release_detail">

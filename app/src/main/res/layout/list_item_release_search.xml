@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:background="?attr/selectableItemBackground"
     tools:background="@android:color/white"
-    tools:paddingTop="@dimen/status_bar_height">
+    tools:layout_gravity="center_vertical">
 
     <ImageView
         android:id="@+id/releaseCoverImageView"
