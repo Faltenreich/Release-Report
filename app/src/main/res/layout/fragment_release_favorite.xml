@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/status_bar_height"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:background="@null"
+            android:background="?attr/colorPrimary"
             app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
@@ -25,7 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/following"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
