@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.faltenreich.releaseradar.R
@@ -15,9 +16,14 @@ import kotlinx.android.synthetic.main.fragment_spotlight_viewpager.*
 class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_viewpager) {
     private val searchable by lazy { SearchableObserver() }
 
+    private val mediaTypes by lazy { MediaType.values() }
+    private lateinit var viewPagerPages: List<Pair<String, Fragment>>
+    private lateinit var viewPagerAdapter: FragmentViewPagerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(searchable)
+        initData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,6 +34,11 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     override fun onResume() {
         super.onResume()
         searchView.logo = Search.Logo.HAMBURGER_ARROW
+    }
+
+    private fun initData() {
+        viewPagerPages =  mediaTypes.map { mediaType -> getString(mediaType.pluralStringRes) to SpotlightFragment.newInstance(mediaType) }
+        viewPagerAdapter = FragmentViewPagerAdapter(childFragmentManager, viewPagerPages)
     }
 
     private fun initLayout() {
@@ -51,19 +62,16 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     }
 
     private fun initViewPager() {
-        val types = MediaType.values()
-        val content = types.map { type -> getString(type.pluralStringRes) to SpotlightFragment.newInstance(type) }
-        val adapter = FragmentViewPagerAdapter(fragmentManager, content)
-        viewPager.adapter = adapter
+        viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) = Unit
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
             override fun onPageSelected(position: Int) {
-                setTint(types[position])
+                setTint(mediaTypes[position])
             }
         })
-        setTint(types[0], false)
+        setTint(mediaTypes[0], false)
     }
 
     private fun setTint(type: MediaType, animated: Boolean = true) {
