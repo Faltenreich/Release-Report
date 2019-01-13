@@ -51,21 +51,19 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     }
 
     private fun initViewPager() {
-        if (viewPager.childCount == 0) {
-            val types = MediaType.values()
-            val content = types.map { type -> getString(type.pluralStringRes) to SpotlightFragment.newInstance(type) }
-            val adapter = FragmentViewPagerAdapter(fragmentManager, content)
-            viewPager.adapter = adapter
-            tabLayout.setupWithViewPager(viewPager)
-            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) = Unit
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
-                override fun onPageSelected(position: Int) {
-                    setTint(types[position])
-                }
-            })
-            setTint(types[0], false)
-        }
+        val types = MediaType.values()
+        val content = types.map { type -> getString(type.pluralStringRes) to SpotlightFragment.newInstance(type) }
+        val adapter = FragmentViewPagerAdapter(fragmentManager, content)
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) = Unit
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+            override fun onPageSelected(position: Int) {
+                setTint(types[position])
+            }
+        })
+        setTint(types[0], false)
     }
 
     private fun setTint(type: MediaType, animated: Boolean = true) {
