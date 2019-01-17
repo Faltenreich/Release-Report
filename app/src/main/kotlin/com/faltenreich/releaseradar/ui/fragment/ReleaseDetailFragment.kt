@@ -46,7 +46,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
             fab.setOnClickListener {
                 viewModel.release?.isFavorite = !(viewModel.release?.isFavorite ?: false)
+                // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
+                fab.hide()
                 invalidateFavorite()
+                fab.show()
             }
         }
     }
@@ -99,7 +102,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
     private fun invalidateFavorite() {
         val isFavorite = viewModel.release?.isFavorite ?: false
-        fab.backgroundTintResource = if (isFavorite) R.color.colorAccent else viewModel.color
+        fab.backgroundTintResource = if (isFavorite) R.color.yellow else viewModel.color
         fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
 
