@@ -63,6 +63,8 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     private fun setSpotlightRelease(release: Release?) {
         context?.let { context ->
+            spotlightContainer.visibility = if (release != null) View.VISIBLE else View.GONE
+
             release?.imageUrlForThumbnail?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(android.R.color.transparent)
             spotlightReleaseDateTextView.text = release?.releaseDate?.print()
             spotlightReleaseNameTextView.text = release?.title
@@ -83,6 +85,9 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun setReleasesOfWeek(releases: List<Release>) {
+        val visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
+        weekListLabel.visibility = visibility
+        weekListView.visibility = visibility
         weekListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)
@@ -91,6 +96,9 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun setFavoriteReleases(releases: List<Release>) {
+        val visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
+        favoriteLabel.visibility = visibility
+        favoriteListView.visibility = visibility
         favoriteListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)
@@ -99,6 +107,9 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun setRecentReleases(releases: List<Release>) {
+        val visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
+        recentLabel.visibility = visibility
+        recentListView.visibility = visibility
         recentListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)

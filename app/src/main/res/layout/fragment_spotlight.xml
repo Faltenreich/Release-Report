@@ -11,13 +11,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_padding_size_medium">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/spotlightContainer"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
-            android:layout_margin="@dimen/margin_padding_size_medium"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:layout_constraintTop_toTopOf="parent"
