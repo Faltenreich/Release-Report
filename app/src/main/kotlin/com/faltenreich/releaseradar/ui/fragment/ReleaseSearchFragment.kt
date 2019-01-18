@@ -49,11 +49,16 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listView.adapter = listAdapter
 
-        skeleton.showSkeleton()
-        viewModel.observe(this) { releases ->
-            skeleton.showOriginal()
+        viewModel.observe(this, onObserve = { releases ->
+            skeleton.showSkeleton()
+            listViewContainer.visibility = View.VISIBLE
+            listEmptyView.visibility = View.GONE
             listAdapter?.submitList(releases)
-        }
+        }, onInitialLoad = { releases ->
+            skeleton.showOriginal()
+            listViewContainer.visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
+            listEmptyView.visibility = if (releases.isNotEmpty()) View.GONE else View.VISIBLE
+        })
 
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }

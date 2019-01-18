@@ -6,7 +6,7 @@ import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import com.faltenreich.releaseradar.extension.asString
 import org.threeten.bp.LocalDate
 
-class ReleaseSearchDataSource(private val query: String?) : PagingDataSource<Release>() {
+class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PagingDataSource<Release>() {
     private var startAtDate: LocalDate = LocalDate.now()
     private var startAtDateAsString: String = startAtDate.asString
     private var startAtId: String? = null
@@ -14,13 +14,13 @@ class ReleaseSearchDataSource(private val query: String?) : PagingDataSource<Rel
 
     override fun getKey(item: Release): String = item.id ?: ""
 
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) = load(params.requestedLoadSize, callback)
+    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) = load(params.requestedLoadSize, callback, onInitialLoad)
 
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<Release>) = Unit
 
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Release>) = load(params.requestedLoadSize, callback)
 
-    private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>) {
+    private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>, onLoad: ((List<Release>) -> Unit)? = null) {
         query?.let { query ->
             ReleaseRepository.getAll(
                 Query(
@@ -32,6 +32,7 @@ class ReleaseSearchDataSource(private val query: String?) : PagingDataSource<Rel
                         callback.onResult(listOf())
                     } else {
                         val releases = result.filter { release -> release.matches(query) }
+                        onLoad?.invoke(releases)
                         releases.takeIf(List<Release>::isNotEmpty)?.let {
                             isFinished = releases.size < requestedLoadSize
                             if (isFinished) {
@@ -47,6 +48,7 @@ class ReleaseSearchDataSource(private val query: String?) : PagingDataSource<Rel
                         } ?: callback.onResult(listOf())
                     }
                 }, onError = {
+                    onLoad?.invoke(listOf())
                     callback.onResult(listOf())
                 })
         } ?: callback.onResult(listOf())

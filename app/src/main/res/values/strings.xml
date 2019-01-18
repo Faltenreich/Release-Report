@@ -19,5 +19,6 @@
     <string name="for_you">For you</string>
     <string name="following">Following</string>
     <string name="recently">Recently</string>
+    <string name="nothing_found">Nothing found</string>
 
 </resources>

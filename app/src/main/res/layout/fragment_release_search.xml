@@ -30,6 +30,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/listViewContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_padding_size_small"
@@ -45,6 +46,11 @@
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </androidx.cardview.widget.CardView>
+
+        <include
+            layout="@layout/view_empty"
+            android:id="@+id/listEmptyView"
+            android:visibility="gone"/>
 
         <com.lapism.searchview.widget.SearchView
             android:id="@+id/searchView"
