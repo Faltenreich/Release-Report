@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Do not alter these (potentially server-side-relevant) resources, since they connect push notifications to their corresponding notification channel when received in the background -->
+<resources>
+    <string name="notification_channel_main" translatable="false">main</string>
+</resources>
