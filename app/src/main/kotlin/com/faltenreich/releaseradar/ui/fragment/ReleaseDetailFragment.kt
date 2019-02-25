@@ -13,7 +13,6 @@ import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.releaseradar.extension.backgroundTintResource
-import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.view.Chip
@@ -69,7 +68,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
                 release?.let {
                     metaChipContainer.removeAllViews()
-                    addChip(metaChipContainer, release.releaseDate?.print(), R.drawable.ic_date)
+                    addChip(metaChipContainer, release.releaseDateForUi(context), R.drawable.ic_date)
 
                     viewModel.observeGenres(release, this) { genres ->
                         genreChipContainer.removeAllViews()

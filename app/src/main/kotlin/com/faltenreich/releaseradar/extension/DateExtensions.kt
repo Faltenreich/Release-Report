@@ -1,5 +1,7 @@
 package com.faltenreich.releaseradar.extension
 
+import android.content.Context
+import com.faltenreich.releaseradar.R
 import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
@@ -8,6 +10,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.format.FormatStyle
 import org.threeten.bp.format.TextStyle
+import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.WeekFields
 import java.util.*
 
@@ -30,11 +33,16 @@ val LocalDate.date: Date
 val Date.localDate: LocalDate
     get() = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
 
-fun LocalDate.print(): String = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(this)
-
-fun LocalDate.printMonth(): String = month.getDisplayName(TextStyle.FULL, Locale.getDefault())
-
-fun LocalDate.printYear(): String = year.toString()
-
 val LocalDate.calendarWeek: Int
     get() = get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear())
+
+fun LocalDate.print(context: Context?): String? {
+    val today = LocalDate.now()
+    val daysBetween = ChronoUnit.DAYS.between(today, this)
+    return when (daysBetween) {
+        0L -> context?.getString(R.string.today)
+        -1L -> context?.getString(R.string.yesterday)
+        1L -> context?.getString(R.string.tomorrow)
+        else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(this)
+    }
+}

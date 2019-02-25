@@ -20,7 +20,7 @@ class SpotlightViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<
         cardView.setOnClickListener { openRelease(data) }
         data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
         releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
-        releaseDateTextView.text = data.releaseDate?.print()
+        releaseDateTextView.text = data.releaseDateForUi(context)
     }
 
     private fun openRelease(release: Release) {

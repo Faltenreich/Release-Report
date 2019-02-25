@@ -20,5 +20,8 @@
     <string name="following">Following</string>
     <string name="recently">Recently</string>
     <string name="nothing_found">Nothing found</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
 
 </resources>

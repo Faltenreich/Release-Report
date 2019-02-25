@@ -10,6 +10,6 @@ import kotlinx.android.synthetic.main.list_item_release_date.*
 class ReleaseDateViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseListItem>(context, R.layout.list_item_release_date, parent) {
 
     override fun onBind(data: ReleaseListItem) {
-        releaseDateTextView.text = data.date?.print()
+        releaseDateTextView.text = data.date?.print(context)
     }
 }

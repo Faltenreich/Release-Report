@@ -23,7 +23,7 @@ class ReleaseSearchViewHolder(context: Context, parent: ViewGroup) : BaseViewHol
         releaseTypeImageView.setImageResource(data.mediaType?.iconResId ?: android.R.color.transparent)
         releaseTypeImageView.tintResource = data.mediaType?.colorResId ?: R.color.colorPrimary
         releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
-        releaseDateTextView.text = data.releaseDate?.print()
+        releaseDateTextView.text = data.releaseDateForUi(context)
     }
 
     private fun openRelease(release: Release) {

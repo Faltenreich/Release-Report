@@ -44,8 +44,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private val firstVisibleListItemPosition: Int
         get() = listLayoutManager.findFirstVisibleItemPosition()
 
-    private val sectionHeader: String
-        get() = (listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date ?: viewModel.date ?: LocalDate.now()).print()
+    private val sectionHeader: String?
+        get() = (listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date ?: viewModel.date ?: LocalDate.now()).print(context)
 
     private var showTodayButton: Boolean = false
 
