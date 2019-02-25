@@ -10,9 +10,3 @@ val Context.screenSize: Point
         val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         windowManager.defaultDisplay.getSize(point)
     }
-
-fun Context.actionBarSize(): Int {
-    val typedValue = TypedValue()
-    theme.resolveAttribute(android.R.attr.actionBarSize, typedValue, true)
-    return TypedValue.complexToDimensionPixelSize(typedValue.data, resources.displayMetrics)
-}
