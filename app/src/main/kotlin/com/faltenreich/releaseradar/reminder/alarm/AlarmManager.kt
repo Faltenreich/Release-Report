@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.notification
+package com.faltenreich.releaseradar.reminder.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import com.faltenreich.releaseradar.extension.className
 import com.faltenreich.releaseradar.extension.millis
+import com.faltenreich.releaseradar.reminder.ReminderService
 import org.threeten.bp.LocalDateTime
 
 object AlarmManager {
@@ -20,8 +21,9 @@ object AlarmManager {
         val alarmManager = getAlarmManager(context)
         // val start = LocalDate.now().plusDays(1).atTime(8, 0)
         val start = LocalDateTime.now().plusSeconds(1)
-        val intent = Intent(context, NotificationAlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getService(context, NotificationAlarmReceiver.SERVICE_ID, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val intent = Intent(context, ReminderService::class.java)
+        val pendingIntent = PendingIntent.getService(context,
+            ReminderService.SERVICE_ID, intent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setInexactRepeating(AlarmManager.RTC, start.millis, AlarmManager.INTERVAL_DAY, pendingIntent)
     }
 }

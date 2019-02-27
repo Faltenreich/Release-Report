@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <service android:enabled="true" android:name=".notification.NotificationAlarmReceiver" />
+        <service android:enabled="true" android:name=".reminder.ReminderService" />
 
     </application>
 

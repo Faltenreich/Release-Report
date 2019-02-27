@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.notification
+package com.faltenreich.releaseradar.reminder.notification
 
 import android.app.Notification
 import android.app.PendingIntent

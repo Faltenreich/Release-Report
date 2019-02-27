@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.notification
+package com.faltenreich.releaseradar.reminder
 
 import android.app.Service
 import android.content.Context
@@ -6,8 +6,11 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import com.faltenreich.releaseradar.extension.className
+import com.faltenreich.releaseradar.reminder.notification.Notification
+import com.faltenreich.releaseradar.reminder.notification.NotificationChannel
+import com.faltenreich.releaseradar.reminder.notification.NotificationManager
 
-class NotificationAlarmReceiver : Service() {
+class ReminderService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -18,7 +21,13 @@ class NotificationAlarmReceiver : Service() {
     }
 
     private fun notifyReleases(context: Context) {
-        val notification = Notification(SERVICE_ID, context, NotificationChannel.MAIN, null, "Test")
+        val notification = Notification(
+            SERVICE_ID,
+            context,
+            NotificationChannel.MAIN,
+            null,
+            "Test"
+        )
         NotificationManager.showNotification(notification)
     }
 
