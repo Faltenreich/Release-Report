@@ -1,34 +1,16 @@
 package com.faltenreich.releaseradar.reminder
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
-import com.faltenreich.releaseradar.extension.className
-import com.faltenreich.releaseradar.reminder.notification.Notification
-import com.faltenreich.releaseradar.reminder.notification.NotificationChannel
-import com.faltenreich.releaseradar.reminder.notification.NotificationManager
 
 class ReminderService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(className, "Starting service from alarm")
-        notifyReleases(baseContext)
+        ReminderManager.remind(baseContext)
         return START_NOT_STICKY
-    }
-
-    private fun notifyReleases(context: Context) {
-        val notification = Notification(
-            SERVICE_ID,
-            context,
-            NotificationChannel.MAIN,
-            null,
-            "Test"
-        )
-        NotificationManager.showNotification(notification)
     }
 
     companion object {

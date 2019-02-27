@@ -24,5 +24,6 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="notifications">Notifications</string>
+    <string name="reminder_title">%d new releases for you today</string>
 
 </resources>
