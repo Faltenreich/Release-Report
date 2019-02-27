@@ -14,7 +14,7 @@ interface Notifiable {
     val category: String?
     val title: String?
     val message: String?
-    val smallIconResId: Int
+    val smallIconRes: Int?
     val largeIcon: Bitmap?
     val intent: Intent
     val isGroup: Boolean
@@ -34,7 +34,7 @@ interface Notifiable {
                 setGroupSummary(isGroup)
                 setSound(channel.soundUri)
                 setAutoCancel(true)
-                setSmallIcon(smallIconResId)
+                setSmallIcon(smallIconRes ?: -1)
                 setLargeIcon(largeIcon)
                 setContentTitle(title)
                 setContentText(message)

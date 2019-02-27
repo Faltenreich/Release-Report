@@ -19,6 +19,7 @@ data class Release(
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null,
     var imageUrlForWallpaper: String? = null,
+    var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
     var platforms: List<String>? = null
 ) : Entity(), DateProvider, TitleProvider {
