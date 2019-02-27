@@ -2,14 +2,10 @@ package com.faltenreich.releaseradar.extension
 
 import android.content.Context
 import com.faltenreich.releaseradar.R
-import org.threeten.bp.DateTimeUtils
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
+import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.format.FormatStyle
-import org.threeten.bp.format.TextStyle
 import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.WeekFields
 import java.util.*
@@ -35,6 +31,9 @@ val Date.localDate: LocalDate
 
 val LocalDate.calendarWeek: Int
     get() = get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear())
+
+val LocalDateTime.millis: Long
+    get() = toInstant(ZoneOffset.systemDefault()).toEpochMilli()
 
 fun LocalDate.print(context: Context?): String? {
     val today = LocalDate.now()
