@@ -33,7 +33,7 @@ val LocalDate.calendarWeek: Int
     get() = get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear())
 
 val LocalDateTime.millis: Long
-    get() = toInstant(ZoneOffset.systemDefault()).toEpochMilli()
+    get() = atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
 fun LocalDate.print(context: Context?): String? {
     val today = LocalDate.now()
