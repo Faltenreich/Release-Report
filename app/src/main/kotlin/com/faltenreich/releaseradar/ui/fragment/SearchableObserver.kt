@@ -11,7 +11,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.lapism.searchview.widget.SearchView
 
 class SearchableObserver: LifecycleObserver {
-
     lateinit var properties: SearchableProperties
 
     private val fragment: Fragment

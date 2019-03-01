@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.faltenreich.releaseradar.data.provider.ViewModelCreator
-import com.faltenreich.releaseradar.ui.ToolbarDelegate
 import kotlin.reflect.KClass
 
 abstract class BaseFragment(
@@ -27,9 +26,6 @@ abstract class BaseFragment(
         }
 
     var subtitle: String? = null
-
-    protected val toolbarDelegate: ToolbarDelegate?
-        get() = activity as? ToolbarDelegate
 
     override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T = ViewModelProviders.of(this).get(clazz.java)
 

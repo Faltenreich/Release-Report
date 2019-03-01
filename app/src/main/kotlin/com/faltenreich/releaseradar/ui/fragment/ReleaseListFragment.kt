@@ -69,7 +69,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun initSearch() {
-        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {

@@ -48,7 +48,6 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     }
 
     private fun initSearch() {
-        searchView.setOnLogoClickListener { toolbarDelegate?.onHamburgerIconClicked() }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {
