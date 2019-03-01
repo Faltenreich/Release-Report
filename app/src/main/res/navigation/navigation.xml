@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/spotlight">
+    app:startDestination="@id/following">
 
     <fragment
         android:id="@+id/spotlight"
@@ -66,9 +66,9 @@
 
     <fragment
         android:id="@+id/following"
-        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseFavoriteListFragment"
+        android:name="com.faltenreich.releaseradar.ui.fragment.FollowingFragment"
         android:label="@string/following"
-        tools:layout="@layout/fragment_release_favorite">
+        tools:layout="@layout/fragment_following">
         <action
             android:id="@+id/open_release"
             app:destination="@+id/release_detail"

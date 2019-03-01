@@ -35,6 +35,9 @@ val LocalDate.calendarWeek: Int
 val LocalDateTime.millis: Long
     get() = atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
+val LocalDate.millis: Long
+    get() = atTime(0, 0).millis
+
 fun LocalDate.print(context: Context?): String? {
     val today = LocalDate.now()
     val daysBetween = ChronoUnit.DAYS.between(today, this)

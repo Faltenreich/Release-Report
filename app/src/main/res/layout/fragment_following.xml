@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:fitsSystemWindows="true">
+
+    <com.faltenreich.releaseradar.ui.view.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:compactCalendarBackgroundColor="@android:color/transparent"
+        app:compactCalendarCurrentDayBackgroundColor="?colorAccent"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="?android:textColorPrimaryInverse"
+        app:compactCalendarCurrentSelectedDayTextColor="?android:textColorPrimary"
+        app:compactCalendarDisplayOtherMonthDays="true"
+        app:compactCalendarMultiEventIndicatorColor="?colorPrimary"
+        app:compactCalendarOtherMonthDaysTextColor="?android:textColorTertiaryInverse"
+        app:compactCalendarTextColor="?android:textColorPrimaryInverse"
+        app:compactCalendarTextSize="12sp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_padding_size_small"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="2dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_item_release_search"/>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
