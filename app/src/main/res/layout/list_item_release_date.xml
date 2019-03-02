@@ -17,7 +17,8 @@
         android:paddingStart="@dimen/margin_padding_size_medium"
         android:paddingRight="@dimen/margin_padding_size_medium"
         android:paddingEnd="@dimen/margin_padding_size_medium"
-        android:background="?attr/colorPrimary"
+        android:background="?colorPrimary"
+        android:textColor="?android:textColorPrimaryInverse"
         tools:text="@tools:sample/date/mmddyy"/>
 
 </androidx.cardview.widget.CardView>

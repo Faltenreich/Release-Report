@@ -85,6 +85,17 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
             listView.adapter = listAdapter
+
+            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (isAdded) {
+                        val isScrollingUp = dy < 0
+                        invalidateTodayButton(isScrollingUp)
+                        releaseDateTextView.text = sectionHeader
+                    }
+                }
+            })
         }
     }
 
@@ -97,17 +108,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             todayButtonBehavior.isEnabled = false
             (todayButton.layoutParams as CoordinatorLayout.LayoutParams).behavior = todayButtonBehavior
             toggleTodayButton(false)
-
-            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (isAdded) {
-                        val isScrollingUp = dy < 0
-                        invalidateTodayButton(isScrollingUp)
-                        releaseDateTextView.text = sectionHeader
-                    }
-                }
-            })
         }
     }
 

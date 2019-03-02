@@ -2,7 +2,6 @@ package com.faltenreich.releaseradar.ui.activity
 
 import android.os.Bundle
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.faltenreich.releaseradar.R
@@ -21,11 +20,12 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         initLayout()
     }
 
-    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.navigationHost).navigateUp()
+    override fun onSupportNavigateUp(): Boolean {
+        return navigationController.navigateUp()
+    }
 
     private fun initLayout() {
         NavigationUI.setupWithNavController(navigationView, navigationController)
-        navigationView.setOnNavigationItemReselectedListener {  }
         // Workaround: Title is not set on app start via Navigation Architecture Components, so we do it on our own
         title = navigationController.currentDestination?.label
     }
