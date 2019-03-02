@@ -56,7 +56,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchable.properties = SearchableProperties(this, searchView, appbarLayout, statusBarBackground)
+        searchable.properties = SearchableProperties(this, searchView, appbarLayout)
         initSearch()
         initList()
         initTodayButton()

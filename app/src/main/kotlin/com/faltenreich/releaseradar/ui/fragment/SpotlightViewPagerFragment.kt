@@ -42,7 +42,7 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
     }
 
     private fun initLayout() {
-        searchable.properties = SearchableProperties(this, searchView, appbarLayout, statusBarBackground)
+        searchable.properties = SearchableProperties(this, searchView, appbarLayout)
         initViewPager()
         initSearch()
     }
@@ -75,11 +75,9 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
 
     private fun setTint(type: MediaType, animated: Boolean = true) {
         if (animated) {
-            statusBarBackground.fadeBackgroundColorResource(type.colorResId)
             appbarLayout.fadeBackgroundColorResource(type.colorResId)
             viewPager.fadeBackgroundColorResource(type.colorDarkResId)
         } else {
-            statusBarBackground.setBackgroundResource(type.colorResId)
             appbarLayout.setBackgroundResource(type.colorResId)
             viewPager.setBackgroundResource(type.colorDarkResId)
         }
