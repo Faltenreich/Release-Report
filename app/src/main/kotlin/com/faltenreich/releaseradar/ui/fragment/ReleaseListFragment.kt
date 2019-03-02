@@ -56,19 +56,15 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchable.properties = SearchableProperties(this, searchView, appbarLayout)
+        searchable.properties = SearchableProperties(this, searchView)
         initSearch()
         initList()
         initTodayButton()
         initData()
     }
 
-    override fun onResume() {
-        super.onResume()
-        searchView.logo = Search.Logo.HAMBURGER_ARROW
-    }
-
     private fun initSearch() {
+        searchView.setLogoIcon(R.drawable.ic_search)
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {

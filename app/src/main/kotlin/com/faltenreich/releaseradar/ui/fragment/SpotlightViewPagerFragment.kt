@@ -31,23 +31,19 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
         initLayout()
     }
 
-    override fun onResume() {
-        super.onResume()
-        searchView.logo = Search.Logo.HAMBURGER_ARROW
-    }
-
     private fun initData() {
         viewPagerPages =  mediaTypes.map { mediaType -> getString(mediaType.pluralStringRes) to SpotlightFragment.newInstance(mediaType) }
         viewPagerAdapter = FragmentViewPagerAdapter(childFragmentManager, viewPagerPages)
     }
 
     private fun initLayout() {
-        searchable.properties = SearchableProperties(this, searchView, appbarLayout)
+        searchable.properties = SearchableProperties(this, searchView)
         initViewPager()
         initSearch()
     }
 
     private fun initSearch() {
+        searchView.setLogoIcon(R.drawable.ic_search)
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {
