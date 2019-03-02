@@ -105,9 +105,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val isScrollingUp = dy < 0
-                    invalidateTodayButton(isScrollingUp)
-                    releaseDateTextView.text = sectionHeader
+                    if (isAdded) {
+                        val isScrollingUp = dy < 0
+                        invalidateTodayButton(isScrollingUp)
+                        releaseDateTextView.text = sectionHeader
+                    }
                 }
             })
         }

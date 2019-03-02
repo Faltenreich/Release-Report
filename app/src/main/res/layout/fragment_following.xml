@@ -1,63 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarLayout"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:fitsSystemWindows="true">
 
-            <FrameLayout
+            <com.faltenreich.releaseradar.ui.view.CalendarView
+                android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true">
+                android:layout_height="240dp"
+                app:compactCalendarBackgroundColor="@android:color/transparent"
+                app:compactCalendarCurrentDayBackgroundColor="?android:textColorTertiary"
+                app:compactCalendarCurrentDayTextColor="?android:textColorPrimaryInverse"
+                app:compactCalendarCurrentSelectedDayBackgroundColor="?colorPrimary"
+                app:compactCalendarCurrentSelectedDayTextColor="?android:textColorPrimaryInverse"
+                app:compactCalendarDisplayOtherMonthDays="true"
+                app:compactCalendarMultiEventIndicatorColor="?colorPrimary"
+                app:compactCalendarOtherMonthDaysTextColor="?android:textColorTertiary"
+                app:compactCalendarTextColor="?android:textColorPrimary"
+                app:compactCalendarTextSize="12sp"/>
 
-                <com.faltenreich.releaseradar.ui.view.CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    app:compactCalendarBackgroundColor="@android:color/transparent"
-                    app:compactCalendarCurrentDayBackgroundColor="?android:textColorTertiary"
-                    app:compactCalendarCurrentDayTextColor="?android:textColorPrimaryInverse"
-                    app:compactCalendarCurrentSelectedDayBackgroundColor="?colorPrimary"
-                    app:compactCalendarCurrentSelectedDayTextColor="?android:textColorPrimaryInverse"
-                    app:compactCalendarDisplayOtherMonthDays="true"
-                    app:compactCalendarMultiEventIndicatorColor="?colorPrimary"
-                    app:compactCalendarOtherMonthDaysTextColor="?android:textColorTertiary"
-                    app:compactCalendarTextColor="?android:textColorPrimary"
-                    app:compactCalendarTextSize="12sp"/>
+        </FrameLayout>
 
-            </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/listViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_padding_size_small"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="2dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/listViewContainer"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="2dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            tools:listitem="@layout/list_item_release_search"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/list_item_release_search"/>
+    </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

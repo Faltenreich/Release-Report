@@ -1,74 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarLayout"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:background="@null"
-            app:elevation="0dp"
-            tools:paddingTop="32dp">
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:layout_marginBottom="@dimen/margin_padding_size_small"/>
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/listViewContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="2dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/list_item_release_search"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-        </androidx.cardview.widget.CardView>
-
-        <include
-            layout="@layout/view_empty"
-            android:id="@+id/listEmptyView"
-            android:visibility="gone"/>
-
-        <com.lapism.searchview.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:search_hint="@string/search_hint"
-            app:search_hint_color="@color/gray_dark"
-            app:search_shadow="false"
-            app:layout_behavior="com.lapism.searchview.widget.SearchBehavior"
-            tools:paddingTop="24dp"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <View
-        android:id="@+id/statusBarBackground"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/listViewContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        tools:layout_height="@dimen/status_bar_height"/>
+        android:layout_margin="@dimen/margin_padding_size_small"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="2dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/list_item_release_search"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <include
+        layout="@layout/view_empty"
+        android:id="@+id/listEmptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.lapism.searchview.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:search_hint="@string/search_hint"
+        app:search_hint_color="@color/gray_dark"
+        app:search_shadow="false"
+        app:layout_behavior="com.faltenreich.releaseradar.ui.list.behavior.SearchBehavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

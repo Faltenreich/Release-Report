@@ -19,7 +19,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -30,10 +30,10 @@
             <ImageView
                 android:id="@+id/releaseWallpaperImageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="220dp"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
                 android:contentDescription="@null"
+                android:adjustViewBounds="true"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7"
@@ -43,7 +43,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:background="@drawable/scrim_bottom"/>
+                android:background="@drawable/scrim_bottom"
+                android:adjustViewBounds="true"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

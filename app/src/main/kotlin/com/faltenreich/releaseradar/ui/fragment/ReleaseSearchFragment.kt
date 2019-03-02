@@ -1,9 +1,7 @@
 package com.faltenreich.releaseradar.ui.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
@@ -26,21 +24,7 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        invalidatePaddingForTranslucentStatusBar()
-    }
-
-    private fun invalidatePaddingForTranslucentStatusBar() {
-        view?.doOnPreDraw {
-            val frame = Rect()
-            activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
-            appbarLayout.setPadding(0, frame.top, 0, 0)
-            searchView.setPadding(0, frame.top, 0, 0)
-            statusBarBackground.layoutParams.height = frame.top
-        }
+        initData()
     }
 
     private fun initLayout() {
@@ -48,17 +32,6 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
         listView.layoutManager = listLayoutManager
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         listView.adapter = listAdapter
-
-        viewModel.observe(this, onObserve = { releases ->
-            skeleton.showSkeleton()
-            listViewContainer.visibility = View.VISIBLE
-            listEmptyView.visibility = View.GONE
-            listAdapter?.submitList(releases)
-        }, onInitialLoad = { releases ->
-            skeleton.showOriginal()
-            listViewContainer.visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
-            listEmptyView.visibility = if (releases.isNotEmpty()) View.GONE else View.VISIBLE
-        })
 
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
@@ -70,5 +43,18 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
             }
         })
         searchView.setQuery(query, true)
+    }
+
+    private fun initData() {
+        viewModel.observe(this, onObserve = { releases ->
+            skeleton.showSkeleton()
+            listViewContainer.visibility = View.VISIBLE
+            listEmptyView.visibility = View.GONE
+            listAdapter?.submitList(releases)
+        }, onInitialLoad = { releases ->
+            skeleton.showOriginal()
+            listViewContainer.visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
+            listEmptyView.visibility = if (releases.isNotEmpty()) View.GONE else View.VISIBLE
+        })
     }
 }
