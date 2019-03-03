@@ -18,15 +18,9 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
