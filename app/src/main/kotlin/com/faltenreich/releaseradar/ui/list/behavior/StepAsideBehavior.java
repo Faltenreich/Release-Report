@@ -10,7 +10,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class StepAsideBehavior extends CoordinatorLayout.Behavior<View> {
 
     private float snackbarTranslation;
@@ -41,8 +40,6 @@ public class StepAsideBehavior extends CoordinatorLayout.Behavior<View> {
             View view = (View) dependencies.get(i);
             if (view instanceof Snackbar.SnackbarLayout && parent.doViewsOverlap(child, view)) {
                 translationY = Math.min(translationY, view.getTranslationY() - (float) view.getHeight());
-            } else if (view instanceof RecyclerView) {
-                RecyclerView recyclerView = (RecyclerView) view;
             }
         }
         if (translationY != snackbarTranslation) {
