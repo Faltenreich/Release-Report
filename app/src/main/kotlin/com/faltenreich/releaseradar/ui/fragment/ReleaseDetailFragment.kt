@@ -57,6 +57,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         releaseId?.let { id ->
             viewModel.observeRelease(id, this) { release ->
                 toolbar.title = release?.title
+                releaseTitleTextView.text = release?.title
 
                 release?.imageUrlForWallpaper?.let { url ->
                     releaseWallpaperImageView.setImageAsync(url)

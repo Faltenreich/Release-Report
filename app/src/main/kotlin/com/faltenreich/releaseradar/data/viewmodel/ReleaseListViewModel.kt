@@ -3,16 +3,16 @@ package com.faltenreich.releaseradar.data.viewmodel
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.list.paging.PagingDataFactory
 import com.faltenreich.releaseradar.ui.list.paging.ReleaseDataSource
-import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {
     private lateinit var releaseLiveData: LiveData<PagedList<ReleaseListItem>>
     private val dateLiveData = MutableLiveData<LocalDate>()
 
-    var releases: List<ReleaseListItem> = listOf()
+    val releases: List<ReleaseListItem>
         get() = releaseLiveData.value ?: listOf()
 
     var date: LocalDate?
