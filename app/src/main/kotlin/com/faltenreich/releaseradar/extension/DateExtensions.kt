@@ -6,6 +6,7 @@ import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.format.FormatStyle
+import org.threeten.bp.format.TextStyle
 import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.WeekFields
 import java.util.*
@@ -47,4 +48,8 @@ fun LocalDate.print(context: Context?): String? {
         1L -> context?.getString(R.string.tomorrow)
         else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(this)
     }
+}
+
+fun LocalDate.printMonth(context: Context?): String? {
+    return month.getDisplayName(TextStyle.FULL, context?.locale)
 }

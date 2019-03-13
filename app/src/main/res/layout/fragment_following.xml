@@ -15,10 +15,23 @@
         android:background="@android:color/white"
         android:fitsSystemWindows="true">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:fitsSystemWindows="true">
+
+            <TextView
+                android:id="@+id/dateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_padding_size_small"
+                android:paddingBottom="@dimen/margin_padding_size_small"
+                android:paddingStart="@dimen/margin_padding_size_medium"
+                android:paddingEnd="@dimen/margin_padding_size_medium"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="@dimen/text_size_large"
+                tools:text="@tools:sample/date/mmddyy"/>
 
             <com.faltenreich.releaseradar.ui.view.CalendarView
                 android:id="@+id/calendarView"
@@ -35,7 +48,7 @@
                 app:compactCalendarTextColor="?android:textColorPrimary"
                 app:compactCalendarTextSize="12sp"/>
 
-        </FrameLayout>
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

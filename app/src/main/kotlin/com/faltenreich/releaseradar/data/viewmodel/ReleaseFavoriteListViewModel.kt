@@ -17,6 +17,6 @@ class ReleaseFavoriteListViewModel : ViewModel() {
 
     fun observeFavoriteReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getFavorites { releases = it.sortedBy(Release::releasedAt) }
+        ReleaseRepository.getFavorites { releases -> this.releases = releases.sortedBy(Release::releasedAt) }
     }
 }
