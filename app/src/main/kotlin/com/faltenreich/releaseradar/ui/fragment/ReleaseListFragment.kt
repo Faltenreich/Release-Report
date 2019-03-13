@@ -167,7 +167,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun openDatePicker() {
-
+        val date = listAdapter?.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date ?: LocalDate.now()
+        DatePickerFragment.newInstance(date) { newDate -> newDate?.let { focusDate(newDate) } }.show(fragmentManager, null)
     }
 
     companion object {
