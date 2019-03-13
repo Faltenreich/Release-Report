@@ -59,7 +59,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         initSearch()
         initList()
         initTodayButton()
-        initData()
+        initData(LocalDate.now())
     }
 
     private fun initSearch() {
@@ -91,7 +91,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
                     if (isAdded) {
                         val isScrollingUp = dy < 0
                         invalidateTodayButton(isScrollingUp)
-                        releaseDateTextView.text = sectionHeader
+                        invalidateListHeader()
                     }
                 }
             })
@@ -112,13 +112,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         }
     }
 
-    private fun initData(force: Boolean = false) {
+    private fun initData(date: LocalDate, force: Boolean = false) {
         // TODO: Find way to distinguish back navigation via Navigation Components
         if (force || listAdapter?.itemCount == 0) {
             listItemDecoration.isSkeleton = true
             skeleton.showSkeleton()
 
-            viewModel.observeReleases(this, onObserve = { releases ->
+            viewModel.observeReleases(date, this, onObserve = { releases ->
                 listAdapter?.submitList(releases)
 
             }, onInitialLoad = {
@@ -144,6 +144,10 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         }
     }
 
+    private fun invalidateListHeader() {
+        releaseDateTextView.text = sectionHeader
+    }
+
     private fun toggleTodayButton(animated: Boolean) {
         val translationY = if (showTodayButton) 0f else todayButton.height + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat()
         if (animated) {
@@ -163,7 +167,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             todayButtonBehavior.isEnabled = show
             toggleTodayButton(true)
 
-        } ?: initData()
+        } ?: initData(date, true)
     }
 
     private fun openDatePicker() {

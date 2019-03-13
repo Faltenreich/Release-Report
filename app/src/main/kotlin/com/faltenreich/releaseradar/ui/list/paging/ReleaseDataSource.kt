@@ -8,8 +8,10 @@ import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
-class ReleaseDataSource(private val onInitialLoad: (() -> Unit)? = null) : PagingDataSource<ReleaseListItem>() {
-    private var startAtDate: LocalDate = LocalDate.now()
+class ReleaseDataSource(
+    private var startAtDate: LocalDate,
+    private val onInitialLoad: (() -> Unit)? = null
+) : PagingDataSource<ReleaseListItem>() {
     private var startAtDateAsString: String = startAtDate.asString
     private var startAtId: String? = null
     private var endAtDateAsString: String = startAtDate.minusDays(1).asString

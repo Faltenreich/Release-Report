@@ -16,11 +16,11 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val date = givenDate ?: LocalDate.now()
-        return DatePickerDialog(context, R.style.DateTimePicker, this, date.year, date.monthValue, date.dayOfMonth)
+        return DatePickerDialog(context, R.style.DateTimePicker, this, date.year, date.monthValue - 1, date.dayOfMonth)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        onDateSet?.invoke(LocalDate.of(year, month, dayOfMonth))
+        onDateSet?.invoke(LocalDate.of(year, month + 1, dayOfMonth))
     }
 
     companion object {
