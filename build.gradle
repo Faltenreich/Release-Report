@@ -1,14 +1,19 @@
 buildscript {
     ext {
-        kotlin = "1.3.21"
-        android_gradle_plugin = '3.2.1'
+        kotlin = "1.3.31"
+        android_gradle_plugin = '3.4.0'
         google_play_services = "4.0.1"
         navigation = "1.0.0-alpha09"
+
+        repos = {
+            google()
+            jcenter()
+            maven { url "https://jitpack.io" }
+        }
     }
-    repositories {
-        google()
-        jcenter()
-    }
+
+    repositories repos
+
     dependencies {
         classpath "com.android.tools.build:gradle:$android_gradle_plugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
@@ -18,10 +23,7 @@ buildscript {
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+    repositories repos
 }
 
 task clean(type: Delete) {

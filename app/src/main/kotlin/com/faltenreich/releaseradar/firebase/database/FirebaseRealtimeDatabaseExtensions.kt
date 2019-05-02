@@ -1,9 +1,6 @@
 package com.faltenreich.releaseradar.firebase.database
 
-import com.faltenreich.releaseradar.firebase.database.dao.FirebaseQuery
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.Query
-
+/*
 fun DatabaseReference.applyQuery(query: FirebaseQuery?): Query {
     query?.let { query ->
         val ordered = query.orderBy?.let { orderBy ->
@@ -42,3 +39,4 @@ fun DatabaseReference.applyQuery(query: FirebaseQuery?): Query {
         return limitedToLast
     } ?: return this
 }
+        */

@@ -1,5 +1,5 @@
 package com.faltenreich.releaseradar.data.dao
 
-import com.faltenreich.releaseradar.firebase.database.dao.FirebaseQuery
+import com.faltenreich.releaseradar.firebase.database.FirebaseQuery
 
 typealias Query = FirebaseQuery

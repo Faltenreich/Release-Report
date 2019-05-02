@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.firebase.database.dao
+package com.faltenreich.releaseradar.firebase.database
 
 // TODO: Find way to restrict data type (e.g. via sealed class)
 data class FirebaseQuery(
