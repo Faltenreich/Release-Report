@@ -5,6 +5,8 @@ import com.faltenreich.releaseradar.data.preference.UserPreferences
 import com.faltenreich.releaseradar.data.provider.DateProvider
 import com.faltenreich.releaseradar.data.provider.TitleProvider
 import com.faltenreich.releaseradar.extension.isTrue
+import com.faltenreich.releaseradar.extension.localDate
+import com.parse.ParseObject
 
 data class Release(
     override var releasedAt: String? = null,
@@ -22,7 +24,7 @@ data class Release(
     var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
     var platforms: List<String>? = null
-) : Entity(), DateProvider, TitleProvider {
+) : BaseEntity(), DateProvider, TitleProvider {
 
     var mediaType: MediaType?
         get() = type?.let { type -> MediaType.valueForKey(type) }
@@ -38,4 +40,15 @@ data class Release(
 
     // TODO: Split query by whitespaces and support multi-keyword matching
     fun matches(query: String) = title?.contains(query, true).isTrue || artistName?.contains(query, true).isTrue
+
+    override fun fromParseObject(parseObject: ParseObject) {
+        id = parseObject.getString("externalId")
+        title = parseObject.getString("title")
+        description = parseObject.getString("description")
+        releaseDate = parseObject.getDate("releasedAt")?.localDate
+        imageUrlForThumbnail = parseObject.getString("imageUrlForThumbnail")
+        imageUrlForCover = parseObject.getString("imageUrlForCover")
+        imageUrlForWallpaper = parseObject.getString("imageUrlForWallpaper")
+        popularity = parseObject.getNumber("popularity")?.toFloat()
+    }
 }

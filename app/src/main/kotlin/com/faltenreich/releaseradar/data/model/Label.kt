@@ -4,4 +4,4 @@ import com.faltenreich.releaseradar.data.provider.TitleProvider
 
 data class Label(
     override var title: String? = null
-) : Entity(), TitleProvider
+) : BaseEntity(), TitleProvider

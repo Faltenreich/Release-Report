@@ -8,4 +8,4 @@ data class Platform(
     override var title: String? = null,
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null
-) : Entity(), DateProvider, TitleProvider
+) : BaseEntity(), DateProvider, TitleProvider

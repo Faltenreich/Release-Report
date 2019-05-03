@@ -6,4 +6,4 @@ data class Artist(
     override var title: String? = null,
     var imageUrl: String? = null,
     var imageThumbnailUrl: String? = null
-) : Entity(), TitleProvider
+) : BaseEntity(), TitleProvider

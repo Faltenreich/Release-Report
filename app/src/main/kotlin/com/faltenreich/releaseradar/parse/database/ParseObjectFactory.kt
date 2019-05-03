@@ -1,15 +1,18 @@
 package com.faltenreich.releaseradar.parse.database
 
-import com.faltenreich.releaseradar.data.model.Storable
+import com.faltenreich.releaseradar.data.model.Entity
 import com.parse.ParseObject
+import kotlin.reflect.KClass
 
 object ParseObjectFactory {
 
-    fun createParseObject(entity: Storable): ParseObject? {
-        TODO()
+    fun <T : Entity> createEntity(clazz: KClass<T>, parseObject: ParseObject): T? {
+        val entity = clazz.java.newInstance()
+        entity.fromParseObject(parseObject)
+        return entity
     }
 
-    fun <Model : Storable> createStorable(parseObject: ParseObject): Model? {
-        TODO()
+    fun createParseObject(entity: Entity): ParseObject? {
+        return entity.toParseObject()
     }
 }
