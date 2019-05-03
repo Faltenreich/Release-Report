@@ -9,7 +9,7 @@ import com.parse.ParseQuery
 abstract class ParseDao<Entity : Storable> : Dao<Entity> {
 
     override fun getAll(query: FirebaseQuery?, onSuccess: (List<Entity>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        onSuccess(listOf())
     }
 
     override fun getById(id: String, onSuccess: (Entity?) -> Unit, onError: ((Exception?) -> Unit)?) {
@@ -24,7 +24,7 @@ abstract class ParseDao<Entity : Storable> : Dao<Entity> {
         } ?: onError?.invoke(null)
     }
 
-    override fun delete(entity: Entity, onSuccess: ((Unit) -> Unit)?, onError: ((Exception?) -> Unit)?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun delete(entity: Entity, onSuccess: (() -> Unit)?, onError: ((Exception?) -> Unit)?) {
+        // TODO
     }
 }

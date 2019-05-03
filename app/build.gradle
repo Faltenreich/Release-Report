@@ -20,8 +20,7 @@ android {
 
     buildTypes {
         debug {
-            // Disable instant run for this to work
-            minifyEnabled true
+            minifyEnabled false
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

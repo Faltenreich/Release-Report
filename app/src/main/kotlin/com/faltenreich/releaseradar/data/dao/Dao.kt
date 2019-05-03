@@ -11,5 +11,5 @@ interface Dao<Entity : Storable> {
 
     fun createOrUpdate(entity: Entity, onSuccess: (() -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
 
-    fun delete(entity: Entity, onSuccess: ((Unit) -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
+    fun delete(entity: Entity, onSuccess: (() -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
 }

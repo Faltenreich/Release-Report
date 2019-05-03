@@ -9,5 +9,5 @@ abstract class Repository<Entity : Storable, DAO : BaseDao<Entity>>(private val 
     override fun getAll(query: Query?, onSuccess: (List<Entity>) -> Unit, onError: ((Exception?) -> Unit)?) = dao.getAll(query, onSuccess, onError)
     override fun getById(id: String, onSuccess: (Entity?) -> Unit, onError: ((Exception?) -> Unit)?) = dao.getById(id, onSuccess, onError)
     override fun createOrUpdate(entity: Entity, onSuccess: (() -> Unit)?, onError: ((Exception?) -> Unit)?) = dao.createOrUpdate(entity, onSuccess, onError)
-    override fun delete(entity: Entity, onSuccess: ((Unit) -> Unit)?, onError: ((Exception?) -> Unit)?) = dao.delete(entity, onSuccess, onError)
+    override fun delete(entity: Entity, onSuccess: (() -> Unit)?, onError: ((Exception?) -> Unit)?) = dao.delete(entity, onSuccess, onError)
 }
