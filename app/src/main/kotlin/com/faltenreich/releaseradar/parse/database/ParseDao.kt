@@ -1,6 +1,7 @@
 package com.faltenreich.releaseradar.parse.database
 
 import com.faltenreich.releaseradar.data.dao.Dao
+import com.faltenreich.releaseradar.data.model.BaseEntity
 import com.faltenreich.releaseradar.data.model.Entity
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -30,8 +31,10 @@ abstract class ParseDao<T : Entity>(private val clazz: KClass<T>) : Dao<T> {
     }
 
     override fun getById(id: String, onSuccess: (T?) -> Unit, onError: ((Exception?) -> Unit)?) {
-        getQuery().getInBackground(id) { parseObject, exception ->
-            ParseObjectFactory.createEntity(clazz, parseObject)?.let { storable -> onSuccess(storable) } ?: onError?.invoke(exception)
+        getQuery().whereEqualTo(BaseEntity.ID, id).findInBackground { parseObjects, exception ->
+            parseObjects.firstOrNull()?.let { parseObject ->
+                ParseObjectFactory.createEntity(clazz, parseObject)?.let { storable -> onSuccess(storable) } ?: onError?.invoke(exception)
+            } ?: onError?.invoke(exception)
         }
     }
 

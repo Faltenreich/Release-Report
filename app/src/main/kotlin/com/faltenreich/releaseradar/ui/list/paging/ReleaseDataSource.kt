@@ -3,8 +3,6 @@ package com.faltenreich.releaseradar.ui.list.paging
 import android.util.Log
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
-import com.faltenreich.releaseradar.extension.asLocalDate
-import com.faltenreich.releaseradar.extension.asString
 import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.tag
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
@@ -12,12 +10,9 @@ import org.threeten.bp.LocalDate
 
 class ReleaseDataSource(
     private var startAtDate: LocalDate,
+    private var endAtDate: LocalDate = startAtDate,
     private val onInitialLoad: (() -> Unit)? = null
 ) : PagingDataSource<ReleaseListItem>() {
-    private var startAtDateAsString: String = startAtDate.asString
-    private var startAtId: String? = null
-    private var endAtDateAsString: String = startAtDate.minusDays(1).asString
-    private var endAtId: String? = null
 
     override fun getKey(item: ReleaseListItem): String = item.release?.id ?: ""
 
@@ -33,19 +28,13 @@ class ReleaseDataSource(
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, true, callback)
 
     private fun load(requestedLoadSize: Int, descending: Boolean, callback: LoadCallback<ReleaseListItem>) {
-        val (startAt, endAt) = if (descending) startAtDateAsString.asLocalDate to null else null to endAtDateAsString.asLocalDate
+        val (startAt, endAt) = if (descending) startAtDate to null else null to endAtDate
         ReleaseRepository.getAll(startAt, endAt, requestedLoadSize, onSuccess = { releases ->
             releases.takeIf(List<Release>::isNotEmpty)?.let {
                 if (descending) {
-                    releases.last().let { nextRelease ->
-                        startAtId = nextRelease.id
-                        startAtDateAsString = nextRelease.releasedAt ?: startAtDateAsString
-                    }
+                    releases.last().let { nextRelease -> startAtDate = nextRelease.releaseDate ?: startAtDate }
                 } else {
-                    releases.first().let { previousRelease ->
-                        endAtId = previousRelease.id
-                        endAtDateAsString = previousRelease.releasedAt ?: endAtDateAsString
-                    }
+                    releases.first().let { previousRelease -> endAtDate = previousRelease.releaseDate ?: endAtDate }
                 }
                 val releaseListItems = mutableListOf<ReleaseListItem>()
                 releases.forEachIndexed { index, release ->
@@ -57,7 +46,7 @@ class ReleaseDataSource(
                         }
                     }
                 }
-                callback.onResult(releaseListItems.dropLast(1))
+                callback.onResult(releaseListItems)
             } ?: callback.onResult(listOf())
         }, onError = { exception ->
             Log.e(tag, exception?.message)
