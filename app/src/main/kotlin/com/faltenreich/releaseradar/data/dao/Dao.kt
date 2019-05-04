@@ -1,14 +1,14 @@
 package com.faltenreich.releaseradar.data.dao
 
-import com.faltenreich.releaseradar.firebase.database.FirebaseQuery
+import com.faltenreich.releaseradar.data.model.Entity
 
-interface Dao<Entity : com.faltenreich.releaseradar.data.model.Entity> {
+interface Dao<T : Entity> {
 
-    fun getAll(query: FirebaseQuery? = null, onSuccess: (List<Entity>) -> Unit, onError: ((Exception?) -> Unit)? = null)
+    fun getAll(onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)? = null)
 
-    fun getById(id: String, onSuccess: (Entity?) -> Unit, onError: ((Exception?) -> Unit)? = null)
+    fun getById(id: String, onSuccess: (T?) -> Unit, onError: ((Exception?) -> Unit)? = null)
 
-    fun createOrUpdate(entity: Entity, onSuccess: (() -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
+    fun createOrUpdate(entity: T, onSuccess: (() -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
 
-    fun delete(entity: Entity, onSuccess: (() -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
+    fun delete(entity: T, onSuccess: (() -> Unit)? = null, onError: ((Exception?) -> Unit)? = null)
 }

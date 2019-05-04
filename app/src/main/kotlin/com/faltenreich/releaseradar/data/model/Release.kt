@@ -51,4 +51,15 @@ data class Release(
         imageUrlForWallpaper = parseObject.getString("imageUrlForWallpaper")
         popularity = parseObject.getNumber("popularity")?.toFloat()
     }
+
+    // TODO: Encapsulate and make inheritable
+    companion object {
+        val TITLE = "title"
+        val DESCRIPTION = "description"
+        val RELEASED_AT = "releasedAt"
+        val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
+        val IMAGE_URL_FOR_COVER = "imageUrlForCover"
+        val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
+        val POPULARTIY = "popularity"
+    }
 }

@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.faltenreich.releaseradar.data.dao.Query
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
@@ -33,6 +32,8 @@ class SpotlightViewModel : ViewModel() {
     fun observeWeeklyReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         val filter = "${type.key}-${today.year}-${today.calendarWeek}-"
         weeklyReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        TODO()
+        /*
         ReleaseRepository.getAll(
             Query(
                 orderBy = "indexForSpotlight",
@@ -44,6 +45,7 @@ class SpotlightViewModel : ViewModel() {
             }, onError = {
                 releasesOfWeek = null
             })
+            */
     }
 
     fun observeFavoriteReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
@@ -58,6 +60,8 @@ class SpotlightViewModel : ViewModel() {
         val day = today.minusWeeks(1)
         val filter = "${type.key}-${day.year}-${day.calendarWeek}-"
         recentReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        TODO()
+        /*
         ReleaseRepository.getAll(
             Query(
                 orderBy = "indexForSpotlight",
@@ -69,6 +73,7 @@ class SpotlightViewModel : ViewModel() {
             }, onError = {
                 recentReleases = null
             })
+        */
     }
 
     companion object {

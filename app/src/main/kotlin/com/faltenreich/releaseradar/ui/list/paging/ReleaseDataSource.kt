@@ -1,10 +1,12 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
-import com.faltenreich.releaseradar.data.dao.Query
+import android.util.Log
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
+import com.faltenreich.releaseradar.extension.asLocalDate
 import com.faltenreich.releaseradar.extension.asString
 import com.faltenreich.releaseradar.extension.isTrue
+import com.faltenreich.releaseradar.tag
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
@@ -31,40 +33,35 @@ class ReleaseDataSource(
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<ReleaseListItem>) = load(params.requestedLoadSize, true, callback)
 
     private fun load(requestedLoadSize: Int, descending: Boolean, callback: LoadCallback<ReleaseListItem>) {
-        ReleaseRepository.getAll(
-            Query(
-                orderBy = "releasedAt",
-                limitToFirst = if (descending) requestedLoadSize + 1 else null,
-                limitToLast = if (!descending) requestedLoadSize + 1 else null,
-                startAt = if (descending) startAtDateAsString to startAtId else null,
-                endAt = if (!descending) endAtDateAsString to endAtId else null
-            ), onSuccess = { releases ->
-                releases.takeIf(List<Release>::isNotEmpty)?.let {
-                    if (descending) {
-                        releases.last().let { nextRelease ->
-                            startAtId = nextRelease.id
-                            startAtDateAsString = nextRelease.releasedAt ?: startAtDateAsString
-                        }
-                    } else {
-                        releases.first().let { previousRelease ->
-                            endAtId = previousRelease.id
-                            endAtDateAsString = previousRelease.releasedAt ?: endAtDateAsString
+        val (startAt, endAt) = if (descending) startAtDateAsString.asLocalDate to null else null to endAtDateAsString.asLocalDate
+        ReleaseRepository.getAll(startAt, endAt, requestedLoadSize, onSuccess = { releases ->
+            releases.takeIf(List<Release>::isNotEmpty)?.let {
+                if (descending) {
+                    releases.last().let { nextRelease ->
+                        startAtId = nextRelease.id
+                        startAtDateAsString = nextRelease.releasedAt ?: startAtDateAsString
+                    }
+                } else {
+                    releases.first().let { previousRelease ->
+                        endAtId = previousRelease.id
+                        endAtDateAsString = previousRelease.releasedAt ?: endAtDateAsString
+                    }
+                }
+                val releaseListItems = mutableListOf<ReleaseListItem>()
+                releases.forEachIndexed { index, release ->
+                    releaseListItems.add(ReleaseListItem(release.releaseDate, release))
+                    // Add section header
+                    releases.getOrNull(index + 1)?.let { nextRelease ->
+                        if (nextRelease.releaseDate?.isAfter(release.releaseDate).isTrue) {
+                            releaseListItems.add(ReleaseListItem(nextRelease.releaseDate, null))
                         }
                     }
-                    val releaseListItems = mutableListOf<ReleaseListItem>()
-                    releases.forEachIndexed { index, release ->
-                        releaseListItems.add(ReleaseListItem(release.releaseDate, release))
-                        // Add section header
-                        releases.getOrNull(index + 1)?.let { nextRelease ->
-                            if (nextRelease.releaseDate?.isAfter(release.releaseDate).isTrue) {
-                                releaseListItems.add(ReleaseListItem(nextRelease.releaseDate, null))
-                            }
-                        }
-                    }
-                    callback.onResult(releaseListItems.dropLast(1))
-                } ?: callback.onResult(listOf())
-            }, onError = {
-                callback.onResult(listOf())
-            })
+                }
+                callback.onResult(releaseListItems.dropLast(1))
+            } ?: callback.onResult(listOf())
+        }, onError = { exception ->
+            Log.e(tag, exception?.message)
+            callback.onResult(listOf())
+        })
     }
 }

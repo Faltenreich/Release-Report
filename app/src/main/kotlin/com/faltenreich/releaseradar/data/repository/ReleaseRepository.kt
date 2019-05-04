@@ -9,6 +9,10 @@ import org.threeten.bp.LocalDate
 
 object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao) {
 
+    fun getAll(startAt: LocalDate?, endAt: LocalDate?, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?)  {
+        dao.getAll(startAt, endAt, pageSize, onSuccess, onError)
+    }
+
     fun getFavorites(mediaType: MediaType? = null, from: LocalDate? = null, onResult: (List<Release>) -> Unit) {
         UserPreferences.favoriteReleaseIds.takeIf(Collection<*>::isNotEmpty)?.let { favoriteReleaseIds ->
             val favoriteReleases = mutableListOf<Release>()

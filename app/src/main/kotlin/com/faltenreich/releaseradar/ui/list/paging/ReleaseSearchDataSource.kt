@@ -1,8 +1,6 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
-import com.faltenreich.releaseradar.data.dao.Query
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import com.faltenreich.releaseradar.extension.asString
 import org.threeten.bp.LocalDate
 
@@ -21,6 +19,8 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Release>) = load(params.requestedLoadSize, callback)
 
     private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>, onLoad: ((List<Release>) -> Unit)? = null) {
+        TODO()
+        /*
         query?.let { query ->
             ReleaseRepository.getAll(
                 Query(
@@ -52,5 +52,6 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
                     callback.onResult(listOf())
                 })
         } ?: callback.onResult(listOf())
+        */
     }
 }
