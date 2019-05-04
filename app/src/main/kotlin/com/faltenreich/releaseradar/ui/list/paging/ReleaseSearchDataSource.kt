@@ -1,10 +1,22 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.repository.ReleaseRepository
-import org.threeten.bp.LocalDate
 
 class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PagingDataSource<Release>() {
+
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Release>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Release>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Release>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    /*
     private var startAtDate: LocalDate = LocalDate.now()
 
     override fun getKey(item: Release): String = item.id ?: ""
@@ -28,4 +40,5 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
             })
         } ?: callback.onResult(listOf())
     }
+    */
 }

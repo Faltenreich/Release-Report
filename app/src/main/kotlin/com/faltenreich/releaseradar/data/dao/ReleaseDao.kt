@@ -8,23 +8,27 @@ import org.threeten.bp.LocalDate
 object ReleaseDao : BaseDao<Release>(Release::class) {
     override val entityName: String = "Release"
 
-    fun getAll(startAt: LocalDate?, endAt: LocalDate?, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+    fun getAll(startAt: LocalDate, greaterThan: Boolean, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        val date = startAt.date
         val query = getQuery()
             .run {
-                startAt?.date?.let { date ->
+                if (greaterThan) {
                     whereGreaterThan(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT)
-                } ?: endAt?.date?.let { date ->
+                } else {
                     whereLessThan(Release.RELEASED_AT, date).orderByDescending(Release.RELEASED_AT)
-                } ?: this
+                }
             }
+            .setSkip(page * pageSize)
             .setLimit(pageSize)
         findInBackground(query, { releases -> onSuccess(releases.sortedBy(Release::releaseDate)) }, onError)
     }
 
-    fun search(string: String, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+    fun search(string: String, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
         val query = getQuery()
             .whereContainsText(Release.TITLE, string)
-            .orderByAscending(Release.RELEASED_AT)
+            .orderByDescending(Release.POPULARTIY)
+            .setSkip(page * pageSize)
+            .setLimit(pageSize)
         findInBackground(query, onSuccess, onError)
     }
 }

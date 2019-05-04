@@ -1,5 +1,5 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
-import androidx.paging.ItemKeyedDataSource
+import androidx.paging.PageKeyedDataSource
 
-abstract class PagingDataSource<T : Any> : ItemKeyedDataSource<String, T>()
+abstract class PagingDataSource<T : Any> : PageKeyedDataSource<Int, T>()

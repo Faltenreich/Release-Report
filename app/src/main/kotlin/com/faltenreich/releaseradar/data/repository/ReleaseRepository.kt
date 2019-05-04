@@ -9,12 +9,12 @@ import org.threeten.bp.LocalDate
 
 object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao) {
 
-    fun getAll(startAt: LocalDate?, endAt: LocalDate?, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?)  {
-        dao.getAll(startAt, endAt, pageSize, onSuccess, onError)
+    fun getAll(startAt: LocalDate, greaterThan: Boolean, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        dao.getAll(startAt, greaterThan, page, pageSize, onSuccess, onError)
     }
 
-    fun search(string: String, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        dao.search(string, onSuccess, onError)
+    fun search(string: String, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        dao.search(string, page, pageSize, onSuccess, onError)
     }
 
     fun getFavorites(mediaType: MediaType? = null, from: LocalDate? = null, onResult: (List<Release>) -> Unit) {
