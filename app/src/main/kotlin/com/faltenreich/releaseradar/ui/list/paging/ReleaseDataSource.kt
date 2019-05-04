@@ -32,9 +32,7 @@ class ReleaseDataSource(
     }
 
     private fun load(page: Int, pageSize: Int, descending: Boolean, callback: LoadCallback<Int, ReleaseListItem>) {
-        val onResponse = { releases: List<ReleaseListItem> ->
-            callback.onResult(releases, page + 1)
-        }
+        val onResponse = { data: List<ReleaseListItem> -> callback.onResult(data, page + 1) }
         ReleaseRepository.getAll(startAt, descending, page, pageSize, onSuccess = { releases ->
             releases.takeIf(List<Release>::isNotEmpty)?.let {
                 val releaseListItems = mutableListOf<ReleaseListItem>()

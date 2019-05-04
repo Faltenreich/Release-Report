@@ -1,30 +1,33 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
-import androidx.paging.ItemKeyedDataSource
+import androidx.paging.PageKeyedDataSource
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 
-class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : ItemKeyedDataSource<String, Release>() {
+class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PageKeyedDataSource<Int, Release>() {
 
-    override fun getKey(item: Release): String = item.id ?: ""
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Release>) {
+        load(0, params.requestedLoadSize, object : LoadCallback<Int, Release>() {
+            override fun onResult(data: MutableList<Release>, adjacentPageKey: Int?) {
+                onInitialLoad?.invoke(data)
+                callback.onResult(data, 0, 1)
+            }
+        }, onInitialLoad)
+    }
 
-    override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Release>) = load(params.requestedLoadSize, callback, onInitialLoad)
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Release>) = Unit
 
-    override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<Release>) = Unit
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Release>) {
+        load(params.key, params.requestedLoadSize, callback)
+    }
 
-    override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Release>) = load(params.requestedLoadSize, callback)
-
-    private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>, onLoad: ((List<Release>) -> Unit)? = null) {
+    private fun load(page: Int, pageSize: Int, callback: LoadCallback<Int, Release>, onLoad: ((List<Release>) -> Unit)? = null) {
+        val onResponse = { data: List<Release> ->
+            onLoad?.invoke(data)
+            callback.onResult(data, page + 1)
+        }
         query?.let { query ->
-            ReleaseRepository.search(query, 0, requestedLoadSize, onSuccess = { releases ->
-                onLoad?.invoke(releases)
-                callback.onResult(releases)
-                // TODO: Paging
-            }, onError = {
-                val result = listOf<Release>()
-                onLoad?.invoke(result)
-                callback.onResult(result)
-            })
-        } ?: callback.onResult(listOf())
+            ReleaseRepository.search(query, page, pageSize, onSuccess = { releases -> onResponse(releases) }, onError = { onResponse(listOf()) })
+        } ?: onResponse(listOf())
     }
 }
