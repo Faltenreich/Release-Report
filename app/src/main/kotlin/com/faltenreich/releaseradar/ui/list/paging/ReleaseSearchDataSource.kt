@@ -16,8 +16,9 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Release>) = load(params.requestedLoadSize, callback)
 
     private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>, onLoad: ((List<Release>) -> Unit)? = null) {
-        query?.let {
+        query?.let { query ->
             ReleaseRepository.search(query, onSuccess = { releases ->
+                onLoad?.invoke(releases)
                 callback.onResult(releases)
                 // TODO: Paging
             }, onError = {
