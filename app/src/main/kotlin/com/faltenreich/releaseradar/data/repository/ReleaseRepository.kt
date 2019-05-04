@@ -13,6 +13,10 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao) {
         dao.getAll(startAt, endAt, pageSize, onSuccess, onError)
     }
 
+    fun search(string: String, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        dao.search(string, onSuccess, onError)
+    }
+
     fun getFavorites(mediaType: MediaType? = null, from: LocalDate? = null, onResult: (List<Release>) -> Unit) {
         UserPreferences.favoriteReleaseIds.takeIf(Collection<*>::isNotEmpty)?.let { favoriteReleaseIds ->
             val favoriteReleases = mutableListOf<Release>()

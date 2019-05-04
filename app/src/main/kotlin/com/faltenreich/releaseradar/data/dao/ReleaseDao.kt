@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.data.dao
 
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.date
+import com.faltenreich.releaseradar.parse.database.whereContainsText
 import org.threeten.bp.LocalDate
 
 object ReleaseDao : BaseDao<Release>(Release::class) {
@@ -18,5 +19,12 @@ object ReleaseDao : BaseDao<Release>(Release::class) {
             }
             .setLimit(pageSize)
         findInBackground(query, { releases -> onSuccess(releases.sortedBy(Release::releaseDate)) }, onError)
+    }
+
+    fun search(string: String, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        val query = getQuery()
+            .whereContainsText(Release.TITLE, string)
+            .orderByAscending(Release.RELEASED_AT)
+        findInBackground(query, onSuccess, onError)
     }
 }
