@@ -1,6 +1,7 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
 import android.util.Log
+import androidx.paging.PageKeyedDataSource
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import com.faltenreich.releaseradar.extension.isTrue
@@ -11,7 +12,7 @@ import org.threeten.bp.LocalDate
 class ReleaseDataSource(
     private var startAt: LocalDate,
     private val onInitialLoad: (() -> Unit)? = null
-) : PagingDataSource<ReleaseListItem>() {
+) : PageKeyedDataSource<Int, ReleaseListItem>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseListItem>) {
         load(0, params.requestedLoadSize, true, object : LoadCallback<Int, ReleaseListItem>() {

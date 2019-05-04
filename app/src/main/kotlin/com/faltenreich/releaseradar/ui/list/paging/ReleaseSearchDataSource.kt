@@ -1,23 +1,10 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
+import androidx.paging.ItemKeyedDataSource
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 
-class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PagingDataSource<Release>() {
-
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Release>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Release>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Release>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    /*
-    private var startAtDate: LocalDate = LocalDate.now()
+class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : ItemKeyedDataSource<String, Release>() {
 
     override fun getKey(item: Release): String = item.id ?: ""
 
@@ -29,7 +16,7 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
 
     private fun load(requestedLoadSize: Int, callback: LoadCallback<Release>, onLoad: ((List<Release>) -> Unit)? = null) {
         query?.let { query ->
-            ReleaseRepository.search(query, onSuccess = { releases ->
+            ReleaseRepository.search(query, 0, requestedLoadSize, onSuccess = { releases ->
                 onLoad?.invoke(releases)
                 callback.onResult(releases)
                 // TODO: Paging
@@ -40,5 +27,4 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
             })
         } ?: callback.onResult(listOf())
     }
-    */
 }
