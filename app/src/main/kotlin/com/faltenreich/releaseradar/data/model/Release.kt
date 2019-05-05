@@ -42,24 +42,26 @@ data class Release(
     fun matches(query: String) = title?.contains(query, true).isTrue || artistName?.contains(query, true).isTrue
 
     override fun fromParseObject(parseObject: ParseObject) {
-        id = parseObject.getString("externalId")
-        title = parseObject.getString("title")
-        description = parseObject.getString("description")
-        releaseDate = parseObject.getDate("releasedAt")?.localDate
-        imageUrlForThumbnail = parseObject.getString("imageUrlForThumbnail")
-        imageUrlForCover = parseObject.getString("imageUrlForCover")
-        imageUrlForWallpaper = parseObject.getString("imageUrlForWallpaper")
-        popularity = parseObject.getNumber("popularity")?.toFloat()
+        id = parseObject.getString(ID)
+        type = parseObject.getString(TYPE)
+        title = parseObject.getString(TITLE)
+        description = parseObject.getString(DESCRIPTION)
+        releaseDate = parseObject.getDate(RELEASED_AT)?.localDate
+        imageUrlForThumbnail = parseObject.getString(IMAGE_URL_FOR_THUMBNAIL)
+        imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
+        imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
+        popularity = parseObject.getNumber(POPULARTIY)?.toFloat()
     }
 
     // TODO: Encapsulate and make inheritable
     companion object {
-        val TITLE = "title"
-        val DESCRIPTION = "description"
-        val RELEASED_AT = "releasedAt"
-        val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
-        val IMAGE_URL_FOR_COVER = "imageUrlForCover"
-        val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
-        val POPULARTIY = "popularity"
+        const val TYPE = "type"
+        const val TITLE = "title"
+        const val DESCRIPTION = "description"
+        const val RELEASED_AT = "releasedAt"
+        const val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
+        const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
+        const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
+        const val POPULARTIY = "popularity"
     }
 }
