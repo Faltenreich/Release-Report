@@ -50,7 +50,7 @@ data class Release(
         imageUrlForThumbnail = parseObject.getString(IMAGE_URL_FOR_THUMBNAIL)
         imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
         imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
-        popularity = parseObject.getNumber(POPULARTIY)?.toFloat()
+        popularity = parseObject.getNumber(POPULARITY)?.toFloat()
     }
 
     // TODO: Encapsulate and make inheritable
@@ -62,6 +62,6 @@ data class Release(
         const val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
         const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
         const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
-        const val POPULARTIY = "popularity"
+        const val POPULARITY = "popularity"
     }
 }

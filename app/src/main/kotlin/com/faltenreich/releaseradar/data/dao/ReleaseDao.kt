@@ -26,7 +26,7 @@ object ReleaseDao : BaseDao<Release>(Release::class) {
     fun search(string: String, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
         val query = getQuery()
             .whereContainsText(Release.TITLE, string)
-            .orderByDescending(Release.POPULARTIY)
+            .orderByDescending(Release.POPULARITY)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
         findInBackground(query, onSuccess, onError)
