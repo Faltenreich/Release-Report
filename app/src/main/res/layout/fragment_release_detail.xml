@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:showDividers="middle"
-            android:divider="@drawable/divider_medium">
+            android:divider="@drawable/divider_small">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/metaChipContainer"
@@ -88,6 +88,7 @@
                 android:id="@+id/releaseTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_size_small"
                 android:textSize="@dimen/text_size_large"
                 tools:text="@tools:sample/lorem"/>
 

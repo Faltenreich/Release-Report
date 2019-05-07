@@ -12,7 +12,7 @@ import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
 
-class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
+class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Search.OnQueryTextListener {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
     private val query: String? by lazy { arguments?.let { arguments -> ReleaseSearchFragmentArgs.fromBundle(arguments).query } }
 
@@ -35,14 +35,11 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
 
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
-        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence?) = Unit
-            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                viewModel.query = query?.toString().nonBlank
-                return false
-            }
-        })
-        searchView.setQuery(query, true)
+        searchView.setOnQueryTextListener(this)
+
+        if (viewModel.query == null) {
+            searchView.setQuery(query, true)
+        }
     }
 
     private fun initData() {
@@ -56,5 +53,12 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search) {
             listViewContainer.visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
             listEmptyView.visibility = if (releases.isNotEmpty()) View.GONE else View.VISIBLE
         })
+    }
+
+    override fun onQueryTextChange(newText: CharSequence?) = Unit
+
+    override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+        viewModel.query = query?.toString().nonBlank
+        return true
     }
 }

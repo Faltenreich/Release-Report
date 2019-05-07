@@ -43,9 +43,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private val firstVisibleListItemPosition: Int
         get() = listLayoutManager.findFirstVisibleItemPosition()
 
-    private val currentDate: LocalDate?
-        get() = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)?.date ?: viewModel.date ?: LocalDate.now()
-
     private var showTodayButton: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,6 +142,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun invalidateListHeader() {
+        val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
+        val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         headerDateTextView.text = currentDate?.print(context)
     }
 

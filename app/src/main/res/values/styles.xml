@@ -13,6 +13,7 @@
 
     <style name="CollapsingToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="PaddingLayout">
