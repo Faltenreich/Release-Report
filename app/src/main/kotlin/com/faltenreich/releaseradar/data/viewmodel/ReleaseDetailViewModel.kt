@@ -37,7 +37,7 @@ class ReleaseDetailViewModel : ViewModel() {
 
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { onObserve(it) })
-        ReleaseRepository.getById(id, onSuccess = { release = it }, onError = { release = null })
+        ReleaseRepository.getById(id) { release = it }
     }
 
     fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
@@ -51,7 +51,7 @@ class ReleaseDetailViewModel : ViewModel() {
                         genres = new
                     }
                 }
-                GenreRepository.getById(id, onSuccess = { onNext(it) }, onError = { onNext(null) })
+                GenreRepository.getById(id) { onNext(it) }
             }
         }
     }
@@ -67,7 +67,7 @@ class ReleaseDetailViewModel : ViewModel() {
                         platforms = new
                     }
                 }
-                PlatformRepository.getById(id, onSuccess = { onNext(it) }, onError = { onNext(null) })
+                PlatformRepository.getById(id) { onNext(it) }
             }
         }
     }

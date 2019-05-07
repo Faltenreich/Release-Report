@@ -31,7 +31,7 @@ class SpotlightViewModel : ViewModel() {
 
     fun observeWeeklyReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         weeklyReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), type, CHUNK_SIZE, { releases -> releasesOfWeek = releases }, { releasesOfWeek = null })
+        ReleaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), type, CHUNK_SIZE) { releases -> releasesOfWeek = releases }
     }
 
     fun observeFavoriteReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
@@ -43,7 +43,7 @@ class SpotlightViewModel : ViewModel() {
         recentReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
         val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
         val startAt = endAt.minusMonths(1)
-        ReleaseRepository.getBetween(startAt, endAt, type, CHUNK_SIZE, { releases -> recentReleases = releases }, { recentReleases = null })
+        ReleaseRepository.getBetween(startAt, endAt, type, CHUNK_SIZE) { releases -> recentReleases = releases }
     }
 
     companion object {

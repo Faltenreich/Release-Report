@@ -1,8 +1,10 @@
 package com.faltenreich.releaseradar.parse.database
 
+import android.util.Log
 import com.faltenreich.releaseradar.data.dao.Dao
 import com.faltenreich.releaseradar.data.model.BaseEntity
 import com.faltenreich.releaseradar.data.model.Entity
+import com.faltenreich.releaseradar.tag
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlin.reflect.KClass
@@ -14,22 +16,23 @@ abstract class ParseDao<T : Entity>(private val clazz: KClass<T>) : Dao<T> {
         return ParseQuery.getQuery<ParseObject>(entityName)
     }
 
-    protected fun ParseQuery<ParseObject>.findInBackground(onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
+    protected fun ParseQuery<ParseObject>.findInBackground(onResult: (List<T>) -> Unit) {
         findInBackground { parseObjects, exception ->
             if (exception == null) {
                 val entities = parseObjects.mapNotNull { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
-                onSuccess(entities)
+                onResult(entities)
             } else {
-                onError?.invoke(exception)
+                Log.e(tag, exception.message)
+                onResult(listOf())
             }
         }
     }
 
-    override fun getById(id: String, onSuccess: (T?) -> Unit, onError: ((Exception?) -> Unit)?) {
-        getQuery().whereEqualTo(BaseEntity.ID, id).findInBackground({ entities -> onSuccess(entities.firstOrNull()) }, onError)
+    override fun getById(id: String, onResult: (T?) -> Unit) {
+        getQuery().whereEqualTo(BaseEntity.ID, id).findInBackground { entities -> onResult(entities.firstOrNull()) }
     }
 
-    override fun getByIds(ids: Collection<String>, onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        getQuery().whereContainedIn(BaseEntity.ID, ids).findInBackground(onSuccess, onError)
+    override fun getByIds(ids: Collection<String>, onResult: (List<T>) -> Unit) {
+        getQuery().whereContainedIn(BaseEntity.ID, ids).findInBackground(onResult)
     }
 }

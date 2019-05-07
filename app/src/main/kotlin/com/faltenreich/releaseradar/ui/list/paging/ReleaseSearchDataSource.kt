@@ -26,8 +26,6 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
             onLoad?.invoke(data)
             callback.onResult(data, page + 1)
         }
-        query?.let { query ->
-            ReleaseRepository.search(query, page, pageSize, onSuccess = { releases -> onResponse(releases) }, onError = { onResponse(listOf()) })
-        } ?: onResponse(listOf())
+        query?.let { query -> ReleaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())
     }
 }

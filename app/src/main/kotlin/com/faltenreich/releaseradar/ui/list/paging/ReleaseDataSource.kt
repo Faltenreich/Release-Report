@@ -1,11 +1,9 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
 import com.faltenreich.releaseradar.extension.isTrue
-import com.faltenreich.releaseradar.tag
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import org.threeten.bp.LocalDate
 
@@ -33,7 +31,7 @@ class ReleaseDataSource(
 
     private fun load(page: Int, pageSize: Int, descending: Boolean, callback: LoadCallback<Int, ReleaseListItem>) {
         val onResponse = { data: List<ReleaseListItem> -> callback.onResult(data, page + 1) }
-        ReleaseRepository.getAll(startAt, descending, MIN_POPULARITY, page, pageSize, onSuccess = { releases ->
+        ReleaseRepository.getAll(startAt, descending, MIN_POPULARITY, page, pageSize) { releases ->
             releases.takeIf(List<Release>::isNotEmpty)?.let {
                 val releaseListItems = mutableListOf<ReleaseListItem>()
                 releases.forEachIndexed { index, release ->
@@ -47,10 +45,7 @@ class ReleaseDataSource(
                 }
                 onResponse(releaseListItems)
             } ?: onResponse(listOf())
-        }, onError = { exception ->
-            Log.e(tag, exception?.message)
-            onResponse(listOf())
-        })
+        }
     }
 
     companion object {
