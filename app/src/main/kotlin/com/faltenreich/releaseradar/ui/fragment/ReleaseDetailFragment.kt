@@ -1,5 +1,6 @@
 package com.faltenreich.releaseradar.ui.fragment
 
+import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
@@ -7,8 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
 import androidx.transition.TransitionInflater
-import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
 import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
@@ -18,7 +19,8 @@ import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
+
+class ReleaseDetailFragment : BaseFragment(com.faltenreich.releaseradar.R.layout.fragment_release_detail) {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
@@ -35,13 +37,20 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
     private fun initLayout() {
         context?.apply {
-            val transition = TransitionInflater.from(context).inflateTransition(R.transition.shared_element)
+            val transition = TransitionInflater.from(context).inflateTransition(com.faltenreich.releaseradar.R.transition.shared_element)
             sharedElementEnterTransition = transition
             sharedElementReturnTransition = transition
             ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
 
-            toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back)
+            toolbar.navigationIcon = ContextCompat.getDrawable(this, com.faltenreich.releaseradar.R.drawable.ic_arrow_back)
             toolbar.setNavigationOnClickListener { finish() }
+            // Workaround: Fixing fitsSystemWindows programmatically
+            toolbar.doOnPreDraw {
+                val frame = Rect()
+                activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
+                toolbar.layoutParams.height = toolbar.height + frame.top
+                toolbar.setPadding(0, frame.top, 0, 0)
+            }
 
             fab.setOnClickListener {
                 viewModel.release?.isFavorite = !(viewModel.release?.isFavorite ?: false)
@@ -64,12 +73,12 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 }
 
                 val description = release?.description?.takeIf(String::isNotBlank)
-                releaseDescriptionTextView.text = description ?: getString(R.string.unknown_description)
+                releaseDescriptionTextView.text = description ?: getString(com.faltenreich.releaseradar.R.string.unknown_description)
                 releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
 
                 release?.let {
                     metaChipContainer.removeAllViews()
-                    addChip(metaChipContainer, release.releaseDateForUi(context), R.drawable.ic_date)
+                    addChip(metaChipContainer, release.releaseDateForUi(context), com.faltenreich.releaseradar.R.drawable.ic_date)
 
                     viewModel.observeGenres(release, this) { genres ->
                         genreChipContainer.removeAllViews()
@@ -102,8 +111,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
     private fun invalidateFavorite() {
         val isFavorite = viewModel.release?.isFavorite ?: false
-        fab.backgroundTintResource = if (isFavorite) R.color.yellow else viewModel.color
-        fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
+        fab.backgroundTintResource = if (isFavorite) com.faltenreich.releaseradar.R.color.yellow else viewModel.color
+        fab.setImageResource(if (isFavorite) com.faltenreich.releaseradar.R.drawable.ic_favorite_on else com.faltenreich.releaseradar.R.drawable.ic_favorite_off)
     }
 
     private fun addGenre(genre: Genre) = addChip(genreChipContainer, genre.title)
@@ -117,7 +126,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 setChipIconResource(iconResId)
                 // FIXME: Breaks chipIconTint
             }
-            setChipBackgroundColorResource(viewModel.release?.mediaType?.colorResId ?: R.color.colorPrimary)
+            setChipBackgroundColorResource(viewModel.release?.mediaType?.colorResId ?: com.faltenreich.releaseradar.R.color.colorPrimary)
         }
         container.addView(chip)
     }
