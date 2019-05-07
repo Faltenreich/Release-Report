@@ -20,9 +20,10 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao) {
         dao.search(string, page, pageSize, onSuccess, onError)
     }
 
-    fun getFavorites(onResult: (List<Release>) -> Unit) {
+    // TODO: Paging
+    fun getFavorites(type: MediaType? = null, startAt: LocalDate? = null, onResult: (List<Release>) -> Unit) {
         UserPreferences.favoriteReleaseIds.takeIf(Collection<*>::isNotEmpty)?.let { favoriteReleaseIds ->
-            getByIds(favoriteReleaseIds, onSuccess = { favorites ->
+            dao.getByIds(favoriteReleaseIds, type, startAt, onSuccess = { favorites ->
                 onResult(favorites)
             }, onError = {
                 onResult(listOf())

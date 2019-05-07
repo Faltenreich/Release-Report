@@ -42,14 +42,8 @@ abstract class ParseDao<T : Entity>(private val clazz: KClass<T>) : Dao<T> {
     }
 
     override fun getByIds(ids: Collection<String>, onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        getQuery().whereContainedIn(BaseEntity.ID, ids).findInBackground { parseObjects, exception ->
-            if (exception == null) {
-                val entities = parseObjects.mapNotNull { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
-                onSuccess(entities)
-            } else {
-                onError?.invoke(exception)
-            }
-        }
+        val query = getQuery().whereContainedIn(BaseEntity.ID, ids)
+        findInBackground(query, onSuccess, onError)
     }
 
     override fun createOrUpdate(entity: T, onSuccess: (() -> Unit)?, onError: ((Exception?) -> Unit)?) {

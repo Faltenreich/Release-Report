@@ -36,7 +36,7 @@ class SpotlightViewModel : ViewModel() {
 
     fun observeFavoriteReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         favoriteReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getFavorites { releases -> favoriteReleases = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE) }
+        ReleaseRepository.getFavorites(type, today) { releases -> favoriteReleases = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE) }
     }
 
     fun observeRecentReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {

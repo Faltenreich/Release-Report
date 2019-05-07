@@ -1,6 +1,7 @@
 package com.faltenreich.releaseradar.data.dao
 
 import com.faltenreich.releaseradar.data.enum.MediaType
+import com.faltenreich.releaseradar.data.model.BaseEntity
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.date
 import com.faltenreich.releaseradar.parse.database.whereContainsText
@@ -23,6 +24,14 @@ object ReleaseDao : BaseDao<Release>(Release::class) {
             .setSkip(page * pageSize)
             .setLimit(pageSize)
         findInBackground(query, { releases -> onSuccess(releases.sortedBy(Release::releaseDate)) }, onError)
+    }
+
+    fun getByIds(ids: Collection<String>, type: MediaType?, startAt: LocalDate?, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        val query = getQuery()
+            .whereContainedIn(BaseEntity.ID, ids)
+            .run { type?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
+            .run { startAt?.date?.let { date -> whereGreaterThan(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT) } ?: this }
+        findInBackground(query, onSuccess, onError)
     }
 
     fun getBetween(startAt: LocalDate, endAt: LocalDate, mediaType: MediaType, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
