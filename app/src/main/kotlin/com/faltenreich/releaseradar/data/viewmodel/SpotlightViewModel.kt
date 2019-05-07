@@ -50,7 +50,7 @@ class SpotlightViewModel : ViewModel() {
 
     fun observeFavoriteReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         favoriteReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getFavorites(type, from = today) { releases ->
+        ReleaseRepository.getFavorites { releases ->
             val sorted = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE)
             favoriteReleases = sorted
         }

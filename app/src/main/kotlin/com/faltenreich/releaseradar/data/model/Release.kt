@@ -4,7 +4,6 @@ import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.data.preference.UserPreferences
 import com.faltenreich.releaseradar.data.provider.DateProvider
 import com.faltenreich.releaseradar.data.provider.TitleProvider
-import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.extension.localDate
 import com.parse.ParseObject
 
@@ -38,9 +37,6 @@ data class Release(
             }
         }
 
-    // TODO: Split query by whitespaces and support multi-keyword matching
-    fun matches(query: String) = title?.contains(query, true).isTrue || artistName?.contains(query, true).isTrue
-
     override fun fromParseObject(parseObject: ParseObject) {
         id = parseObject.getString(ID)
         type = parseObject.getString(TYPE)
@@ -53,7 +49,6 @@ data class Release(
         popularity = parseObject.getNumber(POPULARITY)?.toFloat()
     }
 
-    // TODO: Encapsulate and make inheritable
     companion object {
         const val TYPE = "type"
         const val TITLE = "title"

@@ -32,9 +32,23 @@ abstract class ParseDao<T : Entity>(private val clazz: KClass<T>) : Dao<T> {
 
     override fun getById(id: String, onSuccess: (T?) -> Unit, onError: ((Exception?) -> Unit)?) {
         getQuery().whereEqualTo(BaseEntity.ID, id).findInBackground { parseObjects, exception ->
-            parseObjects.firstOrNull()?.let { parseObject ->
-                ParseObjectFactory.createEntity(clazz, parseObject)?.let { storable -> onSuccess(storable) } ?: onError?.invoke(exception)
-            } ?: onError?.invoke(exception)
+            if (exception == null) {
+                val entity = parseObjects.firstOrNull()?.let { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
+                onSuccess(entity)
+            } else {
+                onError?.invoke(exception)
+            }
+        }
+    }
+
+    override fun getByIds(ids: Collection<String>, onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        getQuery().whereContainedIn(BaseEntity.ID, ids).findInBackground { parseObjects, exception ->
+            if (exception == null) {
+                val entities = parseObjects.mapNotNull { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
+                onSuccess(entities)
+            } else {
+                onError?.invoke(exception)
+            }
         }
     }
 

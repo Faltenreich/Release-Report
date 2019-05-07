@@ -8,7 +8,7 @@ import org.threeten.bp.LocalDate
 object ReleaseDao : BaseDao<Release>(Release::class) {
     override val entityName: String = "Release"
 
-    fun getAll(startAt: LocalDate, greaterThan: Boolean, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
+    fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onSuccess: (List<Release>) -> Unit, onError: ((Exception?) -> Unit)?) {
         val date = startAt.date
         val query = getQuery()
             .run {
@@ -18,6 +18,7 @@ object ReleaseDao : BaseDao<Release>(Release::class) {
                     whereLessThan(Release.RELEASED_AT, date).orderByDescending(Release.RELEASED_AT)
                 }
             }
+            .whereGreaterThan(Release.POPULARITY, minPopularity)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
         findInBackground(query, { releases -> onSuccess(releases.sortedBy(Release::releaseDate)) }, onError)

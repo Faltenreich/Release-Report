@@ -33,7 +33,7 @@ class ReleaseDataSource(
 
     private fun load(page: Int, pageSize: Int, descending: Boolean, callback: LoadCallback<Int, ReleaseListItem>) {
         val onResponse = { data: List<ReleaseListItem> -> callback.onResult(data, page + 1) }
-        ReleaseRepository.getAll(startAt, descending, page, pageSize, onSuccess = { releases ->
+        ReleaseRepository.getAll(startAt, descending, MIN_POPULARITY, page, pageSize, onSuccess = { releases ->
             releases.takeIf(List<Release>::isNotEmpty)?.let {
                 val releaseListItems = mutableListOf<ReleaseListItem>()
                 releases.forEachIndexed { index, release ->
@@ -51,5 +51,9 @@ class ReleaseDataSource(
             Log.e(tag, exception?.message)
             onResponse(listOf())
         })
+    }
+
+    companion object {
+        private const val MIN_POPULARITY = 10f
     }
 }
