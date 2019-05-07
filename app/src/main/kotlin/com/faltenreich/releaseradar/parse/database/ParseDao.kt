@@ -14,8 +14,8 @@ abstract class ParseDao<T : Entity>(private val clazz: KClass<T>) : Dao<T> {
         return ParseQuery.getQuery<ParseObject>(entityName)
     }
 
-    protected fun findInBackground(query: ParseQuery<ParseObject>, onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        query.findInBackground { parseObjects, exception ->
+    protected fun ParseQuery<ParseObject>.findInBackground(onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
+        findInBackground { parseObjects, exception ->
             if (exception == null) {
                 val entities = parseObjects.mapNotNull { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
                 onSuccess(entities)
@@ -25,34 +25,11 @@ abstract class ParseDao<T : Entity>(private val clazz: KClass<T>) : Dao<T> {
         }
     }
 
-    override fun getAll(onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        val query = getQuery()
-        findInBackground(query, onSuccess, onError)
-    }
-
     override fun getById(id: String, onSuccess: (T?) -> Unit, onError: ((Exception?) -> Unit)?) {
-        getQuery().whereEqualTo(BaseEntity.ID, id).findInBackground { parseObjects, exception ->
-            if (exception == null) {
-                val entity = parseObjects.firstOrNull()?.let { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
-                onSuccess(entity)
-            } else {
-                onError?.invoke(exception)
-            }
-        }
+        getQuery().whereEqualTo(BaseEntity.ID, id).findInBackground({ entities -> onSuccess(entities.firstOrNull()) }, onError)
     }
 
     override fun getByIds(ids: Collection<String>, onSuccess: (List<T>) -> Unit, onError: ((Exception?) -> Unit)?) {
-        val query = getQuery().whereContainedIn(BaseEntity.ID, ids)
-        findInBackground(query, onSuccess, onError)
-    }
-
-    override fun createOrUpdate(entity: T, onSuccess: (() -> Unit)?, onError: ((Exception?) -> Unit)?) {
-        ParseObjectFactory.createParseObject(entity)?.let { parseObject ->
-            parseObject.saveInBackground { exception -> exception?.let { onError?.invoke(exception) } ?: onSuccess?.invoke() }
-        } ?: onError?.invoke(null)
-    }
-
-    override fun delete(entity: T, onSuccess: (() -> Unit)?, onError: ((Exception?) -> Unit)?) {
-        // TODO
+        getQuery().whereContainedIn(BaseEntity.ID, ids).findInBackground(onSuccess, onError)
     }
 }
