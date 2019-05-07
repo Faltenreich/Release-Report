@@ -11,7 +11,6 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.viewmodel.SpotlightViewModel
-import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.list.adapter.SpotlightListAdapter
@@ -54,10 +53,10 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
         type?.also { type ->
             viewModel.observeWeeklyReleases(type, this) { releases ->
                 setSpotlightRelease(releases.firstOrNull())
-                setReleasesOfWeek(releases.drop(1))
+                setReleasesOfWeek(releases.drop(1).sortedBy(Release::releaseDate))
             }
             viewModel.observeFavoriteReleases(type, this) { releases -> setFavoriteReleases(releases) }
-            viewModel.observeRecentReleases(type, this) { releases -> setRecentReleases(releases) }
+            viewModel.observeRecentReleases(type, this) { releases -> setRecentReleases(releases.sortedByDescending(Release::releaseDate)) }
         }
     }
 

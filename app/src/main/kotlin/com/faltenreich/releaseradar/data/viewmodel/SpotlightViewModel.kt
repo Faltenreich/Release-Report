@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
-import com.faltenreich.releaseradar.extension.calendarWeek
+import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
@@ -30,50 +30,20 @@ class SpotlightViewModel : ViewModel() {
         set(value) = recentReleasesLiveData.postValue(value)
 
     fun observeWeeklyReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
-        val filter = "${type.key}-${today.year}-${today.calendarWeek}-"
         weeklyReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        TODO()
-        /*
-        ReleaseRepository.getAll(
-            Query(
-                orderBy = "indexForSpotlight",
-                limitToLast = CHUNK_SIZE + 1,
-                startAt = filter to null,
-                endAt = "$filter\uf8ff" to null
-            ), onSuccess = { releases ->
-                releasesOfWeek = releases.reversed()
-            }, onError = {
-                releasesOfWeek = null
-            })
-            */
+        ReleaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), type, CHUNK_SIZE, { releases -> releasesOfWeek = releases }, { releasesOfWeek = null })
     }
 
     fun observeFavoriteReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         favoriteReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getFavorites { releases ->
-            val sorted = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE)
-            favoriteReleases = sorted
-        }
+        ReleaseRepository.getFavorites { releases -> favoriteReleases = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE) }
     }
 
     fun observeRecentReleases(type: MediaType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
-        val day = today.minusWeeks(1)
-        val filter = "${type.key}-${day.year}-${day.calendarWeek}-"
         recentReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        TODO()
-        /*
-        ReleaseRepository.getAll(
-            Query(
-                orderBy = "indexForSpotlight",
-                limitToLast = CHUNK_SIZE,
-                startAt = filter to null,
-                endAt = "$filter\uf8ff" to null
-            ), onSuccess = { releases ->
-                recentReleases = releases.reversed()
-            }, onError = {
-                recentReleases = null
-            })
-        */
+        val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
+        val startAt = endAt.minusMonths(1)
+        ReleaseRepository.getBetween(startAt, endAt, type, CHUNK_SIZE, { releases -> recentReleases = releases }, { recentReleases = null })
     }
 
     companion object {
