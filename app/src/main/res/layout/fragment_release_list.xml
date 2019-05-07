@@ -39,6 +39,7 @@
             tools:spanCount="2"/>
 
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
             android:paddingStart="@dimen/margin_padding_size_medium"

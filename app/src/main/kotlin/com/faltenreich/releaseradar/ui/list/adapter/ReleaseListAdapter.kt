@@ -21,7 +21,9 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, B
         else -> throw IllegalArgumentException("Unknown viewType: $viewType")
     }
 
-    fun getFirstPositionForDate(date: LocalDate): Int? = listItems.indexOfFirst { item -> item.date?.isEqual(date) ?: false }.takeIf { index -> index >= 0 }
+    fun getFirstPositionForDate(date: LocalDate): Int? {
+        return listItems.indexOfFirst { item -> item.date?.isEqual(date) ?: false }.takeIf { index -> index >= 0 }
+    }
 
     companion object {
         const val VIEW_TYPE_RELEASE = 0

@@ -145,6 +145,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         headerDateTextView.text = currentDate?.print(context)
+        // TODO: Translate header according to underlying date items
     }
 
     private fun toggleTodayButton(animated: Boolean) {
