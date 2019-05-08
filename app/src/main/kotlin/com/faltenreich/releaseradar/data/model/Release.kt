@@ -5,6 +5,7 @@ import com.faltenreich.releaseradar.data.preference.UserPreferences
 import com.faltenreich.releaseradar.data.provider.DateProvider
 import com.faltenreich.releaseradar.data.provider.TitleProvider
 import com.faltenreich.releaseradar.extension.localDate
+import com.faltenreich.releaseradar.parse.database.getJSONArrayValues
 import com.parse.ParseObject
 
 data class Release(
@@ -47,6 +48,7 @@ data class Release(
         imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
         imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
         popularity = parseObject.getNumber(POPULARITY)?.toFloat()
+        genres = parseObject.getJSONArrayValues("genres")
     }
 
     companion object {

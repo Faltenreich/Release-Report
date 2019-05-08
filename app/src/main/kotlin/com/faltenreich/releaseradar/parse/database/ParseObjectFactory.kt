@@ -11,8 +11,4 @@ object ParseObjectFactory {
         entity.fromParseObject(parseObject)
         return entity
     }
-
-    fun createParseObject(entity: Entity): ParseObject? {
-        return entity.toParseObject()
-    }
 }
