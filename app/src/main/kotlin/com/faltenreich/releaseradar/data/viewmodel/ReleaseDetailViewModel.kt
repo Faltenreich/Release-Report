@@ -43,32 +43,14 @@ class ReleaseDetailViewModel : ViewModel() {
     fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
         genreLiveData.observe(owner, Observer { onObserve(it) })
         release.genres?.takeIf(List<String>::isNotEmpty)?.let { ids ->
-            val new = mutableListOf<Genre>()
-            ids.forEachIndexed { index, id ->
-                val onNext: (Genre?) -> Unit = { entity ->
-                    entity?.let { new.add(it) }
-                    if (index == ids.size - 1) {
-                        genres = new
-                    }
-                }
-                GenreRepository.getById(id) { onNext(it) }
-            }
+            GenreRepository.getByIds(ids) { genres -> this.genres = genres }
         }
     }
 
     fun observePlatforms(release: Release, owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
         platformLiveData.observe(owner, Observer { onObserve(it) })
         release.platforms?.takeIf(List<String>::isNotEmpty)?.let { ids ->
-            val new = mutableListOf<Platform>()
-            ids.forEachIndexed { index, id ->
-                val onNext: (Platform?) -> Unit = { entity ->
-                    entity?.let { new.add(it) }
-                    if (index == ids.size - 1) {
-                        platforms = new
-                    }
-                }
-                PlatformRepository.getById(id) { onNext(it) }
-            }
+            PlatformRepository.getByIds(ids) { platforms -> this.platforms = platforms }
         }
     }
 }
