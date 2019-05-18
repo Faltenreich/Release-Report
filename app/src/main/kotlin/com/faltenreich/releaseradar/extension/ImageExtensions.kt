@@ -21,8 +21,7 @@ fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((success:
         .load(url)
         .apply { size?.let { override(size) } }
         .listener(object : RequestListener<Drawable> {
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean
-            ): Boolean {
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                 callback?.invoke(true)
                 return false
             }

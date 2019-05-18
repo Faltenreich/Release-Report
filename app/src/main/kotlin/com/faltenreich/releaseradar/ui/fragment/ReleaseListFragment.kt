@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
@@ -21,6 +22,7 @@ import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
+import kotlin.math.min
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
@@ -111,16 +113,17 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     private fun initData(date: LocalDate, force: Boolean = false) {
         // TODO: Find way to distinguish back navigation via Navigation Components
-        if (force || listAdapter?.itemCount == 0) {
+        val itemCount = listAdapter?.itemCount ?: 0
+        if (force || itemCount == 0) {
             listItemDecoration.isSkeleton = true
             skeleton.showSkeleton()
 
             viewModel.observeReleases(date, this, onObserve = { releases ->
                 listAdapter?.submitList(releases)
-
             }, onInitialLoad = {
                 listItemDecoration.isSkeleton = false
                 skeleton.showOriginal()
+                listEmptyView.isVisible = itemCount == 0
             })
         }
     }
@@ -142,10 +145,18 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun invalidateListHeader() {
+        val firstVisibleListItemPosition = firstVisibleListItemPosition
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         headerDateTextView.text = currentDate?.print(context)
-        // TODO: Translate header according to underlying date items
+
+        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition +  1)
+        val translateHeader = secondVisibleListItem?.release == null
+        if (translateHeader) {
+            val top = listLayoutManager.getChildAt(1)?.top ?: 0
+            val translationY = min(top, header.height)
+            header.translationY = translationY.toFloat()
+        }
     }
 
     private fun toggleTodayButton(animated: Boolean) {

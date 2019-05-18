@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,9 @@ class FollowingFragment : BaseFragment(R.layout.fragment_following) {
     }
 
     private fun setReleases(releases: List<Release>) {
+        val hasContent = releases.isNotEmpty()
+        listEmptyView.isVisible = !hasContent
+
         calendarView.apply {
             removeAllEvents()
             addEvents(releases.mapNotNull { release -> CalendarEvent.fromRelease(context, release) })

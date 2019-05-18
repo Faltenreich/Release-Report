@@ -6,8 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:paddingTop="@dimen/status_bar_height">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -88,9 +87,7 @@
             android:id="@+id/weekListLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_medium"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:padding="@dimen/margin_padding_size_medium"
             android:text="@string/this_week"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +98,8 @@
             android:id="@+id/weekListView"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
-            android:padding="@dimen/margin_padding_size_medium"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,12 +109,21 @@
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
 
+        <include
+            layout="@layout/view_empty"
+            android:id="@+id/weekEmptyView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spotlight_list_height"
+            app:layout_constraintTop_toTopOf="@id/weekListView"
+            app:layout_constraintBottom_toBottomOf="@id/weekListView"
+            app:layout_constraintStart_toStartOf="@id/weekListView"
+            app:layout_constraintEnd_toEndOf="@id/weekListView"/>
+
         <TextView
             android:id="@+id/favoriteLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:padding="@dimen/margin_padding_size_medium"
             android:text="@string/for_you"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +134,8 @@
             android:id="@+id/favoriteListView"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
-            android:padding="@dimen/margin_padding_size_medium"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,8 +149,7 @@
             android:id="@+id/recentLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:padding="@dimen/margin_padding_size_medium"
             android:text="@string/recently"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +160,8 @@
             android:id="@+id/recentListView"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
-            android:padding="@dimen/margin_padding_size_medium"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
@@ -162,6 +170,16 @@
             tools:listitem="@layout/list_item_spotlight"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
+
+        <include
+            layout="@layout/view_empty"
+            android:id="@+id/recentEmptyView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spotlight_list_height"
+            app:layout_constraintTop_toTopOf="@id/recentListView"
+            app:layout_constraintBottom_toBottomOf="@id/recentListView"
+            app:layout_constraintStart_toStartOf="@id/recentListView"
+            app:layout_constraintEnd_toEndOf="@id/recentListView"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

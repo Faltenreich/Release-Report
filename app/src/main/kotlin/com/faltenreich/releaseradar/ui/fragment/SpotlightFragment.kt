@@ -3,6 +3,8 @@ package com.faltenreich.releaseradar.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,7 +64,8 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
 
     private fun setSpotlightRelease(release: Release?) {
         context?.let { context ->
-            spotlightContainer.visibility = if (release != null) View.VISIBLE else View.GONE
+            val hasContent = release != null
+            spotlightContainer.visibility = if (hasContent) View.VISIBLE else View.GONE
 
             release?.imageUrlForThumbnail?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(android.R.color.transparent)
             spotlightReleaseDateTextView.text = release?.releaseDateForUi(context)
@@ -84,9 +87,9 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun setReleasesOfWeek(releases: List<Release>) {
-        val visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
-        weekListLabel.visibility = visibility
-        weekListView.visibility = visibility
+        val hasContent = releases.isNotEmpty()
+        weekListView.isInvisible = !hasContent
+        weekEmptyView.isVisible = !hasContent
         weekListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)
@@ -95,9 +98,9 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun setFavoriteReleases(releases: List<Release>) {
-        val visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
-        favoriteLabel.visibility = visibility
-        favoriteListView.visibility = visibility
+        val hasContent = releases.isNotEmpty()
+        favoriteLabel.isVisible = hasContent
+        favoriteListView.isVisible = hasContent
         favoriteListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)
@@ -106,9 +109,9 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
     }
 
     private fun setRecentReleases(releases: List<Release>) {
-        val visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
-        recentLabel.visibility = visibility
-        recentListView.visibility = visibility
+        val hasContent = releases.isNotEmpty()
+        recentListView.isInvisible = !hasContent
+        recentEmptyView.isVisible = !hasContent
         recentListAdapter?.let { adapter ->
             adapter.removeListItems()
             adapter.addListItems(releases)

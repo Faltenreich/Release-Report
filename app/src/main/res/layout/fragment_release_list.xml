@@ -67,6 +67,12 @@
 
         </LinearLayout>
 
+        <include
+            layout="@layout/view_empty"
+            android:id="@+id/listEmptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </FrameLayout>
 
     <Button
