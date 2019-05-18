@@ -10,4 +10,4 @@ interface Model {
     companion object {
         const val ID = "externalId"
     }
-}F
+}
