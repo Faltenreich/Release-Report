@@ -6,10 +6,10 @@ import com.parse.ParseObject
 data class Genre(
     override var id: String? = null,
     override var title: String? = null
-) : Entity, TitleProvider {
+) : Model, TitleProvider {
 
     override fun fromParseObject(parseObject: ParseObject) {
-        id = parseObject.getString(Entity.ID)
+        id = parseObject.getString(Model.ID)
         title = parseObject.getString(TITLE)
     }
 

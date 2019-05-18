@@ -2,18 +2,18 @@ package com.faltenreich.releaseradar.parse.database
 
 import android.util.Log
 import com.faltenreich.releaseradar.data.dao.Dao
-import com.faltenreich.releaseradar.data.model.Entity
+import com.faltenreich.releaseradar.data.model.Model
 import com.faltenreich.releaseradar.tag
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlin.reflect.KClass
 
-interface ParseDao<T : Entity> : Dao<T> {
+interface ParseDao<T : Model> : Dao<T> {
     val clazz: KClass<T>
-    val entityName: String
+    val modelName: String
 
     fun getQuery(): ParseQuery<ParseObject> {
-        return ParseQuery.getQuery<ParseObject>(entityName)
+        return ParseQuery.getQuery<ParseObject>(modelName)
     }
 
     fun ParseQuery<ParseObject>.findInBackground(onResult: (List<T>) -> Unit) {
@@ -29,10 +29,10 @@ interface ParseDao<T : Entity> : Dao<T> {
     }
 
     override fun getById(id: String, onResult: (T?) -> Unit) {
-        getQuery().whereEqualTo(Entity.ID, id).findInBackground { entities -> onResult(entities.firstOrNull()) }
+        getQuery().whereEqualTo(Model.ID, id).findInBackground { entities -> onResult(entities.firstOrNull()) }
     }
 
     override fun getByIds(ids: Collection<String>, onResult: (List<T>) -> Unit) {
-        getQuery().whereContainedIn(Entity.ID, ids).findInBackground(onResult)
+        getQuery().whereContainedIn(Model.ID, ids).findInBackground(onResult)
     }
 }

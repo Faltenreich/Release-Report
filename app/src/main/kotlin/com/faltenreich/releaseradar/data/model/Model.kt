@@ -2,7 +2,7 @@ package com.faltenreich.releaseradar.data.model
 
 import com.parse.ParseObject
 
-interface Entity {
+interface Model {
     var id: String?
 
     fun fromParseObject(parseObject: ParseObject)
@@ -10,4 +10,4 @@ interface Entity {
     companion object {
         const val ID = "externalId"
     }
-}
+}F

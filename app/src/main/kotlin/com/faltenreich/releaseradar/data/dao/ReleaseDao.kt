@@ -1,14 +1,14 @@
 package com.faltenreich.releaseradar.data.dao
 
 import com.faltenreich.releaseradar.data.enum.MediaType
-import com.faltenreich.releaseradar.data.model.Entity
+import com.faltenreich.releaseradar.data.model.Model
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.date
 import com.faltenreich.releaseradar.parse.database.whereContainsText
 import org.threeten.bp.LocalDate
 
 object ReleaseDao : BaseDao<Release>(Release::class) {
-    override val entityName: String = "Release"
+    override val modelName: String = "Release"
 
     fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         getQuery()
@@ -27,7 +27,7 @@ object ReleaseDao : BaseDao<Release>(Release::class) {
 
     fun getByIds(ids: Collection<String>, type: MediaType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         getQuery()
-            .whereContainedIn(Entity.ID, ids)
+            .whereContainedIn(Model.ID, ids)
             .run { type?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
             .run { startAt?.date?.let { date -> whereGreaterThan(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT) } ?: this }
             .findInBackground(onResult)

@@ -10,10 +10,10 @@ data class Platform(
     override var title: String? = null,
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null
-) : Entity, DateProvider, TitleProvider {
+) : Model, DateProvider, TitleProvider {
 
     override fun fromParseObject(parseObject: ParseObject) {
-        id = parseObject.getString(Entity.ID)
+        id = parseObject.getString(Model.ID)
         title = parseObject.getString(TITLE)
     }
 

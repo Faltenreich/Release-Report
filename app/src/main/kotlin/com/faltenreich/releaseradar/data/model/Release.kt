@@ -25,7 +25,7 @@ data class Release(
     var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
     var platforms: List<String>? = null
-) : Entity, DateProvider, TitleProvider {
+) : Model, DateProvider, TitleProvider {
 
     var mediaType: MediaType?
         get() = type?.let { type -> MediaType.valueForKey(type) }
@@ -40,7 +40,7 @@ data class Release(
         }
 
     override fun fromParseObject(parseObject: ParseObject) {
-        id = parseObject.getString(Entity.ID)
+        id = parseObject.getString(Model.ID)
         type = parseObject.getString(TYPE)
         title = parseObject.getString(TITLE)
         description = parseObject.getString(DESCRIPTION)
