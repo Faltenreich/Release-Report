@@ -8,15 +8,22 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabTextColor="@color/gray_light"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabIndicatorHeight="4dp"/>
+        app:cardCornerRadius="0dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary"
+            app:tabIndicatorColor="?android:textColorPrimaryInverse"
+            app:tabTextColor="?android:textColorTertiaryInverse"
+            app:tabSelectedTextColor="?android:textColorPrimaryInverse"
+            app:tabIndicatorHeight="4dp"/>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
