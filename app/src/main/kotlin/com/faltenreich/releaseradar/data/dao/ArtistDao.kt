@@ -2,6 +2,4 @@ package com.faltenreich.releaseradar.data.dao
 
 import com.faltenreich.releaseradar.data.model.Artist
 
-object ArtistDao : BaseDao<Artist>(Artist::class) {
-    override val modelName: String = "Artist"
-}
+interface ArtistDao : Dao<Artist>

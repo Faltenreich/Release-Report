@@ -1,8 +1,8 @@
 package com.faltenreich.releaseradar.data.repository
 
-import com.faltenreich.releaseradar.data.dao.GenreDao
-import com.faltenreich.releaseradar.data.dao.PlatformDao
 import com.faltenreich.releaseradar.data.dao.demo.ReleaseDemoDao
+import com.faltenreich.releaseradar.data.dao.parse.GenreParseDao
+import com.faltenreich.releaseradar.data.dao.parse.PlatformParseDao
 import com.faltenreich.releaseradar.data.dao.parse.ReleaseParseDao
 
 object RepositoryFactory {
@@ -12,9 +12,9 @@ object RepositoryFactory {
         return ReleaseRepository(dao)
     }
     fun repositoryForGenres(): GenreRepository {
-        return GenreRepository(GenreDao)
+        return GenreRepository(GenreParseDao())
     }
     fun repositoryForPlatforms(): PlatformRepository {
-        return PlatformRepository(PlatformDao)
+        return PlatformRepository(PlatformParseDao())
     }
 }
