@@ -33,16 +33,16 @@ abstract class SharedPreferences {
         Float::class -> putFloat(pair.first, pair.second as? Float ?: DEFAULT_VALUE_FLOAT)
         Long::class -> putLong(pair.first, pair.second as? Long ?: DEFAULT_VALUE_LONG)
         String::class -> putString(pair.first, pair.second as? String ?: DEFAULT_VALUE_STRING)
-        else -> throw IllegalArgumentException("Unsupported type: ${pair.second ?: Nothing ::class}")
+        else -> throw IllegalArgumentException("Unsupported type: ${pair.second?.let { value -> value::class} ?: "Unknown" }")
     }
 
     inline fun <reified T : Comparable<T>> get(key: String, defaultValue: T? = null): T = preferences.get(key, defaultValue)
 
     inline fun <reified T : Comparable<T>> set(pair: Pair<String, T?>): Unit = preferences.edit { set(pair) }
 
-    fun getStringSet(key: String, defaultValue: Set<String> = DEFAULT_VALUE_SET) = preferences.getStringSet(key, defaultValue)
+    fun getStringSet(key: String, defaultValue: Set<String> = DEFAULT_VALUE_SET): Set<String> = preferences.getStringSet(key, defaultValue) ?: emptySet()
 
-    fun setStringSet(pair: Pair<String, Set<String>>): Unit = preferences.edit { putStringSet(pair.first, pair.second).apply() }
+    fun setStringSet(pair: Pair<String, Set<String>>) = preferences.edit { putStringSet(pair.first, pair.second).apply() }
 
 
     companion object {
