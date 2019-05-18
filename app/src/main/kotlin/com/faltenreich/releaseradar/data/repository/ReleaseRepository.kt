@@ -6,7 +6,7 @@ import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.preference.UserPreferences
 import org.threeten.bp.LocalDate
 
-class ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao) {
+class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) {
 
     fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         dao.getAll(startAt, greaterThan, minPopularity, page, pageSize, onResult)
