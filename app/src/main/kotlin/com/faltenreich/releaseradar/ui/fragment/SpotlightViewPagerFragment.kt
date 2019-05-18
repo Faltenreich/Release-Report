@@ -3,57 +3,31 @@ package com.faltenreich.releaseradar.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.extension.fadeBackgroundColorResource
-import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.viewpager.FragmentViewPagerAdapter
-import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_spotlight_viewpager.*
 
 class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_viewpager) {
-    private val searchable by lazy { SearchableObserver() }
-
     private val mediaTypes by lazy { MediaType.values() }
     private lateinit var viewPagerPages: List<Pair<String, Fragment>>
     private lateinit var viewPagerAdapter: FragmentViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(searchable)
         initData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLayout()
+        initViewPager()
     }
 
     private fun initData() {
         viewPagerPages =  mediaTypes.map { mediaType -> getString(mediaType.pluralStringRes) to SpotlightFragment.newInstance(mediaType) }
         viewPagerAdapter = FragmentViewPagerAdapter(childFragmentManager, viewPagerPages)
-    }
-
-    private fun initLayout() {
-        searchable.properties = SearchableProperties(this, searchView)
-        initViewPager()
-        initSearch()
-    }
-
-    private fun initSearch() {
-        searchView.setLogoIcon(R.drawable.ic_search)
-        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence?) = Unit
-            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                query?.toString()?.nonBlank?.let {
-                    searchView.logo = Search.Logo.ARROW
-                    findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it))
-                }
-                return true
-            }
-        })
     }
 
     private fun initViewPager() {
@@ -71,10 +45,8 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
 
     private fun setTint(type: MediaType, animated: Boolean = true) {
         if (animated) {
-            appbarLayout.fadeBackgroundColorResource(type.colorResId)
             viewPager.fadeBackgroundColorResource(type.colorDarkResId)
         } else {
-            appbarLayout.setBackgroundResource(type.colorResId)
             viewPager.setBackgroundResource(type.colorDarkResId)
         }
     }

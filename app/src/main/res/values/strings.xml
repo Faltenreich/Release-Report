@@ -8,7 +8,7 @@
     <string name="music">Music</string>
     <string name="game">Game</string>
     <string name="games">Games</string>
-    <string name="search_hint">Search for releases&#8230;</string>
+    <string name="search_hint">Search for releases, artists, &#8230;</string>
     <string name="month_previous">Previous month</string>
     <string name="month_next">Next month</string>
     <string name="unknown_description">No description available yet</string>

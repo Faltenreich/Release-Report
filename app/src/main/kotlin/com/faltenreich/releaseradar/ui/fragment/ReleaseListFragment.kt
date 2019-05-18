@@ -7,27 +7,22 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.releaseradar.extension.isTrue
-import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.extension.print
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.releaseradar.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.skeletonlayout.applySkeleton
-import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
 import kotlin.math.min
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
-
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
-    private val searchable by lazy { SearchableObserver() }
     
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
@@ -47,32 +42,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     private var showTodayButton: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycle.addObserver(searchable)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchable.properties = SearchableProperties(this, searchView)
-        initSearch()
         initList()
         initTodayButton()
         initData(LocalDate.now())
-    }
-
-    private fun initSearch() {
-        searchView.setLogoIcon(R.drawable.ic_search)
-        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence?) = Unit
-            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                query?.toString()?.nonBlank?.let {
-                    searchView.logo = Search.Logo.ARROW
-                    findNavController().navigate(ReleaseListFragmentDirections.searchRelease(it))
-                }
-                return true
-            }
-        })
     }
 
     private fun initList() {
@@ -106,7 +80,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
             todayButtonBehavior = SlideOutBehavior(context)
             todayButtonBehavior.isEnabled = false
-            (todayButton.layoutParams as CoordinatorLayout.LayoutParams).behavior = todayButtonBehavior
+            (todayButton.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = todayButtonBehavior
             toggleTodayButton(false)
         }
     }
