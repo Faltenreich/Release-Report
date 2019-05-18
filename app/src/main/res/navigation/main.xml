@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/spotlight">
+
+    <fragment
+        android:id="@+id/spotlight"
+        android:name="com.faltenreich.releaseradar.ui.fragment.SpotlightViewPagerFragment"
+        android:label="@string/spotlight"
+        tools:layout="@layout/fragment_spotlight_viewpager">
+        <action
+            android:id="@+id/open_release"
+            app:destination="@+id/release_detail"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="releaseId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/releases"
+        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseListFragment"
+        android:label="@string/releases"
+        tools:layout="@layout/fragment_release_list">
+        <action
+            android:id="@+id/open_release"
+            app:destination="@+id/release_detail"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="releaseId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/following"
+        android:name="com.faltenreich.releaseradar.ui.fragment.FollowingFragment"
+        android:label="@string/following"
+        tools:layout="@layout/fragment_following">
+        <action
+            android:id="@+id/open_release"
+            app:destination="@+id/release_detail"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="releaseId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+</navigation>
