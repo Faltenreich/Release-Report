@@ -2,9 +2,10 @@ package com.faltenreich.releaseradar.ui.list.paging
 
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.releaseradar.data.model.Release
-import com.faltenreich.releaseradar.data.repository.ReleaseRepository
+import com.faltenreich.releaseradar.data.repository.RepositoryFactory
 
 class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PageKeyedDataSource<Int, Release>() {
+    private val releaseRepository = RepositoryFactory.repositoryForReleases()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Release>) {
         load(0, params.requestedLoadSize, object : LoadCallback<Int, Release>() {
@@ -26,6 +27,6 @@ class ReleaseSearchDataSource(private val query: String?, private val onInitialL
             onLoad?.invoke(data)
             callback.onResult(data, page + 1)
         }
-        query?.let { query -> ReleaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())
+        query?.let { query -> releaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())
     }
 }

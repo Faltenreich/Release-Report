@@ -1,7 +1,7 @@
 package com.faltenreich.releaseradar.data.dao
 
 import com.faltenreich.releaseradar.data.enum.MediaType
-import com.faltenreich.releaseradar.data.model.BaseEntity
+import com.faltenreich.releaseradar.data.model.Entity
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.date
 import com.faltenreich.releaseradar.parse.database.whereContainsText
@@ -27,7 +27,7 @@ object ReleaseDao : BaseDao<Release>(Release::class) {
 
     fun getByIds(ids: Collection<String>, type: MediaType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         getQuery()
-            .whereContainedIn(BaseEntity.ID, ids)
+            .whereContainedIn(Entity.ID, ids)
             .run { type?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
             .run { startAt?.date?.let { date -> whereGreaterThan(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT) } ?: this }
             .findInBackground(onResult)

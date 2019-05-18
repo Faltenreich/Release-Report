@@ -4,11 +4,12 @@ import com.faltenreich.releaseradar.data.provider.TitleProvider
 import com.parse.ParseObject
 
 data class Genre(
+    override var id: String? = null,
     override var title: String? = null
-) : BaseEntity(), TitleProvider {
+) : Entity, TitleProvider {
 
     override fun fromParseObject(parseObject: ParseObject) {
-        id = parseObject.getString(ID)
+        id = parseObject.getString(Entity.ID)
         title = parseObject.getString(TITLE)
     }
 

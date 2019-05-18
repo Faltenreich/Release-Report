@@ -6,8 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.ReleaseRepository
+import com.faltenreich.releaseradar.data.repository.RepositoryFactory
 
 class ReleaseFavoriteListViewModel : ViewModel() {
+    private val releaseRepository = RepositoryFactory.repositoryForReleases()
 
     private val releasesLiveData = MutableLiveData<List<Release>>()
 
@@ -17,6 +19,6 @@ class ReleaseFavoriteListViewModel : ViewModel() {
 
     fun observeFavoriteReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        ReleaseRepository.getFavorites { releases -> this.releases = releases.sortedBy(Release::releasedAt) }
+        releaseRepository.getFavorites { releases -> this.releases = releases.sortedBy(Release::releasedAt) }
     }
 }

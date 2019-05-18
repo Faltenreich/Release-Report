@@ -5,14 +5,15 @@ import com.faltenreich.releaseradar.data.provider.TitleProvider
 import com.parse.ParseObject
 
 data class Platform(
+    override var id: String? = null,
     override var releasedAt: String? = null,
     override var title: String? = null,
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null
-) : BaseEntity(), DateProvider, TitleProvider {
+) : Entity, DateProvider, TitleProvider {
 
     override fun fromParseObject(parseObject: ParseObject) {
-        id = parseObject.getString(ID)
+        id = parseObject.getString(Entity.ID)
         title = parseObject.getString(TITLE)
     }
 
