@@ -9,14 +9,14 @@ import org.threeten.bp.LocalDate
 
 class ReleaseDataSource(
     private var startAt: LocalDate,
-    private val onInitialLoad: (() -> Unit)? = null
+    private val onInitialLoad: ((Int) -> Unit)? = null
 ) : PageKeyedDataSource<Int, ReleaseListItem>() {
     private val releaseRepository = RepositoryFactory.repositoryForReleases()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseListItem>) {
         load(0, params.requestedLoadSize, true, object : LoadCallback<Int, ReleaseListItem>() {
             override fun onResult(data: MutableList<ReleaseListItem>, adjacentPageKey: Int?) {
-                onInitialLoad?.invoke()
+                onInitialLoad?.invoke(data.size)
                 callback.onResult(listOf(ReleaseListItem(startAt, null)).plus(data), 0, 1)
             }
         })

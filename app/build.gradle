@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled true
+            minifyEnabled false
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -66,6 +66,7 @@ androidExtensions {
 }
 
 ext {
+    anko = '0.10.8'
     junit = '4.12'
     mockito = '2.0.0'
     test = '1.0.0'
@@ -92,7 +93,7 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
+    implementation "org.jetbrains.anko:anko:$anko"
 
     testImplementation "junit:junit:$junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"

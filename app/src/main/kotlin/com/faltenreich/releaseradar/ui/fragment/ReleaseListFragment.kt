@@ -18,6 +18,7 @@ import com.faltenreich.releaseradar.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
 import kotlin.math.min
 
@@ -89,15 +90,17 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         // TODO: Find way to distinguish back navigation via Navigation Components
         val itemCount = listAdapter?.itemCount ?: 0
         if (force || itemCount == 0) {
-            listItemDecoration.isSkeleton = true
             skeleton.showSkeleton()
+            listItemDecoration.isSkeleton = true
 
             viewModel.observeReleases(date, this, onObserve = { releases ->
                 listAdapter?.submitList(releases)
-            }, onInitialLoad = {
-                listItemDecoration.isSkeleton = false
-                skeleton.showOriginal()
-                listEmptyView.isVisible = itemCount == 0
+            }, onInitialLoad = { count ->
+                runOnUiThread {
+                    skeleton.showOriginal()
+                    listItemDecoration.isSkeleton = false
+                    listEmptyView.isVisible = count == 0
+                }
             })
         }
     }
@@ -126,7 +129,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition +  1)
         val translateHeader = secondVisibleListItem?.release == null
-        if (translateHeader) {
+        // TODO
+        if (false) {
             val top = listLayoutManager.getChildAt(1)?.top ?: 0
             val translationY = min(top, header.height)
             header.translationY = translationY.toFloat()
