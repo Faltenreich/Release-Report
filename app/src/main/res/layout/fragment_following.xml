@@ -12,11 +12,10 @@
     <TextView
         android:id="@+id/dateLabel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_padding_size_small"
-        android:paddingBottom="@dimen/margin_padding_size_small"
+        android:layout_height="@dimen/toolbar_height"
         android:paddingStart="@dimen/margin_padding_size_large"
         android:paddingEnd="@dimen/margin_padding_size_large"
+        android:gravity="center_vertical"
         android:background="?colorPrimary"
         android:textColor="?android:textColorPrimaryInverse"
         android:textSize="@dimen/text_size_large"
