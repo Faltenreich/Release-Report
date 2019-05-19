@@ -46,6 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/navigation"
-        app:layout_behavior="com.faltenreich.releaseradar.ui.list.behavior.BottomNavigationBehavior"/>
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

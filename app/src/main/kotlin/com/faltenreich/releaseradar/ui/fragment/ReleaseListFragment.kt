@@ -81,6 +81,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
             todayButtonBehavior = SlideOutBehavior(context)
             todayButtonBehavior.isEnabled = false
+            // FIXME: todayButton.layoutParams is of LinearLayout.LayoutParams
             (todayButton.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = todayButtonBehavior
             toggleTodayButton(false)
         }
