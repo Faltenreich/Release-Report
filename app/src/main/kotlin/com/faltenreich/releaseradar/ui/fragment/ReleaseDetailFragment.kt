@@ -104,7 +104,6 @@ class ReleaseDetailFragment : BaseFragment(com.faltenreich.releaseradar.R.layout
         val color = viewModel.color
         val colorDark = viewModel.colorDark
         layoutContainer.setBackgroundResource(colorDark)
-        appbarLayout.setBackgroundResource(color)
         collapsingToolbarLayout.setContentScrimResource(color)
         collapsingToolbarLayout.setStatusBarScrimResource(color)
     }

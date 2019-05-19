@@ -20,7 +20,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:paddingStart="@dimen/margin_padding_size_medium"
+        android:paddingStart="@dimen/margin_padding_size_large"
         android:paddingEnd="@dimen/margin_padding_size_xsmall"
         android:background="?colorPrimary"
         android:gravity="center_vertical"

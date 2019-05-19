@@ -17,23 +17,21 @@
         android:paddingEnd="@dimen/margin_padding_size_large"
         android:gravity="center_vertical"
         android:background="?colorPrimary"
-        android:textColor="?android:textColorPrimaryInverse"
-        android:textSize="@dimen/text_size_large"
         tools:text="@tools:sample/date/mmddyy"/>
 
     <com.faltenreich.releaseradar.ui.view.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        app:compactCalendarBackgroundColor="?colorPrimary"
+        app:compactCalendarBackgroundColor="?android:textColorPrimaryInverse"
         app:compactCalendarCurrentDayBackgroundColor="?android:textColorPrimaryInverse"
         app:compactCalendarCurrentDayTextColor="?colorPrimary"
         app:compactCalendarCurrentSelectedDayBackgroundColor="?colorAccent"
         app:compactCalendarCurrentSelectedDayTextColor="?android:textColorPrimaryInverse"
         app:compactCalendarDisplayOtherMonthDays="true"
         app:compactCalendarMultiEventIndicatorColor="?colorPrimary"
-        app:compactCalendarOtherMonthDaysTextColor="?android:textColorTertiaryInverse"
-        app:compactCalendarTextColor="?android:textColorPrimaryInverse"
+        app:compactCalendarOtherMonthDaysTextColor="?android:textColorTertiary"
+        app:compactCalendarTextColor="?android:textColorPrimary"
         app:compactCalendarTextSize="12sp"/>
 
     <FrameLayout
