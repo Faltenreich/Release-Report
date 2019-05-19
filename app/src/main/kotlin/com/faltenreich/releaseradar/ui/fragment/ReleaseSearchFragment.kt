@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
@@ -11,6 +12,7 @@ import com.faltenreich.releaseradar.ui.list.adapter.ReleaseSearchListAdapter
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
+import org.jetbrains.anko.support.v4.runOnUiThread
 
 class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Search.OnQueryTextListener {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
@@ -43,15 +45,15 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Se
     }
 
     private fun initData() {
+        skeleton.showSkeleton()
         viewModel.observe(this, onObserve = { releases ->
-            skeleton.showSkeleton()
-            listViewContainer.visibility = View.VISIBLE
-            listEmptyView.visibility = View.GONE
             listAdapter?.submitList(releases)
         }, onInitialLoad = { releases ->
-            skeleton.showOriginal()
-            listViewContainer.visibility = if (releases.isNotEmpty()) View.VISIBLE else View.GONE
-            listEmptyView.visibility = if (releases.isNotEmpty()) View.GONE else View.VISIBLE
+            runOnUiThread {
+                skeleton.showOriginal()
+                listViewContainer.isVisible = releases.isNotEmpty()
+                listEmptyView.isVisible = releases.isEmpty()
+            }
         })
     }
 
