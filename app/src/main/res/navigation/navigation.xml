@@ -4,7 +4,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
     app:startDestination="@id/main">
+
+    <action
+        android:id="@+id/open_release"
+        app:destination="@+id/release_detail"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out">
+        <argument
+            android:name="releaseId"
+            app:argType="string"/>
+    </action>
 
     <fragment
         android:id="@+id/main"
@@ -40,17 +53,6 @@
         <argument
             android:name="query"
             app:argType="string"/>
-        <action
-            android:id="@+id/open_release"
-            app:destination="@+id/release_detail"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out">
-            <argument
-                android:name="releaseId"
-                app:argType="string"/>
-        </action>
     </fragment>
 
 </navigation>
