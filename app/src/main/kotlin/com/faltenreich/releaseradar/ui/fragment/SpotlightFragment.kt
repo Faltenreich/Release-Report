@@ -2,11 +2,8 @@ package com.faltenreich.releaseradar.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.ViewCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
@@ -17,9 +14,10 @@ import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.list.adapter.SpotlightListAdapter
 import com.faltenreich.releaseradar.ui.list.decoration.HorizontalPaddingDecoration
+import com.faltenreich.releaseradar.ui.view.ReleaseOpener
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
-class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
+class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpener {
     private val viewModel by lazy { createViewModel(SpotlightViewModel::class) }
     private val type by lazy { arguments?.getSerializable(ARGUMENT_MEDIA_TYPE) as? MediaType }
 
@@ -71,18 +69,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight) {
             spotlightReleaseDateTextView.text = release?.releaseDateForUi(context)
             spotlightReleaseNameTextView.text = release?.title
             spotlightReleaseDescriptionTextView.text = release?.description
-
-            spotlightContainer.setOnClickListener {
-                release?.id?.let { id ->
-                    ViewCompat.setTransitionName(spotlightReleaseCoverImageView, ReleaseDetailFragment.SHARED_ELEMENT_NAME)
-                    findNavController().navigate(
-                        R.id.open_release,
-                        Bundle().apply { putString("releaseId", id) },
-                        null,
-                        FragmentNavigatorExtras(spotlightReleaseCoverImageView to ReleaseDetailFragment.SHARED_ELEMENT_NAME)
-                    )
-                }
-            }
+            spotlightContainer.setOnClickListener { release?.let { openRelease(context, it, spotlightReleaseCoverImageView) } }
         }
     }
 

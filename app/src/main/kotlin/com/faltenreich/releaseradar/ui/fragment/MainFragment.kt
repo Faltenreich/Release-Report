@@ -12,12 +12,18 @@ import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
+    private val searchable by lazy { SearchableObserver() }
 
     private val navigationHostFragment: NavHostFragment
         get() = childFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment
 
     private val navigationController: NavController
         get() = navigationHostFragment.navController
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(searchable)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,6 +32,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun initLayout() {
         NavigationUI.setupWithNavController(navigationView, navigationController)
+        searchable.properties = SearchableProperties(this, searchView)
 
         searchView.setLogoIcon(R.drawable.ic_search)
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
