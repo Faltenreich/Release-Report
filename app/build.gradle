@@ -2,20 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.faltenreich.releaseradar"
+        applicationId 'com.faltenreich.releaseradar'
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.1"
+        versionName '0.1'
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -28,6 +27,21 @@ android {
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions 'version'
+    productFlavors {
+        demo {
+            dimension 'version'
+            applicationIdSuffix '.demo'
+        }
+        beta {
+            dimension 'version'
+            applicationIdSuffix '.beta'
+        }
+        store {
+            dimension 'version'
         }
     }
 
@@ -52,32 +66,32 @@ androidExtensions {
 }
 
 ext {
-    junit = "4.12"
-    mockito = "2.0.0"
-    test = "1.0.0"
-    test_rules = "1.1.0"
-    test_runner = "1.0.2"
-    test_espresso = "3.1.0"
-    ktx = "1.0.1"
-    material = "1.0.0"
-    lifecycle = "2.0.0"
-    paging = "2.1.0-rc01"
-    preference = "1.0.0"
-    constraintlayout = "1.1.3"
-    glide = "4.8.0"
-    threetenbp = "1.1.1"
-    threetenabp = "1.1.1"
-    licenses = "1.9.0"
-    parse = "1.19.0"
-    search_view = "27.1.1.0.0"
-    calendar_view = "3.0.0"
-    skeleton = "2.0.0"
-    month_picker = "1.3.0"
+    junit = '4.12'
+    mockito = '2.0.0'
+    test = '1.0.0'
+    test_rules = '1.1.0'
+    test_runner = '1.0.2'
+    test_espresso = '3.1.0'
+    ktx = '1.0.1'
+    material = '1.0.0'
+    lifecycle = '2.0.0'
+    paging = '2.1.0-rc01'
+    preference = '1.0.0'
+    constraintlayout = '1.1.3'
+    glide = '4.8.0'
+    threetenbp = '1.1.1'
+    threetenabp = '1.1.1'
+    licenses = '1.9.0'
+    parse = '1.19.0'
+    search_view = '27.1.1.0.0'
+    calendar_view = '3.0.0'
+    skeleton = '2.0.0'
+    month_picker = '1.3.0'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
 
     testImplementation "junit:junit:$junit"

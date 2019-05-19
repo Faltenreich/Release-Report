@@ -19,4 +19,11 @@ class Application : Application() {
         ParseServer.init(this)
         // ReminderManager.remind(this)
     }
+
+    companion object {
+        val isDemo: Boolean
+            get() = BuildConfig.FLAVOR == "demo"
+        val isBeta: Boolean
+            get() = BuildConfig.FLAVOR == "beta"
+    }
 }
