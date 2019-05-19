@@ -61,5 +61,7 @@ data class Release(
         const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
         const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
         const val POPULARITY = "popularity"
+
+        const val FALLBACK_COVER_COLOR_RES = android.R.color.black
     }
 }

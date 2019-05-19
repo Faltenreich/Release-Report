@@ -65,7 +65,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
             val hasContent = release != null
             spotlightContainer.visibility = if (hasContent) View.VISIBLE else View.GONE
 
-            release?.imageUrlForThumbnail?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(android.R.color.transparent)
+            release?.imageUrlForThumbnail?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
             spotlightReleaseDateTextView.text = release?.releaseDateForUi(context)
             spotlightReleaseNameTextView.text = release?.title
             spotlightReleaseDescriptionTextView.text = release?.description

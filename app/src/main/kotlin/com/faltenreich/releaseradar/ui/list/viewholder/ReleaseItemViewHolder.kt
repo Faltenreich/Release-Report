@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.faltenreich.releaseradar.R
+import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
@@ -16,7 +17,7 @@ class ReleaseItemViewHolder(context: Context, parent: ViewGroup) : BaseViewHolde
     override fun onBind(data: ReleaseListItem) {
         data.release?.let { release ->
             cardView.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
-            release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.black)
+            release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
             releaseTypeImageView.setImageResource(release.mediaType?.iconResId ?: android.R.color.transparent)
             releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_top_start)?.apply { setTint(ContextCompat.getColor(context, release.mediaType?.colorResId ?: R.color.colorPrimary)) }
             releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title

@@ -13,7 +13,7 @@ class SpotlightViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<
 
     override fun onBind(data: Release) {
         cardView.setOnClickListener { openRelease(context, data, releaseCoverImageView) }
-        data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(android.R.color.transparent)
+        data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
         releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
         releaseDateTextView.text = data.releaseDateForUi(context)
     }
