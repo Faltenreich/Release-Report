@@ -4,10 +4,10 @@ import com.faltenreich.releaseradar.data.dao.ReleaseDao
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.isTrue
+import com.faltenreich.releaseradar.extension.isTrueOrNull
 import org.threeten.bp.LocalDate
 
 class ReleaseDemoDao : ReleaseDao {
-
     private val releases by lazy { DemoFactory.releases() }
 
     override fun getById(id: String, onResult: (Release?) -> Unit) {
@@ -15,7 +15,8 @@ class ReleaseDemoDao : ReleaseDao {
     }
 
     override fun getByIds(ids: Collection<String>, onResult: (List<Release>) -> Unit) {
-
+        val filtered = releases.filter { release -> ids.contains(release.id) }
+        onResult(filtered)
     }
 
     override fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
@@ -29,7 +30,12 @@ class ReleaseDemoDao : ReleaseDao {
     }
 
     override fun getByIds(ids: Collection<String>, type: MediaType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
-
+        val filtered = releases.filter { release ->
+            ids.contains(release.id)
+                    && startAt?.let { release.releaseDate?.isAfter(startAt.minusDays(1)).isTrue }.isTrueOrNull
+                    && type?.let { release.mediaType == type }.isTrueOrNull
+        }
+        onResult(filtered)
     }
 
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, mediaType: MediaType, pageSize: Int, onResult: (List<Release>) -> Unit) {
