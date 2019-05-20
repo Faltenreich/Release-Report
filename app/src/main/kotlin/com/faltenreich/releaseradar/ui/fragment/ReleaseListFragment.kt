@@ -31,7 +31,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private lateinit var todayButtonBehavior: SlideOutBehavior
 
     private val skeleton by lazy {
-        listView.applySkeleton(R.layout.list_item_release,
+        listView.applySkeleton(R.layout.list_item_release_image,
             itemCount = LIST_SKELETON_ITEM_COUNT,
             maskColor = ContextCompat.getColor(context!!, R.color.colorPrimary),
             shimmerColor = ContextCompat.getColor(context!!, R.color.blue_gray),

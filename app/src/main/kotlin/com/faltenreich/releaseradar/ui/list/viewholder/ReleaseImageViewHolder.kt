@@ -10,13 +10,13 @@ import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
 import com.faltenreich.releaseradar.ui.view.ReleaseOpener
-import kotlinx.android.synthetic.main.list_item_release.*
+import kotlinx.android.synthetic.main.list_item_release_image.*
 
-class ReleaseItemViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseListItem>(context, R.layout.list_item_release, parent), ReleaseOpener {
+class ReleaseImageViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseListItem>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
 
     override fun onBind(data: ReleaseListItem) {
         data.release?.let { release ->
-            cardView.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
+            container.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
             release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
             releaseTypeImageView.setImageResource(release.mediaType?.iconResId ?: android.R.color.transparent)
             releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_top_start)?.apply { setTint(ContextCompat.getColor(context, release.mediaType?.colorResId ?: R.color.colorPrimary)) }

@@ -22,7 +22,7 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Se
     private val listAdapter by lazy { context?.let { context -> ReleaseSearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
 
-    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_search, itemCount = 6) }
+    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_detail, itemCount = 6) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -24,7 +24,7 @@ class FollowingFragment : BaseFragment(R.layout.fragment_following) {
     private val viewModel by lazy { createViewModel(ReleaseFavoriteListViewModel::class) }
 
     private val listAdapter by lazy { context?.let { context -> FollowingListAdapter(context) } }
-    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_search, itemCount = 6) }
+    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_detail, itemCount = 6) }
     private lateinit var listLayoutManager: LinearLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

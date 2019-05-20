@@ -8,9 +8,9 @@ import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.extension.tintResource
 import com.faltenreich.releaseradar.ui.view.ReleaseOpener
-import kotlinx.android.synthetic.main.list_item_release_search.*
+import kotlinx.android.synthetic.main.list_item_release_detail.*
 
-class ReleaseSearchViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release_search, parent), ReleaseOpener {
+class ReleaseDetailViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release_detail, parent), ReleaseOpener {
 
     override fun onBind(data: Release) {
         container.setOnClickListener { openRelease(context, data, releaseCoverImageView) }

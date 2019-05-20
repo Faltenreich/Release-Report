@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.faltenreich.releaseradar.ui.list.paging.ReleaseListItemDiffUtilCallback
 import com.faltenreich.releaseradar.ui.list.viewholder.BaseViewHolder
 import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseDateViewHolder
-import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseItemViewHolder
+import com.faltenreich.releaseradar.ui.list.viewholder.ReleaseImageViewHolder
 import org.threeten.bp.LocalDate
 
 class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, BaseViewHolder<ReleaseListItem>>(context, ReleaseListItemDiffUtilCallback()) {
@@ -16,7 +16,7 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<ReleaseListItem, B
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        VIEW_TYPE_RELEASE -> ReleaseItemViewHolder(context, parent)
+        VIEW_TYPE_RELEASE -> ReleaseImageViewHolder(context, parent)
         VIEW_TYPE_DATE -> ReleaseDateViewHolder(context, parent)
         else -> throw IllegalArgumentException("Unknown viewType: $viewType")
     }

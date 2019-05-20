@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.list_item_spotlight.*
 class SpotlightViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_spotlight, parent), ReleaseOpener {
 
     override fun onBind(data: Release) {
-        cardView.setOnClickListener { openRelease(context, data, releaseCoverImageView) }
+        container.setOnClickListener { openRelease(context, data, releaseCoverImageView) }
         data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
         releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
         releaseDateTextView.text = data.releaseDateForUi(context)
