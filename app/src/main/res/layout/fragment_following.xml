@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/dateLabel"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/toolbar_height"
         android:paddingStart="@dimen/margin_padding_size_large"
         android:paddingEnd="@dimen/margin_padding_size_large"
         android:gravity="center_vertical"
         android:background="?colorPrimary"
-        tools:text="@tools:sample/date/mmddyy"/>
+        tools:text="@tools:sample/date/mmddyy"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.faltenreich.releaseradar.ui.view.CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="240dp"
         app:compactCalendarBackgroundColor="?android:textColorPrimaryInverse"
         app:compactCalendarCurrentDayBackgroundColor="?android:textColorPrimaryInverse"
@@ -32,27 +33,31 @@
         app:compactCalendarMultiEventIndicatorColor="?colorPrimary"
         app:compactCalendarOtherMonthDaysTextColor="?android:textColorTertiary"
         app:compactCalendarTextColor="?android:textColorPrimary"
-        app:compactCalendarTextSize="12sp"/>
+        app:compactCalendarTextSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/dateLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/margin_padding_size_small"
+        android:clipToPadding="false"
+        tools:listitem="@layout/list_item_release_search"
+        app:layout_constraintTop_toBottomOf="@id/calendarView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_padding_size_small"
-            android:clipToPadding="false"
-            tools:listitem="@layout/list_item_release_search"/>
+    <include
+        layout="@layout/view_empty"
+        android:id="@+id/listEmptyView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/listView"
+        app:layout_constraintBottom_toBottomOf="@id/listView"
+        app:layout_constraintStart_toStartOf="@id/listView"
+        app:layout_constraintEnd_toEndOf="@id/listView"/>
 
-        <include
-            layout="@layout/view_empty"
-            android:id="@+id/listEmptyView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </FrameLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
