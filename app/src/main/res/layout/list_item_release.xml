@@ -14,8 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:paddingTop="@dimen/status_bar_height">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/releaseCoverImageView"

@@ -52,7 +52,6 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Se
         }, onInitialLoad = { releases ->
             runOnUiThread {
                 skeleton.showOriginal()
-                listViewContainer.isVisible = releases.isNotEmpty()
                 listEmptyView.isVisible = releases.isEmpty()
             }
         })

@@ -1,78 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="?attr/selectableItemBackground"
-    tools:background="@android:color/white"
-    tools:layout_gravity="center_vertical">
+    android:foreground="?attr/selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/releaseCoverImageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="@dimen/margin_padding_size_small"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:src="@tools:sample/avatars"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/releaseDateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_padding_size_medium"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
-        android:textColor="@color/gray_dark"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@tools:sample/date/ddmmyy"/>
+        <ImageView
+            android:id="@+id/releaseCoverImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="@dimen/margin_padding_size_small"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars"/>
 
-    <TextView
-        android:id="@+id/releaseNameTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
-        android:textColor="@android:color/black"
-        android:maxLines="2"
-        android:ellipsize="end"
-        app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
-        app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
-        app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
-        tools:text="@tools:sample/lorem/random"/>
+        <TextView
+            android:id="@+id/releaseDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_small"
+            android:textColor="@color/gray_dark"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
+            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@tools:sample/date/ddmmyy"/>
 
-    <TextView
-        android:id="@+id/releasePlatformsTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
-        android:textColor="@color/gray_dark"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintTop_toBottomOf="@id/releaseNameTextView"
-        app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
-        app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
-        tools:text="Info"/>
+        <TextView
+            android:id="@+id/releaseNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
+            android:textColor="@android:color/black"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
+            app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
+            app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
+            tools:text="@tools:sample/lorem/random"/>
 
-    <ImageView
-        android:id="@+id/releaseTypeImageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
-        android:contentDescription="@null"
-        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/ic_music"
-        tools:tint="?attr/colorPrimary"/>
+        <TextView
+            android:id="@+id/releasePlatformsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
+            android:textColor="@color/gray_dark"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/releaseNameTextView"
+            app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
+            app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
+            tools:text="Info"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/releaseTypeImageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/margin_padding_size_small"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_music"
+            tools:tint="?attr/colorPrimary"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

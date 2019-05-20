@@ -24,26 +24,17 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="@dimen/margin_padding_size_small"
-            android:paddingEnd="@dimen/margin_padding_size_small"
-            android:paddingBottom="@dimen/margin_padding_size_small">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/listViewContainer"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="2dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:listitem="@layout/list_item_release_search"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-            </androidx.cardview.widget.CardView>
+                android:padding="@dimen/margin_padding_size_small"
+                android:clipToPadding="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/list_item_release_search"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <include
                 layout="@layout/view_empty"
