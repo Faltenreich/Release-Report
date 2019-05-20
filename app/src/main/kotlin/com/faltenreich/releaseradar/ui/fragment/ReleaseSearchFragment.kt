@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseSearchViewModel
 import com.faltenreich.releaseradar.extension.nonBlank
+import com.faltenreich.releaseradar.hideKeyboard
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseSearchListAdapter
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
@@ -61,6 +62,7 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Se
 
     override fun onQueryTextSubmit(query: CharSequence?): Boolean {
         viewModel.query = query?.toString().nonBlank
+        hideKeyboard()
         return true
     }
 }
