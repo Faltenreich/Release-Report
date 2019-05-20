@@ -20,6 +20,4 @@
         <item name="android:padding">@dimen/margin_padding_size_medium</item>
     </style>
 
-    <style name="DateTimePicker" parent="Base.ThemeOverlay.AppCompat.Dialog"/>
-
 </resources>
