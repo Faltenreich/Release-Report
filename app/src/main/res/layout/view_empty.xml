@@ -11,6 +11,7 @@
     tools:visibility="visible">
 
     <ImageView
+        android:id="@+id/emptyIcon"
         android:layout_width="@dimen/image_size_large"
         android:layout_height="@dimen/image_size_large"
         android:layout_gravity="center"
@@ -18,6 +19,7 @@
         android:contentDescription="@null"/>
 
     <TextView
+        android:id="@+id/emptyLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_padding_size_small"

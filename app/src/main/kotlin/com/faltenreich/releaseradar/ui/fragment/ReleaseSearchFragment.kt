@@ -13,11 +13,13 @@ import com.faltenreich.releaseradar.ui.list.adapter.ReleaseSearchListAdapter
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_release_search.*
+import kotlinx.android.synthetic.main.view_empty.*
 import org.jetbrains.anko.support.v4.runOnUiThread
+import org.jetbrains.anko.textResource
 
 class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Search.OnQueryTextListener {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
-    private val query: String? by lazy { arguments?.let { arguments -> ReleaseSearchFragmentArgs.fromBundle(arguments).query } }
+    private val query: String? by lazy { arguments?.let { arguments -> ReleaseSearchFragmentArgs.fromBundle(arguments).query.nonBlank } }
 
     private val listAdapter by lazy { context?.let { context -> ReleaseSearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
@@ -41,18 +43,27 @@ class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Se
         searchView.setOnQueryTextListener(this)
 
         if (viewModel.query == null) {
-            searchView.setQuery(query, true)
+            if (query != null) {
+                skeleton.showSkeleton()
+                emptyView.isVisible = false
+                searchView.setQuery(query, true)
+            } else {
+                emptyView.isVisible = true
+                emptyIcon.isVisible = false
+                emptyLabel.textResource = R.string.search_hint_desc
+            }
         }
     }
 
     private fun initData() {
-        skeleton.showSkeleton()
         viewModel.observe(this, onObserve = { releases ->
             listAdapter?.submitList(releases)
         }, onInitialLoad = { releases ->
             runOnUiThread {
                 skeleton.showOriginal()
-                listEmptyView.isVisible = releases.isEmpty()
+                emptyView.isVisible = releases.isEmpty()
+                emptyIcon.isVisible = true
+                emptyLabel.textResource = R.string.nothing_found
             }
         })
     }

@@ -100,7 +100,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
                 runOnUiThread {
                     skeleton.showOriginal()
                     listItemDecoration.isSkeleton = false
-                    listEmptyView.isVisible = count == 0
+                    emptyView.isVisible = count == 0
                 }
             })
         }

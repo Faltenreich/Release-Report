@@ -15,7 +15,7 @@ import com.faltenreich.releaseradar.ui.view.CalendarEvent
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_following.*
-import kotlinx.android.synthetic.main.fragment_following.listEmptyView
+import kotlinx.android.synthetic.main.fragment_following.emptyView
 import kotlinx.android.synthetic.main.fragment_following.listView
 import org.threeten.bp.LocalDate
 import java.util.*
@@ -63,7 +63,7 @@ class FollowingFragment : BaseFragment(R.layout.fragment_following) {
 
     private fun setReleases(releases: List<Release>) {
         val hasContent = releases.isNotEmpty()
-        listEmptyView.isVisible = !hasContent
+        emptyView.isVisible = !hasContent
 
         calendarView.apply {
             removeAllEvents()

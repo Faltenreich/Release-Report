@@ -26,5 +26,6 @@
     <string name="notifications">Notifications</string>
     <string name="reminder_title">%d new releases for you today</string>
     <string name="date_select">Select date</string>
+    <string name="search_hint_desc">Start searching by typing</string>
 
 </resources>

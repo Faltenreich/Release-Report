@@ -35,14 +35,18 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         searchable.properties = SearchableProperties(this, searchView)
 
         searchView.setLogoIcon(R.drawable.ic_search)
+        searchView.setOnLogoClickListener { openSearch() }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {
                 val searchQuery = query?.toString()?.nonBlank ?: return true
-                searchView.logo = Search.Logo.ARROW
-                findNavController().navigate(MainFragmentDirections.searchRelease(searchQuery))
+                openSearch(searchQuery)
                 return true
             }
         })
+    }
+
+    private fun openSearch(query: String = "") {
+        findNavController().navigate(MainFragmentDirections.searchRelease(query))
     }
 }
