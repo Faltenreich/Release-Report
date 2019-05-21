@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/margin_padding_size_medium"
-        android:paddingBottom="@dimen/margin_padding_size_medium">
+        android:paddingBottom="@dimen/standard_element_size_large">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/spotlightContainer"

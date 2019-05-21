@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/translucent"
+        android:paddingBottom="@dimen/standard_element_size_large"
+        android:clipToPadding="false"
         tools:listitem="@layout/list_item_release_image"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:spanCount="2"/>
