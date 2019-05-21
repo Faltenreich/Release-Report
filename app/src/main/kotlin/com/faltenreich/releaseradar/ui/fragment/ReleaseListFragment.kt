@@ -9,9 +9,12 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
+import com.faltenreich.releaseradar.data.viewmodel.MainViewModel
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.releaseradar.extension.isTrue
 import com.faltenreich.releaseradar.extension.print
+import com.faltenreich.releaseradar.showSafely
+import com.faltenreich.releaseradar.ui.activity.BaseActivity
 import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.releaseradar.ui.list.decoration.ReleaseListItemDecoration
@@ -23,6 +26,7 @@ import org.threeten.bp.LocalDate
 import kotlin.math.min
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
+    private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
@@ -45,6 +49,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parentViewModel.tint = R.color.colorPrimary
         initList()
         initTodayButton()
         initData(LocalDate.now())
@@ -162,7 +167,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     private fun openDatePicker() {
         val date = listAdapter?.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date ?: LocalDate.now()
-        DatePickerFragment.newInstance(date) { newDate -> newDate?.let { focusDate(newDate) } }.show(fragmentManager, null)
+        DatePickerFragment.newInstance(date) { newDate -> newDate?.let { focusDate(newDate) } }.showSafely(fragmentManager)
     }
 
     companion object {

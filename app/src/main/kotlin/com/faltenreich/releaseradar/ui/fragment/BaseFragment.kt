@@ -40,9 +40,9 @@ abstract class BaseFragment(
         return inflater.inflate(layoutResId, container, false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menuResId?.let { menuResId -> inflater?.inflate(menuResId, menu) }
+        menuResId?.let { menuResId -> inflater.inflate(menuResId, menu) }
     }
 
     protected fun finish() {

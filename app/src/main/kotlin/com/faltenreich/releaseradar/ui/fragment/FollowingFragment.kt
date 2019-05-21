@@ -8,19 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
+import com.faltenreich.releaseradar.data.viewmodel.MainViewModel
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseFavoriteListViewModel
 import com.faltenreich.releaseradar.extension.printMonth
+import com.faltenreich.releaseradar.ui.activity.BaseActivity
 import com.faltenreich.releaseradar.ui.list.adapter.FollowingListAdapter
 import com.faltenreich.releaseradar.ui.view.CalendarEvent
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_following.*
-import kotlinx.android.synthetic.main.fragment_following.emptyView
-import kotlinx.android.synthetic.main.fragment_following.listView
 import org.threeten.bp.LocalDate
 import java.util.*
 
 class FollowingFragment : BaseFragment(R.layout.fragment_following) {
+    private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseFavoriteListViewModel::class) }
 
     private val listAdapter by lazy { context?.let { context -> FollowingListAdapter(context) } }
@@ -29,6 +30,7 @@ class FollowingFragment : BaseFragment(R.layout.fragment_following) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parentViewModel.tint = R.color.colorPrimary
         initLayout()
         fetchData()
     }

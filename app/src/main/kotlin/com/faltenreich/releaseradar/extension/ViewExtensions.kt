@@ -2,6 +2,7 @@ package com.faltenreich.releaseradar.extension
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -24,11 +25,11 @@ fun View.animateHeight(to: Int) {
     }.start()
 }
 
-val View.backgroundColor: Int
-    get() = (background as ColorDrawable).color
+val View.backgroundColor: Int?
+    get() = (background as ColorDrawable?)?.color
 
 fun View.fadeBackgroundColorResource(@ColorRes to: Int) {
-    val colorFrom = backgroundColor
+    val colorFrom = backgroundColor ?: Color.TRANSPARENT
     val colorTo = ContextCompat.getColor(context, to)
     val colorAnimation = ValueAnimator.ofObject(ArgbEvaluatorCompat(), colorFrom, colorTo)
     colorAnimation.addUpdateListener { animator -> setBackgroundColor(animator.animatedValue as Int) }

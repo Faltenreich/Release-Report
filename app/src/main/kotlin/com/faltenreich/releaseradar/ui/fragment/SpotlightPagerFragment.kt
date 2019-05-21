@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
-import com.faltenreich.releaseradar.extension.fadeBackgroundColorResource
+import com.faltenreich.releaseradar.data.viewmodel.MainViewModel
+import com.faltenreich.releaseradar.ui.activity.BaseActivity
 import com.faltenreich.releaseradar.ui.viewpager.FragmentViewPagerAdapter
-import kotlinx.android.synthetic.main.fragment_spotlight_viewpager.*
+import kotlinx.android.synthetic.main.fragment_spotlight_pager.*
 
-class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_viewpager) {
+class SpotlightPagerFragment : BaseFragment(R.layout.fragment_spotlight_pager) {
+    private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val mediaTypes by lazy { MediaType.values() }
     private lateinit var viewPagerPages: List<Pair<String, Fragment>>
     private lateinit var viewPagerAdapter: FragmentViewPagerAdapter
@@ -37,17 +39,13 @@ class SpotlightViewPagerFragment : BaseFragment(R.layout.fragment_spotlight_view
             override fun onPageScrollStateChanged(state: Int) = Unit
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
             override fun onPageSelected(position: Int) {
-                setTint(mediaTypes[position])
+                setMediaType(mediaTypes[position])
             }
         })
-        setTint(mediaTypes[0], false)
+        setMediaType(mediaTypes[0])
     }
 
-    private fun setTint(type: MediaType, animated: Boolean = true) {
-        if (animated) {
-            viewPager.fadeBackgroundColorResource(type.colorDarkResId)
-        } else {
-            viewPager.setBackgroundResource(type.colorDarkResId)
-        }
+    private fun setMediaType(mediaType: MediaType) {
+        parentViewModel.tint = mediaType.colorResId
     }
 }
