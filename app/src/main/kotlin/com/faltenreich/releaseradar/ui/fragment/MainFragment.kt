@@ -1,6 +1,5 @@
 package com.faltenreich.releaseradar.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
@@ -12,6 +11,7 @@ import com.faltenreich.releaseradar.data.viewmodel.MainViewModel
 import com.faltenreich.releaseradar.extension.fadeBackgroundColorResource
 import com.faltenreich.releaseradar.extension.nonBlank
 import com.faltenreich.releaseradar.ui.activity.BaseActivity
+import com.faltenreich.releaseradar.ui.view.TintAction
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -53,10 +53,17 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun initData() {
-        viewModel.observeTint(this) { tint -> container.fadeBackgroundColorResource(tint?: Color.TRANSPARENT) }
+        viewModel.observeTint(this) { tint -> setTint(tint) }
     }
 
     private fun openSearch(query: String = "") {
         findNavController().navigate(MainFragmentDirections.searchRelease(query))
+    }
+
+    private fun setTint(tint: TintAction?) {
+        // TODO: Reveal from tint.source
+        val colorRes = tint?.color ?: android.R.color.transparent
+        collapsingToolbarLayout.setStatusBarScrimResource(colorRes)
+        container.fadeBackgroundColorResource(colorRes)
     }
 }

@@ -14,6 +14,7 @@ import com.faltenreich.releaseradar.extension.printMonth
 import com.faltenreich.releaseradar.ui.activity.BaseActivity
 import com.faltenreich.releaseradar.ui.list.adapter.FollowingListAdapter
 import com.faltenreich.releaseradar.ui.view.CalendarEvent
+import com.faltenreich.releaseradar.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import kotlinx.android.synthetic.main.fragment_following.*
@@ -30,7 +31,7 @@ class FollowingFragment : BaseFragment(R.layout.fragment_following) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel.tint = R.color.colorPrimary
+        parentViewModel.tint = TintAction(R.color.colorPrimary)
         initLayout()
         fetchData()
     }

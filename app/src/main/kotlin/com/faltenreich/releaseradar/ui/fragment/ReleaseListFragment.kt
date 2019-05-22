@@ -19,6 +19,7 @@ import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.releaseradar.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.releaseradar.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.releaseradar.ui.list.layoutmanager.ReleaseListLayoutManager
+import com.faltenreich.releaseradar.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -49,7 +50,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel.tint = R.color.colorPrimary
+        parentViewModel.tint = TintAction(R.color.colorPrimary)
         initList()
         initTodayButton()
         initData(LocalDate.now())

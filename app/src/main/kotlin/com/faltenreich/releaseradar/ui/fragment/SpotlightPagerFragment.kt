@@ -1,6 +1,8 @@
 package com.faltenreich.releaseradar.ui.fragment
 
+import android.graphics.PointF
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
@@ -8,6 +10,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.enum.MediaType
 import com.faltenreich.releaseradar.data.viewmodel.MainViewModel
 import com.faltenreich.releaseradar.ui.activity.BaseActivity
+import com.faltenreich.releaseradar.ui.view.TintAction
 import com.faltenreich.releaseradar.ui.viewpager.FragmentViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_spotlight_pager.*
 
@@ -35,6 +38,12 @@ class SpotlightPagerFragment : BaseFragment(R.layout.fragment_spotlight_pager) {
     private fun initViewPager() {
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
+        tabLayout.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                parentViewModel.tint = TintAction(R.color.gray, PointF(event.rawX, event.rawY))
+            }
+            false
+        }
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) = Unit
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
@@ -46,6 +55,6 @@ class SpotlightPagerFragment : BaseFragment(R.layout.fragment_spotlight_pager) {
     }
 
     private fun setMediaType(mediaType: MediaType) {
-        parentViewModel.tint = mediaType.colorResId
+        parentViewModel.tint = TintAction(mediaType.colorResId)
     }
 }
