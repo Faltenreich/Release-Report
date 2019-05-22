@@ -1,7 +1,7 @@
 package com.faltenreich.releaseradar.ui.list.paging
 
 import androidx.recyclerview.widget.DiffUtil
-import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
+import com.faltenreich.releaseradar.ui.list.item.ReleaseListItem
 
 class ReleaseListItemDiffUtilCallback : DiffUtil.ItemCallback<ReleaseListItem>() {
     override fun areItemsTheSame(oldItem: ReleaseListItem, newItem: ReleaseListItem): Boolean = oldItem.date == newItem.date && oldItem.release == newItem.release

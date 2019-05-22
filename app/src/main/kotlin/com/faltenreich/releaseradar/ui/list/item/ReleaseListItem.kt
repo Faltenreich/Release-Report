@@ -1,4 +1,4 @@
-package com.faltenreich.releaseradar.ui.list.adapter
+package com.faltenreich.releaseradar.ui.list.item
 
 import com.faltenreich.releaseradar.data.model.Release
 import org.threeten.bp.LocalDate

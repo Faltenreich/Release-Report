@@ -4,7 +4,7 @@ import androidx.paging.PageKeyedDataSource
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.data.repository.RepositoryFactory
 import com.faltenreich.releaseradar.extension.isTrue
-import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
+import com.faltenreich.releaseradar.ui.list.item.ReleaseListItem
 import org.threeten.bp.LocalDate
 
 class ReleaseDataSource(
@@ -36,11 +36,21 @@ class ReleaseDataSource(
             releases.takeIf(List<Release>::isNotEmpty)?.let {
                 val releaseListItems = mutableListOf<ReleaseListItem>()
                 releases.forEachIndexed { index, release ->
-                    releaseListItems.add(ReleaseListItem(release.releaseDate, release))
+                    releaseListItems.add(
+                        ReleaseListItem(
+                            release.releaseDate,
+                            release
+                        )
+                    )
                     // Add section header
                     releases.getOrNull(index + 1)?.let { nextRelease ->
                         if (nextRelease.releaseDate?.isAfter(release.releaseDate).isTrue) {
-                            releaseListItems.add(ReleaseListItem(nextRelease.releaseDate, null))
+                            releaseListItems.add(
+                                ReleaseListItem(
+                                    nextRelease.releaseDate,
+                                    null
+                                )
+                            )
                         }
                     }
                 }

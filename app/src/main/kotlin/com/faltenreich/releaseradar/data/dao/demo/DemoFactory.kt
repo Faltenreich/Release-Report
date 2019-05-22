@@ -24,6 +24,7 @@ object DemoFactory {
                 imageUrlForWallpaper = getImageUrl(index, 1920 to 1080)
                 genres = listOfNotNull(this@DemoFactory.genres.getOrNull(index / 10)?.id)
                 platforms = listOfNotNull(this@DemoFactory.platforms.getOrNull(index / 10)?.id)
+                images = this@DemoFactory.images.mapNotNull { image -> image.id }
             }
         }
     }

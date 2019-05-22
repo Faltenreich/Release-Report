@@ -9,6 +9,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
@@ -19,6 +20,7 @@ import com.faltenreich.releaseradar.extension.backgroundTintResource
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
 import com.faltenreich.releaseradar.extension.tintResource
+import com.faltenreich.releaseradar.ui.list.adapter.GalleryListAdapter
 import com.faltenreich.releaseradar.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
@@ -26,6 +28,9 @@ import kotlinx.android.synthetic.main.fragment_release_detail.*
 class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
+
+    private val listAdapter by lazy { context?.let { context -> GalleryListAdapter(context) } }
+    private lateinit var listLayoutManager: StaggeredGridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +67,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                 invalidateFavorite()
                 fab.show()
             }
+
+            listLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+            galleryListView.layoutManager = listLayoutManager
+            galleryListView.adapter = listAdapter
         }
     }
 
@@ -83,18 +92,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                     metaChipContainer.removeAllViews()
                     addChip(metaChipContainer, release.releaseDateForUi(context), R.drawable.ic_date)
 
-                    viewModel.observeGenres(release, this) { genres ->
-                        genreChipContainer.removeAllViews()
-                        genres?.forEach { genre -> addGenre(genre) }
-                    }
-
-                    viewModel.observePlatforms(release, this) { platforms ->
-                        platforms?.forEach { platform -> addPlatform(platform) }
-                    }
-
-                    viewModel.observeImages(release, this) { images ->
-                        images?.forEach { image -> addImage(image) }
-                    }
+                    // Change order of observation to prevent scrambled and jumping layout
+                    viewModel.observeGenres(release, this) { genres -> genreChipContainer.removeAllViews(); genres?.forEach { genre -> addGenre(genre) } }
+                    viewModel.observePlatforms(release, this) { platforms -> platforms?.forEach { platform -> addPlatform(platform) } }
+                    // TODO: viewModel.observeImages(release, this) { images -> addImages(images ?: listOf()) }
                 }
 
                 release?.imageUrlForThumbnail?.let { imageUrl ->
@@ -139,8 +140,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         container.addView(chip)
     }
 
-    private fun addImage(image: Image) {
-        // TODO
+    private fun addImages(images: List<Image>) {
+        listAdapter?.removeListItems()
+        listAdapter?.addListItems(images)
+        listAdapter?.notifyDataSetChanged()
     }
 
     companion object {

@@ -8,7 +8,7 @@ import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Release
 import com.faltenreich.releaseradar.extension.screenSize
 import com.faltenreich.releaseradar.extension.setImageAsync
-import com.faltenreich.releaseradar.ui.list.adapter.ReleaseListItem
+import com.faltenreich.releaseradar.ui.list.item.ReleaseListItem
 import com.faltenreich.releaseradar.ui.view.ReleaseOpener
 import kotlinx.android.synthetic.main.list_item_release_image.*
 
