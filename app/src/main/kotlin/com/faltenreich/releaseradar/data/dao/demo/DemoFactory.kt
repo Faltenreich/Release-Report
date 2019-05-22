@@ -8,6 +8,7 @@ import com.faltenreich.releaseradar.data.model.Release
 import org.threeten.bp.LocalDate
 
 object DemoFactory {
+    private const val IMAGE_PROVIDER = "https://picsum.photos"
 
     private val releases: List<Release> by lazy {
         val startDate = LocalDate.now().minusWeeks(2)
@@ -18,9 +19,9 @@ object DemoFactory {
                 releaseDate = startDate.plusDays(index.toLong())
                 mediaType = if (index % 3 == 0) MediaType.MOVIE else if (index % 2 == 0) MediaType.MUSIC else MediaType.GAME
                 popularity = 100f
-                imageUrlForThumbnail = "https://picsum.photos/id/$index/300/400"
-                imageUrlForCover = "https://picsum.photos/id/$index/1080/1920"
-                imageUrlForWallpaper = "https://picsum.photos/id/$index/1920/1080"
+                imageUrlForThumbnail = getImageUrl(index, 300 to 400)
+                imageUrlForCover = getImageUrl(index, 1080 to 1920)
+                imageUrlForWallpaper = getImageUrl(index, 1920 to 1080)
                 genres = listOfNotNull(this@DemoFactory.genres.getOrNull(index / 10)?.id)
                 platforms = listOfNotNull(this@DemoFactory.platforms.getOrNull(index / 10)?.id)
             }
@@ -49,9 +50,13 @@ object DemoFactory {
         (0 until 10).map { index ->
             Image().apply {
                 id = index.toString()
-                url = "https://picsum.photos/id/$index/1080/1920"
+                url = getImageUrl(index, 1080 to 1920)
             }
         }
+    }
+
+    private fun getImageUrl(index: Int, size: Pair<Int, Int>): String {
+        return "$IMAGE_PROVIDER/id/$index/${size.first}/${size.second}"
     }
 
     fun releases(): List<Release> {
