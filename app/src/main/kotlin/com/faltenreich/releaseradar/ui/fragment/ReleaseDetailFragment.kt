@@ -12,6 +12,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.transition.TransitionInflater
 import com.faltenreich.releaseradar.R
 import com.faltenreich.releaseradar.data.model.Genre
+import com.faltenreich.releaseradar.data.model.Image
 import com.faltenreich.releaseradar.data.model.Platform
 import com.faltenreich.releaseradar.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.releaseradar.extension.backgroundTintResource
@@ -90,6 +91,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                     viewModel.observePlatforms(release, this) { platforms ->
                         platforms?.forEach { platform -> addPlatform(platform) }
                     }
+
+                    viewModel.observeImages(release, this) { images ->
+                        images?.forEach { image -> addImage(image) }
+                    }
                 }
 
                 release?.imageUrlForThumbnail?.let { imageUrl ->
@@ -117,20 +122,25 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
 
-    private fun addGenre(genre: Genre) = addChip(genreChipContainer, genre.title)
+    private fun addGenre(genre: Genre) {
+        addChip(genreChipContainer, genre.title)
+    }
 
-    private fun addPlatform(platform: Platform) = addChip(metaChipContainer, platform.title)
+    private fun addPlatform(platform: Platform) {
+        addChip(metaChipContainer, platform.title)
+    }
 
     private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null) = context?.let { context ->
         val chip = Chip(context).apply {
             text = title
-            iconResId?.let {
-                setChipIconResource(iconResId)
-                // FIXME: Breaks chipIconTint
-            }
+            iconResId?.let { setChipIconResource(iconResId) }
             setChipBackgroundColorResource(viewModel.release?.mediaType?.colorResId ?: R.color.colorPrimary)
         }
         container.addView(chip)
+    }
+
+    private fun addImage(image: Image) {
+        // TODO
     }
 
     companion object {
