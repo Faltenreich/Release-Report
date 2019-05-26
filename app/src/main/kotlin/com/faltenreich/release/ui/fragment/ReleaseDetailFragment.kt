@@ -3,9 +3,11 @@ package com.faltenreich.release.ui.fragment
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
@@ -25,7 +27,7 @@ import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
+class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release) {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
@@ -43,8 +45,18 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         initData()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.open -> { openExternally(); return true }
+            R.id.share -> { share(); return true }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initLayout() {
         context?.apply {
+            (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+
             val transition = TransitionInflater.from(context).inflateTransition(R.transition.shared_element)
             sharedElementEnterTransition = transition
             sharedElementReturnTransition = transition
@@ -144,6 +156,14 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         listAdapter?.removeListItems()
         listAdapter?.addListItems(media)
         listAdapter?.notifyDataSetChanged()
+    }
+
+    private fun openExternally() {
+
+    }
+
+    private fun share() {
+
     }
 
     companion object {

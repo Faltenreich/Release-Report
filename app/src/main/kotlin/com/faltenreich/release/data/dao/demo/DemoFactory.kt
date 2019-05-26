@@ -21,6 +21,7 @@ object DemoFactory {
                 releaseDate = startDate.plusDays(index.toLong())
                 releaseType = if (index % 3 == 0) ReleaseType.MOVIE else if (index % 2 == 0) ReleaseType.MUSIC else ReleaseType.GAME
                 popularity = 100f
+                externalUrl = "https://www.google.de"
                 imageUrlForThumbnail = getImageUrl(index, 300 to 400)
                 imageUrlForCover = getImageUrl(index, 1080 to 1920)
                 imageUrlForWallpaper = getImageUrl(index, 1920 to 1080)

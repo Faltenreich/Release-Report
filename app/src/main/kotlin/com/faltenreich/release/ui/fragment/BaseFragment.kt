@@ -31,9 +31,7 @@ abstract class BaseFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(menuResId != null)
-        titleResId?.let { titleResId -> title = getString(titleResId) }
-        subtitleResId?.let { titleResId -> subtitle = getString(titleResId) }
+        init()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -43,6 +41,12 @@ abstract class BaseFragment(
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menuResId?.let { menuResId -> inflater.inflate(menuResId, menu) }
+    }
+
+    private fun init() {
+        setHasOptionsMenu(menuResId != null)
+        titleResId?.let { titleResId -> title = getString(titleResId) }
+        subtitleResId?.let { titleResId -> subtitle = getString(titleResId) }
     }
 
     protected fun finish() {

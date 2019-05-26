@@ -27,8 +27,8 @@ object RepositoryFactory {
         return PlatformRepository(dao)
     }
 
-    fun repositoryForImages(): ImageRepository {
+    fun repositoryForImages(): MediaRepository {
         val dao = if (Application.isDemo) MediaDemoDao() else MediaParseDao()
-        return ImageRepository(dao)
+        return MediaRepository(dao)
     }
 }
