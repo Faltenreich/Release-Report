@@ -7,7 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.faltenreich.release.R
-import com.faltenreich.release.data.enum.MediaType
+import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.viewmodel.MainViewModel
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.view.TintAction
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_spotlight_pager.*
 
 class SpotlightPagerFragment : BaseFragment(R.layout.fragment_spotlight_pager) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
-    private val mediaTypes by lazy { MediaType.values() }
+    private val mediaTypes by lazy { ReleaseType.values() }
     private lateinit var viewPagerPages: List<Pair<String, Fragment>>
     private lateinit var viewPagerAdapter: FragmentViewPagerAdapter
 
@@ -54,7 +54,7 @@ class SpotlightPagerFragment : BaseFragment(R.layout.fragment_spotlight_pager) {
         setMediaType(mediaTypes[0])
     }
 
-    private fun setMediaType(mediaType: MediaType) {
-        parentViewModel.tint = TintAction(mediaType.colorResId)
+    private fun setMediaType(releaseType: ReleaseType) {
+        parentViewModel.tint = TintAction(releaseType.colorResId)
     }
 }

@@ -1,6 +1,6 @@
 package com.faltenreich.release.data.model
 
-import com.faltenreich.release.data.enum.MediaType
+import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.preference.UserPreferences
 import com.faltenreich.release.data.provider.DateProvider
 import com.faltenreich.release.data.provider.TitleProvider
@@ -25,11 +25,11 @@ data class Release(
     var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
     var platforms: List<String>? = null,
-    var images: List<String>? = null
+    var media: List<String>? = null
 ) : Model, DateProvider, TitleProvider {
 
-    var mediaType: MediaType?
-        get() = type?.let { type -> MediaType.valueForKey(type) }
+    var releaseType: ReleaseType?
+        get() = type?.let { type -> ReleaseType.valueForKey(type) }
         set(value) { type = value?.key }
 
     var isFavorite: Boolean
@@ -52,7 +52,7 @@ data class Release(
         popularity = parseObject.getNumber(POPULARITY)?.toFloat()
         genres = parseObject.getJSONArrayValues(GENRES)
         platforms = parseObject.getJSONArrayValues(PLATFORMS)
-        images = parseObject.getJSONArrayValues(IMAGES)
+        media = parseObject.getJSONArrayValues(MEDIA)
     }
 
     companion object {
@@ -66,7 +66,7 @@ data class Release(
         const val POPULARITY = "popularity"
         const val GENRES = "genres"
         const val PLATFORMS = "platforms"
-        const val IMAGES = "images"
+        const val MEDIA = "media"
 
         const val FALLBACK_COVER_COLOR_RES = android.R.color.black
     }

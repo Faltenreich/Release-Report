@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
-import com.faltenreich.release.data.model.Image
+import com.faltenreich.release.data.model.Media
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.RepositoryFactory
@@ -20,7 +20,7 @@ class ReleaseDetailViewModel : ViewModel() {
     private val releaseLiveData = MutableLiveData<Release>()
     private val genreLiveData = MutableLiveData<List<Genre>>()
     private val platformLiveData = MutableLiveData<List<Platform>>()
-    private val imageLiveData = MutableLiveData<List<Image>>()
+    private val imageLiveData = MutableLiveData<List<Media>>()
 
     var release: Release?
         get() = releaseLiveData.value
@@ -34,15 +34,15 @@ class ReleaseDetailViewModel : ViewModel() {
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)
 
-    var images: List<Image>?
+    var media: List<Media>?
         get() = imageLiveData.value
         set(value) = imageLiveData.postValue(value)
 
     val color: Int
-        get() = release?.mediaType?.colorResId ?: R.color.colorPrimary
+        get() = release?.releaseType?.colorResId ?: R.color.colorPrimary
 
     val colorDark
-        get() = release?.mediaType?.colorDarkResId ?: R.color.colorPrimaryDark
+        get() = release?.releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
 
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer(onObserve))
@@ -63,10 +63,10 @@ class ReleaseDetailViewModel : ViewModel() {
         }
     }
 
-    fun observeImages(release: Release, owner: LifecycleOwner, onObserve: (List<Image>?) -> Unit) {
+    fun observeMedia(release: Release, owner: LifecycleOwner, onObserve: (List<Media>?) -> Unit) {
         imageLiveData.observe(owner, Observer(onObserve))
-        release.images?.takeIf(List<String>::isNotEmpty)?.let { ids ->
-            imageRepository.getByIds(ids) { images -> this.images = images }
+        release.media?.takeIf(List<String>::isNotEmpty)?.let { ids ->
+            imageRepository.getByIds(ids) { images -> this.media = images }
         }
     }
 }

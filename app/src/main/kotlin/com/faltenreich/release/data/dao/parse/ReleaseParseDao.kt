@@ -1,7 +1,7 @@
 package com.faltenreich.release.data.dao.parse
 
 import com.faltenreich.release.data.dao.ReleaseDao
-import com.faltenreich.release.data.enum.MediaType
+import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Model
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.date
@@ -29,7 +29,7 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
             .findInBackground { releases -> onResult(releases.sortedBy(Release::releaseDate)) }
     }
 
-    override fun getByIds(ids: Collection<String>, type: MediaType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
+    override fun getByIds(ids: Collection<String>, type: ReleaseType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereContainedIn(Model.ID, ids)
             .run { type?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
@@ -37,9 +37,9 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
             .findInBackground(onResult)
     }
 
-    override fun getBetween(startAt: LocalDate, endAt: LocalDate, mediaType: MediaType, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType, pageSize: Int, onResult: (List<Release>) -> Unit) {
         getQuery()
-            .whereEqualTo(Release.TYPE, mediaType.key)
+            .whereEqualTo(Release.TYPE, releaseType.key)
             .whereGreaterThan(Release.RELEASED_AT, startAt.date)
             .whereLessThan(Release.RELEASED_AT, endAt.date)
             .orderByDescending(Release.POPULARITY)

@@ -1,6 +1,6 @@
 package com.faltenreich.release.data.repository
 
-import com.faltenreich.release.data.dao.ImageDao
-import com.faltenreich.release.data.model.Image
+import com.faltenreich.release.data.dao.MediaDao
+import com.faltenreich.release.data.model.Media
 
-class ImageRepository(dao: ImageDao) : Repository<Image, ImageDao>(dao)
+class ImageRepository(dao: MediaDao) : Repository<Media, MediaDao>(dao)

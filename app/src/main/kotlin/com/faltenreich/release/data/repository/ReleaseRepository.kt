@@ -1,7 +1,7 @@
 package com.faltenreich.release.data.repository
 
 import com.faltenreich.release.data.dao.ReleaseDao
-import com.faltenreich.release.data.enum.MediaType
+import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.preference.UserPreferences
 import org.threeten.bp.LocalDate
@@ -12,8 +12,8 @@ class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) 
         dao.getAll(startAt, greaterThan, minPopularity, page, pageSize, onResult)
     }
 
-    fun getBetween(startAt: LocalDate, endAt: LocalDate, mediaType: MediaType, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        dao.getBetween(startAt, endAt, mediaType, pageSize, onResult)
+    fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        dao.getBetween(startAt, endAt, releaseType, pageSize, onResult)
     }
 
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
@@ -21,7 +21,7 @@ class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) 
     }
 
     // TODO: Paging
-    fun getFavorites(type: MediaType? = null, startAt: LocalDate? = null, onResult: (List<Release>) -> Unit) {
+    fun getFavorites(type: ReleaseType? = null, startAt: LocalDate? = null, onResult: (List<Release>) -> Unit) {
         UserPreferences.favoriteReleaseIds.takeIf(Collection<*>::isNotEmpty)?.let { favoriteReleaseIds ->
             dao.getByIds(favoriteReleaseIds, type, startAt, onResult)
         } ?: onResult(listOf())

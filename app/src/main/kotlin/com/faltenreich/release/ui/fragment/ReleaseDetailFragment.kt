@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
-import com.faltenreich.release.data.model.Image
+import com.faltenreich.release.data.model.Media
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.release.extension.backgroundTintResource
@@ -95,7 +95,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
                     // Change order of observation to prevent scrambled and jumping layout
                     viewModel.observeGenres(release, this) { genres -> genreChipContainer.removeAllViews(); genres?.forEach { genre -> addGenre(genre) } }
                     viewModel.observePlatforms(release, this) { platforms -> platforms?.forEach { platform -> addPlatform(platform) } }
-                    // TODO: viewModel.observeImages(release, this) { images -> addImages(images ?: listOf()) }
+                    // TODO: viewModel.observeImages(release, this) { media -> addImages(media ?: listOf()) }
                 }
 
                 release?.imageUrlForThumbnail?.let { imageUrl ->
@@ -135,14 +135,14 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
         val chip = Chip(context).apply {
             text = title
             iconResId?.let { setChipIconResource(iconResId) }
-            setChipBackgroundColorResource(viewModel.release?.mediaType?.colorResId ?: R.color.colorPrimary)
+            setChipBackgroundColorResource(viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary)
         }
         container.addView(chip)
     }
 
-    private fun addImages(images: List<Image>) {
+    private fun addMedia(media: List<Media>) {
         listAdapter?.removeListItems()
-        listAdapter?.addListItems(images)
+        listAdapter?.addListItems(media)
         listAdapter?.notifyDataSetChanged()
     }
 

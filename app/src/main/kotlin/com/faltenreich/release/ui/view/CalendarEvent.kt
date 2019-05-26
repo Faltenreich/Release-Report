@@ -12,7 +12,7 @@ class CalendarEvent(@ColorInt color: Int, date: LocalDate) : Event(color, date.m
 
     companion object {
         fun fromRelease(context: Context, release: Release): CalendarEvent? = release.releaseDate?.let { date ->
-            val color = ContextCompat.getColor(context, release.mediaType?.colorResId ?: android.R.color.black)
+            val color = ContextCompat.getColor(context, release.releaseType?.colorResId ?: android.R.color.black)
             CalendarEvent(color, date)
         }
     }

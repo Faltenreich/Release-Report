@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.data.enum.MediaType
+import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
 import com.faltenreich.release.extension.screenSize
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_spotlight.*
 
 class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpener {
     private val viewModel by lazy { createViewModel(SpotlightViewModel::class) }
-    private val type by lazy { arguments?.getSerializable(ARGUMENT_MEDIA_TYPE) as? MediaType }
+    private val type by lazy { arguments?.getSerializable(ARGUMENT_MEDIA_TYPE) as? ReleaseType }
 
     private val weekListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
     private val favoriteListAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
@@ -109,7 +109,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
     companion object {
         private const val ARGUMENT_MEDIA_TYPE = "mediaType"
 
-        fun newInstance(type: MediaType): SpotlightFragment {
+        fun newInstance(type: ReleaseType): SpotlightFragment {
             val fragment = SpotlightFragment()
             val arguments = Bundle()
             arguments.putSerializable(ARGUMENT_MEDIA_TYPE, type)
