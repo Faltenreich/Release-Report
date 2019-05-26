@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="com.faltenreich.releaseradar.ui.fragment.MainFragment"
+        android:name="com.faltenreich.release.ui.fragment.MainFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_main">
         <action
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/release_detail"
-        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseDetailFragment"
+        android:name="com.faltenreich.release.ui.fragment.ReleaseDetailFragment"
         tools:layout="@layout/fragment_release_detail">
         <argument
             android:name="releaseId"
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/release_search"
-        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseSearchFragment"
+        android:name="com.faltenreich.release.ui.fragment.ReleaseSearchFragment"
         tools:layout="@layout/fragment_release_search">
         <argument
             android:name="query"

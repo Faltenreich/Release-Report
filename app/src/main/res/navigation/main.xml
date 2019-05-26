@@ -9,19 +9,19 @@
 
     <fragment
         android:id="@+id/spotlight"
-        android:name="com.faltenreich.releaseradar.ui.fragment.SpotlightPagerFragment"
+        android:name="com.faltenreich.release.ui.fragment.SpotlightPagerFragment"
         android:label="@string/spotlight"
         tools:layout="@layout/fragment_spotlight_pager"/>
 
     <fragment
         android:id="@+id/releases"
-        android:name="com.faltenreich.releaseradar.ui.fragment.ReleaseListFragment"
+        android:name="com.faltenreich.release.ui.fragment.ReleaseListFragment"
         android:label="@string/releases"
         tools:layout="@layout/fragment_release_list"/>
 
     <fragment
         android:id="@+id/following"
-        android:name="com.faltenreich.releaseradar.ui.fragment.FollowingFragment"
+        android:name="com.faltenreich.release.ui.fragment.FollowingFragment"
         android:label="@string/following"
         tools:layout="@layout/fragment_following"/>
 

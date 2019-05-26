@@ -41,7 +41,7 @@
         android:layout_height="match_parent"
         app:search_hint="@string/search_hint"
         app:search_hint_color="@color/gray_dark"
-        app:layout_behavior="com.faltenreich.releaseradar.ui.list.behavior.SearchBehavior"/>
+        app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"

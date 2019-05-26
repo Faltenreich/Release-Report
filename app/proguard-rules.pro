@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.faltenreich.releaseradar.data.model.** { *; }
+-keep class com.faltenreich.release.data.model.** { *; }
 -keep class androidx.navigation.** { *; }
 
 -keep public class * implements com.bumptech.glide.module.GlideModule
