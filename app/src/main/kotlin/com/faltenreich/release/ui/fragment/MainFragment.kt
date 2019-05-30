@@ -1,7 +1,10 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -15,7 +18,7 @@ import com.faltenreich.release.ui.view.TintAction
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : BaseFragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment(R.layout.fragment_main), PopupMenu.OnMenuItemClickListener {
     private val viewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val searchable by lazy { SearchableObserver() }
 
@@ -36,6 +39,13 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         initData()
     }
 
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.settings -> { openSettings(); true }
+            else -> false
+        }
+    }
+
     private fun initLayout() {
         NavigationUI.setupWithNavController(navigationView, navigationController)
         searchable.properties = SearchableProperties(this, searchView)
@@ -50,6 +60,19 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                 return true
             }
         })
+        searchView.setOnOpenCloseListener(object : Search.OnOpenCloseListener {
+            override fun onOpen() {
+                if (isAdded) {
+                    moreButton.isVisible = false
+                }
+            }
+            override fun onClose() {
+                if (isAdded) {
+                    moreButton.isVisible = true
+                }
+            }
+        })
+        moreButton.setOnClickListener { openMenu() }
     }
 
     private fun initData() {
@@ -58,6 +81,17 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun openSearch(query: String = "") {
         findNavController().navigate(MainFragmentDirections.searchRelease(query))
+    }
+
+    private fun openMenu() {
+        val popup = PopupMenu(requireContext(), moreButton)
+        popup.inflate(R.menu.main)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+    }
+
+    private fun openSettings() {
+
     }
 
     private fun setTint(tint: TintAction?) {

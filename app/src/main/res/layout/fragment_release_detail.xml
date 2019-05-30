@@ -89,12 +89,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_small"
                 android:textSize="@dimen/text_size_large"
+                android:textColor="?android:textColorPrimaryInverse"
                 tools:text="@tools:sample/lorem"/>
 
             <TextView
                 android:id="@+id/releaseDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?android:textColorPrimaryInverse"
                 tools:text="@tools:sample/lorem"/>
 
             <com.google.android.material.chip.ChipGroup

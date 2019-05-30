@@ -26,7 +26,7 @@ object DemoFactory {
                 imageUrlForCover = getImageUrl(index, 1080 to 1920)
                 imageUrlForWallpaper = getImageUrl(index, 1920 to 1080)
                 genres = listOfNotNull(this@DemoFactory.genres.getOrNull(index / 10)?.id)
-                platforms = listOfNotNull(this@DemoFactory.platforms.getOrNull(index / 10)?.id)
+                platforms = if (releaseType == ReleaseType.GAME) listOfNotNull(this@DemoFactory.platforms.getOrNull(index / 10)?.id) else null
                 media = this@DemoFactory.media.mapNotNull { media -> media.id }
             }
         }
@@ -55,23 +55,23 @@ object DemoFactory {
             Media().apply {
                 id = index.toString()
                 mediaType = MediaType.IMAGE
-                url = "$IMAGE_PROVIDER/id/$index/1080/1920"
+                url = getImageUrl(index, 1080 to 1920)
             }
         }.plus(
             Media().apply {
                 id = 10.toString()
                 mediaType = MediaType.VIDEO
-                url = "$VIDEO_PROVIDER/watch?v=$id"
+                url = getVideoUrl("Bey4XXJAqS8")
             }
         )
     }
 
-    private fun getVideoUrl(id: String): String {
-        return "$VIDEO_PROVIDER/watch?v=$id"
-    }
-
     private fun getImageUrl(index: Int, size: Pair<Int, Int>): String {
         return "$IMAGE_PROVIDER/id/$index/${size.first}/${size.second}"
+    }
+
+    private fun getVideoUrl(id: String): String {
+        return "$VIDEO_PROVIDER/watch?v=$id"
     }
 
     fun releases(): List<Release> {

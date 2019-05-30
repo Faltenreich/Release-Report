@@ -29,5 +29,7 @@
     <string name="search_hint_desc">Start searching by typing</string>
     <string name="open_homepage">Open homepage</string>
     <string name="share">Share</string>
+    <string name="menu_open">Open menu</string>
+    <string name="settings">Settings</string>
 
 </resources>

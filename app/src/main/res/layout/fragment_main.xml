@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways|snap"/>
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -41,7 +43,20 @@
         android:layout_height="match_parent"
         app:search_hint="@string/search_hint"
         app:search_hint_color="@color/gray_dark"
-        app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior"/>
+        app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior">
+
+        <ImageButton
+            android:id="@+id/moreButton"
+            android:layout_width="@dimen/standard_element_size"
+            android:layout_height="@dimen/standard_element_size"
+            android:layout_margin="@dimen/margin_padding_size_xsmall"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_more"
+            android:tint="@color/gray_darker"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="@string/menu_open"/>
+
+    </com.lapism.searchview.widget.SearchView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"

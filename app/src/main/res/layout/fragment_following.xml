@@ -14,6 +14,7 @@
         android:paddingStart="@dimen/margin_padding_size_large"
         android:paddingEnd="@dimen/margin_padding_size_large"
         android:gravity="center_vertical"
+        android:textColor="?android:textColorPrimaryInverse"
         tools:text="@tools:sample/date/mmddyy"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
