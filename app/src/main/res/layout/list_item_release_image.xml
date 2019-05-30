@@ -54,6 +54,7 @@
             android:background="@drawable/scrim_bottom"
             android:maxLines="2"
             android:ellipsize="end"
+            android:textColor="?android:textColorPrimaryInverse"
             app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
             app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"
