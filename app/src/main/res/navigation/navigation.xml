@@ -35,6 +35,13 @@
                 android:name="query"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/open_preferences"
+            app:destination="@+id/preferences"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
 
     <fragment
@@ -54,5 +61,11 @@
             android:name="query"
             app:argType="string"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/preferences"
+        android:name="com.faltenreich.release.ui.fragment.PreferenceFragment"
+        android:label="@string/preferences"
+        tools:layout="@layout/fragment_preference"/>
 
 </navigation>

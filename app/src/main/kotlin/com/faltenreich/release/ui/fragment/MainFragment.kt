@@ -79,10 +79,6 @@ class MainFragment : BaseFragment(R.layout.fragment_main), PopupMenu.OnMenuItemC
         viewModel.observeTint(this) { tint -> setTint(tint) }
     }
 
-    private fun openSearch(query: String = "") {
-        findNavController().navigate(MainFragmentDirections.searchRelease(query))
-    }
-
     private fun openMenu() {
         val popup = PopupMenu(requireContext(), moreButton)
         popup.inflate(R.menu.main)
@@ -91,7 +87,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main), PopupMenu.OnMenuItemC
     }
 
     private fun openSettings() {
+        findNavController().navigate(MainFragmentDirections.openPreferences())
+    }
 
+    private fun openSearch(query: String = "") {
+        findNavController().navigate(MainFragmentDirections.searchRelease(query))
     }
 
     private fun setTint(tint: TintAction?) {
