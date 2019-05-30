@@ -17,11 +17,11 @@ import com.faltenreich.release.ui.view.CalendarEvent
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
-import kotlinx.android.synthetic.main.fragment_following.*
+import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
-class FollowingFragment : BaseFragment(R.layout.fragment_following) {
+class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseFavoriteListViewModel::class) }
 

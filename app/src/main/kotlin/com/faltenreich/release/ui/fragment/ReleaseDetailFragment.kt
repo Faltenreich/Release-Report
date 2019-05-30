@@ -22,6 +22,7 @@ import com.faltenreich.release.extension.backgroundTintResource
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.extension.tintResource
+import com.faltenreich.release.showToast
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
 import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
@@ -72,13 +73,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
                 toolbar.setPadding(0, frame.top, 0, 0)
             }
 
-            fab.setOnClickListener {
-                viewModel.release?.isFavorite = !(viewModel.release?.isFavorite ?: false)
-                // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
-                fab.hide()
-                invalidateFavorite()
-                fab.show()
-            }
+            fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite ?: false)) }
 
             listLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             galleryListView.layoutManager = listLayoutManager
@@ -156,6 +151,15 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         listAdapter?.removeListItems()
         listAdapter?.addListItems(media)
         listAdapter?.notifyDataSetChanged()
+    }
+
+    private fun setFavorite(isFavorite: Boolean) {
+        viewModel.release?.isFavorite = isFavorite
+        context?.showToast(if (isFavorite) R.string.favorite_added else R.string.favorite_removed)
+        // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
+        fab.hide()
+        invalidateFavorite()
+        fab.show()
     }
 
     private fun openExternally() {

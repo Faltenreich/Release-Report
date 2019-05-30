@@ -17,7 +17,7 @@
     <string name="scroll_to_today">Scroll back</string>
     <string name="this_week">This week</string>
     <string name="for_you">For you</string>
-    <string name="following">Following</string>
+    <string name="calendar">Calendar</string>
     <string name="recently">Recently</string>
     <string name="nothing_found">Nothing found</string>
     <string name="today">Today</string>
@@ -34,5 +34,7 @@
     <string name="preferences">Preferences</string>
     <string name="about">About</string>
     <string name="version">Version</string>
+    <string name="favorite_added">You are following this release and will be notified upon its release date</string>
+    <string name="favorite_removed">You are no longer following this release</string>
 
 </resources>

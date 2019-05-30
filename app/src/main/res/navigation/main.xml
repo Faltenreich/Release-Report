@@ -21,8 +21,8 @@
 
     <fragment
         android:id="@+id/following"
-        android:name="com.faltenreich.release.ui.fragment.FollowingFragment"
-        android:label="@string/following"
-        tools:layout="@layout/fragment_following"/>
+        android:name="com.faltenreich.release.ui.fragment.CalendarFragment"
+        android:label="@string/calendar"
+        tools:layout="@layout/fragment_calendar"/>
 
 </navigation>
