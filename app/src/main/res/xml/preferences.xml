@@ -6,7 +6,7 @@
         android:title="@string/about">
 
         <Preference
-            android:key="version"
+            android:key="@string/preference_version"
             android:title="@string/version"/>
 
     </PreferenceCategory>

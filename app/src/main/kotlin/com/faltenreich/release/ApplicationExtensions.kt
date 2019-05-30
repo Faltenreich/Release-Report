@@ -2,6 +2,8 @@ package com.faltenreich.release
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
@@ -27,3 +29,11 @@ fun Context.hideKeyboard(view: View) {
 fun DialogFragment.showSafely(manager: FragmentManager?, tag: String? = null) {
     manager?.let { show(it, tag) }
 }
+
+val Context.versionName: String?
+    get() = try {
+        packageManager.getPackageInfo(packageName, 0).versionName
+    } catch (exception: PackageManager.NameNotFoundException) {
+        Log.e(tag, exception.message)
+        null
+    }
