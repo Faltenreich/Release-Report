@@ -7,7 +7,11 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.provider.Dateable
 import com.faltenreich.release.data.viewmodel.CalendarViewModel
 import com.faltenreich.release.extension.LocalDateProgression
+import com.faltenreich.release.extension.atEndOfMonth
+import com.faltenreich.release.extension.atStartOfMonth
+import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
+import com.faltenreich.release.ui.list.decoration.GridDividerDecoration
 import com.faltenreich.release.ui.list.item.CalendarListItem
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
@@ -32,23 +36,29 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), Dateable {
         context?.let { context ->
             listLayoutManager = GridLayoutManager(context, 7)
             listView.layoutManager = listLayoutManager
+            listView.addItemDecoration(GridDividerDecoration(context))
             listView.adapter = listAdapter
         }
     }
 
     private fun initData() {
-        viewModel.observeDate(this) { date -> setDate(date) }
+        viewModel.observeDate(this) { invalidateData() }
+        viewModel.observeReleases(this) { invalidateData() }
         viewModel.date = givenDate
     }
 
-    private fun setDate(date: LocalDate) {
-        val (dateStart, dateEnd) = date.withDayOfMonth(1) to date.withDayOfMonth(date.lengthOfMonth())
-        val progression = LocalDateProgression(dateStart, dateEnd)
-        val items = progression.map { day -> CalendarListItem(day, listOf()) }
-        listAdapter?.apply {
-            removeListItems()
-            addListItems(items)
-            notifyDataSetChanged()
+    private fun invalidateData() {
+        viewModel.date?.let { date ->
+            val progression = LocalDateProgression(date.atStartOfMonth, date.atEndOfMonth)
+            val items = progression.map { day ->
+                val releases = viewModel.releases?.filter { release -> (release.releaseDate == day).isTrue }
+                CalendarListItem(day, releases ?: listOf() )
+            }
+            listAdapter?.apply {
+                removeListItems()
+                addListItems(items)
+                notifyDataSetChanged()
+            }
         }
     }
 

@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.RepositoryFactory
+import com.faltenreich.release.extension.atEndOfMonth
+import com.faltenreich.release.extension.atStartOfMonth
 import org.threeten.bp.LocalDate
 
 class CalendarViewModel : ViewModel() {
@@ -18,16 +20,26 @@ class CalendarViewModel : ViewModel() {
         get() = dateLiveData.value
         set(value) = dateLiveData.postValue(value)
 
-    private var releases: List<Release>?
+    var releases: List<Release>?
         get() = releasesLiveData.value
         set(value) = releasesLiveData.postValue(value)
 
     fun observeDate(owner: LifecycleOwner, onObserve: (LocalDate) -> Unit) {
-        dateLiveData.observe(owner, Observer(onObserve))
+        dateLiveData.observe(owner, Observer { date ->
+            onObserve(date)
+            invalidateReleases()
+        })
     }
 
-    fun observeFavoriteReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
+    fun observeReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        releaseRepository.getFavorites { releases -> this.releases = releases.sortedBy(Release::releasedAt) }
+    }
+
+    private fun invalidateReleases() {
+        date?.let { date ->
+            releaseRepository.getFavorites(date.atStartOfMonth, date.atEndOfMonth) { releases ->
+                this.releases = releases
+            }
+        }
     }
 }

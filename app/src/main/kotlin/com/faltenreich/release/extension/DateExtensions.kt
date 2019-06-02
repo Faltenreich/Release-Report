@@ -53,3 +53,9 @@ fun LocalDate.print(context: Context?): String? {
 fun LocalDate.printMonth(context: Context?): String? {
     return month.getDisplayName(TextStyle.FULL, context?.locale)
 }
+
+val LocalDate.atStartOfMonth: LocalDate
+    get() = withDayOfMonth(1)
+
+val LocalDate.atEndOfMonth: LocalDate
+    get() = withDayOfMonth(lengthOfMonth())

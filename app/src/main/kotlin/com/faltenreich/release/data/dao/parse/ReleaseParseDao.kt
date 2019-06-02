@@ -29,6 +29,15 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
             .findInBackground { releases -> onResult(releases.sortedBy(Release::releaseDate)) }
     }
 
+    override fun getByIds(
+        ids: Collection<String>,
+        startAt: LocalDate,
+        endAt: LocalDate,
+        onResult: (List<Release>) -> Unit
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getByIds(ids: Collection<String>, type: ReleaseType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereContainedIn(Model.ID, ids)
