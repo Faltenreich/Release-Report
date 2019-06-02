@@ -7,29 +7,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/dayLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/margin_padding_size_small"
-        android:textSize="@dimen/text_size_large"
-        android:textColor="?android:textColorPrimaryInverse"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@tools:sample/date/day_of_week"/>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:contentDescription="@null"
-        app:layout_constraintTop_toBottomOf="@id/dayLabel"
-        app:layout_constraintStart_toStartOf="@id/dayLabel"
-        app:layout_constraintEnd_toEndOf="@id/dayLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         tools:src="@tools:sample/avatars"/>
+
+    <FrameLayout
+        android:id="@+id/shadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/translucent_dark"
+        app:layout_constraintTop_toTopOf="@id/imageView"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="@id/imageView"/>
+
+    <TextView
+        android:id="@+id/dayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_padding_size_small"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="?android:textColorPrimaryInverse"
+        app:layout_constraintTop_toTopOf="@id/imageView"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="@id/imageView"
+        tools:text="@tools:sample/date/day_of_week"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

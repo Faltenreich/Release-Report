@@ -59,3 +59,13 @@ val LocalDate.atStartOfMonth: LocalDate
 
 val LocalDate.atEndOfMonth: LocalDate
     get() = withDayOfMonth(lengthOfMonth())
+
+fun LocalDate.atStartOfWeek(context: Context): LocalDate {
+    val locale = context.locale
+    return with(WeekFields.of(locale).dayOfWeek(), 1)
+}
+
+fun LocalDate.atEndOfWeek(context: Context): LocalDate {
+    val locale = context.locale
+    return with(WeekFields.of(locale).dayOfWeek(), 7)
+}

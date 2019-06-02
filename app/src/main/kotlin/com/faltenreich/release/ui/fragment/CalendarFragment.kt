@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.provider.Dateable
 import com.faltenreich.release.data.viewmodel.CalendarViewModel
-import com.faltenreich.release.extension.LocalDateProgression
-import com.faltenreich.release.extension.atEndOfMonth
-import com.faltenreich.release.extension.atStartOfMonth
-import com.faltenreich.release.extension.isTrue
+import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
 import com.faltenreich.release.ui.list.decoration.GridDividerDecoration
 import com.faltenreich.release.ui.list.item.CalendarListItem
@@ -48,17 +45,19 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), Dateable {
     }
 
     private fun invalidateData() {
-        viewModel.date?.let { date ->
-            val progression = LocalDateProgression(date.atStartOfMonth, date.atEndOfMonth)
-            val items = progression.map { day ->
-                val releases = viewModel.releases?.filter { release -> (release.releaseDate == day).isTrue }
-                CalendarListItem(day, releases ?: listOf() )
-            }
-            listAdapter?.apply {
-                removeListItems()
-                addListItems(items)
-                notifyDataSetChanged()
-            }
+        val context = context ?: return
+        val date = viewModel.date ?: return
+        val start = date.atStartOfMonth.atStartOfWeek(context)
+        val end = date.atEndOfMonth.atEndOfWeek(context)
+        val progression = LocalDateProgression(start, end)
+        val items = progression.map { day ->
+            val releases = viewModel.releases?.filter { release -> (release.releaseDate == day).isTrue }
+            CalendarListItem(day, releases ?: listOf(), day.month == date.month)
+        }
+        listAdapter?.apply {
+            removeListItems()
+            addListItems(items)
+            notifyDataSetChanged()
         }
     }
 

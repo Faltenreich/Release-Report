@@ -5,5 +5,6 @@ import org.threeten.bp.LocalDate
 
 data class CalendarListItem(
     val date: LocalDate,
-    val releases: List<Release>
+    val releases: List<Release>,
+    val isInSameMonth: Boolean
 )
