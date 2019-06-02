@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@id/spotlight">
+    app:startDestination="@id/calendar">
 
     <fragment
         android:id="@+id/spotlight"
@@ -20,9 +20,9 @@
         tools:layout="@layout/fragment_release_list"/>
 
     <fragment
-        android:id="@+id/following"
-        android:name="com.faltenreich.release.ui.fragment.CalendarFragment"
+        android:id="@+id/calendar"
+        android:name="com.faltenreich.release.ui.fragment.CalendarPagerFragment"
         android:label="@string/calendar"
-        tools:layout="@layout/fragment_calendar"/>
+        tools:layout="@layout/fragment_calendar_pager"/>
 
 </navigation>

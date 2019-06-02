@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.RepositoryFactory
 
-class ReleaseFavoriteListViewModel : ViewModel() {
+class CalendarViewModel : ViewModel() {
     private val releaseRepository = RepositoryFactory.repositoryForReleases()
 
     private val releasesLiveData = MutableLiveData<List<Release>>()
