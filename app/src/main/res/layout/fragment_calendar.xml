@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/dateLabel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:paddingStart="@dimen/margin_padding_size_large"
-        android:paddingEnd="@dimen/margin_padding_size_large"
-        android:gravity="center_vertical"
-        android:textColor="?android:textColorPrimaryInverse"
-        tools:text="@tools:sample/date/mmddyy"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"/>
-
-</LinearLayout>
+    tools:listitem="@layout/list_item_calendar"
+    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    tools:spanCount="7"/>

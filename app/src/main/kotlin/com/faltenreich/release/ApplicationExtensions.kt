@@ -42,3 +42,4 @@ val Context.versionName: String?
 fun Context.showToast(textRes: Int) {
     Toast.makeText(this, textRes, Toast.LENGTH_LONG).show()
 }
+
