@@ -19,6 +19,7 @@ fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((success:
     GlideApp
         .with(this)
         .load(url)
+        .dontAnimate()
         .apply { size?.let { override(size) } }
         .listener(object : RequestListener<Drawable> {
             override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {

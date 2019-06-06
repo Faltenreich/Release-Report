@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 
-
 class GridDividerDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val divider: Drawable? = ContextCompat.getDrawable(context, R.drawable.separator)
 

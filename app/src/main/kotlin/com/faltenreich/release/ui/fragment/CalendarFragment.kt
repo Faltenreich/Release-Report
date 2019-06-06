@@ -8,7 +8,7 @@ import com.faltenreich.release.data.provider.Dateable
 import com.faltenreich.release.data.viewmodel.CalendarViewModel
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
-import com.faltenreich.release.ui.list.decoration.GridDividerDecoration
+import com.faltenreich.release.ui.list.decoration.GridSpacingItemDecoration
 import com.faltenreich.release.ui.list.item.CalendarListItem
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
@@ -31,9 +31,10 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), Dateable {
 
     private fun initList() {
         context?.let { context ->
-            listLayoutManager = GridLayoutManager(context, 7)
+            val spanCount = 7
+            listLayoutManager = GridLayoutManager(context, spanCount)
             listView.layoutManager = listLayoutManager
-            listView.addItemDecoration(GridDividerDecoration(context))
+            listView.addItemDecoration(GridSpacingItemDecoration(context, spanCount, R.dimen.margin_padding_size_xsmall))
             listView.adapter = listAdapter
         }
     }
