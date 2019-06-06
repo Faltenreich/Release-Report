@@ -17,6 +17,6 @@ class Chip @JvmOverloads constructor(
         setChipBackgroundColorResource(R.color.colorPrimary)
         setChipCornerRadiusResource(R.dimen.card_corner_radius)
         setChipIconTintResource(R.color.light)
-        setIconStartPaddingResource(R.dimen.margin_padding_size_xsmall)
+        setIconStartPaddingResource(R.dimen.margin_padding_size_xxsmall)
     }
 }

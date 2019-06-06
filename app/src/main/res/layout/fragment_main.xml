@@ -49,7 +49,7 @@
             android:id="@+id/moreButton"
             android:layout_width="@dimen/standard_element_size"
             android:layout_height="@dimen/standard_element_size"
-            android:layout_margin="@dimen/margin_padding_size_xsmall"
+            android:layout_margin="@dimen/margin_padding_size_xxsmall"
             android:layout_gravity="end"
             android:src="@drawable/ic_more"
             android:tint="@color/gray_darker"

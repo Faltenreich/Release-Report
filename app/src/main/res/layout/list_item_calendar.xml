@@ -22,6 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
+        app:civ_border_color="@android:color/transparent"
         tools:src="@tools:sample/avatars"/>
 
     <TextView

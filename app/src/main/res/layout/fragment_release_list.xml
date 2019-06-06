@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:paddingStart="@dimen/margin_padding_size_large"
-        android:paddingEnd="@dimen/margin_padding_size_xsmall"
+        android:paddingEnd="@dimen/margin_padding_size_xxsmall"
         android:background="?colorPrimary"
         android:gravity="center_vertical"
         android:orientation="horizontal">

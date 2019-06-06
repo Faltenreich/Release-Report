@@ -13,6 +13,9 @@ import java.util.*
 
 private const val DATE_FORMAT_FIREBASE = "yyyy-MM-dd"
 
+val LocalDate.isToday: Boolean
+    get() = isEqual(LocalDate.now())
+
 val String?.asLocalDate: LocalDate?
     get() = try {
         LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))

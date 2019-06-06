@@ -9,7 +9,8 @@ import com.faltenreich.release.data.viewmodel.CalendarViewModel
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
 import com.faltenreich.release.ui.list.decoration.GridSpacingItemDecoration
-import com.faltenreich.release.ui.list.item.CalendarListItem
+import com.faltenreich.release.ui.list.item.CalendarDayListItem
+import com.faltenreich.release.ui.list.item.CalendarWeekDayListItem
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
 
@@ -34,7 +35,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), Dateable {
             val spanCount = 7
             listLayoutManager = GridLayoutManager(context, spanCount)
             listView.layoutManager = listLayoutManager
-            listView.addItemDecoration(GridSpacingItemDecoration(context, spanCount, R.dimen.margin_padding_size_xsmall))
+            listView.addItemDecoration(GridSpacingItemDecoration(context, spanCount, R.dimen.margin_padding_size_xxsmall))
             listView.adapter = listAdapter
         }
     }
@@ -48,13 +49,15 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), Dateable {
     private fun invalidateData() {
         val context = context ?: return
         val date = viewModel.date ?: return
-        val start = date.atStartOfMonth.atStartOfWeek(context)
-        val end = date.atEndOfMonth.atEndOfWeek(context)
-        val progression = LocalDateProgression(start, end)
-        val items = progression.map { day ->
+        val startOfFirstWeek = date.atStartOfMonth.atStartOfWeek(context)
+        val endOfFirstWeek = startOfFirstWeek.atEndOfWeek(context)
+        val endOfLastWeek = date.atEndOfMonth.atEndOfWeek(context)
+        val weekDayItems = LocalDateProgression(startOfFirstWeek, endOfFirstWeek).map { day -> CalendarWeekDayListItem(day) }
+        val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
             val releases = viewModel.releases?.filter { release -> (release.releaseDate == day).isTrue }
-            CalendarListItem(day, releases ?: listOf(), day.month == date.month)
+            CalendarDayListItem(day, releases ?: listOf(), day.month == date.month)
         }
+        val items = weekDayItems.plus(dayItems)
         listAdapter?.apply {
             removeListItems()
             addListItems(items)

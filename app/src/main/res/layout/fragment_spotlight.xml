@@ -73,7 +73,7 @@
                         android:id="@+id/spotlightReleaseDescriptionTextView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/margin_padding_size_xsmall"
+                        android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
                         android:textColor="@android:color/black"
                         android:ellipsize="end"
                         tools:text="@tools:sample/lorem"/>
