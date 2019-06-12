@@ -1,45 +1,31 @@
 package com.faltenreich.release.data.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.repository.RepositoryFactory
-import com.faltenreich.release.extension.atEndOfMonth
-import com.faltenreich.release.extension.atStartOfMonth
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.faltenreich.release.ui.list.item.CalendarListItem
+import com.faltenreich.release.ui.list.paging.CalendarDataSource
+import com.faltenreich.release.ui.list.paging.PagingDataFactory
 import org.threeten.bp.LocalDate
 
 class CalendarViewModel : ViewModel() {
-    private val releaseRepository = RepositoryFactory.repositoryForReleases()
+    private lateinit var releasesLiveData: LiveData<PagedList<CalendarListItem>>
 
-    private val dateLiveData = MutableLiveData<LocalDate>()
-    private val releasesLiveData = MutableLiveData<List<Release>>()
+    val releases: List<CalendarListItem>
+        get() = releasesLiveData.value ?: listOf()
 
-    var date: LocalDate?
-        get() = dateLiveData.value
-        set(value) = dateLiveData.postValue(value)
-
-    var releases: List<Release>?
-        get() = releasesLiveData.value
-        set(value) = releasesLiveData.postValue(value)
-
-    fun observeDate(owner: LifecycleOwner, onObserve: (LocalDate) -> Unit) {
-        dateLiveData.observe(owner, Observer { date ->
-            onObserve(date)
-            invalidateReleases()
-        })
-    }
-
-    fun observeReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
+    fun observeReleases(context: Context, date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<CalendarListItem>) -> Unit) {
+        val dataSource = CalendarDataSource(context, date)
+        val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
+        releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
     }
 
-    private fun invalidateReleases() {
-        date?.let { date ->
-            releaseRepository.getFavorites(date.atStartOfMonth, date.atEndOfMonth) { releases ->
-                this.releases = releases
-            }
-        }
+    companion object {
+        private const val PAGE_SIZE = 3
     }
 }

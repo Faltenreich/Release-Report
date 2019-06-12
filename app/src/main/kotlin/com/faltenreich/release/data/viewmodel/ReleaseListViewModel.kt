@@ -9,20 +9,24 @@ import com.faltenreich.release.ui.list.paging.ReleaseDataSource
 import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {
-    private lateinit var releaseLiveData: LiveData<PagedList<ReleaseListItem>>
     private val dateLiveData = MutableLiveData<LocalDate>()
-
-    val releases: List<ReleaseListItem>
-        get() = releaseLiveData.value ?: listOf()
+    private lateinit var releasesLiveData: LiveData<PagedList<ReleaseListItem>>
 
     var date: LocalDate?
         get() = dateLiveData.value
         set(value) = dateLiveData.postValue(value)
 
+    val releases: List<ReleaseListItem>
+        get() = releasesLiveData.value ?: listOf()
+
     fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<ReleaseListItem>) -> Unit, onInitialLoad: ((Int) -> Unit)? = null) {
         val dataSource = ReleaseDataSource(startAt = date, onInitialLoad = onInitialLoad)
-        val dataFactory = PagingDataFactory(dataSource)
-        releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
-        releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
+        releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
+        releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+    }
+
+    companion object {
+        private const val PAGE_SIZE = 30
     }
 }

@@ -6,12 +6,13 @@ import com.faltenreich.release.ui.list.item.CalendarDayListItem
 import com.faltenreich.release.ui.list.item.CalendarListItem
 import com.faltenreich.release.ui.list.item.CalendarMonthListItem
 import com.faltenreich.release.ui.list.item.CalendarWeekDayListItem
+import com.faltenreich.release.ui.list.paging.CalendarListItemDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.CalendarDayViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarMonthViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarWeekDayViewHolder
 
-class CalendarListAdapter(context: Context) : SimpleListAdapter<CalendarListItem, CalendarViewHolder<CalendarListItem>>(context) {
+class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarListItem, CalendarViewHolder<CalendarListItem>>(context, CalendarListItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {
