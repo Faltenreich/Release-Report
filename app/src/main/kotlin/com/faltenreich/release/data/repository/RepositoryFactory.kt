@@ -1,34 +1,15 @@
 package com.faltenreich.release.data.repository
 
-import com.faltenreich.release.Application
-import com.faltenreich.release.data.dao.demo.GenreDemoDao
-import com.faltenreich.release.data.dao.demo.MediaDemoDao
-import com.faltenreich.release.data.dao.demo.PlatformDemoDao
-import com.faltenreich.release.data.dao.demo.ReleaseDemoDao
-import com.faltenreich.release.data.dao.parse.GenreParseDao
-import com.faltenreich.release.data.dao.parse.MediaParseDao
-import com.faltenreich.release.data.dao.parse.PlatformParseDao
-import com.faltenreich.release.data.dao.parse.ReleaseParseDao
+import com.faltenreich.release.data.dao.DaoFactory
 
 object RepositoryFactory {
-
-    fun repositoryForReleases(): ReleaseRepository {
-        val dao = if (Application.isDemo) ReleaseDemoDao() else ReleaseParseDao()
-        return ReleaseRepository(dao)
-    }
-
-    fun repositoryForGenres(): GenreRepository {
-        val dao = if (Application.isDemo) GenreDemoDao() else GenreParseDao()
-        return GenreRepository(dao)
-    }
-
-    fun repositoryForPlatforms(): PlatformRepository {
-        val dao = if (Application.isDemo) PlatformDemoDao() else PlatformParseDao()
-        return PlatformRepository(dao)
-    }
-
-    fun repositoryForImages(): MediaRepository {
-        val dao = if (Application.isDemo) MediaDemoDao() else MediaParseDao()
-        return MediaRepository(dao)
+    inline fun <reified T : Repository<out Any, out Any>> repository(): T {
+        return when (T::class) {
+            ReleaseRepository::class -> ReleaseRepository(DaoFactory.dao())
+            GenreRepository::class -> GenreRepository(DaoFactory.dao())
+            PlatformRepository::class -> PlatformRepository(DaoFactory.dao())
+            MediaRepository::class -> MediaRepository(DaoFactory.dao())
+            else -> throw IllegalArgumentException("Unknown type: ${T::class}")
+        } as T
     }
 }

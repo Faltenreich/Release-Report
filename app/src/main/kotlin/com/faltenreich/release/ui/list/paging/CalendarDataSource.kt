@@ -2,6 +2,7 @@ package com.faltenreich.release.ui.list.paging
 
 import android.content.Context
 import androidx.paging.PageKeyedDataSource
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
@@ -14,7 +15,7 @@ class CalendarDataSource(
     private val context: Context,
     private var startAt: LocalDate
 ) : PageKeyedDataSource<LocalDate, CalendarListItem>() {
-    private val releaseRepository = RepositoryFactory.repositoryForReleases()
+    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<LocalDate>, callback: LoadInitialCallback<LocalDate, CalendarListItem>) {
         load(startAt, true, object : LoadCallback<LocalDate, CalendarListItem>() {

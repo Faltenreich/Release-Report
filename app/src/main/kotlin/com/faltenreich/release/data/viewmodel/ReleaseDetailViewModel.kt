@@ -9,13 +9,13 @@ import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Media
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.repository.RepositoryFactory
+import com.faltenreich.release.data.repository.*
 
 class ReleaseDetailViewModel : ViewModel() {
-    private val releaseRepository = RepositoryFactory.repositoryForReleases()
-    private val genreRepository = RepositoryFactory.repositoryForGenres()
-    private val platformRepository = RepositoryFactory.repositoryForPlatforms()
-    private val imageRepository = RepositoryFactory.repositoryForImages()
+    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
+    private val genreRepository = RepositoryFactory.repository<GenreRepository>()
+    private val platformRepository = RepositoryFactory.repository<PlatformRepository>()
+    private val imageRepository = RepositoryFactory.repository<MediaRepository>()
 
     private val releaseLiveData = MutableLiveData<Release>()
     private val genreLiveData = MutableLiveData<List<Genre>>()

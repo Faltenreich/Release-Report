@@ -6,12 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
-    private val releaseRepository = RepositoryFactory.repositoryForReleases()
+    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     private val weeklyReleasesLiveData = MutableLiveData<List<Release>>()
     private val favoriteReleasesLiveData = MutableLiveData<List<Release>>()

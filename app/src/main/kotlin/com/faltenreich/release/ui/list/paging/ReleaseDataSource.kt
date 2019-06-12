@@ -2,6 +2,7 @@ package com.faltenreich.release.ui.list.paging
 
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.ReleaseListItem
@@ -11,7 +12,7 @@ class ReleaseDataSource(
     private var startAt: LocalDate,
     private val onInitialLoad: ((Int) -> Unit)? = null
 ) : PageKeyedDataSource<Int, ReleaseListItem>() {
-    private val releaseRepository = RepositoryFactory.repositoryForReleases()
+    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseListItem>) {
         load(0, params.requestedLoadSize, true, object : LoadCallback<Int, ReleaseListItem>() {
