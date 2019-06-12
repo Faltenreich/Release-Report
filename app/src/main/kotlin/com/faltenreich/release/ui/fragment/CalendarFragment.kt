@@ -35,7 +35,6 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar), Dateable {
             val spanCount = 7
             listLayoutManager = GridLayoutManager(context, spanCount)
             listView.layoutManager = listLayoutManager
-            listView.addItemDecoration(GridSpacingItemDecoration(context, spanCount, R.dimen.margin_padding_size_xxsmall))
             listView.adapter = listAdapter
         }
     }

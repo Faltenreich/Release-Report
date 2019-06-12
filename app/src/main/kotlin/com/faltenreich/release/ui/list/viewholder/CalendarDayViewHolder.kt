@@ -15,17 +15,16 @@ import org.jetbrains.anko.textColorResource
 import org.threeten.bp.LocalDate
 
 class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewHolder<CalendarDayListItem>(context, R.layout.list_item_calendar, parent) {
-    private val borderRadius = context.resources.getDimension(R.dimen.margin_padding_size_xsmall).toInt()
 
     override fun onBind(data: CalendarDayListItem) {
+        overlay.setOnClickListener { openDay(data.date) }
+
         val date = data.date
         val isToday = date.isToday
 
-        container.setOnClickListener { openDay(data.date) }
         dayLabel.text = data.date.dayOfMonth.toString()
         dayLabel.textColorResource = if (data.isInSameMonth) android.R.color.white else R.color.gray_dark
-        container.backgroundResource = if (isToday) R.drawable.background_primary_round else android.R.color.transparent
-        imageView.borderWidth = if (isToday) borderRadius else 0
+        container.backgroundResource = if (isToday) R.color.colorPrimary else android.R.color.transparent
 
         data.releases.firstOrNull()?.imageUrlForThumbnail?.let { imageUrl ->
             dayLabel.isVisible = false

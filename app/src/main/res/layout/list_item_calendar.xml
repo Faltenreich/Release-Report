@@ -6,12 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?selectableItemBackgroundBorderless"
-    android:clickable="true"
-    android:focusable="true">
+    android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -22,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:civ_border_color="@android:color/transparent"
         tools:src="@tools:sample/avatars"/>
 
     <TextView
@@ -37,5 +33,17 @@
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintEnd_toEndOf="@id/imageView"
         tools:text="@tools:sample/date/day_of_week"/>
+
+    <FrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="?android:selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
