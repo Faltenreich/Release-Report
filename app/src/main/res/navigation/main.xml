@@ -21,8 +21,8 @@
 
     <fragment
         android:id="@+id/calendar"
-        android:name="com.faltenreich.release.ui.fragment.CalendarPagerFragment"
+        android:name="com.faltenreich.release.ui.fragment.CalendarFragment"
         android:label="@string/calendar"
-        tools:layout="@layout/fragment_calendar_pager"/>
+        tools:layout="@layout/fragment_calendar"/>
 
 </navigation>

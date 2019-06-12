@@ -8,13 +8,12 @@ import com.faltenreich.release.extension.isToday
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
-import kotlinx.android.synthetic.main.list_item_calendar.*
-import org.jetbrains.anko.backgroundResource
+import kotlinx.android.synthetic.main.list_item_calendar_day.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColorResource
 import org.threeten.bp.LocalDate
 
-class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewHolder<CalendarDayListItem>(context, R.layout.list_item_calendar, parent) {
+class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewHolder<CalendarDayListItem>(context, R.layout.list_item_calendar_day, parent) {
 
     override fun onBind(data: CalendarDayListItem) {
         overlay.setOnClickListener { openDay(data.date) }
@@ -24,7 +23,7 @@ class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewH
 
         dayLabel.text = data.date.dayOfMonth.toString()
         dayLabel.textColorResource = if (data.isInSameMonth) android.R.color.white else R.color.gray_dark
-        container.backgroundResource = if (isToday) R.color.colorPrimary else android.R.color.transparent
+        // TODO: container.backgroundResource = if (isToday) R.color.colorPrimary else android.R.color.transparent
 
         data.releases.firstOrNull()?.imageUrlForThumbnail?.let { imageUrl ->
             dayLabel.isVisible = false
