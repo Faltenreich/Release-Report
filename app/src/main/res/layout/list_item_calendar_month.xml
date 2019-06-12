@@ -10,4 +10,5 @@
     android:paddingEnd="@dimen/margin_padding_size_large"
     android:gravity="center_vertical"
     android:textColor="?android:textColorPrimaryInverse"
+    android:background="?colorPrimary"
     tools:text="@tools:sample/date/mmddyy"/>

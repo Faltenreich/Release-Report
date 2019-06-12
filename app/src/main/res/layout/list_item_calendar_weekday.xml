@@ -10,5 +10,4 @@
     android:gravity="center"
     android:textColor="?android:textColorSecondaryInverse"
     android:textSize="@dimen/text_size_xsmall"
-    android:background="@color/translucent"
     tools:text="@tools:sample/date/day_of_week"/>

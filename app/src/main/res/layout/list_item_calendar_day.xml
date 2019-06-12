@@ -7,7 +7,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/translucent">
+    android:background="?selectableItemBackgroundBorderless">
 
     <ImageView
         android:id="@+id/imageView"
@@ -24,9 +24,9 @@
 
     <TextView
         android:id="@+id/dayLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_padding_size_small"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
         android:textSize="@dimen/text_size_large"
         android:textColor="?android:textColorPrimaryInverse"
         app:layout_constraintTop_toTopOf="@id/imageView"
@@ -34,17 +34,5 @@
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintEnd_toEndOf="@id/imageView"
         tools:text="@tools:sample/date/day_of_week"/>
-
-    <FrameLayout
-        android:id="@+id/overlay"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:foreground="?android:selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@ import org.threeten.bp.LocalDate
 class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewHolder<CalendarDayListItem>(context, R.layout.list_item_calendar_day, parent) {
 
     override fun onBind(data: CalendarDayListItem) {
-        overlay.setOnClickListener { openDay(data.date) }
+        container.setOnClickListener { openDay(data.date) }
 
         val date = data.date
         val isToday = date.isToday
