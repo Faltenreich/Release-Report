@@ -18,35 +18,24 @@
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:spanCount="2"/>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:paddingStart="@dimen/margin_padding_size_large"
-        android:paddingEnd="@dimen/margin_padding_size_xxsmall"
-        android:background="?colorPrimary"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp">
 
         <TextView
             android:id="@+id/headerDateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/margin_padding_size_large"
+            android:paddingEnd="@dimen/margin_padding_size_large"
+            android:background="?colorPrimary"
             android:textColor="?android:textColorPrimaryInverse"
             tools:text="@tools:sample/date/mmddyy"/>
 
-        <ImageButton
-            android:id="@+id/headerDateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:padding="12dp"
-            android:src="@drawable/ic_date"
-            android:background="?selectableItemBackgroundBorderless"
-            android:contentDescription="@string/date_select"/>
-
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <include
         layout="@layout/view_empty"

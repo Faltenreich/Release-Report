@@ -75,8 +75,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
                     }
                 }
             })
-
-            headerDateButton.setOnClickListener { openDatePicker() }
         }
     }
 
@@ -134,13 +132,15 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         headerDateTextView.text = currentDate?.print(context)
 
-        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition +  1)
+        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition + 1)
         val translateHeader = secondVisibleListItem?.release == null
-        // TODO
-        if (false) {
-            val top = listLayoutManager.getChildAt(1)?.top ?: 0
-            val translationY = min(top, header.height)
+        if (translateHeader) {
+            val secondOffset = listLayoutManager.getChildAt(1)?.top ?: 0
+            val top = secondOffset - header.height
+            val translationY = min(top, 0)
             header.translationY = translationY.toFloat()
+        } else {
+            header.translationY = 0f
         }
     }
 
