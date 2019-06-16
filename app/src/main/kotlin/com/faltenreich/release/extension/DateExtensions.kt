@@ -54,7 +54,10 @@ fun LocalDate.print(context: Context?): String? {
 }
 
 fun LocalDate.printMonth(context: Context?): String? {
-    return month.getDisplayName(TextStyle.FULL, context?.locale)
+    val year = year
+    val isSameYear = year == LocalDate.now().year
+    val monthText = month.getDisplayName(TextStyle.FULL, context?.locale)
+    return if (isSameYear) monthText else "$monthText $year"
 }
 
 val LocalDate.atStartOfMonth: LocalDate

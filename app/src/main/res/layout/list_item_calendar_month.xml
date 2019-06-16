@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/label"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/toolbar_height"
-    android:paddingStart="@dimen/margin_padding_size_large"
-    android:paddingEnd="@dimen/margin_padding_size_large"
-    android:gravity="center_vertical"
-    android:textColor="?android:textColorPrimaryInverse"
-    android:background="?colorPrimary"
-    tools:text="@tools:sample/date/mmddyy"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/monthLabel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:paddingStart="@dimen/margin_padding_size_large"
+        android:paddingEnd="@dimen/margin_padding_size_large"
+        android:gravity="center_vertical"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:background="?colorPrimary"
+        tools:text="@tools:sample/date/mmddyy"/>
+
+    <com.faltenreich.release.ui.view.WeekDayHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"/>
+
+</LinearLayout>

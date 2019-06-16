@@ -32,11 +32,9 @@
             android:background="?colorPrimary"
             tools:text="@tools:sample/date/mmddyy"/>
 
-        <LinearLayout
-            android:id="@+id/headerWeekDayLabels"
+        <com.faltenreich.release.ui.view.WeekDayHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/colorPrimaryDark"/>
 
     </LinearLayout>

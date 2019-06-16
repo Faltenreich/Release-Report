@@ -11,7 +11,6 @@ import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
 import com.faltenreich.release.ui.list.item.CalendarListItem
 import com.faltenreich.release.ui.list.item.CalendarMonthListItem
-import com.faltenreich.release.ui.list.item.CalendarWeekDayListItem
 import org.threeten.bp.YearMonth
 
 class CalendarDataSource(
@@ -40,18 +39,16 @@ class CalendarDataSource(
         val startOfMonth = yearMonth.atDay(1)
         val endOfMonth = yearMonth.atEndOfMonth()
         val startOfFirstWeek = startOfMonth.atStartOfWeek(context)
-        val endOfFirstWeek = startOfFirstWeek.atEndOfWeek(context)
         val endOfLastWeek = endOfMonth.atEndOfWeek(context)
 
         val monthItem = CalendarMonthListItem(startOfMonth)
-        val weekDayItems = LocalDateProgression(startOfFirstWeek, endOfFirstWeek).map { day -> CalendarWeekDayListItem(day) }
 
         releaseRepository.getFavorites(startOfMonth, endOfMonth) { releases ->
             val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
                 val releasesOfToday = releases.filter { release -> (release.releaseDate == day).isTrue }
                 CalendarDayListItem(day, releasesOfToday, day.month == yearMonth.month)
             }
-            val items = listOf(monthItem).plus(weekDayItems.plus(dayItems))
+            val items = listOf(monthItem).plus(dayItems)
             callback.onResult(items, if (descending) yearMonth.plusMonths(1) else yearMonth.minusMonths(1))
         }
     }

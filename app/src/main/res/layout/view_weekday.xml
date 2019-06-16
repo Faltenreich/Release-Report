@@ -6,10 +6,7 @@
     android:id="@+id/label"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_padding_size_small"
-    android:paddingBottom="@dimen/margin_padding_size_small"
     android:gravity="center"
     android:textColor="?android:textColorSecondaryInverse"
     android:textSize="@dimen/text_size_xsmall"
-    android:background="@color/colorPrimaryDark"
     tools:text="@tools:sample/date/day_of_week"/>
