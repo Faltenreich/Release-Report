@@ -11,6 +11,7 @@ import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
@@ -35,6 +36,10 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     }
 
     private fun initData() {
-        viewModel.observeReleases(requireContext(), LocalDate.now(), this) { list -> listAdapter?.submitList(list) }
+        val date = LocalDate.now()
+        val yearMonth = YearMonth.from(date)
+        viewModel.observeReleases(requireContext(), yearMonth, this) { list ->
+            listAdapter?.submitList(list)
+        }
     }
 }

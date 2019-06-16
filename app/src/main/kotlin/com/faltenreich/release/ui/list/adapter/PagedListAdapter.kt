@@ -5,7 +5,10 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
 
-abstract class PagedListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>(val context: Context, diffCallback: DiffUtil.ItemCallback<ITEM>) : PagedListAdapter<ITEM, VIEWHOLDER>(diffCallback), ListAdapter<ITEM> {
+abstract class PagedListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>(
+    val context: Context,
+    diffCallback: DiffUtil.ItemCallback<ITEM>
+) : PagedListAdapter<ITEM, VIEWHOLDER>(diffCallback), ListAdapter<ITEM> {
 
     override val listItems: ArrayList<ITEM>
         get() = currentList?.let { currentList -> ArrayList(currentList) } ?: arrayListOf()

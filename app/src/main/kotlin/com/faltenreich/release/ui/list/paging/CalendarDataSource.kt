@@ -4,50 +4,55 @@ import android.content.Context
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
-import com.faltenreich.release.extension.*
+import com.faltenreich.release.extension.LocalDateProgression
+import com.faltenreich.release.extension.atEndOfWeek
+import com.faltenreich.release.extension.atStartOfWeek
+import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
 import com.faltenreich.release.ui.list.item.CalendarListItem
 import com.faltenreich.release.ui.list.item.CalendarMonthListItem
 import com.faltenreich.release.ui.list.item.CalendarWeekDayListItem
-import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
 
 class CalendarDataSource(
     private val context: Context,
-    private var startAt: LocalDate
-) : PageKeyedDataSource<LocalDate, CalendarListItem>() {
+    private var startAt: YearMonth
+) : PageKeyedDataSource<YearMonth, CalendarListItem>() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
-    override fun loadInitial(params: LoadInitialParams<LocalDate>, callback: LoadInitialCallback<LocalDate, CalendarListItem>) {
-        load(startAt, true, object : LoadCallback<LocalDate, CalendarListItem>() {
-            override fun onResult(data: MutableList<CalendarListItem>, adjacentPageKey: LocalDate?) {
+    override fun loadInitial(params: LoadInitialParams<YearMonth>, callback: LoadInitialCallback<YearMonth, CalendarListItem>) {
+        load(startAt, true, object : LoadCallback<YearMonth, CalendarListItem>() {
+            override fun onResult(data: MutableList<CalendarListItem>, adjacentPageKey: YearMonth?) {
                 callback.onResult(data, startAt.minusMonths(1), startAt.plusMonths(1))
             }
         })
     }
 
-    override fun loadBefore(params: LoadParams<LocalDate>, callback: LoadCallback<LocalDate, CalendarListItem>) {
+    override fun loadBefore(params: LoadParams<YearMonth>, callback: LoadCallback<YearMonth, CalendarListItem>) {
         load(params.key, false, callback)
     }
 
-    override fun loadAfter(params: LoadParams<LocalDate>, callback: LoadCallback<LocalDate, CalendarListItem>) {
+    override fun loadAfter(params: LoadParams<YearMonth>, callback: LoadCallback<YearMonth, CalendarListItem>) {
         load(params.key, true, callback)
     }
 
-    private fun load(date: LocalDate, descending: Boolean, callback: LoadCallback<LocalDate, CalendarListItem>) {
-        val onResponse = { data: List<CalendarListItem> -> callback.onResult(data, if (descending) date.plusMonths(1) else date.minusMonths(1)) }
-        releaseRepository.getFavorites(date.atStartOfMonth, date.atEndOfMonth) { releases ->
-            val startOfMonth = date.atStartOfMonth
-            val startOfFirstWeek = startOfMonth.atStartOfWeek(context)
-            val endOfFirstWeek = startOfFirstWeek.atEndOfWeek(context)
-            val endOfLastWeek = date.atEndOfMonth.atEndOfWeek(context)
-            val monthItem = CalendarMonthListItem(startOfMonth)
-            val weekDayItems = LocalDateProgression(startOfFirstWeek, endOfFirstWeek).map { day -> CalendarWeekDayListItem(day) }
+    private fun load(yearMonth: YearMonth, descending: Boolean, callback: LoadCallback<YearMonth, CalendarListItem>) {
+        val startOfMonth = yearMonth.atDay(1)
+        val endOfMonth = yearMonth.atEndOfMonth()
+        val startOfFirstWeek = startOfMonth.atStartOfWeek(context)
+        val endOfFirstWeek = startOfFirstWeek.atEndOfWeek(context)
+        val endOfLastWeek = endOfMonth.atEndOfWeek(context)
+
+        val monthItem = CalendarMonthListItem(startOfMonth)
+        val weekDayItems = LocalDateProgression(startOfFirstWeek, endOfFirstWeek).map { day -> CalendarWeekDayListItem(day) }
+
+        releaseRepository.getFavorites(startOfMonth, endOfMonth) { releases ->
             val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
                 val releasesOfToday = releases.filter { release -> (release.releaseDate == day).isTrue }
-                CalendarDayListItem(day, releasesOfToday, day.month == date.month)
+                CalendarDayListItem(day, releasesOfToday, day.month == yearMonth.month)
             }
             val items = listOf(monthItem).plus(weekDayItems.plus(dayItems))
-            onResponse(items)
+            callback.onResult(items, if (descending) yearMonth.plusMonths(1) else yearMonth.minusMonths(1))
         }
     }
 }
