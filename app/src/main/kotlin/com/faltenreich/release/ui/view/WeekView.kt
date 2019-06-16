@@ -13,13 +13,15 @@ import kotlinx.android.synthetic.main.view_weekday.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.TextStyle
 
-class WeekDayHeader @JvmOverloads constructor(
+class WeekView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attributeSet, defStyleAttr) {
 
     init {
+        val padding = context.resources.getDimension(R.dimen.margin_padding_size_xsmall).toInt()
+        setPadding(0, padding, 0, padding)
         orientation = HORIZONTAL
 
         val date = LocalDate.now()
@@ -28,11 +30,9 @@ class WeekDayHeader @JvmOverloads constructor(
 
         LocalDateProgression(startOfWeek, endOfWeek).forEach { day ->
             val dayOfWeek = day.dayOfWeek
-            val padding = context.resources.getDimension(R.dimen.margin_padding_size_xsmall).toInt()
             val view = LayoutInflater.from(context).inflate(R.layout.view_weekday, null)
             view.layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
             view.label.text = dayOfWeek.getDisplayName(TextStyle.SHORT, context.locale).toUpperCase()
-            view.setPadding(0, padding, 0, padding)
             addView(view)
         }
     }

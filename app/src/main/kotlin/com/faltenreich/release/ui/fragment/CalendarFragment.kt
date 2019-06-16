@@ -9,7 +9,7 @@ import com.faltenreich.release.data.viewmodel.MainViewModel
 import com.faltenreich.release.extension.printMonth
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
-import com.faltenreich.release.ui.list.item.CalendarMonthListItem
+import com.faltenreich.release.ui.list.item.CalendarDayListItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
@@ -62,8 +62,9 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
         val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
         headerMonthLabel.text = currentDate?.printMonth(context)
 
+        // FIXME: Jumps the height of the WeekView
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition + 7)
-        val translateHeader = secondVisibleListItem is CalendarMonthListItem
+        val translateHeader = secondVisibleListItem !is CalendarDayListItem
         if (translateHeader) {
             val secondOffset = listLayoutManager.getChildAt(7)?.top ?: 0
             val top = secondOffset - header.height
