@@ -43,9 +43,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
     }
 
-    private val firstVisibleListItemPosition: Int
-        get() = listLayoutManager.findFirstVisibleItemPosition()
-
     private var showTodayButton: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -127,7 +124,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun invalidateListHeader() {
-        val firstVisibleListItemPosition = firstVisibleListItemPosition
+        val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         headerDateTextView.text = currentDate?.print(context)

@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.recyclerview.widget.RecyclerView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/translucent"
-    tools:listitem="@layout/list_item_calendar_day"
-    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-    tools:spanCount="7"/>
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucent"
+        tools:listitem="@layout/list_item_calendar_day"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:spanCount="7"/>
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/headerMonthLabel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:paddingStart="@dimen/margin_padding_size_large"
+            android:paddingEnd="@dimen/margin_padding_size_large"
+            android:gravity="center_vertical"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:background="?colorPrimary"
+            tools:text="@tools:sample/date/mmddyy"/>
+
+        <LinearLayout
+            android:id="@+id/headerWeekDayLabels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimaryDark"/>
+
+    </LinearLayout>
+
+</FrameLayout>
