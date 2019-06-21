@@ -10,7 +10,7 @@ import com.faltenreich.release.extension.print
 import com.faltenreich.release.extension.yearMonth
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
-import com.faltenreich.release.ui.list.item.CalendarDayListItem
+import com.faltenreich.release.ui.list.item.CalendarMonthListItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
@@ -58,21 +58,22 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     }
 
     private fun invalidateListHeader() {
-        val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
-        val month = firstVisibleListItem?.yearMonth ?: LocalDate.now().yearMonth
-        headerMonthLabel.text = month.print(context)
+        listAdapter?.let { listAdapter ->
+            val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
+            val upcomingItems = listAdapter.listItems.let { items -> items.subList(firstVisibleItemPosition, items.size) }
+            val firstVisibleItem = upcomingItems.firstOrNull()
+            val month = firstVisibleItem?.yearMonth ?: LocalDate.now().yearMonth
+            headerMonthLabel.text = month.print(context)
 
-        // FIXME: Jumps the height of the WeekView
-        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition + 7)
-        val translateHeader = secondVisibleListItem !is CalendarDayListItem
-        if (translateHeader) {
-            val secondOffset = listLayoutManager.getChildAt(7)?.top ?: 0
-            val top = secondOffset - header.height
-            val translationY = min(top, 0)
-            header.translationY = translationY.toFloat()
-        } else {
-            header.translationY = 0f
+            val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthListItem }
+            val translationY = if (upcomingHeaderIndex >= 0) {
+                val upcomingHeaderOffset = listLayoutManager.getChildAt(upcomingHeaderIndex)?.top?.toFloat() ?: 0f
+                val top = if (upcomingHeaderOffset > 0f) upcomingHeaderOffset - header.height else 0f
+                min(top, 0f)
+            } else {
+                0f
+            }
+            header.translationY = translationY
         }
     }
 }
