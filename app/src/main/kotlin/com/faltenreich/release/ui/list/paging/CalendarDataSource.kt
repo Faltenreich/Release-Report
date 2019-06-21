@@ -41,12 +41,12 @@ class CalendarDataSource(
         val startOfFirstWeek = startOfMonth.atStartOfWeek(context)
         val endOfLastWeek = endOfMonth.atEndOfWeek(context)
 
-        val monthItem = CalendarMonthListItem(startOfMonth)
+        val monthItem = CalendarMonthListItem(startOfMonth, yearMonth)
 
         releaseRepository.getFavorites(startOfMonth, endOfMonth) { releases ->
             val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
                 val releasesOfToday = releases.filter { release -> (release.releaseDate == day).isTrue }
-                CalendarDayListItem(day, releasesOfToday, day.month == yearMonth.month)
+                CalendarDayListItem(day, yearMonth, releasesOfToday)
             }
             val items = listOf(monthItem).plus(dayItems)
             callback.onResult(items, if (descending) yearMonth.plusMonths(1) else yearMonth.minusMonths(1))

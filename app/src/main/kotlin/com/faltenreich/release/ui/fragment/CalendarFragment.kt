@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.CalendarViewModel
 import com.faltenreich.release.data.viewmodel.MainViewModel
-import com.faltenreich.release.extension.printMonth
+import com.faltenreich.release.extension.print
+import com.faltenreich.release.extension.yearMonth
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
@@ -59,8 +60,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
-        headerMonthLabel.text = currentDate?.printMonth(context)
+        val month = firstVisibleListItem?.yearMonth ?: LocalDate.now().yearMonth
+        headerMonthLabel.text = month.print(context)
 
         // FIXME: Jumps the height of the WeekView
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition + 7)
