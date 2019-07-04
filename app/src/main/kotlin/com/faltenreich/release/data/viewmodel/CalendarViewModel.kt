@@ -26,6 +26,6 @@ class CalendarViewModel : ViewModel() {
     }
 
     companion object {
-        private const val PAGE_SIZE = 3
+        private const val PAGE_SIZE = 90 // Three months
     }
 }
