@@ -1,10 +1,7 @@
 package com.faltenreich.release.data.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.ui.list.item.CalendarListItem
@@ -14,12 +11,17 @@ import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {
     private lateinit var releasesLiveData: LiveData<PagedList<CalendarListItem>>
+    private val yearMonthLiveData = MutableLiveData<YearMonth>()
 
     val releases: List<CalendarListItem>
         get() = releasesLiveData.value ?: listOf()
 
-    fun observeReleases(context: Context, yearMonth: YearMonth, owner: LifecycleOwner, onObserve: (PagedList<CalendarListItem>) -> Unit) {
-        val dataSource = CalendarDataSource(context, yearMonth)
+    var yearMonth: YearMonth?
+        get() = yearMonthLiveData.value
+        set(value) = yearMonthLiveData.postValue(value)
+
+    fun observeReleases(context: Context, owner: LifecycleOwner, onObserve: (PagedList<CalendarListItem>) -> Unit) {
+        val dataSource = CalendarDataSource(context, yearMonth ?: YearMonth.now())
         val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })

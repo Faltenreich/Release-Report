@@ -15,7 +15,6 @@ import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
-import org.threeten.bp.YearMonth
 import kotlin.math.min
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
@@ -50,11 +49,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     }
 
     private fun initData() {
-        val date = LocalDate.now()
-        val yearMonth = YearMonth.from(date)
-        viewModel.observeReleases(requireContext(), yearMonth, this) { list ->
-            listAdapter?.submitList(list)
-        }
+        viewModel.observeReleases(requireContext(), this) { list -> listAdapter?.submitList(list) }
     }
 
     private fun invalidateListHeader() {
@@ -62,7 +57,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
             val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
             val upcomingItems = listAdapter.listItems.let { items -> items.subList(firstVisibleItemPosition, items.size) }
             val firstVisibleItem = upcomingItems.firstOrNull()
-            val month = firstVisibleItem?.yearMonth ?: LocalDate.now().yearMonth
+            val firstVisibleYearMonth = firstVisibleItem?.yearMonth
+            val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
             headerMonthLabel.text = month.print(context)
 
             val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthListItem }
@@ -74,6 +70,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
                 0f
             }
             header.translationY = translationY
+
+            viewModel.yearMonth = firstVisibleYearMonth
         }
     }
 }
