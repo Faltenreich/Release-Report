@@ -13,7 +13,8 @@ class CalendarLayoutManager(
         spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int = when (listAdapter?.getItemViewType(position)) {
                 CalendarListAdapter.VIEW_TYPE_MONTH -> SPAN_COUNT
-                else -> 1
+                CalendarListAdapter.VIEW_TYPE_DAY -> 1
+                else -> -1
             }
         }
     }

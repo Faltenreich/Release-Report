@@ -10,8 +10,8 @@ abstract class PagedListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>(
     diffCallback: DiffUtil.ItemCallback<ITEM>
 ) : PagedListAdapter<ITEM, VIEWHOLDER>(diffCallback), ListAdapter<ITEM> {
 
-    override val listItems: ArrayList<ITEM>
-        get() = currentList?.let { currentList -> ArrayList(currentList) } ?: arrayListOf()
+    override val listItems: List<ITEM>
+        get() = currentList ?: listOf()
 
     override fun onBindViewHolder(holder: VIEWHOLDER, position: Int) {
         // Call method from PagedListAdapter instead of ListAdapter in order to kick off pagination
