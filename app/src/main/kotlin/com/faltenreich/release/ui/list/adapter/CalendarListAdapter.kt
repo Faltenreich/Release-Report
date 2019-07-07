@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
 import com.faltenreich.release.ui.list.item.CalendarListItem
 import com.faltenreich.release.ui.list.item.CalendarMonthListItem
-import com.faltenreich.release.ui.list.paging.CalendarListItemDiffUtilCallback
+import com.faltenreich.release.ui.list.pagination.CalendarListItemDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.CalendarDayViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarMonthViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarViewHolder

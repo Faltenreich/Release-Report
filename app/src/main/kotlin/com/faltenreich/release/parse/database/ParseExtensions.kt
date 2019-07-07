@@ -13,7 +13,6 @@ fun <T : ParseObject> ParseQuery<T>.whereContainsText(key: String, query: String
 
 fun <T : Any> ParseObject.getJSONArrayValues(key: String): List<T> {
     val jsonArray = getJSONArray(key) ?: return listOf()
-    val length = jsonArray.length().takeIf { it > 0 } ?: return listOf()
-    val range = 0 until length
-    return range.map { index -> jsonArray.get(index) as T }
+    val length = jsonArray.length().takeIf { length -> length > 0 } ?: return listOf()
+    return (0 until length).mapNotNull { index -> jsonArray.get(index) as? T }
 }

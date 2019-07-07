@@ -13,7 +13,7 @@ interface ParseDao<T : Model> : Dao<T> {
     val modelName: String
 
     fun getQuery(): ParseQuery<ParseObject> {
-        return ParseQuery.getQuery<ParseObject>(modelName)
+        return ParseQuery.getQuery(modelName)
     }
 
     fun ParseQuery<ParseObject>.findInBackground(onResult: (List<T>) -> Unit) {

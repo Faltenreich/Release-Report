@@ -5,8 +5,8 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.ui.list.item.CalendarListItem
-import com.faltenreich.release.ui.list.paging.CalendarDataSource
-import com.faltenreich.release.ui.list.paging.PagingDataFactory
+import com.faltenreich.release.ui.list.pagination.CalendarDataSource
+import com.faltenreich.release.ui.list.pagination.PagingDataFactory
 import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {

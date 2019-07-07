@@ -1,4 +1,4 @@
-package com.faltenreich.release.ui.list.paging
+package com.faltenreich.release.ui.list.pagination
 
 import androidx.recyclerview.widget.DiffUtil
 import com.faltenreich.release.ui.list.item.ReleaseListItem

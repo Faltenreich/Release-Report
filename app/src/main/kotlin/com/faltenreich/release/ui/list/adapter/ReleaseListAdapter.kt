@@ -3,7 +3,7 @@ package com.faltenreich.release.ui.list.adapter
 import android.content.Context
 import android.view.ViewGroup
 import com.faltenreich.release.ui.list.item.ReleaseListItem
-import com.faltenreich.release.ui.list.paging.ReleaseListItemDiffUtilCallback
+import com.faltenreich.release.ui.list.pagination.ReleaseListItemDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseDateViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseImageViewHolder

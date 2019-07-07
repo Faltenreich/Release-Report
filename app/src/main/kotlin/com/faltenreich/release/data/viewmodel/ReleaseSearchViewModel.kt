@@ -4,8 +4,8 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.ui.list.paging.PagingDataFactory
-import com.faltenreich.release.ui.list.paging.ReleaseSearchDataSource
+import com.faltenreich.release.ui.list.pagination.PagingDataFactory
+import com.faltenreich.release.ui.list.pagination.ReleaseSearchDataSource
 
 class ReleaseSearchViewModel : ViewModel() {
     private val queryLiveData = MutableLiveData<String?>()

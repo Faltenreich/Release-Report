@@ -1,4 +1,4 @@
-package com.faltenreich.release.ui.list.paging
+package com.faltenreich.release.ui.list.pagination
 
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.model.Release
