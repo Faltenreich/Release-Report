@@ -19,12 +19,12 @@ class CalendarViewModel : ViewModel() {
 
     fun observeReleases(context: Context, owner: LifecycleOwner, onObserve: (PagedList<CalendarListItem>) -> Unit) {
         val dataSource = CalendarDataSource(context, yearMonth ?: YearMonth.now())
-        val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
+        val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE_IN_MONTHS)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
     }
 
     companion object {
-        private const val PAGE_SIZE = 90 // Three months
+        private const val PAGE_SIZE_IN_MONTHS = 3
     }
 }

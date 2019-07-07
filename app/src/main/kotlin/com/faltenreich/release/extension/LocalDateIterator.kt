@@ -3,9 +3,9 @@ package com.faltenreich.release.extension
 import org.threeten.bp.LocalDate
 
 class LocalDateIterator(
-    val startDate: LocalDate,
-    val endDateInclusive: LocalDate,
-    val stepDays: Long
+    startDate: LocalDate,
+    private val endDateInclusive: LocalDate,
+    private val stepDays: Long
 ): Iterator<LocalDate> {
     private var currentDate = startDate
 
