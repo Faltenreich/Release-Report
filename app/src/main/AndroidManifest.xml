@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <service android:enabled="true" android:name=".reminder.ReminderService" />
+        <service android:enabled="true" android:name=".reminder.ReminderService"/>
 
     </application>
 

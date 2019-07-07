@@ -13,9 +13,6 @@ class CalendarViewModel : ViewModel() {
     private lateinit var releasesLiveData: LiveData<PagedList<CalendarListItem>>
     private val yearMonthLiveData = MutableLiveData<YearMonth>()
 
-    val releases: List<CalendarListItem>
-        get() = releasesLiveData.value ?: listOf()
-
     var yearMonth: YearMonth?
         get() = yearMonthLiveData.value
         set(value) = yearMonthLiveData.postValue(value)

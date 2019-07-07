@@ -49,7 +49,8 @@ class CalendarDataSource(
                 CalendarDayListItem(day, yearMonth, releasesOfToday)
             }
             val items = listOf(monthItem).plus(dayItems)
-            callback.onResult(items, if (descending) yearMonth.plusMonths(1) else yearMonth.minusMonths(1))
+            val adjacentYearMonth = if (descending) yearMonth.plusMonths(1) else yearMonth.minusMonths(1)
+            callback.onResult(items, adjacentYearMonth)
         }
     }
 }
