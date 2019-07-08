@@ -12,7 +12,7 @@ class PagingDataFactory<Key, Value : Any>(
         PagedList.Config.Builder()
             .setInitialLoadSizeHint(pageSize * 3)
             .setPageSize(pageSize)
-            .setPrefetchDistance(pageSize / 2)
+            .setPrefetchDistance(pageSize)
             .build()
     }
 
