@@ -50,7 +50,7 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="@dimen/margin_padding_size_small"
         android:text="@string/scroll_to_today"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="?backgroundColorPrimary"
         android:textColor="?attr/colorPrimary"
         android:textAllCaps="false"
         app:layout_anchor="@id/listView"

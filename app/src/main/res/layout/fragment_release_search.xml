@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:search_hint="@string/search_hint"
-            app:search_hint_color="@color/gray_dark"
+            app:search_hint_color="?android:textColorTertiary"
             app:search_shadow="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,12 +31,12 @@
             android:padding="@dimen/margin_padding_size_small"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:listitem="@layout/list_item_release_detail"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/searchView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/list_item_release_detail"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <include
             layout="@layout/view_empty"

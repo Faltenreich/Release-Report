@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:search_hint="@string/search_hint"
-        app:search_hint_color="@color/gray_dark"
+        app:search_hint_color="?android:textColorTertiary"
         app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior">
 
         <ImageButton
@@ -52,7 +52,7 @@
             android:layout_margin="@dimen/margin_padding_size_xxsmall"
             android:layout_gravity="end"
             android:src="@drawable/ic_more"
-            android:tint="@color/gray_darker"
+            android:tint="?android:textColorTertiary"
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/menu_open"/>
 

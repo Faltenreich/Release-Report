@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.Dark"/>
+
+    <style name="ToolbarPopup" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+</resources>

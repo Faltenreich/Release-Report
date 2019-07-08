@@ -56,7 +56,7 @@
                         android:id="@+id/spotlightReleaseDateTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/gray_dark"
+                        android:textColor="?android:textColorTertiary"
                         tools:text="@tools:sample/date/ddmmyy"/>
 
                     <TextView
@@ -64,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_large"
-                        android:textColor="@android:color/black"
+                        android:textColor="?android:textColorPrimary"
                         android:maxLines="2"
                         android:ellipsize="end"
                         tools:text="@tools:sample/lorem"/>
@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
-                        android:textColor="@android:color/black"
+                        android:textColor="?android:textColorPrimary"
                         android:ellipsize="end"
                         tools:text="@tools:sample/lorem"/>
 
