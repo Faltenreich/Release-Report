@@ -5,7 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@id/spotlight">
+    app:startDestination="@id/calendar">
+
+    <action
+        android:id="@+id/open_date"
+        app:destination="@+id/releases"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out">
+        <argument
+            android:name="date"
+            app:argType="string"/>
+    </action>
 
     <fragment
         android:id="@+id/spotlight"
@@ -17,7 +29,13 @@
         android:id="@+id/releases"
         android:name="com.faltenreich.release.ui.fragment.ReleaseListFragment"
         android:label="@string/releases"
-        tools:layout="@layout/fragment_release_list"/>
+        tools:layout="@layout/fragment_release_list">
+        <argument
+            android:name="date"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+    </fragment>
 
     <fragment
         android:id="@+id/calendar"

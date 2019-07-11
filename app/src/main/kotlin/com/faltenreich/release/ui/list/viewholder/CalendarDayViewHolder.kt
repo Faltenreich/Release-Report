@@ -8,15 +8,22 @@ import com.faltenreich.release.extension.isToday
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.CalendarDayListItem
+import com.faltenreich.release.ui.view.DateOpener
 import kotlinx.android.synthetic.main.list_item_calendar_day.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColorResource
-import org.threeten.bp.LocalDate
 
-class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewHolder<CalendarDayListItem>(context, R.layout.list_item_calendar_day, parent) {
+class CalendarDayViewHolder(
+    context: Context,
+    parent: ViewGroup
+) : CalendarViewHolder<CalendarDayListItem>(
+    context,
+    R.layout.list_item_calendar_day,
+    parent
+), DateOpener {
 
     override fun onBind(data: CalendarDayListItem) {
-        container.setOnClickListener { openDay(data.date) }
+        container.setOnClickListener { openItem(data) }
 
         val date = data.date
         val isToday = date.isToday
@@ -25,7 +32,7 @@ class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewH
         dayLabel.textColorResource = if (data.isInSameMonth) android.R.color.white else R.color.gray_dark
         // TODO: container.backgroundResource = if (isToday) R.color.colorPrimary else android.R.color.transparent
 
-        data.releases.firstOrNull()?.imageUrlForThumbnail?.let { imageUrl ->
+        data.releases.firstOrNull()?.imageUrlForThumbnail?.takeIf { data.isInSameMonth }?.let { imageUrl ->
             dayLabel.isVisible = false
             imageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
         } ?: run {
@@ -34,7 +41,7 @@ class CalendarDayViewHolder(context: Context, parent: ViewGroup) : CalendarViewH
         }
     }
 
-    private fun openDay(day: LocalDate) {
-
+    private fun openItem(item: CalendarDayListItem) {
+        openDate(context, item.date)
     }
 }

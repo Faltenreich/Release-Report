@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.MainViewModel
 import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
+import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.showSafely
@@ -29,6 +30,7 @@ import kotlin.math.min
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
+    private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
     
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
@@ -50,7 +52,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         parentViewModel.tint = TintAction(R.color.colorPrimary)
         initList()
         initTodayButton()
-        initData(LocalDate.now())
+        initData(date ?: LocalDate.now())
     }
 
     private fun initList() {
@@ -164,7 +166,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     }
 
     private fun openDatePicker() {
-        val date = listAdapter?.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date ?: LocalDate.now()
+        val date = viewModel.date ?: LocalDate.now()
         DatePickerFragment.newInstance(date) { newDate -> newDate?.let { focusDate(newDate) } }.showSafely(fragmentManager)
     }
 
