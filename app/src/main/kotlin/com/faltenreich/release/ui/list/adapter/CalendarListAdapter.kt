@@ -2,30 +2,30 @@ package com.faltenreich.release.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.ui.list.item.CalendarDayListItem
-import com.faltenreich.release.ui.list.item.CalendarListItem
-import com.faltenreich.release.ui.list.item.CalendarMonthListItem
+import com.faltenreich.release.ui.list.item.CalendarDateItem
+import com.faltenreich.release.ui.list.item.CalendarItem
+import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.pagination.CalendarListItemDiffUtilCallback
-import com.faltenreich.release.ui.list.viewholder.CalendarDayViewHolder
+import com.faltenreich.release.ui.list.viewholder.CalendarDateViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarMonthViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarViewHolder
 
-class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarListItem, CalendarViewHolder<CalendarListItem>>(context, CalendarListItemDiffUtilCallback()) {
+class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarItem, CalendarViewHolder<CalendarItem>>(context, CalendarListItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {
-            is CalendarMonthListItem -> VIEW_TYPE_MONTH
-            is CalendarDayListItem -> VIEW_TYPE_DAY
+            is CalendarMonthItem -> VIEW_TYPE_MONTH
+            is CalendarDateItem -> VIEW_TYPE_DAY
             else -> throw IllegalArgumentException("Unknown item: $item")
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder<CalendarListItem> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder<CalendarItem> {
         return when (viewType) {
             VIEW_TYPE_MONTH -> CalendarMonthViewHolder(context, parent)
-            VIEW_TYPE_DAY -> CalendarDayViewHolder(context, parent)
+            VIEW_TYPE_DAY -> CalendarDateViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown view type: $viewType")
-        } as CalendarViewHolder<CalendarListItem>
+        } as CalendarViewHolder<CalendarItem>
     }
 
     companion object {

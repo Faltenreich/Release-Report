@@ -5,7 +5,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.ui.list.pagination.PagingDataFactory
-import com.faltenreich.release.ui.list.pagination.ReleaseSearchDataSource
+import com.faltenreich.release.ui.list.pagination.SearchDataSource
 
 class ReleaseSearchViewModel : ViewModel() {
     private val queryLiveData = MutableLiveData<String?>()
@@ -20,7 +20,7 @@ class ReleaseSearchViewModel : ViewModel() {
 
     fun observe(owner: LifecycleOwner, onObserve: (PagedList<Release>) -> Unit, onInitialLoad: ((List<Release>) -> Unit)? = null) {
         queryLiveData.observe(owner, Observer {
-            val dataSource = ReleaseSearchDataSource(query, onInitialLoad)
+            val dataSource = SearchDataSource(query, onInitialLoad)
             val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
             releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
             releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })

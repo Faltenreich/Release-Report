@@ -2,8 +2,10 @@ package com.faltenreich.release.ui.list.item
 
 import com.faltenreich.release.data.model.Release
 import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
 
-data class ReleaseReleaseListItem(
+data class CalendarDateItem(
     override val date: LocalDate,
-    val release: Release
-) : ReleaseListItem
+    override val yearMonth: YearMonth,
+    val releases: List<Release>
+) : CalendarItem

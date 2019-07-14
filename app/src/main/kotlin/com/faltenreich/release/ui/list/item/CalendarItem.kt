@@ -3,7 +3,7 @@ package com.faltenreich.release.ui.list.item
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
-interface CalendarListItem {
+interface CalendarItem {
     val date: LocalDate
     val yearMonth: YearMonth // Used for list items whose date must not match the month (e.g. when filling up a month for a full row)
 

@@ -7,22 +7,22 @@ import com.faltenreich.release.R
 import com.faltenreich.release.extension.isToday
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
-import com.faltenreich.release.ui.list.item.CalendarDayListItem
+import com.faltenreich.release.ui.list.item.CalendarDateItem
 import com.faltenreich.release.ui.view.DateOpener
 import kotlinx.android.synthetic.main.list_item_calendar_day.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColorResource
 
-class CalendarDayViewHolder(
+class CalendarDateViewHolder(
     context: Context,
     parent: ViewGroup
-) : CalendarViewHolder<CalendarDayListItem>(
+) : CalendarViewHolder<CalendarDateItem>(
     context,
     R.layout.list_item_calendar_day,
     parent
 ), DateOpener {
 
-    override fun onBind(data: CalendarDayListItem) {
+    override fun onBind(data: CalendarDateItem) {
         container.setOnClickListener { openItem(data) }
 
         val date = data.date
@@ -41,7 +41,7 @@ class CalendarDayViewHolder(
         }
     }
 
-    private fun openItem(item: CalendarDayListItem) {
+    private fun openItem(item: CalendarDateItem) {
         openDate(context, item.date)
     }
 }

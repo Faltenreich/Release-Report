@@ -10,7 +10,7 @@ import com.faltenreich.release.extension.print
 import com.faltenreich.release.extension.yearMonth
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
-import com.faltenreich.release.ui.list.item.CalendarMonthListItem
+import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
@@ -61,7 +61,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
             val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
             headerMonthLabel.text = month.print(context)
 
-            val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthListItem }
+            val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthItem }
             val translationY = if (upcomingHeaderIndex >= 0) {
                 val upcomingHeaderOffset = listLayoutManager.getChildAt(upcomingHeaderIndex)?.top?.toFloat() ?: 0f
                 val top = if (upcomingHeaderOffset > 0f) upcomingHeaderOffset - header.height else 0f

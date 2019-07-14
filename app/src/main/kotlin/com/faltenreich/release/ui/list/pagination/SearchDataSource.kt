@@ -5,7 +5,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 
-class ReleaseSearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PageKeyedDataSource<Int, Release>() {
+class SearchDataSource(private val query: String?, private val onInitialLoad: ((List<Release>) -> Unit)? = null) : PageKeyedDataSource<Int, Release>() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Release>) {
