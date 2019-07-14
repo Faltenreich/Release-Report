@@ -8,20 +8,19 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
-import com.faltenreich.release.ui.list.item.ReleaseListItem
+import com.faltenreich.release.ui.list.item.ReleaseReleaseListItem
 import com.faltenreich.release.ui.view.ReleaseOpener
 import kotlinx.android.synthetic.main.list_item_release_image.*
 
-class ReleaseImageViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseListItem>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
+class ReleaseImageViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseReleaseListItem>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
 
-    override fun onBind(data: ReleaseListItem) {
-        data.release?.let { release ->
-            container.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
-            release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
-            releaseTypeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
-            releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_top_start)?.apply { setTint(ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)) }
-            releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
-            releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
-        }
+    override fun onBind(data: ReleaseReleaseListItem) {
+        val release = data.release
+        container.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
+        release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        releaseTypeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
+        releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_top_start)?.apply { setTint(ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)) }
+        releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
+        releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
     }
 }

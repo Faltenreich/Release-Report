@@ -4,7 +4,9 @@ import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.isTrue
+import com.faltenreich.release.ui.list.item.ReleaseDayListItem
 import com.faltenreich.release.ui.list.item.ReleaseListItem
+import com.faltenreich.release.ui.list.item.ReleaseReleaseListItem
 import org.threeten.bp.LocalDate
 
 private typealias ReleaseKey = LocalDate
@@ -37,13 +39,13 @@ class ReleaseDataSource(
         val dates = progression.map { page -> date.plusDays(page) }
         val (start, end) = dates.first() to dates.last()
         releaseRepository.getBetween(start, end) { releases ->
+            val adjacentDate = if (descending) end.plusDays(1) else start.minusDays(1)
             val items = dates.flatMap { date ->
-                val dayItem = ReleaseListItem(date, null)
+                val dayItem = ReleaseDayListItem(date)
                 val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
-                val releaseItems = releasesOfDay.map { release -> ReleaseListItem(release.releaseDate, release) }
+                val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseReleaseListItem(date, release) } }
                 listOf(dayItem).plus(releaseItems)
             }
-            val adjacentDate = if (descending) end.plusDays(1) else start.minusDays(1)
             callback.onResult(items, adjacentDate)
         }
     }
