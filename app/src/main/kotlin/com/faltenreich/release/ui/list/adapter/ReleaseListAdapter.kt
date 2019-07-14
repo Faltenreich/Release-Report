@@ -2,15 +2,15 @@ package com.faltenreich.release.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.item.DateItem
-import com.faltenreich.release.ui.list.pagination.ReleaseListItemDiffUtilCallback
+import com.faltenreich.release.ui.list.item.ReleaseDateItem
+import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseDateViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseImageViewHolder
 import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseViewHolder<DateItem>>(context, ReleaseListItemDiffUtilCallback()) {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseViewHolder<DateItem>>(context, ReleaseItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int = when {
         position < itemCount && getListItemAt(position) is ReleaseDateItem -> VIEW_TYPE_DATE
