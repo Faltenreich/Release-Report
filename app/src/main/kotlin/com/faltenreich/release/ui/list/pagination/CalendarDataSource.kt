@@ -22,7 +22,7 @@ class CalendarDataSource(
     override fun loadInitial(params: LoadInitialParams<YearMonth>, callback: LoadInitialCallback<YearMonth, CalendarListItem>) {
         load(startAt, params.requestedLoadSize, true, object : LoadCallback<YearMonth, CalendarListItem>() {
             override fun onResult(data: MutableList<CalendarListItem>, adjacentPageKey: YearMonth?) {
-                callback.onResult(data, startAt.minusMonths(1), startAt.plusMonths(1))
+                callback.onResult(data, startAt.minusMonths(1), adjacentPageKey)
             }
         })
     }

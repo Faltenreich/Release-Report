@@ -10,7 +10,7 @@ class PagingDataFactory<Key, Value : Any>(
 
     val config by lazy {
         PagedList.Config.Builder()
-            .setInitialLoadSizeHint(pageSize * 3)
+            .setInitialLoadSizeHint(pageSize)
             .setPageSize(pageSize)
             .setPrefetchDistance(pageSize)
             .build()

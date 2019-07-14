@@ -18,7 +18,8 @@ class ReleaseDataSource(
         load(0, params.requestedLoadSize, true, object : LoadCallback<Int, ReleaseListItem>() {
             override fun onResult(data: MutableList<ReleaseListItem>, adjacentPageKey: Int?) {
                 onInitialLoad?.invoke(data.size)
-                callback.onResult(listOf(ReleaseListItem(data.first().date, null)).plus(data), 0, 1)
+                val items = listOfNotNull(ReleaseListItem(data.firstOrNull()?.date ?: startAt, null)).plus(data)
+                callback.onResult(items, 0, adjacentPageKey)
             }
         })
     }
