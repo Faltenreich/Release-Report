@@ -14,18 +14,9 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
     override val clazz: KClass<Release> = Release::class
     override val modelName: String = "Release"
 
-    override fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override fun getAll(date: LocalDate, onResult: (List<Release>) -> Unit) {
         getQuery()
-            .run {
-                if (greaterThan) {
-                    whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date).orderByAscending(Release.RELEASED_AT)
-                } else {
-                    whereLessThanOrEqualTo(Release.RELEASED_AT, startAt.date).orderByDescending(Release.RELEASED_AT)
-                }
-            }
-            .whereGreaterThanOrEqualTo(Release.POPULARITY, minPopularity)
-            .setSkip(page * pageSize)
-            .setLimit(pageSize)
+            .whereEqualTo(Release.RELEASED_AT, date.date)
             .findInBackground { releases -> onResult(releases.sortedBy(Release::releaseDate)) }
     }
 

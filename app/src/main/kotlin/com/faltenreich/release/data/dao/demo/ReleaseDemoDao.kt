@@ -21,16 +21,9 @@ class ReleaseDemoDao : ReleaseDao {
         onResult(filtered)
     }
 
-    override fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        val filtered = {
-            val filtered = releases.filter { release ->
-                val matchesDate = if (greaterThan) release.releaseDate?.isAfterOrEqual(startAt).isTrue else release.releaseDate?.isBeforeOrEqual(startAt).isTrue
-                val matchesPopularity = release.popularity?.let { popularity -> popularity >= minPopularity }.isTrue
-                matchesDate && matchesPopularity
-            }
-            filtered.sortedBy(Release::releaseDate)
-        }
-        onResult(if (page == 0) filtered() else listOf())
+    override fun getAll(date: LocalDate, onResult: (List<Release>) -> Unit) {
+        val releases = releases.filter { release -> release.releaseDate?.isEqual(date).isTrue }
+        onResult(releases.sortedBy(Release::releaseDate))
     }
 
     override fun getByIds(

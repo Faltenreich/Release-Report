@@ -8,8 +8,8 @@ import org.threeten.bp.LocalDate
 
 class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) {
 
-    fun getAll(startAt: LocalDate, greaterThan: Boolean, minPopularity: Float, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        dao.getAll(startAt, greaterThan, minPopularity, page, pageSize, onResult)
+    fun getAll(date: LocalDate,  onResult: (List<Release>) -> Unit) {
+        dao.getAll(date, onResult)
     }
 
     fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType, pageSize: Int, onResult: (List<Release>) -> Unit) {

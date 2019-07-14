@@ -1,14 +1,12 @@
 package com.faltenreich.release.ui.list.pagination
 
 import androidx.paging.PageKeyedDataSource
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
-import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.ReleaseListItem
 import org.threeten.bp.LocalDate
 
-private typealias ReleaseKey = Int
+private typealias ReleaseKey = LocalDate
 
 class ReleaseDataSource(
     private var startAt: LocalDate,
@@ -17,10 +15,10 @@ class ReleaseDataSource(
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<ReleaseKey>, callback: LoadInitialCallback<ReleaseKey, ReleaseListItem>) {
-        load(0, params.requestedLoadSize, true, object : LoadCallback<ReleaseKey, ReleaseListItem>() {
+        load(startAt, params.requestedLoadSize, true, object : LoadCallback<ReleaseKey, ReleaseListItem>() {
             override fun onResult(data: MutableList<ReleaseListItem>, adjacentPageKey: ReleaseKey?) {
                 onInitialLoad?.invoke(data.size)
-                callback.onResult(data, 0, adjacentPageKey)
+                callback.onResult(data, startAt.minusDays(1), adjacentPageKey)
             }
         })
     }
@@ -33,37 +31,23 @@ class ReleaseDataSource(
         load(params.key, params.requestedLoadSize, true, callback)
     }
 
-    private fun load(page: Int, pageSize: Int, descending: Boolean, callback: LoadCallback<ReleaseKey, ReleaseListItem>) {
-        val onResponse = { data: List<ReleaseListItem> -> callback.onResult(data, page + 1) }
-        releaseRepository.getAll(startAt, descending, MIN_POPULARITY, page, pageSize) { releases ->
-
-            releases.takeIf(List<Release>::isNotEmpty)?.let {
-                val releaseListItems = mutableListOf<ReleaseListItem>()
-                releases.forEachIndexed { index, release ->
-                    releaseListItems.add(
-                        ReleaseListItem(
-                            release.releaseDate,
-                            release
-                        )
-                    )
-                    // Add section header
-                    releases.getOrNull(index + 1)?.let { nextRelease ->
-                        if (nextRelease.releaseDate?.isAfter(release.releaseDate).isTrue) {
-                            releaseListItems.add(
-                                ReleaseListItem(
-                                    nextRelease.releaseDate,
-                                    null
-                                )
-                            )
-                        }
-                    }
-                }
-                onResponse(releaseListItems)
-            } ?: onResponse(listOf())
-        }
+    private fun load(date: LocalDate, minPageSize: Int, descending: Boolean, callback: LoadCallback<ReleaseKey, ReleaseListItem>) {
+        loadItemsForDate(date, minPageSize, descending) { items, adjacentDate -> callback.onResult(items, adjacentDate) }
     }
 
-    companion object {
-        private const val MIN_POPULARITY = 10f
+    private fun loadItemsForDate(date: LocalDate, minPageSize: Int, descending: Boolean, givenItems: List<ReleaseListItem> = listOf(), callback: (List<ReleaseListItem>, LocalDate) -> Unit) {
+        releaseRepository.getAll(date) { releases ->
+            val dayItem = ReleaseListItem(date, null)
+            val releaseItems = releases.map { release -> ReleaseListItem(release.releaseDate, release) }
+            val newItems = listOf(dayItem).plus(releaseItems)
+            val items = if (descending) givenItems.plus(newItems) else newItems.plus(givenItems)
+
+            val adjacentDate = if (descending) date.plusDays(1) else date.minusDays(1)
+            if (items.size > minPageSize) {
+                callback(items, adjacentDate)
+            } else {
+                loadItemsForDate(adjacentDate, minPageSize, descending, items, callback)
+            }
+        }
     }
 }

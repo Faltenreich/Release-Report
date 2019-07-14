@@ -19,8 +19,7 @@ interface ParseDao<T : Model> : Dao<T> {
     fun ParseQuery<ParseObject>.findInBackground(onResult: (List<T>) -> Unit) {
         findInBackground { parseObjects, exception ->
             if (exception == null) {
-                val entities = parseObjects.mapNotNull { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) }
-                onResult(entities)
+                onResult(parseObjects.mapNotNull { parseObject -> ParseObjectFactory.createEntity(clazz, parseObject) })
             } else {
                 Log.e(tag, exception.message)
                 onResult(listOf())
