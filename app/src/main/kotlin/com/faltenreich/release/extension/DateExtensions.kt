@@ -16,6 +16,14 @@ private const val DATE_FORMAT_FIREBASE = "yyyy-MM-dd"
 val LocalDate.isToday: Boolean
     get() = isEqual(LocalDate.now())
 
+fun LocalDate.isAfterOrEqual(date: LocalDate): Boolean {
+    return !isBefore(date)
+}
+
+fun LocalDate.isBeforeOrEqual(date: LocalDate): Boolean {
+    return !isAfter(date)
+}
+
 val String?.asLocalDate: LocalDate?
     get() = try {
         LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))

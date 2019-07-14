@@ -18,12 +18,12 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
         getQuery()
             .run {
                 if (greaterThan) {
-                    whereGreaterThan(Release.RELEASED_AT, startAt.date).orderByAscending(Release.RELEASED_AT)
+                    whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date).orderByAscending(Release.RELEASED_AT)
                 } else {
-                    whereLessThan(Release.RELEASED_AT, startAt.date).orderByDescending(Release.RELEASED_AT)
+                    whereLessThanOrEqualTo(Release.RELEASED_AT, startAt.date).orderByDescending(Release.RELEASED_AT)
                 }
             }
-            .whereGreaterThan(Release.POPULARITY, minPopularity)
+            .whereGreaterThanOrEqualTo(Release.POPULARITY, minPopularity)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
             .findInBackground { releases -> onResult(releases.sortedBy(Release::releaseDate)) }
@@ -42,15 +42,15 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
         getQuery()
             .whereContainedIn(Model.ID, ids)
             .run { type?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
-            .run { startAt?.date?.let { date -> whereGreaterThan(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT) } ?: this }
+            .run { startAt?.date?.let { date -> whereGreaterThanOrEqualTo(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT) } ?: this }
             .findInBackground(onResult)
     }
 
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType, pageSize: Int, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereEqualTo(Release.TYPE, releaseType.key)
-            .whereGreaterThan(Release.RELEASED_AT, startAt.date)
-            .whereLessThan(Release.RELEASED_AT, endAt.date)
+            .whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date)
+            .whereLessThanOrEqualTo(Release.RELEASED_AT, endAt.date)
             .orderByDescending(Release.POPULARITY)
             .setLimit(pageSize)
             .findInBackground { releases -> onResult(releases) }

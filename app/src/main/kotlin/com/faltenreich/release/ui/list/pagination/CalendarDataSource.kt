@@ -13,29 +13,31 @@ import com.faltenreich.release.ui.list.item.CalendarListItem
 import com.faltenreich.release.ui.list.item.CalendarMonthListItem
 import org.threeten.bp.YearMonth
 
+private typealias CalendarKey = YearMonth
+
 class CalendarDataSource(
     private val context: Context,
     private val startAt: YearMonth
-) : PageKeyedDataSource<YearMonth, CalendarListItem>() {
+) : PageKeyedDataSource<CalendarKey, CalendarListItem>() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
-    override fun loadInitial(params: LoadInitialParams<YearMonth>, callback: LoadInitialCallback<YearMonth, CalendarListItem>) {
-        load(startAt, params.requestedLoadSize, true, object : LoadCallback<YearMonth, CalendarListItem>() {
-            override fun onResult(data: MutableList<CalendarListItem>, adjacentPageKey: YearMonth?) {
+    override fun loadInitial(params: LoadInitialParams<CalendarKey>, callback: LoadInitialCallback<CalendarKey, CalendarListItem>) {
+        load(startAt, params.requestedLoadSize, true, object : LoadCallback<CalendarKey, CalendarListItem>() {
+            override fun onResult(data: MutableList<CalendarListItem>, adjacentPageKey: CalendarKey?) {
                 callback.onResult(data, startAt.minusMonths(1), adjacentPageKey)
             }
         })
     }
 
-    override fun loadBefore(params: LoadParams<YearMonth>, callback: LoadCallback<YearMonth, CalendarListItem>) {
+    override fun loadBefore(params: LoadParams<CalendarKey>, callback: LoadCallback<CalendarKey, CalendarListItem>) {
         load(params.key, params.requestedLoadSize, false, callback)
     }
 
-    override fun loadAfter(params: LoadParams<YearMonth>, callback: LoadCallback<YearMonth, CalendarListItem>) {
+    override fun loadAfter(params: LoadParams<CalendarKey>, callback: LoadCallback<CalendarKey, CalendarListItem>) {
         load(params.key, params.requestedLoadSize, true, callback)
     }
 
-    private fun load(yearMonth: YearMonth, pageSize: Int, descending: Boolean, callback: LoadCallback<YearMonth, CalendarListItem>) {
+    private fun load(yearMonth: CalendarKey, pageSize: Int, descending: Boolean, callback: LoadCallback<CalendarKey, CalendarListItem>) {
         val progression = if (descending) (0L until pageSize) else (-pageSize + 1L .. 0L)
         val yearMonths = progression.map { page -> yearMonth.plusMonths(page) }
 
