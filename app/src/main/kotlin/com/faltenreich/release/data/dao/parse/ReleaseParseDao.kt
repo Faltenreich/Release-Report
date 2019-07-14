@@ -14,12 +14,6 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
     override val clazz: KClass<Release> = Release::class
     override val modelName: String = "Release"
 
-    override fun getAll(date: LocalDate, onResult: (List<Release>) -> Unit) {
-        getQuery()
-            .whereEqualTo(Release.RELEASED_AT, date.date)
-            .findInBackground { releases -> onResult(releases.sortedBy(Release::releaseDate)) }
-    }
-
     override fun getByIds(
         ids: Collection<String>,
         startAt: LocalDate,
@@ -37,13 +31,14 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
             .findInBackground(onResult)
     }
 
-    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType?, pageSize: Int?, onResult: (List<Release>) -> Unit) {
         getQuery()
-            .whereEqualTo(Release.TYPE, releaseType.key)
+            .run { releaseType?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
             .whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date)
             .whereLessThanOrEqualTo(Release.RELEASED_AT, endAt.date)
-            .orderByDescending(Release.POPULARITY)
-            .setLimit(pageSize)
+            .orderByDescending(Release.RELEASED_AT)
+            .addDescendingOrder(Release.POPULARITY)
+            .run { pageSize?.let { limit -> setLimit(limit) } ?: this }
             .findInBackground { releases -> onResult(releases) }
     }
 

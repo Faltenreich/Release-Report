@@ -21,11 +21,6 @@ class ReleaseDemoDao : ReleaseDao {
         onResult(filtered)
     }
 
-    override fun getAll(date: LocalDate, onResult: (List<Release>) -> Unit) {
-        val releases = releases.filter { release -> release.releaseDate?.isEqual(date).isTrue }
-        onResult(releases.sortedBy(Release::releaseDate))
-    }
-
     override fun getByIds(
         ids: Collection<String>,
         startAt: LocalDate,
@@ -49,10 +44,11 @@ class ReleaseDemoDao : ReleaseDao {
         onResult(filtered)
     }
 
-    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType?, pageSize: Int?, onResult: (List<Release>) -> Unit) {
         val filtered = releases.filter { release ->
-            release.releaseDate?.let { date -> date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt) }.isTrue
-                    && release.releaseType == releaseType
+            release.releaseDate?.let { date ->
+                date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
+            }.isTrue && releaseType?.let { release.releaseType == releaseType }.isTrueOrNull
         }
         onResult(filtered)
     }

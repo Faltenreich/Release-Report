@@ -3,6 +3,7 @@ package com.faltenreich.release.ui.list.pagination
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
+import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.ReleaseListItem
 import org.threeten.bp.LocalDate
 
@@ -31,23 +32,19 @@ class ReleaseDataSource(
         load(params.key, params.requestedLoadSize, true, callback)
     }
 
-    private fun load(date: LocalDate, minPageSize: Int, descending: Boolean, callback: LoadCallback<ReleaseKey, ReleaseListItem>) {
-        loadItemsForDate(date, minPageSize, descending) { items, adjacentDate -> callback.onResult(items, adjacentDate) }
-    }
-
-    private fun loadItemsForDate(date: LocalDate, minPageSize: Int, descending: Boolean, givenItems: List<ReleaseListItem> = listOf(), callback: (List<ReleaseListItem>, LocalDate) -> Unit) {
-        releaseRepository.getAll(date) { releases ->
-            val dayItem = ReleaseListItem(date, null)
-            val releaseItems = releases.map { release -> ReleaseListItem(release.releaseDate, release) }
-            val newItems = listOf(dayItem).plus(releaseItems)
-            val items = if (descending) givenItems.plus(newItems) else newItems.plus(givenItems)
-
-            val adjacentDate = if (descending) date.plusDays(1) else date.minusDays(1)
-            if (items.size > minPageSize) {
-                callback(items, adjacentDate)
-            } else {
-                loadItemsForDate(adjacentDate, minPageSize, descending, items, callback)
+    private fun load(date: LocalDate, pageSize: Int, descending: Boolean, callback: LoadCallback<ReleaseKey, ReleaseListItem>) {
+        val progression = if (descending) (0L until pageSize) else (-pageSize + 1L .. 0L)
+        val dates = progression.map { page -> date.plusDays(page) }
+        val (start, end) = dates.first() to dates.last()
+        releaseRepository.getBetween(start, end) { releases ->
+            val items = dates.flatMap { date ->
+                val dayItem = ReleaseListItem(date, null)
+                val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
+                val releaseItems = releasesOfDay.map { release -> ReleaseListItem(release.releaseDate, release) }
+                listOf(dayItem).plus(releaseItems)
             }
+            val adjacentDate = if (descending) end.plusDays(1) else start.minusDays(1)
+            callback.onResult(items, adjacentDate)
         }
     }
 }
