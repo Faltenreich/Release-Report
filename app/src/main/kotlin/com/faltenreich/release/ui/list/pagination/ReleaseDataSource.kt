@@ -7,7 +7,9 @@ import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.DateItem
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
+import com.faltenreich.release.ui.list.item.ReleaseMoreItem
 import org.threeten.bp.LocalDate
+import kotlin.math.min
 
 private typealias ReleaseKey = LocalDate
 
@@ -43,10 +45,16 @@ class ReleaseDataSource(
             val items = dates.flatMap { date ->
                 val dayItem = ReleaseDateItem(date)
                 val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
-                val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
-                listOf(dayItem).plus(releaseItems)
+                val releaseItems = releasesOfDay.subList(0, min(releasesOfDay.size, MAXIMUM_RELEASES_PER_DAY)).mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                val moreCount = releasesOfDay.size - releaseItems.size
+                val moreItem = if (moreCount > 0) ReleaseMoreItem(date, moreCount) else null
+                listOf(dayItem).plus(releaseItems).plus(moreItem)
             }
             callback.onResult(items, adjacentDate)
         }
+    }
+
+    companion object {
+        private const val MAXIMUM_RELEASES_PER_DAY = 5
     }
 }
