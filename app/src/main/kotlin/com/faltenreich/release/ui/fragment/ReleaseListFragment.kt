@@ -19,7 +19,7 @@ import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
-import com.faltenreich.release.ui.list.item.ListDateItem
+import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -133,7 +133,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         headerDateTextView.text = currentDate?.print(context)
 
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition + 1)
-        val translateHeader = secondVisibleListItem is ListDateItem
+        val translateHeader = secondVisibleListItem is ReleaseDateItem
         if (translateHeader) {
             val secondOffset = listLayoutManager.getChildAt(1)?.top ?: 0
             val top = secondOffset - header.height
