@@ -16,11 +16,11 @@ import org.threeten.bp.LocalDate
 class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseViewHolder<DateItem>>(context, ReleaseItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return when (getListItemAt(position)) {
+        return when (val item = getListItemAt(position)) {
             is ReleaseDateItem -> VIEW_TYPE_DATE
             is ReleaseItem -> VIEW_TYPE_RELEASE
             is ReleaseMoreItem -> VIEW_TYPE_MORE
-            else -> VIEW_TYPE_RELEASE
+            else -> throw IllegalArgumentException("Unknown item: $item")
         }
     }
 

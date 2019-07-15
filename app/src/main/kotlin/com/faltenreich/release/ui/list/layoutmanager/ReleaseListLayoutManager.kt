@@ -12,10 +12,12 @@ class ReleaseListLayoutManager(
     init {
         spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return when (listAdapter?.getItemViewType(position)) {
-                    ReleaseListAdapter.VIEW_TYPE_DATE -> SPAN_COUNT
-                    else -> 1
-                }
+                return listAdapter?.takeIf { adapter -> adapter.itemCount > 0 }?.let { adapter ->
+                    return@let when (adapter.getItemViewType(position)) {
+                        ReleaseListAdapter.VIEW_TYPE_DATE -> SPAN_COUNT
+                        else -> 1
+                    }
+                } ?: 1
             }
         }
     }

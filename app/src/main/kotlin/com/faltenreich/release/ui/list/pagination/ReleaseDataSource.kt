@@ -45,10 +45,11 @@ class ReleaseDataSource(
             val items = dates.flatMap { date ->
                 val dayItem = ReleaseDateItem(date)
                 val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
-                val releaseItems = releasesOfDay.subList(0, min(releasesOfDay.size, MAXIMUM_RELEASES_PER_DAY)).mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                val releasesOfDayTrimmed = releasesOfDay.subList(0, min(releasesOfDay.size, MAXIMUM_RELEASES_PER_DAY))
+                val releaseItems = releasesOfDayTrimmed.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
                 val moreCount = releasesOfDay.size - releaseItems.size
                 val moreItem = if (moreCount > 0) ReleaseMoreItem(date, moreCount) else null
-                listOf(dayItem).plus(releaseItems).plus(moreItem)
+                listOf(dayItem).plus(releaseItems).also { list -> if (moreCount > 0) list.plus(moreItem) }
             }
             callback.onResult(items, adjacentDate)
         }
