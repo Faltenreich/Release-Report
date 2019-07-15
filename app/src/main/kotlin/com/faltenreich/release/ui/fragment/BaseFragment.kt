@@ -31,8 +31,6 @@ abstract class BaseFragment(
     val appCompatActivity: AppCompatActivity?
         get() = activity as? AppCompatActivity
 
-    override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T = ViewModelProviders.of(this).get(clazz.java)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
@@ -45,6 +43,10 @@ abstract class BaseFragment(
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menuResId?.let { menuResId -> inflater.inflate(menuResId, menu) }
+    }
+
+    override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T {
+        return ViewModelProviders.of(this).get(clazz.java)
     }
 
     private fun init() {
