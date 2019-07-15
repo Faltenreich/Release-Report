@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
+    android:id="@+id/nav"
     app:startDestination="@id/spotlight">
 
     <action
@@ -30,6 +30,11 @@
             android:name="date"
             app:argType="string"/>
     </action>
+
+    <dialog
+        android:id="@+id/navigation"
+        android:name="com.faltenreich.release.ui.fragment.NavigationFragment"
+        tools:layout="@layout/fragment_navigation" />
 
     <fragment
         android:id="@+id/spotlight"

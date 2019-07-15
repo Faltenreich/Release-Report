@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.data.provider.ViewModelCreator
 import kotlin.reflect.KClass
 
@@ -54,6 +54,6 @@ abstract class BaseFragment(
     }
 
     protected fun finish() {
-        view?.findNavController()?.navigateUp()
+        findNavController().navigateUp()
     }
 }

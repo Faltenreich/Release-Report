@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.faltenreich.release.R
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -18,21 +17,23 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLayout()
+        appCompatActivity?.setSupportActionBar(bottomAppBar)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.search -> { navigationController.navigate(R.id.release_search); true }
+            R.id.search -> { openSearch(); true }
+            R.id.filter -> { openNavigation(); true }
             // TODO: Filter and date picker
             else -> false
         }
     }
 
-    private fun initLayout() {
-        appCompatActivity?.setSupportActionBar(bottomAppBar)
-        NavigationUI.setupWithNavController(navigationView, navigationController)
-        // Workaround: Title is not set on app start via Navigation Architecture Components, so we do it on our own
-        title = navigationController.currentDestination?.label?.toString()
+    private fun openNavigation() {
+        navigationController.navigate(R.id.navigation)
+    }
+
+    private fun openSearch() {
+        navigationController.navigate(R.id.release_search)
     }
 }
