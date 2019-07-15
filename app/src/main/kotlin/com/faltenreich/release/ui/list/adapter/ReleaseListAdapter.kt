@@ -2,15 +2,9 @@ package com.faltenreich.release.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.ui.list.item.DateItem
-import com.faltenreich.release.ui.list.item.ReleaseDateItem
-import com.faltenreich.release.ui.list.item.ReleaseItem
-import com.faltenreich.release.ui.list.item.ReleaseMoreItem
+import com.faltenreich.release.ui.list.item.*
 import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
-import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
-import com.faltenreich.release.ui.list.viewholder.ReleaseDateViewHolder
-import com.faltenreich.release.ui.list.viewholder.ReleaseImageViewHolder
-import com.faltenreich.release.ui.list.viewholder.ReleaseMoreViewHolder
+import com.faltenreich.release.ui.list.viewholder.*
 import org.threeten.bp.LocalDate
 
 class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseViewHolder<DateItem>>(context, ReleaseItemDiffUtilCallback()) {
@@ -20,6 +14,7 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseView
             is ReleaseDateItem -> VIEW_TYPE_DATE
             is ReleaseItem -> VIEW_TYPE_RELEASE
             is ReleaseMoreItem -> VIEW_TYPE_MORE
+            is ReleaseEmptyItem -> VIEW_TYPE_EMPTY
             else -> throw IllegalArgumentException("Unknown item: $item")
         }
     }
@@ -31,6 +26,7 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseView
             VIEW_TYPE_DATE -> ReleaseDateViewHolder(context, parent)
             VIEW_TYPE_RELEASE -> ReleaseImageViewHolder(context, parent)
             VIEW_TYPE_MORE -> ReleaseMoreViewHolder(context, parent)
+            VIEW_TYPE_EMPTY -> ReleaseEmptyViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateItem>
     }
@@ -43,5 +39,6 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseView
         const val VIEW_TYPE_DATE = 0
         const val VIEW_TYPE_RELEASE = 1
         const val VIEW_TYPE_MORE = 2
+        const val VIEW_TYPE_EMPTY = 3
     }
 }

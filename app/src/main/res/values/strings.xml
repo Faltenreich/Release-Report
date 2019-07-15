@@ -36,5 +36,6 @@
     <string name="version">Version</string>
     <string name="favorite_added">You are following this release and will be notified upon its release date</string>
     <string name="favorite_removed">You are no longer following this release</string>
+    <string name="empty">Nothing to see here</string>
 
 </resources>

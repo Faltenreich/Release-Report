@@ -4,10 +4,7 @@ import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.isTrue
-import com.faltenreich.release.ui.list.item.DateItem
-import com.faltenreich.release.ui.list.item.ReleaseDateItem
-import com.faltenreich.release.ui.list.item.ReleaseItem
-import com.faltenreich.release.ui.list.item.ReleaseMoreItem
+import com.faltenreich.release.ui.list.item.*
 import org.threeten.bp.LocalDate
 
 private typealias ReleaseKey = LocalDate
@@ -44,16 +41,20 @@ class ReleaseDataSource(
             val items = dates.flatMap { date ->
                 val dayItem = ReleaseDateItem(date)
                 val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
-                val splitUpReleases = releasesOfDay.size > MAXIMUM_RELEASES_PER_DAY
-                if (splitUpReleases) {
-                    val threshold = MAXIMUM_RELEASES_PER_DAY - 1
-                    val releaseItems = releasesOfDay.subList(0, threshold).mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
-                    val moreReleases = releasesOfDay.subList(threshold, releasesOfDay.size)
-                    val moreItem = ReleaseMoreItem(date, moreReleases)
-                    listOf(dayItem).plus(releaseItems).plus(moreItem)
+                if (releasesOfDay.isNotEmpty()) {
+                    val splitUpReleases = releasesOfDay.size > MAXIMUM_RELEASES_PER_DAY
+                    if (splitUpReleases) {
+                        val threshold = MAXIMUM_RELEASES_PER_DAY - 1
+                        val releaseItems = releasesOfDay.subList(0, threshold).mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                        val moreReleases = releasesOfDay.subList(threshold, releasesOfDay.size)
+                        val moreItem = ReleaseMoreItem(date, moreReleases)
+                        listOf(dayItem).plus(releaseItems).plus(moreItem)
+                    } else {
+                        val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                        listOf(dayItem).plus(releaseItems)
+                    }
                 } else {
-                    val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
-                    listOf(dayItem).plus(releaseItems)
+                    listOf(dayItem).plus(ReleaseEmptyItem(date))
                 }
             }
             callback.onResult(items, adjacentDate)
@@ -61,6 +62,6 @@ class ReleaseDataSource(
     }
 
     companion object {
-        private const val MAXIMUM_RELEASES_PER_DAY = 6
+        private const val MAXIMUM_RELEASES_PER_DAY = 10
     }
 }
