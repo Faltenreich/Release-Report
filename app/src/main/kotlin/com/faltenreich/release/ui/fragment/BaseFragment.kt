@@ -5,6 +5,7 @@ import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
@@ -26,6 +27,9 @@ abstract class BaseFragment(
         }
 
     var subtitle: String? = null
+
+    val appCompatActivity: AppCompatActivity?
+        get() = activity as? AppCompatActivity
 
     override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T = ViewModelProviders.of(this).get(clazz.java)
 

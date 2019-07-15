@@ -37,7 +37,7 @@ abstract class UseCaseTest {
     protected fun openFragment(@IdRes idRes: Int) {
         activity.apply {
             runOnUiThread {
-                findNavController(R.id.appNavigationHost).navigate(idRes, null)
+                findNavController(R.id.mainNavigationHost).navigate(idRes, null)
             }
         }
     }

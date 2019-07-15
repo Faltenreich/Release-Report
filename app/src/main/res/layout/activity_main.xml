@@ -2,12 +2,8 @@
 
 <fragment
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/appNavigationHost"
-    android:name="androidx.navigation.fragment.NavHostFragment"
+    android:id="@+id/mainFragment"
+    android:name="com.faltenreich.release.ui.fragment.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:fitsSystemWindows="true"
-    app:navGraph="@navigation/navigation"
-    app:defaultNavHost="true"/>
+    android:fitsSystemWindows="true"/>

@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/settings"
-        android:title="@string/settings"/>
+        android:id="@+id/date"
+        android:title="@string/date_select"
+        android:icon="@drawable/ic_date"
+        app:showAsAction="ifRoom"
+        app:iconTint="@color/colorPrimaryDark"/>
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"
+        app:iconTint="@color/colorPrimaryDark"/>
+
+    <item
+        android:id="@+id/filter"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="always"
+        app:iconTint="@color/colorPrimaryDark"/>
 
 </menu>

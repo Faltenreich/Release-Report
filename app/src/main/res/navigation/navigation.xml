@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/main">
+    app:startDestination="@id/spotlight">
 
     <action
         android:id="@+id/open_release"
@@ -19,30 +19,41 @@
             app:argType="string"/>
     </action>
 
+    <action
+        android:id="@+id/open_date"
+        app:destination="@+id/releases"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out">
+        <argument
+            android:name="date"
+            app:argType="string"/>
+    </action>
+
     <fragment
-        android:id="@+id/main"
-        android:name="com.faltenreich.release.ui.fragment.MainFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/search_release"
-            app:destination="@+id/release_search"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out">
-            <argument
-                android:name="query"
-                app:argType="string"/>
-        </action>
-        <action
-            android:id="@+id/open_preferences"
-            app:destination="@+id/preferences"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+        android:id="@+id/spotlight"
+        android:name="com.faltenreich.release.ui.fragment.SpotlightFragment"
+        android:label="@string/spotlight"
+        tools:layout="@layout/fragment_spotlight"/>
+
+    <fragment
+        android:id="@+id/releases"
+        android:name="com.faltenreich.release.ui.fragment.ReleaseListFragment"
+        android:label="@string/releases"
+        tools:layout="@layout/fragment_release_list">
+        <argument
+            android:name="date"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/calendar"
+        android:name="com.faltenreich.release.ui.fragment.CalendarFragment"
+        android:label="@string/calendar"
+        tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/release_detail"
@@ -56,11 +67,7 @@
     <fragment
         android:id="@+id/release_search"
         android:name="com.faltenreich.release.ui.fragment.ReleaseSearchFragment"
-        tools:layout="@layout/fragment_release_search">
-        <argument
-            android:name="query"
-            app:argType="string"/>
-    </fragment>
+        tools:layout="@layout/fragment_release_search"/>
 
     <fragment
         android:id="@+id/preferences"

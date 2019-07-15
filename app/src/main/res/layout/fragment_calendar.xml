@@ -10,7 +10,6 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/translucent"
         tools:listitem="@layout/list_item_calendar_day"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:spanCount="7"/>
