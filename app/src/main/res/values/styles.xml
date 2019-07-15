@@ -8,7 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/gray_lighter</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="backgroundColorPrimary">@color/background_light_primary</item>
         <item name="backgroundColorPrimaryTranslucent">@color/background_light_primary_translucent</item>
@@ -20,7 +20,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/gray_lighter</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="backgroundColorPrimary">@color/background_dark_primary</item>
         <item name="backgroundColorPrimaryTranslucent">@color/background_dark_primary_translucent</item>
