@@ -84,7 +84,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     private fun initData() {
         releaseId?.let { id ->
             viewModel.observeRelease(id, this) { release ->
-                toolbar.title = release?.title
+                collapsingToolbarLayout.title = release?.title
                 releaseTitleTextView.text = release?.title
 
                 release?.imageUrlForWallpaper?.let { url ->
