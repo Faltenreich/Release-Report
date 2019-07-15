@@ -9,6 +9,6 @@ import kotlinx.android.synthetic.main.list_item_release_more.*
 class ReleaseMoreViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseMoreItem>(context, R.layout.list_item_release_more, parent) {
 
     override fun onBind(data: ReleaseMoreItem) {
-        moreTextView.text = "${data.count}+"
+        moreTextView.text = "${data.releases.size}+"
     }
 }
