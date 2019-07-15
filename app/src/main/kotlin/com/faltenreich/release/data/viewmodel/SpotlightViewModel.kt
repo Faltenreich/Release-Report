@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
@@ -31,21 +30,21 @@ class SpotlightViewModel : ViewModel() {
         get() = recentReleasesLiveData.value
         set(value) = recentReleasesLiveData.postValue(value)
 
-    fun observeWeeklyReleases(type: ReleaseType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
+    fun observeWeeklyReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         weeklyReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), type, CHUNK_SIZE) { releases -> releasesOfWeek = releases }
+        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), CHUNK_SIZE) { releases -> releasesOfWeek = releases }
     }
 
-    fun observeFavoriteReleases(type: ReleaseType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
+    fun observeFavoriteReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         favoriteReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        releaseRepository.getFavorites(type, today) { releases -> favoriteReleases = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE) }
+        releaseRepository.getFavorites(today) { releases -> favoriteReleases = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE) }
     }
 
-    fun observeRecentReleases(type: ReleaseType, owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
+    fun observeRecentReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
         recentReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
         val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
         val startAt = endAt.minusMonths(1)
-        releaseRepository.getBetween(startAt, endAt, type, CHUNK_SIZE) { releases -> recentReleases = releases }
+        releaseRepository.getBetween(startAt, endAt, CHUNK_SIZE) { releases -> recentReleases = releases }
     }
 
     companion object {

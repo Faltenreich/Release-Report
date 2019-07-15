@@ -8,18 +8,18 @@ import org.threeten.bp.LocalDate
 
 class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) {
 
-    fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType? = null, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
-        dao.getBetween(startAt, endAt, releaseType, pageSize, onResult)
+    fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
+        dao.getBetween(startAt, endAt, pageSize, onResult)
     }
 
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         dao.search(string, page, pageSize, onResult)
     }
 
-    // TODO: Paging
-    fun getFavorites(type: ReleaseType? = null, startAt: LocalDate? = null, onResult: (List<Release>) -> Unit) {
+    // TODO: Pagination
+    fun getFavorites(startAt: LocalDate? = null, onResult: (List<Release>) -> Unit) {
         UserPreferences.favoriteReleaseIds.takeIf(Collection<*>::isNotEmpty)?.let { favoriteReleaseIds ->
-            dao.getByIds(favoriteReleaseIds, type, startAt, onResult)
+            dao.getByIds(favoriteReleaseIds, startAt, onResult)
         } ?: onResult(listOf())
     }
 

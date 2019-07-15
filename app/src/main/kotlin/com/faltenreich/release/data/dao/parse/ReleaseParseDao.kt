@@ -1,7 +1,6 @@
 package com.faltenreich.release.data.dao.parse
 
 import com.faltenreich.release.data.dao.ReleaseDao
-import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Model
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.date
@@ -23,17 +22,15 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getByIds(ids: Collection<String>, type: ReleaseType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
+    override fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereContainedIn(Model.ID, ids)
-            .run { type?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
             .run { startAt?.date?.let { date -> whereGreaterThanOrEqualTo(Release.RELEASED_AT, date).orderByAscending(Release.RELEASED_AT) } ?: this }
             .findInBackground(onResult)
     }
 
-    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType?, pageSize: Int?, onResult: (List<Release>) -> Unit) {
+    override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
         getQuery()
-            .run { releaseType?.key?.let { key -> whereEqualTo(Release.TYPE, key) } ?: this }
             .whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date)
             .whereLessThanOrEqualTo(Release.RELEASED_AT, endAt.date)
             .orderByDescending(Release.RELEASED_AT)

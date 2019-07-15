@@ -1,7 +1,6 @@
 package com.faltenreich.release.data.dao.demo
 
 import com.faltenreich.release.data.dao.ReleaseDao
-import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.isAfterOrEqual
 import com.faltenreich.release.extension.isBeforeOrEqual
@@ -35,20 +34,16 @@ class ReleaseDemoDao : ReleaseDao {
         onResult(filtered)
     }
 
-    override fun getByIds(ids: Collection<String>, type: ReleaseType?, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
+    override fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         val filtered = releases.filter { release ->
-            ids.contains(release.id)
-                    && startAt?.let { release.releaseDate?.isAfterOrEqual(startAt).isTrue }.isTrueOrNull
-                    && type?.let { release.releaseType == type }.isTrueOrNull
+            ids.contains(release.id) && startAt?.let { release.releaseDate?.isAfterOrEqual(startAt).isTrue }.isTrueOrNull
         }
         onResult(filtered)
     }
 
-    override fun getBetween(startAt: LocalDate, endAt: LocalDate, releaseType: ReleaseType?, pageSize: Int?, onResult: (List<Release>) -> Unit) {
+    override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
         val filtered = releases.filter { release ->
-            release.releaseDate?.let { date ->
-                date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
-            }.isTrue && releaseType?.let { release.releaseType == releaseType }.isTrueOrNull
+            release.releaseDate?.let { date -> date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt) }.isTrue
         }
         onResult(filtered)
     }
