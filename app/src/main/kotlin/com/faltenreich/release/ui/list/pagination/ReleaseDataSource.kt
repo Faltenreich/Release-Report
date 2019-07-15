@@ -49,7 +49,8 @@ class ReleaseDataSource(
                 val releaseItems = releasesOfDayTrimmed.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
                 val moreCount = releasesOfDay.size - releaseItems.size
                 val moreItem = if (moreCount > 0) ReleaseMoreItem(date, moreCount) else null
-                listOf(dayItem).plus(releaseItems).also { list -> if (moreCount > 0) list.plus(moreItem) }
+                val items = listOf(dayItem).plus(releaseItems).plus(moreItem)
+                items.filterNotNull()
             }
             callback.onResult(items, adjacentDate)
         }
