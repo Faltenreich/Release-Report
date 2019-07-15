@@ -10,6 +10,19 @@
     app:cardBackgroundColor="?attr/colorPrimary"
     app:cardCornerRadius="@dimen/card_corner_radius" >
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_item_release_more_item"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager "
+        tools:spanCount="2"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucent_dark"/>
+
     <TextView
         android:id="@+id/moreTextView"
         android:layout_width="match_parent"

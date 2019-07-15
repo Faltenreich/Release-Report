@@ -13,12 +13,12 @@ object DemoFactory {
     private const val IMAGE_PROVIDER = "https://picsum.photos"
 
     private val releases: List<Release> by lazy {
-        val startDate = LocalDate.now().minusDays(1)
+        val startDate = LocalDate.now()
         (0 until 100).map { index ->
             Release().apply {
                 id = index.toString()
                 title = "Release ${index + 1}"
-                releaseDate = startDate.plusDays(index.toLong() / 7)
+                releaseDate = startDate
                 releaseType = if (index % 3 == 0) ReleaseType.MOVIE else if (index % 2 == 0) ReleaseType.MUSIC else ReleaseType.GAME
                 popularity = 100f
                 externalUrl = "https://www.google.de"
