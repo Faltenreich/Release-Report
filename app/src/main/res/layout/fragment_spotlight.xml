@@ -97,7 +97,7 @@
             android:textColor="?android:textColorPrimaryInverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spotlightContainer"/>
+            app:layout_constraintTop_toBottomOf="@+id/spotlightContainer"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/weekListView"
@@ -109,7 +109,7 @@
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weekListLabel"
+            app:layout_constraintTop_toBottomOf="@+id/weekListLabel"
             tools:listitem="@layout/list_item_spotlight"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
@@ -119,10 +119,10 @@
             android:id="@+id/weekEmptyView"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
-            app:layout_constraintTop_toTopOf="@id/weekListView"
-            app:layout_constraintBottom_toBottomOf="@id/weekListView"
+            app:layout_constraintTop_toTopOf="@+id/weekListView"
+            app:layout_constraintBottom_toBottomOf="@+id/weekListView"
             app:layout_constraintStart_toStartOf="@id/weekListView"
-            app:layout_constraintEnd_toEndOf="@id/weekListView"/>
+            app:layout_constraintEnd_toEndOf="@+id/weekListView"/>
 
         <TextView
             android:id="@+id/favoriteLabel"
@@ -137,7 +137,7 @@
             android:textColor="?android:textColorPrimaryInverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weekListView"/>
+            app:layout_constraintTop_toBottomOf="@+id/weekListView"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favoriteListView"
@@ -149,7 +149,7 @@
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/favoriteLabel"
+            app:layout_constraintTop_toBottomOf="@+id/favoriteLabel"
             tools:listitem="@layout/list_item_spotlight"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
@@ -167,7 +167,7 @@
             android:textColor="?android:textColorPrimaryInverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/favoriteListView"/>
+            app:layout_constraintTop_toBottomOf="@+id/favoriteListView"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recentListView"
@@ -179,7 +179,7 @@
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recentLabel"
+            app:layout_constraintTop_toBottomOf="@+id/recentLabel"
             tools:listitem="@layout/list_item_spotlight"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
@@ -189,10 +189,10 @@
             android:id="@+id/recentEmptyView"
             android:layout_width="0dp"
             android:layout_height="@dimen/spotlight_list_height"
-            app:layout_constraintTop_toTopOf="@id/recentListView"
-            app:layout_constraintBottom_toBottomOf="@id/recentListView"
-            app:layout_constraintStart_toStartOf="@id/recentListView"
-            app:layout_constraintEnd_toEndOf="@id/recentListView"/>
+            app:layout_constraintTop_toTopOf="@+id/recentListView"
+            app:layout_constraintBottom_toBottomOf="@+id/recentListView"
+            app:layout_constraintStart_toStartOf="@+id/recentListView"
+            app:layout_constraintEnd_toEndOf="@+id/recentListView"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

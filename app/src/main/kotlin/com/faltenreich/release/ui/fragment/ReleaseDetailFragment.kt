@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
@@ -56,7 +55,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
     private fun initLayout() {
         context?.apply {
-            (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+            appCompatActivity?.setSupportActionBar(toolbar)
 
             val transition = TransitionInflater.from(context).inflateTransition(R.transition.shared_element)
             sharedElementEnterTransition = transition

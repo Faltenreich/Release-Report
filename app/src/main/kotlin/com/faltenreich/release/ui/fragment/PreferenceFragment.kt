@@ -2,7 +2,6 @@ package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.faltenreich.release.R
 import com.faltenreich.release.extension.className
 import kotlinx.android.synthetic.main.fragment_preference.*
@@ -16,7 +15,7 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
     }
 
     private fun initToolbar() {
-        (activity as? AppCompatActivity)?.apply {
+        appCompatActivity?.apply {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
