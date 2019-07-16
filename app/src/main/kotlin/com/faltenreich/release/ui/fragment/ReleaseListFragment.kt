@@ -26,6 +26,7 @@ import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
+import kotlin.math.abs
 import kotlin.math.min
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
@@ -132,13 +133,21 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         headerDateTextView.text = currentDate?.print(context)
 
-        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition + 1)
-        val translateHeader = secondVisibleListItem is ReleaseDateItem
-        if (translateHeader) {
-            val secondOffset = listLayoutManager.getChildAt(1)?.top ?: 0
-            val top = secondOffset - header.height
-            val translationY = min(top, 0)
-            header.translationY = translationY.toFloat()
+        val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
+        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
+        val approachingHeader = secondVisibleListItem is ReleaseDateItem
+        if (approachingHeader) {
+            val headerIndexInLayoutManager = firstCompletelyVisibleListItemPosition - firstVisibleListItemPosition
+            val headerHeight = headerDateTextView.height
+            val secondVisibleListItemTop = listLayoutManager.getChildAt(headerIndexInLayoutManager)?.top ?: headerHeight
+            val translateHeader = abs(secondVisibleListItemTop) < headerHeight
+            if (translateHeader) {
+                val top = secondVisibleListItemTop - header.height
+                val translationY = min(top, 0)
+                header.translationY = translationY.toFloat()
+            } else {
+                header.translationY = 0f
+            }
         } else {
             header.translationY = 0f
         }
