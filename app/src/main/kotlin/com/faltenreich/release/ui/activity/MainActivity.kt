@@ -5,7 +5,8 @@ import com.faltenreich.release.R
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
     override fun onBackPressed() {
-        if (!findNavController(R.id.mainNavigationHost).navigateUp()) {
+        val consumed = findNavController(R.id.mainNavigationHost).navigateUp()
+        if (!consumed) {
             super.onBackPressed()
         }
     }

@@ -6,4 +6,7 @@
     android:id="@+id/navigationView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:itemIconTint="?colorPrimaryDark"
+    app:itemTextColor="?colorPrimaryDark"
+    app:itemIconPadding="@dimen/margin_padding_size_medium"
     app:menu="@menu/navigation"/>
