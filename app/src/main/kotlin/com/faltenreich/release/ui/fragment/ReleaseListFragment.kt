@@ -14,7 +14,6 @@ import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.print
-import com.faltenreich.release.showSafely
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
@@ -173,11 +172,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             toggleTodayButton(true)
 
         } ?: initData(date, true)
-    }
-
-    private fun openDatePicker() {
-        val date = viewModel.date ?: LocalDate.now()
-        DatePickerFragment.newInstance(date) { newDate -> newDate?.let { focusDate(newDate) } }.showSafely(fragmentManager)
     }
 
     companion object {

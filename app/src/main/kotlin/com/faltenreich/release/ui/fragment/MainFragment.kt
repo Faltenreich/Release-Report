@@ -17,23 +17,36 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appCompatActivity?.setSupportActionBar(bottomAppBar)
+        initLayout()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.date_select -> { openDatePicker(); true }
             R.id.search -> { openSearch(); true }
-            R.id.filter -> { openNavigation(); true }
-            // TODO: Filter and date picker
+            R.id.filter -> { openFilter(); true }
             else -> false
         }
+    }
+
+    private fun initLayout() {
+        appCompatActivity?.setSupportActionBar(bottomAppBar)
+        bottomAppBar.setNavigationOnClickListener { openNavigation() }
     }
 
     private fun openNavigation() {
         navigationController.navigate(R.id.navigation)
     }
 
+    private fun openDatePicker() {
+        navigationController.navigate(R.id.date_select)
+    }
+
     private fun openSearch() {
         navigationController.navigate(R.id.release_search)
+    }
+
+    private fun openFilter() {
+
     }
 }

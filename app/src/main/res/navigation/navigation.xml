@@ -34,7 +34,11 @@
     <dialog
         android:id="@+id/navigation"
         android:name="com.faltenreich.release.ui.fragment.NavigationFragment"
-        tools:layout="@layout/fragment_navigation" />
+        tools:layout="@layout/fragment_navigation"/>
+
+    <dialog
+        android:id="@+id/date_select"
+        android:name="com.faltenreich.release.ui.fragment.DatePickerFragment"/>
 
     <fragment
         android:id="@+id/spotlight"
