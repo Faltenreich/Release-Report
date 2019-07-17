@@ -31,6 +31,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
 
     private fun initLayout() {
         appCompatActivity?.setSupportActionBar(bottomAppBar)
+        navigationController.addOnDestinationChangedListener { _, _, _ -> bottomAppBar.performShow() }
         bottomAppBar.setNavigationOnClickListener { openNavigation() }
     }
 
