@@ -4,6 +4,7 @@
 
     <dimen name="navigation_drawer_width">320dp</dimen>
     <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="toolbar_height_padded">72dp</dimen>
     <dimen name="calendar_height">280dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
