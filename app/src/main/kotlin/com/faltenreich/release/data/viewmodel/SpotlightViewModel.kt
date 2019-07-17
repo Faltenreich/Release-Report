@@ -7,44 +7,67 @@ import androidx.lifecycle.ViewModel
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
+import com.faltenreich.release.ui.list.item.SpotlightItem
+import com.faltenreich.release.ui.list.item.SpotlightLabelItem
+import com.faltenreich.release.ui.list.item.SpotlightPromoItem
+import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
-
+    private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>>()
     private val weeklyReleasesLiveData = MutableLiveData<List<Release>>()
-    private val favoriteReleasesLiveData = MutableLiveData<List<Release>>()
     private val recentReleasesLiveData = MutableLiveData<List<Release>>()
-    private val today = LocalDate.now()
+    private val favoriteReleasesLiveData = MutableLiveData<List<Release>>()
 
-    private var releasesOfWeek: List<Release>?
+    var spotlightItems: List<SpotlightItem>?
+        get() = spotlightItemsLiveData.value
+        set(value) = spotlightItemsLiveData.postValue(value)
+
+    private var weeklyReleases: List<Release>?
         get() = weeklyReleasesLiveData.value
         set(value) = weeklyReleasesLiveData.postValue(value)
-
-    private var favoriteReleases: List<Release>?
-        get() = favoriteReleasesLiveData.value
-        set(value) = favoriteReleasesLiveData.postValue(value)
 
     private var recentReleases: List<Release>?
         get() = recentReleasesLiveData.value
         set(value) = recentReleasesLiveData.postValue(value)
 
-    fun observeWeeklyReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
-        weeklyReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), CHUNK_SIZE) { releases -> releasesOfWeek = releases }
-    }
+    private var favoriteReleases: List<Release>?
+        get() = favoriteReleasesLiveData.value
+        set(value) = favoriteReleasesLiveData.postValue(value)
 
-    fun observeFavoriteReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
-        favoriteReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
-        releaseRepository.getFavorites(today) { releases -> favoriteReleases = releases.sortedBy(Release::releasedAt).take(CHUNK_SIZE) }
-    }
+    fun observeData(owner: LifecycleOwner, onObserve: (List<SpotlightItem>) -> Unit) {
+        spotlightItemsLiveData.observe(owner, Observer { data -> onObserve(data) })
+        weeklyReleasesLiveData.observe(owner, Observer { refresh() })
+        recentReleasesLiveData.observe(owner, Observer { refresh() })
+        favoriteReleasesLiveData.observe(owner, Observer { refresh() })
 
-    fun observeRecentReleases(owner: LifecycleOwner, onObserve: (List<Release>) -> Unit) {
-        recentReleasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        val today = LocalDate.now()
         val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
         val startAt = endAt.minusMonths(1)
+
+        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), CHUNK_SIZE) { releases -> weeklyReleases = releases }
+        releaseRepository.getFavorites(today) { releases -> favoriteReleases = releases }
         releaseRepository.getBetween(startAt, endAt, CHUNK_SIZE) { releases -> recentReleases = releases }
+    }
+
+    private fun refresh() {
+        val items = mutableListOf<SpotlightItem>()
+        weeklyReleases?.firstOrNull()?.let { promo -> items.add(SpotlightPromoItem(promo)) }
+        weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+            items.add(SpotlightLabelItem("Spotlight"))
+            items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
+        }
+        recentReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+            items.add(SpotlightLabelItem("Recently"))
+            items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
+        }
+        favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+            items.add(SpotlightLabelItem("For you"))
+            items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
+        }
+        spotlightItems = items.toList()
     }
 
     companion object {
