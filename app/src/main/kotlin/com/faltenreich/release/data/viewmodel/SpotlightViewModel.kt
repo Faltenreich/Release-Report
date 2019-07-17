@@ -4,11 +4,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.ui.list.item.SpotlightItem
-import com.faltenreich.release.ui.list.item.SpotlightLabelItem
+import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
 import org.threeten.bp.DayOfWeek
@@ -58,15 +59,15 @@ class SpotlightViewModel : ViewModel() {
             items.add(SpotlightPromoItem(release))
         }
         weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightLabelItem("Spotlight"))
+            items.add(SpotlightHeaderItem(R.string.this_week))
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
         }
         recentReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightLabelItem("Recently"))
+            items.add(SpotlightHeaderItem(R.string.recently))
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
         }
         favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightLabelItem("For you"))
+            items.add(SpotlightHeaderItem(R.string.for_you))
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
         }
         spotlightItems = items.toList()

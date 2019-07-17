@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/labelTextView"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/margin_padding_size_large"
+    android:paddingEnd="@dimen/margin_padding_size_large"
+    android:background="?colorPrimary"
+    android:textColor="?android:textColorPrimaryInverse"
+    tools:text="@tools:sample/lorem"/>

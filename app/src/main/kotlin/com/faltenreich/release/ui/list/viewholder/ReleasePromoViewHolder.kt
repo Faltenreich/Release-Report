@@ -6,7 +6,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.view.ReleaseOpener
 
-class SpotlightPromoViewHolder(
+class ReleasePromoViewHolder(
     context: Context,
     parent: ViewGroup
 ) : BaseViewHolder<SpotlightPromoItem>(context, R.layout.list_item_release_image, parent), ReleaseOpener {

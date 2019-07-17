@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
 import com.faltenreich.release.ui.list.adapter.SpotlightListAdapter
-import com.faltenreich.release.ui.list.decoration.GridSpacingItemDecoration
+import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
 import com.faltenreich.release.ui.list.item.SpotlightItem
+import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.view.ReleaseOpener
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
@@ -24,8 +25,18 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
 
     private fun initLayout() {
         context?.let { context ->
-            listView.layoutManager = GridLayoutManager(context, 2)
-            listView.addItemDecoration(GridSpacingItemDecoration(context, 2, R.dimen.margin_padding_size_xxsmall, includeEdge = false))
+            listView.layoutManager = GridLayoutManager(context, 2).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (listAdapter?.getListItemAt(position)) {
+                            is SpotlightHeaderItem -> 2
+                            is SpotlightPromoItem -> 2
+                            else -> 1
+                        }
+                    }
+                }
+            }
+            // listView.addItemDecoration(GridSpacingItemDecoration(context, 2, R.dimen.margin_padding_size_small, includeEdge = false))
             listView.adapter = listAdapter
         }
     }

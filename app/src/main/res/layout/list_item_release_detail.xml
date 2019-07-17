@@ -26,7 +26,7 @@
             tools:src="@tools:sample/avatars"/>
 
         <TextView
-            android:id="@+id/releaseDateTextView"
+            android:id="@+id/labelTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
@@ -47,9 +47,9 @@
             android:textColor="?android:textColorPrimary"
             android:maxLines="2"
             android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
-            app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
-            app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
+            app:layout_constraintTop_toBottomOf="@id/labelTextView"
+            app:layout_constraintStart_toStartOf="@id/labelTextView"
+            app:layout_constraintEnd_toEndOf="@id/labelTextView"
             tools:text="@tools:sample/lorem/random"/>
 
         <TextView
@@ -61,8 +61,8 @@
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
-            app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
-            app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
+            app:layout_constraintStart_toStartOf="@id/labelTextView"
+            app:layout_constraintEnd_toEndOf="@id/labelTextView"
             tools:text="Info"/>
 
         <ImageView

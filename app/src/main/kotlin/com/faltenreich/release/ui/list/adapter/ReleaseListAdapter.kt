@@ -24,7 +24,7 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, Base
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DateProvider> {
         return when (viewType) {
-            VIEW_TYPE_DATE -> ReleaseDateViewHolder(context, parent)
+            VIEW_TYPE_DATE -> HeaderViewHolder(context, parent)
             VIEW_TYPE_RELEASE -> ReleaseImageViewHolder(context, parent)
             VIEW_TYPE_MORE -> ReleaseMoreViewHolder(context, parent)
             VIEW_TYPE_EMPTY -> ReleaseEmptyViewHolder(context, parent)

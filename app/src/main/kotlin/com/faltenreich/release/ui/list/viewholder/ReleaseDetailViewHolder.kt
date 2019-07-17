@@ -17,6 +17,6 @@ class ReleaseDetailViewHolder(context: Context, parent: ViewGroup) : BaseViewHol
         releaseTypeImageView.setImageResource(data.releaseType?.iconResId ?: android.R.color.transparent)
         releaseTypeImageView.tintResource = data.releaseType?.colorResId ?: R.color.colorPrimary
         releaseTitleTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
-        releaseDateTextView.text = data.releaseDateForUi(context)
+        labelTextView.text = data.releaseDateForUi(context)
     }
 }
