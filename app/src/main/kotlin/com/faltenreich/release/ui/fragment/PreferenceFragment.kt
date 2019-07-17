@@ -2,7 +2,6 @@ package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.faltenreich.release.R
@@ -14,23 +13,16 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
-        initList()
+        initLayout()
     }
 
-    private fun initToolbar() {
-        context?.let { context ->
-            toolbar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back)
-            toolbar.setNavigationOnClickListener { finish() }
-        }
-    }
+    private fun initLayout() {
+        toolbar.setNavigationOnClickListener { finish() }
 
-    private fun initList() {
-        fragmentManager?.beginTransaction()?.also { transaction ->
-            val fragment = PreferenceListFragment()
-            transaction.replace(R.id.container, fragment, fragment.className)
-            transaction.commit()
-        }
+        val transaction = fragmentManager?.beginTransaction() ?: return
+        val fragment = PreferenceListFragment()
+        transaction.replace(R.id.container, fragment, fragment.className)
+        transaction.commit()
     }
 
     // Attention: Must be public to be properly recreated from instance state
