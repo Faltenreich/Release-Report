@@ -35,7 +35,8 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
     }
 
     private fun openNavigation() {
-        navigationController.navigate(R.id.navigation)
+        val arguments = navigationController.currentDestination?.id?.let { id -> Bundle().apply { putInt("previousDestinationId", id) } }
+        navigationController.navigate(R.id.navigation, arguments)
     }
 
     private fun openDatePicker() {

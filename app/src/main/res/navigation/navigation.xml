@@ -34,7 +34,11 @@
     <dialog
         android:id="@+id/navigation"
         android:name="com.faltenreich.release.ui.fragment.NavigationFragment"
-        tools:layout="@layout/fragment_navigation"/>
+        tools:layout="@layout/fragment_navigation">
+        <argument
+            android:name="previousDestinationId"
+            app:argType="integer"/>
+    </dialog>
 
     <dialog
         android:id="@+id/date_select"
