@@ -55,7 +55,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
     }
 
     companion object {
-        private const val COLUMN_COUNT = 3
+        private const val COLUMN_COUNT = 2
         private const val MAX_ITEMS_PER_CATEGORY = COLUMN_COUNT * 2
     }
 }

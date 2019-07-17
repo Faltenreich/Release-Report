@@ -2,6 +2,7 @@ package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.faltenreich.release.R
@@ -18,9 +19,9 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
     }
 
     private fun initToolbar() {
-        appCompatActivity?.apply {
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        context?.let { context ->
+            toolbar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back)
+            toolbar.setNavigationOnClickListener { finish() }
         }
     }
 
