@@ -32,6 +32,7 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
         }
     }
 
+    // Attention: Must be public to be properly recreated from instance state
     class PreferenceListFragment : PreferenceFragmentCompat() {
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
