@@ -1,97 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="?attr/colorPrimary"
-    app:cardCornerRadius="@dimen/card_corner_radius" >
+    android:orientation="vertical"
+    android:foreground="?attr/selectableItemBackground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/releaseCoverImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        tools:src="@tools:sample/avatars"/>
+
+    <ImageView
+        android:id="@+id/releaseTypeImageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="6dp"
+        android:background="@drawable/dogear_top_start"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
+        app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
+        tools:src="@drawable/ic_music"
+        tools:tint="?attr/colorPrimary"/>
+
+    <ImageView
+        android:id="@+id/releaseFavoriteImageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="6dp"
+        android:background="@drawable/dogear_top_end"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_favorite_on"
+        android:tint="@color/brown"
+        app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
+        app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
+
+    <View
+        android:id="@+id/releaseScrim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/scrim_bottom"
+        app:layout_constraintTop_toTopOf="@id/releaseSubtitleTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
+        app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
+        app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
+
+    <TextView
+        android:id="@+id/releaseSubtitleTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/margin_padding_size_large"
+        android:paddingLeft="@dimen/margin_padding_size_small"
+        android:paddingStart="@dimen/margin_padding_size_small"
+        android:paddingRight="@dimen/margin_padding_size_small"
+        android:paddingEnd="@dimen/margin_padding_size_small"
+        android:textSize="@dimen/text_size_small"
+        android:textColor="?android:textColorSecondaryInverse"
+        app:layout_constraintBottom_toTopOf="@id/releaseTitleTextView"
+        app:layout_constraintStart_toStartOf="@id/releaseTitleTextView"
+        app:layout_constraintEnd_toEndOf="@id/releaseTitleTextView"
+        tools:text="@tools:sample/date/ddmmyy"/>
 
-        <ImageView
-            android:id="@+id/releaseCoverImageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            tools:src="@tools:sample/avatars"/>
+    <TextView
+        android:id="@+id/releaseTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_padding_size_small"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="?android:textColorPrimaryInverse"
+        app:layout_constraintBottom_toBottomOf="@+id/releaseScrim"
+        app:layout_constraintStart_toStartOf="@id/releaseScrim"
+        app:layout_constraintEnd_toEndOf="@id/releaseScrim"
+        tools:text="@tools:sample/lorem/random"/>
 
-        <ImageView
-            android:id="@+id/releaseTypeImageView"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:padding="6dp"
-            android:background="@drawable/dogear_top_start"
-            android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
-            app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
-            tools:src="@drawable/ic_music"
-            tools:tint="?attr/colorPrimary"/>
-
-        <ImageView
-            android:id="@+id/releaseFavoriteImageView"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:padding="6dp"
-            android:background="@drawable/dogear_top_end"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_favorite_on"
-            android:tint="@color/brown"
-            app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
-
-        <View
-            android:id="@+id/releaseScrim"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@id/releaseSubtitleTextView"
-            app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
-            app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
-
-        <TextView
-            android:id="@+id/releaseSubtitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_padding_size_large"
-            android:paddingLeft="@dimen/margin_padding_size_small"
-            android:paddingStart="@dimen/margin_padding_size_small"
-            android:paddingRight="@dimen/margin_padding_size_small"
-            android:paddingEnd="@dimen/margin_padding_size_small"
-            android:textSize="@dimen/text_size_small"
-            android:textColor="?android:textColorSecondaryInverse"
-            app:layout_constraintBottom_toTopOf="@id/releaseTitleTextView"
-            app:layout_constraintStart_toStartOf="@id/releaseTitleTextView"
-            app:layout_constraintEnd_toEndOf="@id/releaseTitleTextView"
-            tools:text="@tools:sample/date/ddmmyy"/>
-
-        <TextView
-            android:id="@+id/releaseTitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_padding_size_small"
-            android:background="@drawable/scrim_bottom"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColor="?android:textColorPrimaryInverse"
-            app:layout_constraintBottom_toBottomOf="@+id/releaseScrim"
-            app:layout_constraintStart_toStartOf="@id/releaseScrim"
-            app:layout_constraintEnd_toEndOf="@id/releaseScrim"
-            tools:text="@tools:sample/lorem/random"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

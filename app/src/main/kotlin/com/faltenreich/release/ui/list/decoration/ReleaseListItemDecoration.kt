@@ -13,7 +13,6 @@ class ReleaseListItemDecoration(
     @DimenRes paddingResId: Int,
     private val spanCount: Int
 ) : RecyclerView.ItemDecoration() {
-
     private val stickyHeaderHeight: Int = context.resources.getDimensionPixelSize(R.dimen.toolbar_height)
     private val padding: Int = context.resources.getDimension(paddingResId).toInt()
 

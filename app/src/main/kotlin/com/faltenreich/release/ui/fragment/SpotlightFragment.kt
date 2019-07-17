@@ -11,7 +11,7 @@ import com.faltenreich.release.data.viewmodel.SpotlightViewModel
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.adapter.SpotlightListAdapter
-import com.faltenreich.release.ui.list.decoration.HorizontalPaddingDecoration
+import com.faltenreich.release.ui.list.decoration.GridSpacingItemDecoration
 import com.faltenreich.release.ui.view.ReleaseOpener
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
@@ -30,7 +30,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
 
     private fun initLayout() {
         context?.let { context ->
-            val decoration = HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small)
+            val decoration = GridSpacingItemDecoration(context, 2, R.dimen.margin_padding_size_xxsmall, includeEdge = false)
 
             weekListView.layoutManager = GridLayoutManager(context, 2)
             weekListView.addItemDecoration(decoration)
