@@ -58,16 +58,16 @@ class SpotlightViewModel : ViewModel() {
         weeklyReleases?.firstOrNull()?.let { release ->
             items.add(SpotlightPromoItem(release))
         }
+        favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+            items.add(SpotlightHeaderItem(R.string.for_you))
+            items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
+        }
         weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
             items.add(SpotlightHeaderItem(R.string.this_week))
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
         }
         recentReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
             items.add(SpotlightHeaderItem(R.string.recently))
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
-        }
-        favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightHeaderItem(R.string.for_you))
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
         }
         spotlightItems = items.toList()

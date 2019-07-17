@@ -37,7 +37,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
                     }
                 }
             }
-            listView.addItemDecoration(SpotlightItemDecoration(context, R.dimen.margin_padding_size_small))
+            listView.addItemDecoration(SpotlightItemDecoration(context))
             listView.adapter = listAdapter
         }
     }

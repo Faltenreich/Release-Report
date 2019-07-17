@@ -6,6 +6,8 @@
     android:id="@+id/listView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/toolbar_height_padded"
+    android:clipToPadding="false"
     tools:listitem="@layout/list_item_release_image"
     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
     tools:spanCount="2"/>

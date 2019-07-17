@@ -3,22 +3,19 @@ package com.faltenreich.release.ui.list.decoration
 import android.content.Context
 import android.graphics.Rect
 import android.view.View
-import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 
-class ReleaseListItemDecoration(
-    context: Context,
-    @DimenRes paddingResId: Int,
-    private val spanCount: Int
-) : RecyclerView.ItemDecoration() {
+class ReleaseListItemDecoration(context: Context) : GridLayoutItemDecoration() {
+    private val padding: Int = context.resources.getDimension(R.dimen.margin_padding_size_small).toInt()
     private val stickyHeaderHeight: Int = context.resources.getDimensionPixelSize(R.dimen.toolbar_height)
-    private val padding: Int = context.resources.getDimension(paddingResId).toInt()
 
     var isSkeleton: Boolean = false
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        super.getItemOffsets(outRect, view, parent, state)
+
         val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
         val position = layoutParams.viewAdapterPosition
         val column = layoutParams.spanIndex

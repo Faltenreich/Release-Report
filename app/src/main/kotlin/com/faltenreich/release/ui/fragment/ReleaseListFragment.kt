@@ -59,7 +59,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
     private fun initList() {
         context?.let { context ->
             listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
-            listItemDecoration = ReleaseListItemDecoration(context, R.dimen.margin_padding_size_xxsmall, LIST_SPAN_COUNT)
+            listItemDecoration = ReleaseListItemDecoration(context)
 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
