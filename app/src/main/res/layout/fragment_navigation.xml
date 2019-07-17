@@ -8,5 +8,5 @@
     android:layout_height="wrap_content"
     app:itemIconTint="?colorPrimaryDark"
     app:itemTextColor="?colorPrimaryDark"
-    app:itemIconPadding="@dimen/margin_padding_size_medium"
+    app:itemIconPadding="@dimen/margin_padding_size_large"
     app:menu="@menu/navigation"/>

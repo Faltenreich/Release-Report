@@ -20,9 +20,6 @@ class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navig
 
     // Workaround: Preselect current destination manually
     private fun selectCurrentDestination() {
-        navigationView.menu.children.forEach { menuItem ->
-            menuItem.isChecked = false
-            menuItem.isChecked = previousDestinationId == menuItem.itemId
-        }
+        navigationView.menu.children.forEach { menuItem -> menuItem.isChecked = previousDestinationId == menuItem.itemId }
     }
 }
