@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
 import com.faltenreich.release.extension.screenSize
@@ -60,13 +59,12 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
     private fun setSpotlightRelease(release: Release?) {
         context?.let { context ->
             val hasContent = release != null
-            spotlightContainer.visibility = if (hasContent) View.VISIBLE else View.GONE
+            spotlightReleaseCoverImageView.visibility = if (hasContent) View.VISIBLE else View.GONE
+            spotlightReleaseNameTextView.visibility = if (hasContent) View.VISIBLE else View.GONE
 
-            release?.imageUrlForThumbnail?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
-            spotlightReleaseDateTextView.text = release?.releaseDateForUi(context)
+            spotlightReleaseCoverImageView.setOnClickListener { release?.let { openRelease(context, it, spotlightReleaseCoverImageView) } }
+            release?.imageUrlForWallpaper?.let { imageUrl -> spotlightReleaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: spotlightReleaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
             spotlightReleaseNameTextView.text = release?.title
-            spotlightReleaseDescriptionTextView.text = release?.description
-            spotlightContainer.setOnClickListener { release?.let { openRelease(context, it, spotlightReleaseCoverImageView) } }
         }
     }
 

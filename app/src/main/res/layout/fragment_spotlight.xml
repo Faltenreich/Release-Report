@@ -11,78 +11,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_padding_size_medium"
-        android:paddingBottom="@dimen/standard_element_size_large">
+        android:paddingBottom="@dimen/toolbar_height">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/spotlightContainer"
+        <ImageView
+            android:id="@+id/spotlightReleaseCoverImageView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/spotlight_list_height"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardCornerRadius="@dimen/card_corner_radius"
+            android:layout_height="220dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@tools:sample/avatars"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:divider="@drawable/divider_medium"
-                android:showDividers="middle">
-
-                <ImageView
-                    android:id="@+id/spotlightReleaseCoverImageView"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/spotlight_list_height"
-                    android:layout_weight="2"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="@null"
-                    android:elevation="2dp"
-                    tools:src="@tools:sample/avatars"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/margin_padding_size_small"
-                    android:paddingBottom="@dimen/margin_padding_size_small"
-                    android:paddingEnd="@dimen/margin_padding_size_medium">
-
-                    <TextView
-                        android:id="@+id/spotlightReleaseDateTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="?android:textColorTertiary"
-                        tools:text="@tools:sample/date/ddmmyy"/>
-
-                    <TextView
-                        android:id="@+id/spotlightReleaseNameTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_large"
-                        android:textColor="?android:textColorPrimary"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        tools:text="@tools:sample/lorem"/>
-
-                    <TextView
-                        android:id="@+id/spotlightReleaseDescriptionTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
-                        android:textColor="?android:textColorPrimary"
-                        android:ellipsize="end"
-                        tools:text="@tools:sample/lorem"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/spotlightReleaseNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:padding="@dimen/margin_padding_size_medium"
+            app:layout_constraintStart_toStartOf="@id/spotlightReleaseCoverImageView"
+            app:layout_constraintEnd_toEndOf="@id/spotlightReleaseCoverImageView"
+            app:layout_constraintBottom_toBottomOf="@id/spotlightReleaseCoverImageView"
+            tools:text="@tools:sample/lorem"/>
 
         <TextView
             android:id="@+id/weekListLabel"
@@ -97,7 +51,7 @@
             android:textColor="?android:textColorPrimaryInverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spotlightContainer"/>
+            app:layout_constraintTop_toBottomOf="@+id/spotlightReleaseCoverImageView"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/weekListView"
