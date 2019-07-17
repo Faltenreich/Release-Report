@@ -31,6 +31,14 @@
             app:argType="string"/>
     </action>
 
+    <action
+        android:id="@+id/open_search"
+        app:destination="@+id/release_search"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out"/>
+
     <dialog
         android:id="@+id/navigation"
         android:name="com.faltenreich.release.ui.fragment.NavigationFragment"

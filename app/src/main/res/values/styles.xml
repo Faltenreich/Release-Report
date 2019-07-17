@@ -4,7 +4,7 @@
 
     <style name="AppTheme" parent="Theme.Light"/>
 
-    <style name="Theme.Light" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -16,7 +16,7 @@
         <item name="backgroundColorTertiary">@color/background_light_tertiary</item>
     </style>
 
-    <style name="Theme.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Dark" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

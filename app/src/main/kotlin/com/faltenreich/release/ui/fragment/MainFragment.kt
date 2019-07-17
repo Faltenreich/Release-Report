@@ -44,7 +44,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
     }
 
     private fun openSearch() {
-        navigationController.navigate(R.id.release_search)
+        navigationController.navigate(R.id.open_search)
     }
 
     private fun openFilter() {
