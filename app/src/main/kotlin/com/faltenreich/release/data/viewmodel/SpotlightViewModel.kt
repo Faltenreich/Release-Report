@@ -54,7 +54,9 @@ class SpotlightViewModel : ViewModel() {
 
     private fun refresh() {
         val items = mutableListOf<SpotlightItem>()
-        weeklyReleases?.firstOrNull()?.let { promo -> items.add(SpotlightPromoItem(promo)) }
+        weeklyReleases?.firstOrNull()?.let { release ->
+            items.add(SpotlightPromoItem(release))
+        }
         weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
             items.add(SpotlightLabelItem("Spotlight"))
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })

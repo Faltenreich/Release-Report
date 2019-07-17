@@ -4,10 +4,11 @@ import android.content.Context
 import android.view.ViewGroup
 import com.faltenreich.release.ui.list.item.*
 import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
+import com.faltenreich.release.ui.list.provider.DateProvider
 import com.faltenreich.release.ui.list.viewholder.*
 import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseViewHolder<DateItem>>(context, ReleaseItemDiffUtilCallback()) {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, ReleaseItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {
@@ -21,14 +22,14 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateItem, BaseView
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DateItem> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DateProvider> {
         return when (viewType) {
             VIEW_TYPE_DATE -> ReleaseDateViewHolder(context, parent)
             VIEW_TYPE_RELEASE -> ReleaseImageViewHolder(context, parent)
             VIEW_TYPE_MORE -> ReleaseMoreViewHolder(context, parent)
             VIEW_TYPE_EMPTY -> ReleaseEmptyViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
-        } as BaseViewHolder<DateItem>
+        } as BaseViewHolder<DateProvider>
     }
 
     fun getFirstPositionForDate(date: LocalDate): Int? {

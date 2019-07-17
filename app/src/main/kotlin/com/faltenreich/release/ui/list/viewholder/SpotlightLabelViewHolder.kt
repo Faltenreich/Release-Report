@@ -9,7 +9,7 @@ import com.faltenreich.release.ui.view.ReleaseOpener
 class SpotlightLabelViewHolder(
     context: Context,
     parent: ViewGroup
-) : SpotlightViewHolder<SpotlightLabelItem>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
+) : BaseViewHolder<SpotlightLabelItem>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
 
     override fun onBind(data: SpotlightLabelItem) {
 
