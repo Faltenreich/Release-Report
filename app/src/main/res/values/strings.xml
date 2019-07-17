@@ -38,5 +38,6 @@
     <string name="empty">Nothing to see here</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
+    <string name="discover">Discover</string>
 
 </resources>

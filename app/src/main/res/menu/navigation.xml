@@ -9,12 +9,12 @@
         <item
             android:id="@+id/spotlight"
             android:title="@string/spotlight"
-            android:icon="@drawable/ic_home"/>
+            android:icon="@drawable/ic_spotlight"/>
 
         <item
             android:id="@+id/releases"
-            android:title="@string/releases"
-            android:icon="@drawable/ic_list"/>
+            android:title="@string/discover"
+            android:icon="@drawable/ic_search"/>
 
         <item
             android:id="@+id/calendar"
