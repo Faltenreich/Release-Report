@@ -36,7 +36,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
                     }
                 }
             }
-            // listView.addItemDecoration(GridSpacingItemDecoration(context, 2, R.dimen.margin_padding_size_small, includeEdge = false))
+            // listView.addItemDecoration(GridSpacingItemDecoration(context, COLUMN_COUNT, R.dimen.margin_padding_size_medium))
             listView.adapter = listAdapter
         }
     }
