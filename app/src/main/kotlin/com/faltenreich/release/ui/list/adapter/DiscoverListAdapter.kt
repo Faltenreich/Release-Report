@@ -8,7 +8,7 @@ import com.faltenreich.release.ui.list.provider.DateProvider
 import com.faltenreich.release.ui.list.viewholder.*
 import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, ReleaseItemDiffUtilCallback()) {
+class DiscoverListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, ReleaseItemDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {

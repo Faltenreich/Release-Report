@@ -3,7 +3,7 @@ package com.faltenreich.release.ui.list.viewholder
 import android.content.Context
 import android.view.ViewGroup
 import com.faltenreich.release.R
-import com.faltenreich.release.ui.list.adapter.ReleaseMoreListAdapter
+import com.faltenreich.release.ui.list.adapter.MoreListAdapter
 import com.faltenreich.release.ui.list.item.ReleaseMoreItem
 import com.faltenreich.release.ui.list.layoutmanager.MoreLayoutManager
 import kotlinx.android.synthetic.main.list_item_release_more.*
@@ -14,7 +14,7 @@ class ReleaseMoreViewHolder(context: Context, parent: ViewGroup) : BaseViewHolde
     override fun onBind(data: ReleaseMoreItem) {
         val releases = data.releases
 
-        val listAdapter = ReleaseMoreListAdapter(context)
+        val listAdapter = MoreListAdapter(context)
         listView.layoutManager = MoreLayoutManager(context)
         listView.adapter = listAdapter
         listAdapter.addListItems(releases.subList(0, min(MAX_COUNT_LIST_ITEMS, releases.size)))

@@ -15,25 +15,25 @@ import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.activity.BaseActivity
-import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
+import com.faltenreich.release.ui.list.adapter.DiscoverListAdapter
 import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
-import kotlinx.android.synthetic.main.fragment_release_list.*
+import kotlinx.android.synthetic.main.fragment_discover.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
 
-class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
+class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
-    private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
+    private val date: LocalDate? by lazy { arguments?.let { arguments -> DiscoverFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
     
-    private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
+    private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
     private lateinit var listItemDecoration: ReleaseListItemDecoration
     private lateinit var todayButtonBehavior: SlideOutBehavior

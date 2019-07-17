@@ -9,18 +9,18 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.ReleaseSearchViewModel
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.hideKeyboard
-import com.faltenreich.release.ui.list.adapter.ReleaseSearchListAdapter
+import com.faltenreich.release.ui.list.adapter.SearchListAdapter
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
-import kotlinx.android.synthetic.main.fragment_release_search.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_empty.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textResource
 
-class ReleaseSearchFragment : BaseFragment(R.layout.fragment_release_search), Search.OnQueryTextListener {
+class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
 
-    private val listAdapter by lazy { context?.let { context -> ReleaseSearchListAdapter(context) } }
+    private val listAdapter by lazy { context?.let { context -> SearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
 
     private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_detail, itemCount = 6) }

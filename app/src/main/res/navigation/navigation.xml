@@ -60,9 +60,9 @@
 
     <fragment
         android:id="@+id/releases"
-        android:name="com.faltenreich.release.ui.fragment.ReleaseListFragment"
+        android:name="com.faltenreich.release.ui.fragment.DiscoverFragment"
         android:label="@string/releases"
-        tools:layout="@layout/fragment_release_list">
+        tools:layout="@layout/fragment_discover">
         <argument
             android:name="date"
             app:argType="string"
@@ -78,8 +78,8 @@
 
     <fragment
         android:id="@+id/release_detail"
-        android:name="com.faltenreich.release.ui.fragment.ReleaseDetailFragment"
-        tools:layout="@layout/fragment_release_detail">
+        android:name="com.faltenreich.release.ui.fragment.ReleaseFragment"
+        tools:layout="@layout/fragment_release">
         <argument
             android:name="releaseId"
             app:argType="string"/>
@@ -87,8 +87,8 @@
 
     <fragment
         android:id="@+id/release_search"
-        android:name="com.faltenreich.release.ui.fragment.ReleaseSearchFragment"
-        tools:layout="@layout/fragment_release_search"/>
+        android:name="com.faltenreich.release.ui.fragment.SearchFragment"
+        tools:layout="@layout/fragment_search"/>
 
     <fragment
         android:id="@+id/preferences"

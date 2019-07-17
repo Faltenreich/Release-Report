@@ -24,12 +24,12 @@ import com.faltenreich.release.extension.tintResource
 import com.faltenreich.release.showToast
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
 import com.faltenreich.release.ui.view.Chip
-import kotlinx.android.synthetic.main.fragment_release_detail.*
+import kotlinx.android.synthetic.main.fragment_release.*
 
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
+class ReleaseFragment : BaseFragment(R.layout.fragment_release) {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
-    private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
+    private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseFragmentArgs.fromBundle(arguments).releaseId } }
 
     private val listAdapter by lazy { context?.let { context -> GalleryListAdapter(context) } }
     private lateinit var listLayoutManager: StaggeredGridLayoutManager
