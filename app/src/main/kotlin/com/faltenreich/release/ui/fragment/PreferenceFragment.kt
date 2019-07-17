@@ -25,6 +25,7 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
         transaction.commit()
     }
 
+    // FIXME: Apply inverse theme
     // Attention: Must be public to be properly recreated from instance state
     class PreferenceListFragment : PreferenceFragmentCompat() {
 
