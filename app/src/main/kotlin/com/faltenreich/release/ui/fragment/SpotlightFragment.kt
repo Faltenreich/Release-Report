@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
@@ -33,15 +32,15 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
         context?.let { context ->
             val decoration = HorizontalPaddingDecoration(context, R.dimen.margin_padding_size_small)
 
-            weekListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            weekListView.layoutManager = GridLayoutManager(context, 2)
             weekListView.addItemDecoration(decoration)
             weekListView.adapter = weekListAdapter
 
-            favoriteListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            favoriteListView.layoutManager = GridLayoutManager(context, 2)
             favoriteListView.addItemDecoration(decoration)
             favoriteListView.adapter = favoriteListAdapter
 
-            recentListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            recentListView.layoutManager = GridLayoutManager(context, 2)
             recentListView.addItemDecoration(decoration)
             recentListView.adapter = recentListAdapter
         }

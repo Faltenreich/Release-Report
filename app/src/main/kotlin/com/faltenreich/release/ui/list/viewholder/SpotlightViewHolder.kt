@@ -7,14 +7,14 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.view.ReleaseOpener
-import kotlinx.android.synthetic.main.list_item_spotlight.*
+import kotlinx.android.synthetic.main.list_item_release_image.*
 
-class SpotlightViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_spotlight, parent), ReleaseOpener {
+class SpotlightViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
 
     override fun onBind(data: Release) {
         container.setOnClickListener { openRelease(context, data, releaseCoverImageView) }
         data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
-        releaseNameTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
-        releaseDateTextView.text = data.releaseDateForUi(context)
+        releaseTitleTextView.text = data.artistName?.let { artist -> "$artist - ${data.title}" } ?: data.title
+        releaseSubtitleTextView.text = data.releaseDateForUi(context)
     }
 }

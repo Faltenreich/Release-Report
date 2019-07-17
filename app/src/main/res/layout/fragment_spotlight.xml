@@ -56,7 +56,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/weekListView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/spotlight_list_height"
+            android:layout_height="wrap_content"
             android:paddingStart="@dimen/margin_padding_size_medium"
             android:paddingEnd="@dimen/margin_padding_size_medium"
             android:clipToPadding="false"
@@ -64,7 +64,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weekListLabel"
-            tools:listitem="@layout/list_item_spotlight"
+            tools:listitem="@layout/list_item_release_image"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
 
@@ -72,7 +72,7 @@
             layout="@layout/view_empty"
             android:id="@+id/weekEmptyView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/spotlight_list_height"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/weekListView"
             app:layout_constraintBottom_toBottomOf="@+id/weekListView"
             app:layout_constraintStart_toStartOf="@id/weekListView"
@@ -96,7 +96,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favoriteListView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/spotlight_list_height"
+            android:layout_height="wrap_content"
             android:paddingStart="@dimen/margin_padding_size_medium"
             android:paddingEnd="@dimen/margin_padding_size_medium"
             android:clipToPadding="false"
@@ -104,7 +104,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/favoriteLabel"
-            tools:listitem="@layout/list_item_spotlight"
+            tools:listitem="@layout/list_item_release_image"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
 
@@ -126,7 +126,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recentListView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/spotlight_list_height"
+            android:layout_height="wrap_content"
             android:paddingStart="@dimen/margin_padding_size_medium"
             android:paddingEnd="@dimen/margin_padding_size_medium"
             android:clipToPadding="false"
@@ -134,7 +134,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recentLabel"
-            tools:listitem="@layout/list_item_spotlight"
+            tools:listitem="@layout/list_item_release_image"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal"/>
 
@@ -142,7 +142,7 @@
             layout="@layout/view_empty"
             android:id="@+id/recentEmptyView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/spotlight_list_height"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/recentListView"
             app:layout_constraintBottom_toBottomOf="@+id/recentListView"
             app:layout_constraintStart_toStartOf="@+id/recentListView"

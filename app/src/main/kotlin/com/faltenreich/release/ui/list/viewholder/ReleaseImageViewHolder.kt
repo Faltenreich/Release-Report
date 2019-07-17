@@ -20,7 +20,7 @@ class ReleaseImageViewHolder(context: Context, parent: ViewGroup) : BaseViewHold
         release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
         releaseTypeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
         releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_top_start)?.apply { setTint(ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)) }
-        releaseNameTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
+        releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
         releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
     }
 }
