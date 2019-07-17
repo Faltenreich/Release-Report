@@ -130,7 +130,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
-        header.text = currentDate?.print(context)
+        headerLabel.text = currentDate?.print(context)
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
@@ -140,6 +140,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list) {
             val headerHeight = header.height
             val secondVisibleListItemTop = listLayoutManager.getChildAt(headerIndexInLayoutManager)?.top ?: headerHeight
             val translateHeader = abs(secondVisibleListItemTop) < headerHeight
+            // FIXME: Transition into approachingHeader (via MotionLayout?)
             if (translateHeader) {
                 val top = secondVisibleListItemTop - header.height
                 val translationY = min(top, 0)

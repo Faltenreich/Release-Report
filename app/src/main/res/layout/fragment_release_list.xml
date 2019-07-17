@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
@@ -18,16 +17,24 @@
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:spanCount="2"/>
 
-    <TextView
+    <FrameLayout
         android:id="@+id/header"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/toolbar_height"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/margin_padding_size_large"
-        android:paddingEnd="@dimen/margin_padding_size_large"
-        android:background="@drawable/dogear_header"
-        android:textColor="?android:textColorPrimaryInverse"
-        tools:text="@tools:sample/date/mmddyy"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/dogear_header_overlay"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/headerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/margin_padding_size_large"
+            android:paddingEnd="@dimen/margin_padding_size_large"
+            android:textColor="?android:textColorPrimaryInverse"
+            tools:text="@tools:sample/date/mmddyy"/>
+
+    </FrameLayout>
 
     <include
         layout="@layout/view_empty"

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
 import com.faltenreich.release.ui.list.adapter.SpotlightListAdapter
+import com.faltenreich.release.ui.list.decoration.SpotlightItemDecoration
 import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
 import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
@@ -36,7 +37,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
                     }
                 }
             }
-            // listView.addItemDecoration(GridSpacingItemDecoration(context, COLUMN_COUNT, R.dimen.margin_padding_size_medium))
+            listView.addItemDecoration(SpotlightItemDecoration(context, R.dimen.margin_padding_size_small))
             listView.adapter = listAdapter
         }
     }
