@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:foreground="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/releaseCoverImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="2:1"
+        tools:src="@tools:sample/avatars"/>
+
+    <View
+        android:id="@+id/releaseScrim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/scrim_bottom"
+        app:layout_constraintTop_toTopOf="@id/releaseTitleTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
+        app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
+        app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
+
+    <TextView
+        android:id="@+id/releaseTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_padding_size_large"
+        android:paddingLeft="@dimen/margin_padding_size_medium"
+        android:paddingStart="@dimen/margin_padding_size_medium"
+        android:paddingRight="@dimen/margin_padding_size_medium"
+        android:paddingEnd="@dimen/margin_padding_size_medium"
+        android:paddingBottom="@dimen/margin_padding_size_medium"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="?android:textColorPrimaryInverse"
+        app:layout_constraintBottom_toBottomOf="@+id/releaseScrim"
+        app:layout_constraintStart_toStartOf="@id/releaseScrim"
+        app:layout_constraintEnd_toEndOf="@id/releaseScrim"
+        tools:text="@tools:sample/lorem/random"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

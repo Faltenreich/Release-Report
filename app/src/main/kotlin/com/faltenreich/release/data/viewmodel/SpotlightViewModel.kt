@@ -8,8 +8,8 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
-import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
+import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
 import org.threeten.bp.DayOfWeek
@@ -38,7 +38,7 @@ class SpotlightViewModel : ViewModel() {
         get() = favoriteReleasesLiveData.value
         set(value) = favoriteReleasesLiveData.postValue(value)
 
-    fun observeData(owner: LifecycleOwner, onObserve: (List<SpotlightItem>) -> Unit) {
+    fun observeData(owner: LifecycleOwner, pageSize: Int, onObserve: (List<SpotlightItem>) -> Unit) {
         spotlightItemsLiveData.observe(owner, Observer { data -> onObserve(data) })
         weeklyReleasesLiveData.observe(owner, Observer { refresh() })
         recentReleasesLiveData.observe(owner, Observer { refresh() })
@@ -48,9 +48,9 @@ class SpotlightViewModel : ViewModel() {
         val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
         val startAt = endAt.minusMonths(1)
 
-        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), CHUNK_SIZE) { releases -> weeklyReleases = releases }
-        releaseRepository.getFavorites(today) { releases -> favoriteReleases = releases }
-        releaseRepository.getBetween(startAt, endAt, CHUNK_SIZE) { releases -> recentReleases = releases }
+        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), pageSize) { releases -> weeklyReleases = releases }
+        releaseRepository.getFavorites(today, pageSize) { releases -> favoriteReleases = releases }
+        releaseRepository.getBetween(startAt, endAt, pageSize) { releases -> recentReleases = releases }
     }
 
     private fun refresh() {
@@ -71,9 +71,5 @@ class SpotlightViewModel : ViewModel() {
             items.addAll(releases.map { release -> SpotlightReleaseItem(release) })
         }
         spotlightItems = items.toList()
-    }
-
-    companion object {
-        private const val CHUNK_SIZE = 10
     }
 }

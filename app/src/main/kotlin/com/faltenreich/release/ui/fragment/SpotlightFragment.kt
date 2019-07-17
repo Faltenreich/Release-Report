@@ -25,12 +25,12 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
 
     private fun initLayout() {
         context?.let { context ->
-            listView.layoutManager = GridLayoutManager(context, 2).apply {
+            listView.layoutManager = GridLayoutManager(context, COLUMN_COUNT).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return when (listAdapter?.getListItemAt(position)) {
-                            is SpotlightHeaderItem -> 2
-                            is SpotlightPromoItem -> 2
+                            is SpotlightHeaderItem -> COLUMN_COUNT
+                            is SpotlightPromoItem -> COLUMN_COUNT
                             else -> 1
                         }
                     }
@@ -42,7 +42,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
     }
 
     private fun fetchData() {
-        viewModel.observeData(this) { data -> setData(data) }
+        viewModel.observeData(this, MAX_ITEMS_PER_CATEGORY) { data -> setData(data) }
     }
 
     private fun setData(data: List<SpotlightItem>) {
@@ -51,5 +51,10 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
             adapter.addListItems(data)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    companion object {
+        private const val COLUMN_COUNT = 3
+        private const val MAX_ITEMS_PER_CATEGORY = COLUMN_COUNT * 2
     }
 }
