@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.list_item_release_detail.*
 
 class ReleaseDetailViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<Release>(context, R.layout.list_item_release_detail, parent), ReleaseOpener {
     override fun onBind(data: Release) {
-        container.setOnClickListener { openRelease(context, data, releaseCoverImageView) }
+        container.setOnClickListener { openRelease(data, releaseCoverImageView) }
         data.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
         releaseTypeImageView.setImageResource(data.releaseType?.iconResId ?: android.R.color.transparent)
         releaseTypeImageView.tintResource = data.releaseType?.colorResId ?: R.color.colorPrimary

@@ -22,7 +22,7 @@ class ReleaseImageViewHolder(
 
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
-        container.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
+        container.setOnClickListener { openRelease(release, releaseCoverImageView) }
 
         release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
 

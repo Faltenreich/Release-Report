@@ -16,7 +16,7 @@ class ReleasePromoViewHolder(
 ) : BaseViewHolder<SpotlightPromoItem>(context, R.layout.list_item_release_promo, parent), ReleaseOpener {
     override fun onBind(data: SpotlightPromoItem) {
         val release = data.release
-        container.setOnClickListener { openRelease(context, release, releaseCoverImageView) }
+        container.setOnClickListener { openRelease(release, releaseCoverImageView) }
         release.imageUrlForWallpaper?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
         releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
     }

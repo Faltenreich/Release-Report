@@ -3,12 +3,14 @@ package com.faltenreich.release.ui.list.viewholder
 import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
+import com.faltenreich.release.NavigationGraphDirections
 import com.faltenreich.release.R
+import com.faltenreich.release.extension.asString
 import com.faltenreich.release.extension.isToday
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.CalendarDateItem
-import com.faltenreich.release.ui.view.DateOpener
 import kotlinx.android.synthetic.main.list_item_calendar_day.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColorResource
@@ -20,7 +22,7 @@ class CalendarDateViewHolder(
     context,
     R.layout.list_item_calendar_day,
     parent
-), DateOpener {
+) {
 
     override fun onBind(data: CalendarDateItem) {
         container.setOnClickListener { openItem(data) }
@@ -42,6 +44,6 @@ class CalendarDateViewHolder(
     }
 
     private fun openItem(item: CalendarDateItem) {
-        openDate(context, item.date)
+        itemView.findNavController().navigate(NavigationGraphDirections.openDate(item.date.asString))
     }
 }
