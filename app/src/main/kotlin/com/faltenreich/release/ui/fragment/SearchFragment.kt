@@ -40,10 +40,6 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
 
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
-        searchView.setOnOpenCloseListener(object : Search.OnOpenCloseListener {
-            override fun onOpen()= Unit
-            override fun onClose() = finish()
-        })
         searchView.setOnQueryTextListener(this)
 
         if (viewModel.query == null) {

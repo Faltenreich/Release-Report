@@ -24,6 +24,8 @@ import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
+import com.faltenreich.release.ui.logic.search.SearchableObserver
+import com.faltenreich.release.ui.logic.search.SearchableProperties
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search

@@ -1,4 +1,4 @@
-package com.faltenreich.release.ui.fragment
+package com.faltenreich.release.ui.logic.search
 
 import androidx.fragment.app.Fragment
 import com.lapism.searchview.widget.SearchView
