@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<!-- TODO: Fullscreen RecyclerView -->
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,80 +9,86 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarLayout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarLayout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:elevation="0dp">
 
-            <!-- TODO: Find a better way to add padding to AppBarLayout -->
-            <View
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_marginBottom="@dimen/margin_padding_size_small"/>
+                android:layout_height="wrap_content"
+                android:minHeight="?actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                <!-- TODO: Find a better way to add padding to AppBarLayout -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginBottom="@dimen/margin_padding_size_small"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/standard_element_size_large"
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
-        tools:listitem="@layout/list_item_release_image"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:spanCount="2"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@drawable/dogear_header"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/margin_padding_size_medium"
-        android:paddingEnd="@dimen/margin_padding_size_medium"
-        android:textColor="?android:textColorPrimaryInverse"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:text="@tools:sample/date/mmddyy"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/standard_element_size_large"
+            android:clipToPadding="false"
+            tools:listitem="@layout/list_item_release_image"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:spanCount="2"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <include
-        layout="@layout/view_empty"
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@drawable/dogear_header"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorPrimaryInverse"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:text="@tools:sample/date/mmddyy"/>
 
-    <Button
-        android:id="@+id/todayButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="@dimen/margin_padding_size_small"
-        android:text="@string/scroll_to_today"
-        android:backgroundTint="?backgroundColorPrimary"
-        android:textColor="?attr/colorPrimary"
-        android:textAllCaps="false"
-        app:layout_anchor="@id/listView"
-        app:layout_anchorGravity="bottom|center_horizontal"/>
+        <include
+            layout="@layout/view_empty"
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-    <com.lapism.searchview.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:search_hint="@string/search_hint"
-        app:search_hint_color="@color/gray_dark"
-        app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior"/>
+        <Button
+            android:id="@+id/todayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_margin="@dimen/margin_padding_size_small"
+            android:text="@string/scroll_to_today"
+            android:backgroundTint="?backgroundColorPrimary"
+            android:textColor="?attr/colorPrimary"
+            android:textAllCaps="false"
+            app:layout_anchor="@id/listView"
+            app:layout_anchorGravity="bottom|center_horizontal"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.lapism.searchview.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:search_hint="@string/search_hint"
+            app:search_hint_color="@color/gray_dark"
+            app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>
