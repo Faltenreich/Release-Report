@@ -12,7 +12,7 @@
             android:icon="@drawable/ic_spotlight"/>
 
         <item
-            android:id="@+id/releases"
+            android:id="@+id/discover"
             android:title="@string/discover"
             android:icon="@drawable/ic_search"/>
 

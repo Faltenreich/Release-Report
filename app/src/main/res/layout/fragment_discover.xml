@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <!-- TODO: Find a better way to add padding to AppBarLayout -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginBottom="@dimen/margin_padding_size_small"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
@@ -13,28 +39,23 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/standard_element_size_large"
         android:clipToPadding="false"
+        android:fitsSystemWindows="true"
         tools:listitem="@layout/list_item_release_image"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:spanCount="2"/>
+        tools:spanCount="2"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <FrameLayout
+    <TextView
         android:id="@+id/header"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/toolbar_height"
         android:background="@drawable/dogear_header_overlay"
-        android:fitsSystemWindows="true">
-
-        <TextView
-            android:id="@+id/headerLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/toolbar_height"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorPrimaryInverse"
-            tools:text="@tools:sample/date/mmddyy"/>
-
-    </FrameLayout>
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/margin_padding_size_medium"
+        android:paddingEnd="@dimen/margin_padding_size_medium"
+        android:textColor="?android:textColorPrimaryInverse"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:text="@tools:sample/date/mmddyy"/>
 
     <include
         layout="@layout/view_empty"
@@ -55,4 +76,12 @@
         app:layout_anchor="@id/listView"
         app:layout_anchorGravity="bottom|center_horizontal"/>
 
-</FrameLayout>
+    <com.lapism.searchview.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:search_hint="@string/search_hint"
+        app:search_hint_color="@color/gray_dark"
+        app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

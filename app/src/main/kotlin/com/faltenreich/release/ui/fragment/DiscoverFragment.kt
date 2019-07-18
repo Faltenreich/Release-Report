@@ -13,6 +13,7 @@ import com.faltenreich.release.data.viewmodel.MainViewModel
 import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.isTrue
+import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.DiscoverListAdapter
@@ -22,6 +23,7 @@ import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
+import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
@@ -32,6 +34,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     private val date: LocalDate? by lazy { arguments?.let { arguments -> DiscoverFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
+    private val searchable by lazy { SearchableObserver() }
     
     private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
@@ -48,12 +51,31 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
 
     private var showTodayButton: Boolean = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(searchable)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentViewModel.tint = TintAction(R.color.colorPrimary)
+        initSearch()
         initList()
         initTodayButton()
         initData(date ?: LocalDate.now())
+    }
+
+    private fun initSearch() {
+        searchable.properties = SearchableProperties(this, searchView)
+        searchView.setLogoIcon(R.drawable.ic_search)
+        searchView.setOnLogoClickListener {  }
+        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
+            override fun onQueryTextChange(newText: CharSequence?) = Unit
+            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+                val searchQuery = query?.toString()?.nonBlank ?: return true
+                return true
+            }
+        })
     }
 
     private fun initList() {
@@ -130,7 +152,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
-        headerLabel.text = currentDate?.print(context)
+        header.text = currentDate?.print(context)
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/spotlight">
+    app:startDestination="@id/discover">
 
     <action
         android:id="@+id/open_release"
@@ -59,7 +59,7 @@
         tools:layout="@layout/fragment_spotlight"/>
 
     <fragment
-        android:id="@+id/releases"
+        android:id="@+id/discover"
         android:name="com.faltenreich.release.ui.fragment.DiscoverFragment"
         android:label="@string/releases"
         tools:layout="@layout/fragment_discover">
