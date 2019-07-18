@@ -1,7 +1,7 @@
 package com.faltenreich.release.ui.list.pagination
 
 import androidx.recyclerview.widget.DiffUtil
-import com.faltenreich.release.ui.list.provider.DateProvider
+import com.faltenreich.release.ui.logic.provider.DateProvider
 
 class ReleaseItemDiffUtilCallback : DiffUtil.ItemCallback<DateProvider>() {
 

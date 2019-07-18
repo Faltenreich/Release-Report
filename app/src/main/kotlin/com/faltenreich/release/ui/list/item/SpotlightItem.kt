@@ -2,8 +2,8 @@ package com.faltenreich.release.ui.list.item
 
 import android.content.Context
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.ui.list.provider.LabelProvider
-import com.faltenreich.release.ui.list.provider.ReleaseProvider
+import com.faltenreich.release.ui.logic.provider.LabelProvider
+import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 
 sealed class SpotlightItem
 

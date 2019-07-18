@@ -7,7 +7,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
-import com.faltenreich.release.ui.view.ReleaseOpener
+import com.faltenreich.release.ui.logic.opener.ReleaseOpener
 import kotlinx.android.synthetic.main.list_item_release_promo.*
 
 class ReleasePromoViewHolder(

@@ -1,4 +1,4 @@
-package com.faltenreich.release.ui.list.provider
+package com.faltenreich.release.ui.logic.provider
 
 import android.content.Context
 import com.faltenreich.release.extension.print

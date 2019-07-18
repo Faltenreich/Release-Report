@@ -4,9 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Keep
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+import kotlin.math.max
+import kotlin.math.min
 
 open class SlideOutBehavior @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : StepAsideBehavior(context, attrs) {
     private var margin: Float = -1f
@@ -22,7 +23,7 @@ open class SlideOutBehavior @JvmOverloads constructor(context: Context, attrs: A
             margin = (child.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat()
         }
         if (isEnabled) {
-            child.translationY = Math.max(0f, Math.min(child.height + margin, child.translationY + dy.toFloat()))
+            child.translationY = max(0f, min(child.height + margin, child.translationY + dy.toFloat()))
         }
     }
 }

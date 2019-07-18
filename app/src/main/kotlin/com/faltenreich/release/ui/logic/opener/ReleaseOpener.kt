@@ -1,4 +1,4 @@
-package com.faltenreich.release.ui.view
+package com.faltenreich.release.ui.logic.opener
 
 import android.view.View
 import androidx.core.view.ViewCompat

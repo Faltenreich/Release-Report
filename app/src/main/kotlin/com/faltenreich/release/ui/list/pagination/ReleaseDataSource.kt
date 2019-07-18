@@ -5,7 +5,7 @@ import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.*
-import com.faltenreich.release.ui.list.provider.DateProvider
+import com.faltenreich.release.ui.logic.provider.DateProvider
 import org.threeten.bp.LocalDate
 
 private typealias ReleaseKey = LocalDate

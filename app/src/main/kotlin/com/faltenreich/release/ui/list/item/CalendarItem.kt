@@ -1,6 +1,6 @@
 package com.faltenreich.release.ui.list.item
 
-import com.faltenreich.release.ui.list.provider.DateProvider
+import com.faltenreich.release.ui.logic.provider.DateProvider
 import org.threeten.bp.YearMonth
 
 interface CalendarItem : DateProvider {

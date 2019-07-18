@@ -12,7 +12,7 @@ import com.faltenreich.release.ui.list.decoration.SpotlightItemDecoration
 import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
 import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
-import com.faltenreich.release.ui.view.ReleaseOpener
+import com.faltenreich.release.ui.logic.opener.ReleaseOpener
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
 class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.spotlight), ReleaseOpener {

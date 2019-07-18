@@ -7,7 +7,7 @@ import com.faltenreich.release.ui.list.item.ReleaseEmptyItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.list.item.ReleaseMoreItem
 import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
-import com.faltenreich.release.ui.list.provider.DateProvider
+import com.faltenreich.release.ui.logic.provider.DateProvider
 import com.faltenreich.release.ui.list.viewholder.*
 import org.threeten.bp.LocalDate
 

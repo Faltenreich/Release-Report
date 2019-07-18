@@ -3,7 +3,7 @@ package com.faltenreich.release.data.viewmodel
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.faltenreich.release.ui.list.provider.DateProvider
+import com.faltenreich.release.ui.logic.provider.DateProvider
 import com.faltenreich.release.ui.list.pagination.PagingDataFactory
 import com.faltenreich.release.ui.list.pagination.ReleaseDataSource
 import org.threeten.bp.LocalDate

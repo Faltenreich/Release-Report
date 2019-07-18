@@ -10,8 +10,8 @@ import com.faltenreich.release.extension.locale
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.DateStyle
-import com.faltenreich.release.ui.list.provider.ReleaseProvider
-import com.faltenreich.release.ui.view.ReleaseOpener
+import com.faltenreich.release.ui.logic.provider.ReleaseProvider
+import com.faltenreich.release.ui.logic.opener.ReleaseOpener
 import kotlinx.android.synthetic.main.list_item_release_image.*
 import org.threeten.bp.format.TextStyle
 
