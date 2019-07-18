@@ -1,7 +1,9 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.CalendarViewModel
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import kotlin.math.min
 
-class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
+class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calendar) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
 
@@ -29,6 +31,15 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
         parentViewModel.tint = TintAction(R.color.colorPrimary)
         initList()
         initData()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.date -> { findNavController().navigate(R.id.date); true }
+            R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
+            R.id.filter -> { TODO() }
+            else -> false
+        }
     }
 
     private fun initList() {

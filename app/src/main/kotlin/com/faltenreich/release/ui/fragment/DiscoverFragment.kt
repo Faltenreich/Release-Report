@@ -1,6 +1,7 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -31,7 +32,7 @@ import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
 
-class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
+class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discover) {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     private val date: LocalDate? by lazy { arguments?.let { arguments -> DiscoverFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
@@ -69,6 +70,15 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
     override fun onResume() {
         super.onResume()
         invalidateListHeader()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.date -> { findNavController().navigate(R.id.date); true }
+            R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
+            R.id.filter -> { TODO() }
+            else -> false
+        }
     }
 
     private fun initSearch() {

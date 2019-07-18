@@ -1,7 +1,9 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
@@ -13,7 +15,7 @@ import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.view.ReleaseOpener
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
-class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpener {
+class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.spotlight), ReleaseOpener {
     private val viewModel by lazy { createViewModel(SpotlightViewModel::class) }
 
     private val listAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
@@ -22,6 +24,14 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight), ReleaseOpen
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         fetchData()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
+            R.id.filter -> { TODO() }
+            else -> false
+        }
     }
 
     private fun initLayout() {

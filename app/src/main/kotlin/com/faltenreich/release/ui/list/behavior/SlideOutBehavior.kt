@@ -4,10 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Keep
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 
-class SlideOutBehavior @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : StepAsideBehavior(context, attrs) {
+open class SlideOutBehavior @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : StepAsideBehavior(context, attrs) {
     private var margin: Float = -1f
     var isEnabled = true
 
