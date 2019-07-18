@@ -23,6 +23,7 @@ import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
+import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
@@ -32,7 +33,7 @@ import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
 
-class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discover) {
+class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discover), DatePickerOpener {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     private val date: LocalDate? by lazy { arguments?.let { arguments -> DiscoverFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
@@ -74,7 +75,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { findNavController().navigate(R.id.date); true }
+            R.id.date -> { openDatePicker(findNavController()); true }
             R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
             R.id.filter -> { TODO() }
             else -> false

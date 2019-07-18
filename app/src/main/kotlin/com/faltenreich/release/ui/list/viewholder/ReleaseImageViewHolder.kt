@@ -10,8 +10,8 @@ import com.faltenreich.release.extension.locale
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.DateStyle
-import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 import com.faltenreich.release.ui.logic.opener.ReleaseOpener
+import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 import kotlinx.android.synthetic.main.list_item_release_image.*
 import org.threeten.bp.format.TextStyle
 
@@ -22,7 +22,7 @@ class ReleaseImageViewHolder(
 
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
-        container.setOnClickListener { openRelease(release, releaseCoverImageView) }
+        container.setOnClickListener { openRelease(navigationController, release, releaseCoverImageView) }
 
         release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
 

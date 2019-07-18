@@ -14,12 +14,13 @@ import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
+import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import kotlin.math.min
 
-class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calendar) {
+class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calendar), DatePickerOpener {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
 
@@ -35,7 +36,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { findNavController().navigate(R.id.date); true }
+            R.id.date -> { openDatePicker(findNavController()); true }
             R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
             R.id.filter -> { TODO() }
             else -> false
