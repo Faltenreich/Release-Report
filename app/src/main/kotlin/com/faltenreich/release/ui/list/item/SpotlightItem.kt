@@ -7,10 +7,18 @@ import com.faltenreich.release.ui.list.provider.ReleaseProvider
 
 sealed class SpotlightItem
 
-data class SpotlightHeaderItem(val labelResId: Int) : SpotlightItem(), LabelProvider {
+data class SpotlightHeaderItem(
+    val labelResId: Int
+) : SpotlightItem(), LabelProvider {
     override fun print(context: Context): String? = context.getString(labelResId)
 }
 
-data class SpotlightReleaseItem(override val release: Release) : SpotlightItem(), ReleaseProvider
+data class SpotlightReleaseItem(
+    override val release: Release,
+    override val dateStyle: DateStyle
+) : SpotlightItem(), ReleaseProvider
 
-data class SpotlightPromoItem(override val release: Release) : SpotlightItem(), ReleaseProvider
+data class SpotlightPromoItem(
+    override val release: Release,
+    override val dateStyle: DateStyle = DateStyle.SHORT
+) : SpotlightItem(), ReleaseProvider

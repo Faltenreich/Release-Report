@@ -2,7 +2,10 @@ package com.faltenreich.release.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.ui.list.item.*
+import com.faltenreich.release.ui.list.item.ReleaseDateItem
+import com.faltenreich.release.ui.list.item.ReleaseEmptyItem
+import com.faltenreich.release.ui.list.item.ReleaseItem
+import com.faltenreich.release.ui.list.item.ReleaseMoreItem
 import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
 import com.faltenreich.release.ui.list.provider.DateProvider
 import com.faltenreich.release.ui.list.viewholder.*

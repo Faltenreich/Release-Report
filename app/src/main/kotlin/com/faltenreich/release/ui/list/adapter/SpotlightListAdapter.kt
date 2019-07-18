@@ -2,8 +2,8 @@ package com.faltenreich.release.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
+import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
 import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
