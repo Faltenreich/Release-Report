@@ -66,6 +66,11 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
         initData(date ?: LocalDate.now())
     }
 
+    override fun onResume() {
+        super.onResume()
+        invalidateListHeader()
+    }
+
     private fun initSearch() {
         searchable.properties = SearchableProperties(this, searchView)
         searchView.setLogoIcon(R.drawable.ic_search)
