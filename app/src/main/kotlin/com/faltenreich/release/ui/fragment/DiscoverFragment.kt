@@ -7,6 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.MainViewModel
@@ -73,6 +74,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {
                 val searchQuery = query?.toString()?.nonBlank ?: return true
+                findNavController().navigate(SearchFragmentDirections.openSearch(searchQuery))
                 return true
             }
         })
@@ -198,7 +200,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
     }
 
     companion object {
-        private const val LIST_SPAN_COUNT = 2
         private const val LIST_SKELETON_ITEM_COUNT = 8
         private const val TODAY_BUTTON_TOGGLE_DURATION = 200L
     }

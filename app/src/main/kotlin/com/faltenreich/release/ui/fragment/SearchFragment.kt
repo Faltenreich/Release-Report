@@ -19,6 +19,7 @@ import org.jetbrains.anko.textResource
 
 class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
     private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
+    private val query: String? by lazy { arguments?.let { arguments -> SearchFragmentArgs.fromBundle(arguments).query.nonBlank } }
 
     private val listAdapter by lazy { context?.let { context -> SearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
@@ -42,9 +43,15 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
         searchView.setOnQueryTextListener(this)
 
         if (viewModel.query == null) {
-            emptyView.isVisible = true
-            emptyIcon.isVisible = false
-            emptyLabel.textResource = R.string.search_hint_desc
+            if (query != null) {
+                skeleton.showSkeleton()
+                emptyView.isVisible = false
+                searchView.setQuery(query, true)
+            } else {
+                emptyView.isVisible = true
+                emptyIcon.isVisible = false
+                emptyLabel.textResource = R.string.search_hint_desc
+            }
         }
     }
 

@@ -22,7 +22,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date_select -> { openDatePicker(); true }
+            R.id.date -> { openDatePicker(); true }
             R.id.search -> { openSearch(); true }
             R.id.filter -> { openFilter(); true }
             else -> false
@@ -41,11 +41,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main, R.menu.main) {
     }
 
     private fun openDatePicker() {
-        navigationController.navigate(R.id.date_select)
+        navigationController.navigate(R.id.date)
     }
 
-    private fun openSearch() {
-        navigationController.navigate(R.id.open_search)
+    private fun openSearch(query: String = "") {
+        navigationController.navigate(SearchFragmentDirections.openSearch(query))
     }
 
     private fun openFilter() {
