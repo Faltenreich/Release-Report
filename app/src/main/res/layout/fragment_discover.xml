@@ -49,7 +49,7 @@
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@drawable/dogear_header_overlay"
+        android:background="@drawable/dogear_header"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/margin_padding_size_medium"
         android:paddingEnd="@dimen/margin_padding_size_medium"
