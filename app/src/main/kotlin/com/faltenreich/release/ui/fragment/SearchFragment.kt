@@ -51,6 +51,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
                 emptyView.isVisible = true
                 emptyIcon.isVisible = false
                 emptyLabel.textResource = R.string.search_hint_desc
+                searchView.open(null)
             }
         }
     }
