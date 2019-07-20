@@ -45,7 +45,7 @@ class ReleaseDemoDao : ReleaseDao {
         val filtered = releases.filter { release ->
             release.releaseDate?.let { date -> date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt) }.isTrue
         }
-        val paged = pageSize?.let { filtered.subList(0, pageSize) } ?: filtered
+        val paged = pageSize?.let { filtered.take(pageSize) } ?: filtered
         onResult(paged)
     }
 
