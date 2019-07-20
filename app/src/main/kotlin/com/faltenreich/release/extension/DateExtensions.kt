@@ -2,6 +2,7 @@ package com.faltenreich.release.extension
 
 import android.content.Context
 import com.faltenreich.release.R
+import com.faltenreich.release.data.preference.UserPreferences
 import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
@@ -11,7 +12,7 @@ import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.WeekFields
 import java.util.*
 
-private const val DATE_FORMAT_FIREBASE = "yyyy-MM-dd"
+private const val DATE_FORMAT_DATABASE = "yyyy-MM-dd"
 
 val LocalDate.isToday: Boolean
     get() = isEqual(LocalDate.now())
@@ -26,14 +27,14 @@ fun LocalDate.isBeforeOrEqual(date: LocalDate): Boolean {
 
 val String?.asLocalDate: LocalDate?
     get() = try {
-        LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
+        LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_FORMAT_DATABASE))
     } catch (exception: DateTimeParseException) {
         println(exception)
         null
     }
 
 val LocalDate.asString: String
-    get() = format(DateTimeFormatter.ofPattern(DATE_FORMAT_FIREBASE))
+    get() = format(DateTimeFormatter.ofPattern(DATE_FORMAT_DATABASE))
 
 val LocalDate.date: Date
     get() = DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
@@ -61,10 +62,10 @@ fun LocalDate.print(context: Context?): String? {
     }
 }
 
-fun YearMonth.print(context: Context?): String? {
+fun YearMonth.print(): String? {
     val year = year
     val isSameYear = year == LocalDate.now().year
-    val monthText = month.getDisplayName(TextStyle.FULL, context?.locale)
+    val monthText = month.getDisplayName(TextStyle.FULL, UserPreferences.locale)
     return if (isSameYear) monthText else "$monthText $year"
 }
 
@@ -77,12 +78,8 @@ val LocalDate.atStartOfMonth: LocalDate
 val LocalDate.atEndOfMonth: LocalDate
     get() = withDayOfMonth(lengthOfMonth())
 
-fun LocalDate.atStartOfWeek(context: Context): LocalDate {
-    val locale = context.locale
-    return with(WeekFields.of(locale).dayOfWeek(), 1)
-}
+val LocalDate.atStartOfWeek: LocalDate
+    get() = with(WeekFields.of(UserPreferences.locale).dayOfWeek(), 1)
 
-fun LocalDate.atEndOfWeek(context: Context): LocalDate {
-    val locale = context.locale
-    return with(WeekFields.of(locale).dayOfWeek(), 7)
-}
+val LocalDate.atEndOfWeek: LocalDate
+    get() = with(WeekFields.of(UserPreferences.locale).dayOfWeek(), 7)

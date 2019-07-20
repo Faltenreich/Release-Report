@@ -61,7 +61,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
     }
 
     private fun initData() {
-        viewModel.observeReleases(requireContext(), this) { list -> listAdapter?.submitList(list) }
+        viewModel.observeReleases(this) { list -> listAdapter?.submitList(list) }
     }
 
     private fun invalidateListHeader() {
@@ -71,7 +71,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
             val firstVisibleItem = upcomingItems.firstOrNull()
             val firstVisibleYearMonth = firstVisibleItem?.yearMonth
             val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
-            headerMonthLabel.text = month.print(context)
+            headerMonthLabel.text = month.print()
 
             val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthItem }
             val translationY = if (upcomingHeaderIndex >= 0) {

@@ -2,13 +2,17 @@ package com.faltenreich.release.data.preference
 
 import android.content.Context
 import android.content.SharedPreferences
+import java.util.*
 
 abstract class SharedPreferences {
 
     @PublishedApi internal lateinit var preferences: SharedPreferences
 
+    lateinit var locale: Locale
+
     fun init(context: Context, name: String = context.packageName) {
         preferences = context.getSharedPreferences("$name.prefs", Context.MODE_PRIVATE)
+        locale = context.resources.configuration.locale
     }
 
     inline fun SharedPreferences.edit(function: SharedPreferences.Editor.() -> Unit): Unit = with(edit()) { function(); apply() }

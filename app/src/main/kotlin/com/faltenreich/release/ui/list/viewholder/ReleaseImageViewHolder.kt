@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.extension.locale
+import com.faltenreich.release.data.preference.UserPreferences
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.DateStyle
@@ -33,7 +33,7 @@ class ReleaseImageViewHolder(
         releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
         releaseSubtitleTextView.text = when (data.dateStyle) {
             DateStyle.NONE -> null
-            DateStyle.SHORT -> release.releaseDate?.dayOfWeek?.getDisplayName(TextStyle.FULL, context.locale)
+            DateStyle.SHORT -> release.releaseDate?.dayOfWeek?.getDisplayName(TextStyle.FULL, UserPreferences.locale)
             DateStyle.FULL -> release.releaseDateForUi(context)
         }
     }

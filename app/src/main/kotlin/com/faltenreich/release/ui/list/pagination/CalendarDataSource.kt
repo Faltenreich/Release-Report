@@ -1,6 +1,5 @@
 package com.faltenreich.release.ui.list.pagination
 
-import android.content.Context
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
@@ -15,10 +14,7 @@ import org.threeten.bp.YearMonth
 
 private typealias CalendarKey = YearMonth
 
-class CalendarDataSource(
-    private val context: Context,
-    private val startAt: YearMonth
-) : PageKeyedDataSource<CalendarKey, CalendarItem>() {
+class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<CalendarKey, CalendarItem>() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<CalendarKey>, callback: LoadInitialCallback<CalendarKey, CalendarItem>) {
@@ -52,8 +48,8 @@ class CalendarDataSource(
         releaseRepository.getFavorites(start, end) { releases ->
             val items = yearMonths.flatMap { yearMonth ->
                 val monthItem = CalendarMonthItem(start, yearMonth)
-                val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek(context)
-                val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek(context)
+                val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek
+                val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek
                 val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
                     val releasesOfToday = releases.filter { release -> (release.releaseDate == day).isTrue }
                     CalendarDateItem(day, yearMonth, releasesOfToday)
