@@ -3,7 +3,7 @@ package com.faltenreich.release.parse.database
 import android.util.Log
 import com.faltenreich.release.data.dao.Dao
 import com.faltenreich.release.data.model.Model
-import com.faltenreich.release.tag
+import com.faltenreich.release.extension.tag
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlin.reflect.KClass

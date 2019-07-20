@@ -21,7 +21,7 @@ import com.faltenreich.release.extension.backgroundTintResource
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.extension.tintResource
-import com.faltenreich.release.showToast
+import com.faltenreich.release.extension.showToast
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
 import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release.*

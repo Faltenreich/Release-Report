@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.ReleaseSearchViewModel
 import com.faltenreich.release.extension.nonBlank
-import com.faltenreich.release.hideKeyboard
+import com.faltenreich.release.extension.hideKeyboard
 import com.faltenreich.release.ui.list.adapter.SearchListAdapter
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search

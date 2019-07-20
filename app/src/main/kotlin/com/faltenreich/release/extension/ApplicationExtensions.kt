@@ -1,4 +1,4 @@
-package com.faltenreich.release
+package com.faltenreich.release.extension
 
 import android.app.Activity
 import android.content.Context

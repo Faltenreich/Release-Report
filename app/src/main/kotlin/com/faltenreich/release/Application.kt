@@ -21,9 +21,7 @@ class Application : Application() {
     }
 
     companion object {
-        val isDemo: Boolean
-            get() = BuildConfig.FLAVOR == "demo"
-        val isBeta: Boolean
-            get() = BuildConfig.FLAVOR == "beta"
+        const val isDemo: Boolean = BuildConfig.FLAVOR == "demo"
+        const val isBeta: Boolean = BuildConfig.FLAVOR == "beta"
     }
 }

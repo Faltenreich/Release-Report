@@ -16,8 +16,7 @@ class ReleaseDemoDao : ReleaseDao {
     }
 
     override fun getByIds(ids: Collection<String>, onResult: (List<Release>) -> Unit) {
-        val filtered = releases.filter { release -> ids.contains(release.id) }
-        onResult(filtered)
+        onResult(releases.filter { release -> ids.contains(release.id) })
     }
 
     override fun getByIds(
@@ -26,19 +25,17 @@ class ReleaseDemoDao : ReleaseDao {
         endAt: LocalDate,
         onResult: (List<Release>) -> Unit
     ) {
-        val filtered = releases.filter { release ->
+        onResult(releases.filter { release ->
             ids.contains(release.id)
                     && release.releaseDate?.isAfterOrEqual(startAt).isTrue
                     && release.releaseDate?.isBeforeOrEqual(endAt.plusDays(1)).isTrue
-        }
-        onResult(filtered)
+        })
     }
 
     override fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
-        val filtered = releases.filter { release ->
+        onResult(releases.filter { release ->
             ids.contains(release.id) && startAt?.let { release.releaseDate?.isAfterOrEqual(startAt).isTrue }.isTrueOrNull
-        }
-        onResult(filtered)
+        })
     }
 
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
@@ -50,9 +47,6 @@ class ReleaseDemoDao : ReleaseDao {
     }
 
     override fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        val filtered = {
-            releases.filter { release -> release.title?.contains(string).isTrue }
-        }
-        onResult(if (page == 0) filtered() else listOf())
+        onResult(if (page == 0) releases.filter { release -> release.title?.contains(string).isTrue } else listOf())
     }
 }

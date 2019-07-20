@@ -6,7 +6,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.extension.className
-import com.faltenreich.release.versionName
+import com.faltenreich.release.extension.versionName
 import kotlinx.android.synthetic.main.fragment_preference.*
 
 class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
