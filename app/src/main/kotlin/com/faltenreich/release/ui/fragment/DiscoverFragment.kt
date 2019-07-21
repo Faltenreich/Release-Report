@@ -218,9 +218,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
     }
 
     private fun openDatePicker() {
-        openDatePicker(childFragmentManager) { date ->
-            TODO()
-        }
+        openDatePicker(childFragmentManager) { date -> initData(date, true) }
     }
 
     companion object {
