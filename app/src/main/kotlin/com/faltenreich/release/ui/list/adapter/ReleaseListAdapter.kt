@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.item.ReleaseEmptyItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
-import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
+import com.faltenreich.release.ui.list.pagination.DateProviderDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
 import com.faltenreich.release.ui.list.viewholder.HeaderViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseDetailViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseEmptyViewHolder
 import com.faltenreich.release.ui.logic.provider.DateProvider
-import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, ReleaseItemDiffUtilCallback()) {
+class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, DateProviderDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {
@@ -31,10 +30,6 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, Base
             VIEW_TYPE_EMPTY -> ReleaseEmptyViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>
-    }
-
-    fun getFirstPositionForDate(date: LocalDate): Int? {
-        return listItems.indexOfFirst { item -> item.date.isEqual(date) }.takeIf { index -> index >= 0 }
     }
 
     companion object {

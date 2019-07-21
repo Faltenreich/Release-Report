@@ -16,7 +16,7 @@ import org.jetbrains.anko.textColorResource
 class CalendarDateViewHolder(
     context: Context,
     parent: ViewGroup
-) : CalendarViewHolder<CalendarDateItem>(
+) : BaseViewHolder<CalendarDateItem>(
     context,
     R.layout.list_item_calendar_day,
     parent

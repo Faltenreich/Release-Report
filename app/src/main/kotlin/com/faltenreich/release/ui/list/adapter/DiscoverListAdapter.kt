@@ -6,12 +6,12 @@ import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.item.ReleaseEmptyItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.list.item.ReleaseMoreItem
-import com.faltenreich.release.ui.list.pagination.ReleaseItemDiffUtilCallback
+import com.faltenreich.release.ui.list.pagination.DateProviderDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.*
 import com.faltenreich.release.ui.logic.provider.DateProvider
 import org.threeten.bp.LocalDate
 
-class DiscoverListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, ReleaseItemDiffUtilCallback()) {
+class DiscoverListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, DateProviderDiffUtilCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {
