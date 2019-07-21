@@ -5,13 +5,12 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import com.faltenreich.release.extension.asLocalDate
 import org.threeten.bp.LocalDate
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
-    private val date by lazy { arguments?.let { arguments -> DatePickerFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
+    private val date by lazy { arguments?.getSerializable(ARGUMENT_DATE) as? LocalDate }
 
-    var onValueChanged: ((LocalDate?) -> Unit)? = null
+    var onValueChanged: ((LocalDate) -> Unit)? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val date = date ?: LocalDate.now()
@@ -22,5 +21,15 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         val date = LocalDate.of(year, month + 1, dayOfMonth)
         onValueChanged?.invoke(date)
         // TODO: Propagate onDialogClosed
+    }
+
+    companion object {
+        private const val ARGUMENT_DATE = "date"
+
+        fun newInstance(date: LocalDate?): DatePickerFragment {
+            return DatePickerFragment().also { fragment ->
+                fragment.arguments = Bundle().apply { putSerializable(ARGUMENT_DATE, date) }
+            }
+        }
     }
 }

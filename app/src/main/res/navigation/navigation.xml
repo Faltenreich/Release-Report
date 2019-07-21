@@ -43,34 +43,6 @@
             app:argType="string"/>
     </action>
 
-    <action
-        android:id="@+id/open_date_picker"
-        app:destination="@+id/date"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out"
-        app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out">
-        <argument
-            android:name="date"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-    </action>
-
-    <action
-        android:id="@+id/open_year_month_picker"
-        app:destination="@+id/year_month"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out"
-        app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out">
-        <argument
-            android:name="yearMonth"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-    </action>
-
     <dialog
         android:id="@+id/navigation"
         android:name="com.faltenreich.release.ui.fragment.NavigationFragment"
@@ -78,26 +50,6 @@
         <argument
             android:name="previousDestinationId"
             app:argType="integer"/>
-    </dialog>
-
-    <dialog
-        android:id="@+id/date"
-        android:name="com.faltenreich.release.ui.fragment.DatePickerFragment">
-        <argument
-            android:name="date"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-    </dialog>
-
-    <dialog
-        android:id="@+id/year_month"
-        android:name="com.faltenreich.release.ui.fragment.YearMonthPickerFragment">
-        <argument
-            android:name="yearMonth"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
     </dialog>
 
     <fragment

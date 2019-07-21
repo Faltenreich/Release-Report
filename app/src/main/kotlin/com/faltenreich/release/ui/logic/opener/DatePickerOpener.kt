@@ -1,12 +1,13 @@
 package com.faltenreich.release.ui.logic.opener
 
-import androidx.navigation.NavController
-import com.faltenreich.release.NavigationGraphDirections
-import com.faltenreich.release.extension.asString
+import androidx.fragment.app.FragmentManager
+import com.faltenreich.release.ui.fragment.DatePickerFragment
 import org.threeten.bp.LocalDate
 
 interface DatePickerOpener {
-    fun openDatePicker(navigationController: NavController, date: LocalDate? = null, onValueSelected: (LocalDate) -> Unit) {
-        navigationController.navigate(NavigationGraphDirections.openDatePicker(date?.asString ?: ""))
+    fun openDatePicker(fragmentManager: FragmentManager, date: LocalDate? = null, onValueSelected: (LocalDate) -> Unit) {
+        val fragment = DatePickerFragment.newInstance(date)
+        fragment.onValueChanged = onValueSelected
+        fragment.show(fragmentManager, fragment.tag)
     }
 }

@@ -1,12 +1,13 @@
 package com.faltenreich.release.ui.logic.opener
 
-import androidx.navigation.NavController
-import com.faltenreich.release.NavigationGraphDirections
-import com.faltenreich.release.extension.asString
+import androidx.fragment.app.FragmentManager
+import com.faltenreich.release.ui.fragment.YearMonthPickerFragment
 import org.threeten.bp.YearMonth
 
 interface YearMonthPickerOpener {
-    fun openYearMonthPicker(navigationController: NavController, yearMonth: YearMonth? = null, onValueSelected: (YearMonth) -> Unit) {
-        navigationController.navigate(NavigationGraphDirections.openYearMonthPicker(yearMonth?.asString ?: ""))
+    fun openYearMonthPicker(fragmentManager: FragmentManager, yearMonth: YearMonth? = null, onValueSelected: (YearMonth) -> Unit) {
+        val fragment = YearMonthPickerFragment.newInstance(yearMonth)
+        fragment.onValueChanged = onValueSelected
+        fragment.show(fragmentManager, fragment.tag)
     }
 }

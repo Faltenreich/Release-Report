@@ -89,7 +89,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
     }
 
     private fun openYearMonthPicker() {
-        openYearMonthPicker(findNavController(), viewModel.yearMonth) { yearMonth ->
+        openYearMonthPicker(childFragmentManager, viewModel.yearMonth) { yearMonth ->
             viewModel.yearMonth = yearMonth
             initData(yearMonth)
         }
