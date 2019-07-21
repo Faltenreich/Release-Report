@@ -11,7 +11,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.print
-import com.faltenreich.release.ui.list.adapter.DiscoverListAdapter
+import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
@@ -26,7 +26,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date.asLocalDate } }
 
-    private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
+    private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: ReleaseListLayoutManager
     private lateinit var listItemDecoration: ReleaseListItemDecoration
 

@@ -21,7 +21,7 @@ import com.faltenreich.release.ui.list.adapter.DiscoverListAdapter
 import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
-import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
+import com.faltenreich.release.ui.list.layoutmanager.DiscoverLayoutManager
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.logic.search.SearchableObserver
 import com.faltenreich.release.ui.logic.search.SearchableProperties
@@ -40,7 +40,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
     private val searchable by lazy { SearchableObserver() }
     
     private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
-    private lateinit var listLayoutManager: ReleaseListLayoutManager
+    private lateinit var listLayoutManager: DiscoverLayoutManager
     private lateinit var listItemDecoration: ReleaseListItemDecoration
     private lateinit var todayButtonBehavior: SlideOutBehavior
 
@@ -98,7 +98,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
 
     private fun initList() {
         context?.let { context ->
-            listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
+            listLayoutManager = DiscoverLayoutManager(context, listAdapter)
             listItemDecoration = ReleaseListItemDecoration(context)
 
             listView.layoutManager = listLayoutManager

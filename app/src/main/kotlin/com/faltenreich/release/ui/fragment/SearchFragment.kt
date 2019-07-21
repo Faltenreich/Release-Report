@@ -3,6 +3,7 @@ package com.faltenreich.release.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
@@ -10,6 +11,7 @@ import com.faltenreich.release.data.viewmodel.SearchViewModel
 import com.faltenreich.release.extension.hideKeyboard
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.ui.list.adapter.SearchListAdapter
+import com.faltenreich.release.ui.logic.provider.DateProvider
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -58,7 +60,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
 
     private fun initData() {
         viewModel.observe(this, onObserve = { releases ->
-            listAdapter?.submitList(releases)
+            listAdapter?.submitList(releases as PagedList<DateProvider>)
         }, onInitialLoad = { releases ->
             runOnUiThread {
                 skeleton.showOriginal()
