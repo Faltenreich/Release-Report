@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.faltenreich.release.extension.asLocalDate
+import com.faltenreich.release.extension.asYearMonth
 import org.threeten.bp.LocalDate
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     private val date by lazy { arguments?.let { arguments -> DatePickerFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
+    private val yearMonth by lazy { arguments?.let { arguments -> DatePickerFragmentArgs.fromBundle(arguments).yearMonth?.asYearMonth } }
 
     var onDateSet: ((LocalDate?) -> Unit)? = null
 

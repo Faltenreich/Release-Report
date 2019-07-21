@@ -77,7 +77,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { openDatePicker(findNavController()); true }
+            R.id.date -> { openDatePicker(findNavController(), viewModel.date) { date -> }; true }
             R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
             R.id.filter -> { TODO() }
             else -> false

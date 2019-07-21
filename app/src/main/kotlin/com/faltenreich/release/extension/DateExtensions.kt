@@ -12,7 +12,8 @@ import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.WeekFields
 import java.util.*
 
-private const val DATE_FORMAT_DATABASE = "yyyy-MM-dd"
+private const val FORMAT_DATE = "yyyy-MM-dd"
+private const val FORMAT_YEAR_MONTH = "MM/yyyy"
 
 val LocalDate.isToday: Boolean
     get() = isEqual(LocalDate.now())
@@ -27,14 +28,14 @@ fun LocalDate.isBeforeOrEqual(date: LocalDate): Boolean {
 
 val String?.asLocalDate: LocalDate?
     get() = try {
-        LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_FORMAT_DATABASE))
+        LocalDate.parse(this, DateTimeFormatter.ofPattern(FORMAT_DATE))
     } catch (exception: DateTimeParseException) {
         println(exception)
         null
     }
 
 val LocalDate.asString: String
-    get() = format(DateTimeFormatter.ofPattern(DATE_FORMAT_DATABASE))
+    get() = format(DateTimeFormatter.ofPattern(FORMAT_DATE))
 
 val LocalDate.date: Date
     get() = DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
@@ -83,3 +84,9 @@ val LocalDate.atStartOfWeek: LocalDate
 
 val LocalDate.atEndOfWeek: LocalDate
     get() = with(WeekFields.of(UserPreferences.locale).dayOfWeek(), 7)
+
+val YearMonth.asString: String
+    get() = format(DateTimeFormatter.ofPattern(FORMAT_YEAR_MONTH))
+
+val String.asYearMonth: YearMonth
+    get() = YearMonth.parse(this, DateTimeFormatter.ofPattern(FORMAT_YEAR_MONTH))

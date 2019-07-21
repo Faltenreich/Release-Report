@@ -18,6 +18,7 @@ import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
 import kotlin.math.min
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calendar), DatePickerOpener {
@@ -31,13 +32,13 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
         super.onViewCreated(view, savedInstanceState)
         parentViewModel.tint = TintAction(R.color.colorPrimary)
         initList()
-        initData()
+        initData(viewModel.yearMonth ?: YearMonth.now())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { openDatePicker(findNavController()); true }
-            R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
+            R.id.date -> { openDatePicker(); true }
+            R.id.search -> { openSearch(); true }
             R.id.filter -> { TODO() }
             else -> false
         }
@@ -60,8 +61,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
         }
     }
 
-    private fun initData() {
-        viewModel.observeReleases(this) { list -> listAdapter?.submitList(list) }
+    private fun initData(yearMonth: YearMonth) {
+        viewModel.observeReleases(yearMonth, this) { list -> listAdapter?.submitList(list) }
     }
 
     private fun invalidateListHeader() {
@@ -85,5 +86,16 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
 
             viewModel.yearMonth = firstVisibleYearMonth
         }
+    }
+
+    private fun openDatePicker() {
+        openDatePicker(findNavController(), viewModel.yearMonth) { yearMonth ->
+            viewModel.yearMonth = yearMonth
+            initData(yearMonth)
+        }
+    }
+
+    private fun openSearch() {
+        findNavController().navigate(SearchFragmentDirections.openSearch(""))
     }
 }
