@@ -55,6 +55,15 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null"/>
+    </action>
+
+    <action
+        android:id="@+id/open_year_month_picker"
+        app:destination="@+id/year_month"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="yearMonth"
             app:argType="string"
@@ -79,6 +88,11 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null"/>
+    </dialog>
+
+    <dialog
+        android:id="@+id/year_month"
+        android:name="com.faltenreich.release.ui.fragment.YearMonthPickerFragment">
         <argument
             android:name="yearMonth"
             app:argType="string"
