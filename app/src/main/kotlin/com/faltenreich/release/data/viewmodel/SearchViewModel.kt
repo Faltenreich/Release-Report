@@ -7,7 +7,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.ui.list.pagination.PagingDataFactory
 import com.faltenreich.release.ui.list.pagination.SearchDataSource
 
-class ReleaseSearchViewModel : ViewModel() {
+class SearchViewModel : ViewModel() {
     private val queryLiveData = MutableLiveData<String?>()
     private lateinit var releaseLiveData: LiveData<PagedList<Release>>
 

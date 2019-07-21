@@ -21,7 +21,7 @@
 
     <action
         android:id="@+id/open_date"
-        app:destination="@+id/discover"
+        app:destination="@+id/release_list"
         app:enterAnim="@android:anim/fade_in"
         app:exitAnim="@android:anim/fade_out"
         app:popEnterAnim="@android:anim/fade_in"
@@ -82,6 +82,15 @@
         tools:layout="@layout/fragment_release">
         <argument
             android:name="releaseId"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/release_list"
+        android:name="com.faltenreich.release.ui.fragment.ReleaseListFragment"
+        tools:layout="@layout/fragment_release_list">
+        <argument
+            android:name="date"
             app:argType="string"/>
     </fragment>
 

@@ -8,7 +8,7 @@ import com.faltenreich.release.ui.list.pagination.ReleaseDataSource
 import com.faltenreich.release.ui.logic.provider.DateProvider
 import org.threeten.bp.LocalDate
 
-class ReleaseListViewModel : ViewModel() {
+class DiscoverViewModel : ViewModel() {
     private val dateLiveData = MutableLiveData<LocalDate>()
     private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>>
 

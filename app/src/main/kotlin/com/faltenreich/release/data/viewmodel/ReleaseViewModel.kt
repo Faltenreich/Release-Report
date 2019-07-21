@@ -11,7 +11,7 @@ import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.*
 
-class ReleaseDetailViewModel : ViewModel() {
+class ReleaseViewModel : ViewModel() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
     private val genreRepository = RepositoryFactory.repository<GenreRepository>()
     private val platformRepository = RepositoryFactory.repository<PlatformRepository>()

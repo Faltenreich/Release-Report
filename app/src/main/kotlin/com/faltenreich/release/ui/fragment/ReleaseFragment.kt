@@ -16,7 +16,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Media
 import com.faltenreich.release.data.model.Platform
-import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
+import com.faltenreich.release.data.viewmodel.ReleaseViewModel
 import com.faltenreich.release.extension.backgroundTintResource
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_release.*
 
 
 class ReleaseFragment : BaseFragment(R.layout.fragment_release) {
-    private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
+    private val viewModel by lazy { createViewModel(ReleaseViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseFragmentArgs.fromBundle(arguments).releaseId } }
 
     private val listAdapter by lazy { context?.let { context -> GalleryListAdapter(context) } }

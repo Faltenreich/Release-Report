@@ -11,9 +11,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
+import com.faltenreich.release.data.viewmodel.DiscoverViewModel
 import com.faltenreich.release.data.viewmodel.MainViewModel
-import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
-import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.extension.print
@@ -37,8 +36,7 @@ import kotlin.math.min
 
 class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discover), DatePickerOpener {
     private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
-    private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
-    private val date: LocalDate? by lazy { arguments?.let { arguments -> DiscoverFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
+    private val viewModel by lazy { createViewModel(DiscoverViewModel::class) }
     private val searchable by lazy { SearchableObserver() }
     
     private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
@@ -67,7 +65,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
         initSearch()
         initList()
         initTodayButton()
-        initData(date ?: LocalDate.now())
+        initData(LocalDate.now())
     }
 
     override fun onResume() {

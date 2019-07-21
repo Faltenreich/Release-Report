@@ -39,14 +39,14 @@ class ReleaseDemoDao : ReleaseDao {
     }
 
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
-        val filtered = releases.filter { release ->
+        onResult(releases.filter { release ->
             release.releaseDate?.let { date -> date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt) }.isTrue
-        }
-        val paged = pageSize?.let { filtered.take(pageSize) } ?: filtered
-        onResult(paged)
+        }.also { releases ->
+            pageSize?.let { releases.take(pageSize) } ?: releases
+        })
     }
 
     override fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        onResult(if (page == 0) releases.filter { release -> release.title?.contains(string).isTrue } else listOf())
+        onResult(if (page == 0) releases.filter { release -> release.title?.contains(string, ignoreCase = true).isTrue } else listOf())
     }
 }

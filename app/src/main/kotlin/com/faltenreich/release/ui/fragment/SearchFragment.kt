@@ -6,9 +6,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
-import com.faltenreich.release.data.viewmodel.ReleaseSearchViewModel
-import com.faltenreich.release.extension.nonBlank
+import com.faltenreich.release.data.viewmodel.SearchViewModel
 import com.faltenreich.release.extension.hideKeyboard
+import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.ui.list.adapter.SearchListAdapter
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
@@ -18,7 +18,7 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textResource
 
 class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
-    private val viewModel by lazy { createViewModel(ReleaseSearchViewModel::class) }
+    private val viewModel by lazy { createViewModel(SearchViewModel::class) }
     private val query: String? by lazy { arguments?.let { arguments -> SearchFragmentArgs.fromBundle(arguments).query.nonBlank } }
 
     private val listAdapter by lazy { context?.let { context -> SearchListAdapter(context) } }
