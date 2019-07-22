@@ -6,14 +6,13 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
-import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
-import com.faltenreich.release.ui.list.layoutmanager.ReleaseListLayoutManager
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
@@ -27,8 +26,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date.asLocalDate } }
 
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
-    private lateinit var listLayoutManager: ReleaseListLayoutManager
-    private lateinit var listItemDecoration: ReleaseListItemDecoration
+    private lateinit var listLayoutManager: LinearLayoutManager
 
     private val skeleton by lazy {
         listView.applySkeleton(R.layout.list_item_release_image,
@@ -55,11 +53,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun initLayout() {
         context?.let { context ->
-            listLayoutManager = ReleaseListLayoutManager(context, listAdapter)
-            listItemDecoration = ReleaseListItemDecoration(context)
+            listLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
             listView.layoutManager = listLayoutManager
-            listView.addItemDecoration(listItemDecoration)
             listView.adapter = listAdapter
 
             listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

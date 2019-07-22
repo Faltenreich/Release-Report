@@ -7,7 +7,7 @@ import com.faltenreich.release.ui.list.item.CalendarItem
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.pagination.CalendarItemDiffUtilCallback
 import com.faltenreich.release.ui.list.viewholder.BaseViewHolder
-import com.faltenreich.release.ui.list.viewholder.CalendarDateViewHolder
+import com.faltenreich.release.ui.list.viewholder.CalendarDayViewHolder
 import com.faltenreich.release.ui.list.viewholder.CalendarMonthViewHolder
 
 class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarItem, BaseViewHolder<CalendarItem>>(context, CalendarItemDiffUtilCallback()) {
@@ -23,7 +23,7 @@ class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarItem, Bas
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<CalendarItem> {
         return when (viewType) {
             VIEW_TYPE_MONTH -> CalendarMonthViewHolder(context, parent)
-            VIEW_TYPE_DAY -> CalendarDateViewHolder(context, parent)
+            VIEW_TYPE_DAY -> CalendarDayViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown view type: $viewType")
         } as BaseViewHolder<CalendarItem>
     }

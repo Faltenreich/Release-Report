@@ -9,8 +9,10 @@ import com.faltenreich.release.ui.list.layoutmanager.MoreLayoutManager
 import kotlinx.android.synthetic.main.list_item_release_more.*
 import kotlin.math.min
 
-class ReleaseMoreViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<ReleaseMoreItem>(context, R.layout.list_item_release_more, parent) {
-
+class ReleaseMoreViewHolder(
+    context: Context,
+    parent: ViewGroup
+) : BaseViewHolder<ReleaseMoreItem>(context, R.layout.list_item_release_more, parent) {
     override fun onBind(data: ReleaseMoreItem) {
         val releases = data.releases
 

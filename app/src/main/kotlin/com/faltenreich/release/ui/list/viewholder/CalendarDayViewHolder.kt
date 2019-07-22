@@ -13,14 +13,10 @@ import kotlinx.android.synthetic.main.list_item_calendar_day.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColorResource
 
-class CalendarDateViewHolder(
+class CalendarDayViewHolder(
     context: Context,
     parent: ViewGroup
-) : BaseViewHolder<CalendarDateItem>(
-    context,
-    R.layout.list_item_calendar_day,
-    parent
-), DateOpener {
+) : BaseViewHolder<CalendarDateItem>(context, R.layout.list_item_calendar_day, parent), DateOpener {
     override fun onBind(data: CalendarDateItem) {
         val (date, _, releases) = data
         val isToday = date.isToday

@@ -19,7 +19,6 @@ class ReleaseImageViewHolder(
     context: Context,
     parent: ViewGroup
 ) : BaseViewHolder<ReleaseProvider>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
-
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
         container.setOnClickListener { openRelease(navigationController, release, releaseCoverImageView) }

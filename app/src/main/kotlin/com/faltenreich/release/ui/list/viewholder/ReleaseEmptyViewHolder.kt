@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import com.faltenreich.release.R
 import com.faltenreich.release.ui.logic.provider.DateProvider
 
-class ReleaseEmptyViewHolder(context: Context, parent: ViewGroup) : BaseViewHolder<DateProvider>(context, R.layout.list_item_release_empty, parent) {
+class ReleaseEmptyViewHolder(
+    context: Context,
+    parent: ViewGroup
+) : BaseViewHolder<DateProvider>(context, R.layout.list_item_release_empty, parent) {
     override fun onBind(data: DateProvider) = Unit
 }
