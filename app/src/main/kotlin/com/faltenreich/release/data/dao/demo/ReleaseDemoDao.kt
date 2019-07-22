@@ -41,7 +41,7 @@ class ReleaseDemoDao : ReleaseDao {
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
         onResult(releases.filter { release ->
             release.releaseDate?.let { date -> date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt) }.isTrue
-        }.also { releases ->
+        }.let { releases ->
             pageSize?.let { releases.take(pageSize) } ?: releases
         })
     }

@@ -45,7 +45,7 @@ class SpotlightViewModel : ViewModel() {
         val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
         val startAt = endAt.minusMonths(1)
 
-        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), pageSize) { releases -> weeklyReleases = releases }
+        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), pageSize + 1) { releases -> weeklyReleases = releases }
         releaseRepository.getFavorites(today, pageSize) { releases -> favoriteReleases = releases }
         releaseRepository.getBetween(startAt, endAt, pageSize) { releases -> recentReleases = releases }
     }
