@@ -11,7 +11,6 @@ class Chip @JvmOverloads constructor(
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : Chip(context, attributeSet, defStyleAttr) {
-
     init {
         setTextColor(ContextCompat.getColor(context, R.color.light))
         setChipBackgroundColorResource(R.color.colorPrimary)

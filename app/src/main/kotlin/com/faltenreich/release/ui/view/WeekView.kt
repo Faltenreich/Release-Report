@@ -18,7 +18,6 @@ class WeekView @JvmOverloads constructor(
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attributeSet, defStyleAttr) {
-
     init {
         val padding = context.resources.getDimension(R.dimen.margin_padding_size_xsmall).toInt()
         setPadding(0, padding, 0, padding)

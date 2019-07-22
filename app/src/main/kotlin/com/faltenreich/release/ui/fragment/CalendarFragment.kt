@@ -7,22 +7,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.CalendarViewModel
-import com.faltenreich.release.data.viewmodel.MainViewModel
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.extension.yearMonth
-import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.logic.opener.YearMonthPickerOpener
-import com.faltenreich.release.ui.view.TintAction
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import kotlin.math.min
 
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calendar), YearMonthPickerOpener {
-    private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
 
     private val listAdapter by lazy { context?.let { context -> CalendarListAdapter(context) } }
@@ -30,7 +26,6 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel.tint = TintAction(R.color.colorPrimary)
         initList()
         initData(viewModel.yearMonth ?: YearMonth.now())
     }

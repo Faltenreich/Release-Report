@@ -78,8 +78,8 @@
 
     <fragment
         android:id="@+id/release"
-        android:name="com.faltenreich.release.ui.fragment.ReleaseFragment"
-        tools:layout="@layout/fragment_release">
+        android:name="com.faltenreich.release.ui.fragment.ReleaseDetailFragment"
+        tools:layout="@layout/fragment_release_detail">
         <argument
             android:name="releaseId"
             app:argType="string"/>

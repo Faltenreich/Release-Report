@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.snackbar.Snackbar
 
 val Any.tag: String
     get() = this::class.java.simpleName
@@ -43,3 +44,6 @@ fun Context.showToast(textRes: Int) {
     Toast.makeText(this, textRes, Toast.LENGTH_LONG).show()
 }
 
+fun View.showSnackbar(textRes: Int) {
+    Snackbar.make(this, textRes, Snackbar.LENGTH_LONG).show()
+}

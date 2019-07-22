@@ -12,11 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.DiscoverViewModel
-import com.faltenreich.release.data.viewmodel.MainViewModel
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.extension.print
-import com.faltenreich.release.ui.activity.BaseActivity
 import com.faltenreich.release.ui.list.adapter.DiscoverListAdapter
 import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.release.ui.list.decoration.DiscoverItemDecoration
@@ -25,7 +23,6 @@ import com.faltenreich.release.ui.list.layoutmanager.DiscoverLayoutManager
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.logic.search.SearchableObserver
 import com.faltenreich.release.ui.logic.search.SearchableProperties
-import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_discover.*
@@ -35,7 +32,6 @@ import kotlin.math.abs
 import kotlin.math.min
 
 class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discover), DatePickerOpener {
-    private val parentViewModel by lazy { (activity as BaseActivity).createViewModel(MainViewModel::class) }
     private val viewModel by lazy { createViewModel(DiscoverViewModel::class) }
     private val searchable by lazy { SearchableObserver() }
     
@@ -61,7 +57,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel.tint = TintAction(R.color.colorPrimary)
         initSearch()
         initList()
         initTodayButton()

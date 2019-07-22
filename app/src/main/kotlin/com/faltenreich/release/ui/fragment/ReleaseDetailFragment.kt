@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -16,20 +15,16 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Media
 import com.faltenreich.release.data.model.Platform
-import com.faltenreich.release.data.viewmodel.ReleaseViewModel
-import com.faltenreich.release.extension.backgroundTintResource
-import com.faltenreich.release.extension.screenSize
-import com.faltenreich.release.extension.setImageAsync
-import com.faltenreich.release.extension.tintResource
-import com.faltenreich.release.extension.showToast
+import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
+import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
 import com.faltenreich.release.ui.view.Chip
-import kotlinx.android.synthetic.main.fragment_release.*
+import kotlinx.android.synthetic.main.fragment_release_detail.*
 
 
-class ReleaseFragment : BaseFragment(R.layout.fragment_release) {
-    private val viewModel by lazy { createViewModel(ReleaseViewModel::class) }
-    private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseFragmentArgs.fromBundle(arguments).releaseId } }
+class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
+    private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
+    private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
     private val listAdapter by lazy { context?.let { context -> GalleryListAdapter(context) } }
     private lateinit var listLayoutManager: StaggeredGridLayoutManager
@@ -151,7 +146,7 @@ class ReleaseFragment : BaseFragment(R.layout.fragment_release) {
 
     private fun setFavorite(isFavorite: Boolean) {
         viewModel.release?.isFavorite = isFavorite
-        context?.showToast(if (isFavorite) R.string.favorite_added else R.string.favorite_removed)
+        view?.showSnackbar(if (isFavorite) R.string.favorite_added else R.string.favorite_removed)
         // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
         fab.hide()
         invalidateFavorite()

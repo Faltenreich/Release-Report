@@ -16,7 +16,6 @@ import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.skeletonlayout.applySkeleton
-import kotlinx.android.synthetic.main.fragment_release.*
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import kotlinx.android.synthetic.main.fragment_release_list.toolbar
 import kotlinx.android.synthetic.main.view_empty.*
