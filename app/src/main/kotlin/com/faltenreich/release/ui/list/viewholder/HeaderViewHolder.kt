@@ -11,6 +11,6 @@ class HeaderViewHolder(
     parent: ViewGroup
 ) : BaseViewHolder<LabelProvider>(context, R.layout.list_item_header, parent) {
     override fun onBind(data: LabelProvider) {
-        labelTextView.text = data.print(context)
+        releaseDateTextView.text = data.print(context)
     }
 }
