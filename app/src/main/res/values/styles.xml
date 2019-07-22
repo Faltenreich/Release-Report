@@ -48,4 +48,12 @@
         <item name="android:padding">@dimen/margin_padding_size_medium</item>
     </style>
 
+    <style name="ListHeader">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/margin_padding_size_medium</item>
+        <item name="android:paddingEnd">@dimen/margin_padding_size_medium</item>
+        <item name="android:background">@drawable/dogear_header</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
 </resources>

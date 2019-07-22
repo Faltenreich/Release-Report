@@ -28,10 +28,7 @@ import com.faltenreich.release.ui.logic.search.SearchableProperties
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_discover.*
-import kotlinx.android.synthetic.main.fragment_discover.listView
-import kotlinx.android.synthetic.main.list_item_header.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
 import kotlin.math.abs

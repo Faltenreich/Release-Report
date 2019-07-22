@@ -51,11 +51,12 @@
             tools:spanCount="2"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <include
-            layout="@layout/list_item_header"
+        <TextView
+            style="@style/ListHeader"
+            android:id="@+id/headerTextView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            tools:text="@tools:sample/date/mmddyy"/>
 
         <include
             layout="@layout/view_empty"

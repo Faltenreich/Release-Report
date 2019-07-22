@@ -3,12 +3,8 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ListHeader"
     android:id="@+id/headerTextView"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/toolbar_height"
-    android:gravity="center_vertical"
-    android:paddingStart="@dimen/margin_padding_size_medium"
-    android:paddingEnd="@dimen/margin_padding_size_medium"
-    android:background="@drawable/dogear_header"
-    android:textColor="?android:textColorPrimaryInverse"
     tools:text="@tools:sample/lorem"/>
