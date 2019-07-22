@@ -51,17 +51,11 @@
             tools:spanCount="2"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <TextView
-            android:id="@+id/header"
+        <include
+            layout="@layout/list_item_header"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
-            android:background="@drawable/dogear_header"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorPrimaryInverse"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:text="@tools:sample/date/mmddyy"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <include
             layout="@layout/view_empty"

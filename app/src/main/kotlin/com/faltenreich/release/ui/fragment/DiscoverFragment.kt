@@ -28,7 +28,10 @@ import com.faltenreich.release.ui.logic.search.SearchableProperties
 import com.faltenreich.release.ui.view.TintAction
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
+import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_discover.*
+import kotlinx.android.synthetic.main.fragment_discover.listView
+import kotlinx.android.synthetic.main.list_item_header.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
 import kotlin.math.abs
@@ -170,26 +173,26 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
-        header.text = currentDate?.print(context)
+        headerTextView.text = currentDate?.print(context)
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
         val approachingHeader = secondVisibleListItem is ReleaseDateItem
         if (approachingHeader) {
             val headerIndexInLayoutManager = firstCompletelyVisibleListItemPosition - firstVisibleListItemPosition
-            val headerHeight = header.height
+            val headerHeight = headerTextView.height
             val secondVisibleListItemTop = listLayoutManager.getChildAt(headerIndexInLayoutManager)?.top ?: headerHeight
             val translateHeader = abs(secondVisibleListItemTop) < headerHeight
             // FIXME: Transition into approachingHeader (via MotionLayout?)
             if (translateHeader) {
-                val top = secondVisibleListItemTop - header.height
+                val top = secondVisibleListItemTop - headerTextView.height
                 val translationY = min(top, 0)
-                header.translationY = translationY.toFloat()
+                headerTextView.translationY = translationY.toFloat()
             } else {
-                header.translationY = 0f
+                headerTextView.translationY = 0f
             }
         } else {
-            header.translationY = 0f
+            headerTextView.translationY = 0f
         }
     }
 
