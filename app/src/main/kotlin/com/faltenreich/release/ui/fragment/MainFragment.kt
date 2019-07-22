@@ -1,7 +1,6 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
