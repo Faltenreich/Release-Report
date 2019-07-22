@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 @GlideModule
 class ImageLoadingModule : AppGlideModule()
 
-fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((success: Boolean) -> Unit)? = null) {
+fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((Drawable?) -> Unit)? = null) {
     GlideApp
         .with(this)
         .load(url)
@@ -23,11 +23,11 @@ fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((success:
         .apply { size?.let { override(size) } }
         .listener(object : RequestListener<Drawable> {
             override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                callback?.invoke(true)
+                callback?.invoke(resource)
                 return false
             }
             override fun onLoadFailed(exception: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                callback?.invoke(false)
+                callback?.invoke(null)
                 return false
             }
         })

@@ -2,6 +2,8 @@ package com.faltenreich.release.ui.list.viewholder
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.ui.list.adapter.MoreListAdapter
 import com.faltenreich.release.ui.list.item.ReleaseMoreItem
@@ -19,7 +21,7 @@ class ReleaseMoreViewHolder(
         container.setOnClickListener { openDate(navigationController, data.date) }
 
         val listAdapter = MoreListAdapter(context)
-        listView.layoutManager = MoreLayoutManager(context)
+        listView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         listView.adapter = listAdapter
         listAdapter.addListItems(releases.subList(0, min(MAX_COUNT_LIST_ITEMS, releases.size)))
         listAdapter.notifyDataSetChanged()
