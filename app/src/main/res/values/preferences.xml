@@ -2,6 +2,7 @@
 
 <resources>
 
-    <string name="preference_version" translatable="false">version</string>
+    <string name="preference_version_name" translatable="false">version_name</string>
+    <string name="preference_version_code" translatable="false">version_code</string>
 
 </resources>

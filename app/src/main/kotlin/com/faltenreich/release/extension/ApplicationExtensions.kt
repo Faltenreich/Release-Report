@@ -40,6 +40,14 @@ val Context.versionName: String?
         null
     }
 
+val Context.versionCode: Int?
+    get() = try {
+        packageManager.getPackageInfo(packageName, 0).versionCode
+    } catch (exception: PackageManager.NameNotFoundException) {
+        Log.e(tag, exception.message)
+        null
+    }
+
 fun Context.showToast(textRes: Int) {
     Toast.makeText(this, textRes, Toast.LENGTH_LONG).show()
 }

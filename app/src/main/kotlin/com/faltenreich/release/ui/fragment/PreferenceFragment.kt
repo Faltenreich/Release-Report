@@ -6,6 +6,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.extension.className
+import com.faltenreich.release.extension.versionCode
 import com.faltenreich.release.extension.versionName
 import kotlinx.android.synthetic.main.fragment_preference.*
 
@@ -40,7 +41,8 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
 
         private fun invalidateSummaries() {
             if (isAdded) {
-                findPreference<Preference>(getString(R.string.preference_version))?.summary = context?.versionName
+                findPreference<Preference>(getString(R.string.preference_version_name))?.summary = context?.versionName
+                findPreference<Preference>(getString(R.string.preference_version_code))?.summary = context?.versionCode?.toString()
             }
         }
     }
