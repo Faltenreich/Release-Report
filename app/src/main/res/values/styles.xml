@@ -30,13 +30,16 @@
 
     <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textStyle">italic</item>
     </style>
+
+    <style name="ToolbarTitle" parent="@android:style/TextAppearance.Medium"/>
 
     <style name="ToolbarPopup" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
-    <style name="CollapsingToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
+    <style name="CollapsingToolbarTitle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">@dimen/text_size_xlarge</item>
         <item name="android:ellipsize">end</item>
     </style>

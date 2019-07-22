@@ -60,7 +60,6 @@ class ReleaseFragment : BaseFragment(R.layout.fragment_release) {
             sharedElementReturnTransition = transition
             ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
 
-            toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back)
             toolbar.setNavigationOnClickListener { finish() }
             // Workaround: Fixing fitsSystemWindows programmatically
             toolbar.doOnPreDraw {

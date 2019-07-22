@@ -16,7 +16,9 @@ import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.skeletonlayout.applySkeleton
+import kotlinx.android.synthetic.main.fragment_release.*
 import kotlinx.android.synthetic.main.fragment_release_list.*
+import kotlinx.android.synthetic.main.fragment_release_list.toolbar
 import kotlinx.android.synthetic.main.view_empty.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textResource
@@ -54,6 +56,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun initLayout() {
         context?.let { context ->
+            toolbar.setNavigationOnClickListener { finish() }
+
             listLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
             listView.layoutManager = listLayoutManager
@@ -79,6 +83,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
                 skeleton.showOriginal()
                 emptyView.isVisible = itemCount == 0
                 emptyLabel.textResource = R.string.nothing_found
+                scrollTo(date)
             }
         })
     }
@@ -88,6 +93,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
         toolbar.title = currentDate?.print(context)
+    }
+
+    private fun scrollTo(date: LocalDate) {
+        listAdapter?.getFirstPositionForDate(date)?.let { position ->
+            listView.stopScroll()
+            listLayoutManager.scrollToPositionWithOffset(position + 1, 0)
+        }
     }
 
     private fun openDatePicker() {

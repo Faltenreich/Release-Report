@@ -9,6 +9,7 @@
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
 
+    <dimen name="margin_padding_size_xxxxsmall">1dp</dimen>
     <dimen name="margin_padding_size_xxxsmall">2dp</dimen>
     <dimen name="margin_padding_size_xxsmall">4dp</dimen>
     <dimen name="margin_padding_size_xsmall">6dp</dimen>

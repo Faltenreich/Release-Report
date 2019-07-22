@@ -21,9 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:theme="@style/Toolbar"
+            app:titleTextAppearance="@style/ToolbarTitle"
             app:popupTheme="@style/ToolbarPopup"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:contentInsetStartWithNavigation="0dp"/>
+            app:contentInsetStartWithNavigation="0dp"
+            tools:title="@tools:sample/date/mmddyy"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

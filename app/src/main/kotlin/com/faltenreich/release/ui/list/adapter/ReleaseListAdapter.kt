@@ -11,6 +11,7 @@ import com.faltenreich.release.ui.list.viewholder.HeaderViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseDetailViewHolder
 import com.faltenreich.release.ui.list.viewholder.ReleaseEmptyViewHolder
 import com.faltenreich.release.ui.logic.provider.DateProvider
+import org.threeten.bp.LocalDate
 
 class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context, DateProviderDiffUtilCallback()) {
 
@@ -30,6 +31,10 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, Base
             VIEW_TYPE_EMPTY -> ReleaseEmptyViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>
+    }
+
+    fun getFirstPositionForDate(date: LocalDate): Int? {
+        return listItems.indexOfFirst { item -> item.date.isEqual(date) }.takeIf { index -> index >= 0 }
     }
 
     companion object {
