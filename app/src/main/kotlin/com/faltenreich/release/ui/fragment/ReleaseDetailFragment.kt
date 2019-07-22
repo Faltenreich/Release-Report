@@ -146,7 +146,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
 
     private fun setFavorite(isFavorite: Boolean) {
         viewModel.release?.isFavorite = isFavorite
-        view?.showSnackbar(if (isFavorite) R.string.favorite_added else R.string.favorite_removed)
+        context?.showToast(if (isFavorite) R.string.favorite_added else R.string.favorite_removed)
         // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
         fab.hide()
         invalidateFavorite()

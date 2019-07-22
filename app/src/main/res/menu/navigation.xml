@@ -23,8 +23,7 @@
 
     </group>
 
-    <group
-        android:id="@+id/extra">
+    <group android:id="@+id/extra">
 
         <item
             android:id="@+id/preferences"
