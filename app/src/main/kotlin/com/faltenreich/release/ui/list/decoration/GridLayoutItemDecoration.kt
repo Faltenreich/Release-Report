@@ -1,21 +1,9 @@
 package com.faltenreich.release.ui.list.decoration
 
-import android.graphics.Rect
-import android.view.View
-import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.faltenreich.release.ui.list.adapter.ListAdapter
 
-abstract class GridLayoutItemDecoration : RecyclerView.ItemDecoration() {
-    protected lateinit var layoutManager: GridLayoutManager
-
+abstract class GridLayoutItemDecoration<ITEM : Any, ADAPTER : ListAdapter<ITEM>> : ItemDecoration<ITEM, ADAPTER, GridLayoutManager>() {
     protected val spanCount: Int
-        get() = layoutManager.spanCount
-
-    @CallSuper
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        if (!::layoutManager.isInitialized) {
-            layoutManager = parent.layoutManager as GridLayoutManager
-        }
-    }
+        get() = layoutManager?.spanCount ?: 1
 }

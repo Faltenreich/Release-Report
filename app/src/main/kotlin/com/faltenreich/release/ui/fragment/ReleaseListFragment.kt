@@ -13,6 +13,7 @@ import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
+import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
@@ -57,6 +58,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
             listView.layoutManager = listLayoutManager
             listView.adapter = listAdapter
+            listView.addItemDecoration(ReleaseListItemDecoration(context))
 
             listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
