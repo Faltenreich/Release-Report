@@ -22,7 +22,8 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle"
             app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
-            app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge">
+            app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge"
+            app:collapsedTitleTextAppearance="@style/ToolbarTitle">
 
             <ImageView
                 android:id="@+id/releaseWallpaperImageView"
