@@ -220,7 +220,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
     }
 
     companion object {
-        private const val LIST_SKELETON_ITEM_COUNT = 8
+        private const val LIST_SKELETON_ITEM_COUNT = 10
         private const val TODAY_BUTTON_TOGGLE_DURATION = 200L
     }
 }

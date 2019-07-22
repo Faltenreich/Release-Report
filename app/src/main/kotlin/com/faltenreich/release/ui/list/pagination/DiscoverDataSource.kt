@@ -66,6 +66,6 @@ class DiscoverDataSource(
     }
 
     companion object {
-        private const val MAXIMUM_RELEASES_PER_DAY = 10
+        private const val MAXIMUM_RELEASES_PER_DAY = 8
     }
 }

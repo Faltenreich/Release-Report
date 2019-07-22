@@ -5,14 +5,13 @@ import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
-import com.faltenreich.release.ui.list.item.ReleaseEmptyItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.logic.provider.DateProvider
 import org.threeten.bp.LocalDate
 
 private typealias ReleaseKey = LocalDate
 
-class ReleaseDataSource(
+class ReleaseListDataSource(
     private var startAt: LocalDate,
     private val onInitialLoad: ((Int) -> Unit)? = null
 ) : PageKeyedDataSource<ReleaseKey, DateProvider>() {
@@ -44,12 +43,8 @@ class ReleaseDataSource(
             val items = dates.flatMap { date ->
                 val dayItem = ReleaseDateItem(date)
                 val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
-                if (releasesOfDay.isNotEmpty()) {
-                    val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
-                    listOf(dayItem).plus(releaseItems)
-                } else {
-                    listOf(dayItem).plus(ReleaseEmptyItem(date))
-                }
+                val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                listOf(dayItem).plus(releaseItems)
             }
             callback.onResult(items, adjacentDate)
         }
