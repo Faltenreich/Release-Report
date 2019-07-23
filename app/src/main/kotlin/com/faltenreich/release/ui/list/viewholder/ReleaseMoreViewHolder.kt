@@ -21,7 +21,7 @@ class ReleaseMoreViewHolder(
         container.setOnClickListener { openDate(navigationController, data.date) }
 
         val listAdapter = MoreListAdapter(context)
-        listView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        listView.layoutManager = MoreLayoutManager(context)
         listView.adapter = listAdapter
         listAdapter.addListItems(releases.subList(0, min(MAX_COUNT_LIST_ITEMS, releases.size)))
         listAdapter.notifyDataSetChanged()
