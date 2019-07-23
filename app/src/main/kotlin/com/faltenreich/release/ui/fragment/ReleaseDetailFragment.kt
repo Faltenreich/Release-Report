@@ -22,7 +22,7 @@ import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail) {
+class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release_detail) {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
