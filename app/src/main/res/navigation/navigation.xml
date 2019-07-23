@@ -91,7 +91,9 @@
         tools:layout="@layout/fragment_release_list">
         <argument
             android:name="date"
-            app:argType="string"/>
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </fragment>
 
     <fragment

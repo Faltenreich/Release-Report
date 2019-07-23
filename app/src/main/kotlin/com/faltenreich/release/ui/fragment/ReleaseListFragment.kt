@@ -25,7 +25,7 @@ import org.threeten.bp.LocalDate
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.main), DatePickerOpener, SearchOpener {
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
-    private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date.asLocalDate } }
+    private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date?.asLocalDate } }
 
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager

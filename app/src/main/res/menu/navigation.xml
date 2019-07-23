@@ -26,6 +26,10 @@
     <group android:id="@+id/extra">
 
         <item
+            android:id="@+id/release_list"
+            android:title="@string/releases"/>
+
+        <item
             android:id="@+id/preferences"
             android:title="@string/preferences"/>
 
