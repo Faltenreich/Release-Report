@@ -38,18 +38,21 @@
             android:divider="@drawable/divider_xsmall"
             android:showDividers="middle">
 
-            <View
+            <ImageView
                 android:id="@+id/releaseIndicator"
                 android:layout_width="@dimen/image_size_xxsmall"
                 android:layout_height="@dimen/image_size_xxsmall"
-                android:background="@drawable/background_round_primary"/>
+                android:padding="@dimen/margin_padding_size_xxxsmall"
+                android:src="@drawable/background_round_primary"
+                android:contentDescription="@null"/>
 
             <ImageView
                 android:id="@+id/favoriteIcon"
                 android:layout_width="@dimen/image_size_xxsmall"
                 android:layout_height="@dimen/image_size_xxsmall"
                 android:src="@drawable/ic_favorite_on"
-                android:tint="@color/yellow"/>
+                android:tint="@color/yellow"
+                android:contentDescription="@null"/>
 
         </LinearLayout>
 

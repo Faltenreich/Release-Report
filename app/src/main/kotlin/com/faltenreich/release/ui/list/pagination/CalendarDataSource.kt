@@ -48,7 +48,6 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
         val end = lastMonth.atEndOfMonth()
 
         releaseRepository.getBetween(start, end) { releases ->
-            val favorite = listOf<Release>()
             val items = yearMonths.flatMap { yearMonth ->
                 val monthItem = CalendarMonthItem(start, yearMonth)
                 val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek
