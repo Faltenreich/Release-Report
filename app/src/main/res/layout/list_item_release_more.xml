@@ -25,21 +25,21 @@
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager "
             tools:spanCount="2"/>
 
-        <View
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/translucent_dark"
-            android:foreground="?attr/selectableItemBackground"/>
-
         <TextView
             android:id="@+id/moreTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="?android:textColorPrimaryInverse"
-            android:textSize="@dimen/text_size_xlarge"
             android:gravity="center"
+            android:background="@color/colorPrimaryTranslucent"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:textSize="@dimen/text_size_xxlarge"
             tools:text="5+"/>
+
+        <View
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackground"/>
 
     </androidx.cardview.widget.CardView>
 

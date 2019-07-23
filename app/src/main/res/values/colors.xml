@@ -15,6 +15,7 @@
     <color name="colorPrimaryDark">#455a64</color>
     <color name="colorPrimaryDarker">#233841</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryTranslucent">#AA455a64</color>
 
     <color name="translucent">#44000000</color>
     <color name="translucent_light">#11aaaaaa</color>
