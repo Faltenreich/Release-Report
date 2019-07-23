@@ -174,8 +174,8 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             val headerIndexInLayoutManager = firstCompletelyVisibleListItemPosition - firstVisibleListItemPosition
             val headerHeight = headerTextView.height
             val secondVisibleListItemTop = listLayoutManager.getChildAt(headerIndexInLayoutManager)?.top ?: headerHeight
-            val translateHeader = abs(secondVisibleListItemTop) < headerHeight
-            // FIXME: Transition into approachingHeader (via MotionLayout?)
+            val translateHeader = secondVisibleListItemTop != 0 && abs(secondVisibleListItemTop) < headerHeight
+            // TODO: Transition into approachingHeader (via MotionLayout?)
             if (translateHeader) {
                 val top = secondVisibleListItemTop - headerTextView.height
                 val translationY = min(top, 0)

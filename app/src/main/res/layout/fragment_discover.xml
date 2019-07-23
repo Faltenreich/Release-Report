@@ -56,6 +56,7 @@
             android:id="@+id/headerTextView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
+            android:background="@drawable/dogear_header_overlay"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:text="@tools:sample/date/mmddyy"/>
 
