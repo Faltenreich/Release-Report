@@ -18,28 +18,39 @@
             android:id="@+id/spotlightHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:layout_margin="@dimen/margin_padding_size_medium"
             android:textColor="?android:textColorPrimary"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spotlightType"
             tools:text="Title"/>
+
+        <ImageView
+            android:id="@+id/spotlightType"
+            android:layout_width="@dimen/image_size_xsmall"
+            android:layout_height="@dimen/image_size_xsmall"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="@id/spotlightHeader"
+            app:layout_constraintBottom_toBottomOf="@id/spotlightHeader"
+            app:layout_constraintStart_toEndOf="@id/spotlightHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_music"
+            tools:tint="@color/green"/>
 
         <View
             android:id="@+id/spotlightSeparator"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
             android:background="@color/gray_lighter"
             app:layout_constraintTop_toBottomOf="@id/spotlightHeader"
             app:layout_constraintStart_toStartOf="@id/spotlightHeader"
-            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"/>
+            app:layout_constraintEnd_toEndOf="@id/spotlightType"/>
 
         <ImageView
             android:id="@+id/spotlightCover"
-            android:layout_width="40dp"
+            android:layout_width="54dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:layout_marginTop="@dimen/margin_padding_size_medium"
@@ -49,16 +60,40 @@
             tools:src="@tools:sample/avatars"/>
 
         <TextView
+            android:id="@+id/spotlightDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorTertiary"
+            android:maxLines="1"
+            app:layout_constraintTop_toTopOf="@id/spotlightCover"
+            app:layout_constraintStart_toEndOf="@id/spotlightCover"
+            app:layout_constraintEnd_toStartOf="@id/spotlightFavorite"
+            tools:text="@tools:sample/date/mmddyy"/>
+
+        <TextView
             android:id="@+id/spotlightTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_small"
+            android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
             android:textColor="?android:textColorPrimary"
             android:textSize="@dimen/text_size_medium"
             android:maxLines="2"
-            app:layout_constraintTop_toTopOf="@id/spotlightCover"
-            app:layout_constraintStart_toEndOf="@id/spotlightCover"
+            app:layout_constraintTop_toBottomOf="@id/spotlightDate"
+            app:layout_constraintStart_toStartOf="@id/spotlightDate"
+            app:layout_constraintEnd_toEndOf="@id/spotlightDate"
             tools:text="@tools:sample/lorem"/>
+
+        <ImageView
+            android:id="@+id/spotlightFavorite"
+            android:layout_width="@dimen/image_size_xsmall"
+            android:layout_height="@dimen/image_size_xsmall"
+            android:src="@drawable/ic_favorite_on"
+            android:tint="@color/yellow"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="@id/spotlightDate"
+            app:layout_constraintEnd_toEndOf="@id/spotlightType"/>
 
         <TextView
             android:id="@+id/spotlightSubtitle"
@@ -67,7 +102,8 @@
             android:textColor="?android:textColorTertiary"
             android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@id/spotlightTitle"
-            app:layout_constraintStart_toStartOf="@id/spotlightTitle"
+            app:layout_constraintStart_toStartOf="@id/spotlightDate"
+            app:layout_constraintEnd_toEndOf="@id/spotlightDate"
             tools:text="@tools:sample/lorem"/>
 
         <!-- TODO: Constrain spotlightDescription to divider -->
@@ -84,6 +120,18 @@
             app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
             tools:text="@tools:sample/lorem/random"/>
 
+        <TextView
+            android:id="@+id/spotlightGenres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorTertiary"
+            android:maxLines="1"
+            app:layout_constraintTop_toBottomOf="@id/spotlightDescription"
+            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
+            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
+            tools:text="@tools:sample/lorem"/>
+
         <ImageView
             android:id="@+id/spotlightWallpaper"
             android:layout_width="0dp"
@@ -91,24 +139,11 @@
             android:layout_marginTop="@dimen/margin_padding_size_medium"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            app:layout_constraintTop_toBottomOf="@id/spotlightDescription"
+            app:layout_constraintTop_toBottomOf="@id/spotlightGenres"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:src="@tools:sample/backgrounds/scenic"/>
-
-        <TextView
-            android:id="@+id/spotlightBottom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
-            android:layout_marginBottom="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorTertiary"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/spotlightWallpaper"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
-            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
-            tools:text="@tools:sample/lorem"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

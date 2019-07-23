@@ -40,6 +40,14 @@ data class Release(
             }
         }
 
+    val subtitle: String?
+        get() = when (releaseType) {
+            ReleaseType.MOVIE -> null // TODO: Actors?
+            ReleaseType.MUSIC -> artistName
+            ReleaseType.GAME -> null // TODO: Platforms
+            null -> null
+        }
+
     override fun fromParseObject(parseObject: ParseObject) {
         id = parseObject.getString(Model.ID)
         type = parseObject.getString(TYPE)
