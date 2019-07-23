@@ -53,19 +53,16 @@ class SpotlightViewModel : ViewModel() {
     private fun refresh() {
         val items = mutableListOf<SpotlightItem>()
         weeklyReleases?.firstOrNull()?.let { release ->
-            items.add(SpotlightPromoItem(release))
+            items.add(SpotlightItem(release, R.string.spotlight))
         }
         favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightHeaderItem(R.string.for_you))
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release, DateStyle.FULL) })
+            items.addAll(releases.map { release -> SpotlightItem(release, R.string.for_you) })
         }
         weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightHeaderItem(R.string.this_week))
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release, DateStyle.SHORT) })
+            items.addAll(releases.map { release -> SpotlightItem(release, R.string.this_week) })
         }
         recentReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(SpotlightHeaderItem(R.string.recently))
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release, DateStyle.FULL) })
+            items.addAll(releases.map { release -> SpotlightItem(release, R.string.recently) })
         }
         spotlightItems = items.toList()
     }

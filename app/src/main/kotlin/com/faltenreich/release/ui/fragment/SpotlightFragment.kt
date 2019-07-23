@@ -5,14 +5,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.SpotlightViewModel
 import com.faltenreich.release.ui.list.adapter.SpotlightListAdapter
 import com.faltenreich.release.ui.list.decoration.SpotlightItemDecoration
-import com.faltenreich.release.ui.list.item.SpotlightHeaderItem
 import com.faltenreich.release.ui.list.item.SpotlightItem
-import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.logic.opener.ReleaseOpener
 import com.faltenreich.release.ui.logic.opener.SearchOpener
 import kotlinx.android.synthetic.main.fragment_spotlight.*
@@ -42,17 +41,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main)
 
     private fun initLayout() {
         context?.let { context ->
-            listView.layoutManager = GridLayoutManager(context, COLUMN_COUNT).apply {
-                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return when (listAdapter?.getListItemAt(position)) {
-                            is SpotlightHeaderItem -> COLUMN_COUNT
-                            is SpotlightPromoItem -> COLUMN_COUNT
-                            else -> 1
-                        }
-                    }
-                }
-            }
+            listView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             listView.addItemDecoration(SpotlightItemDecoration(context))
             listView.adapter = listAdapter
         }

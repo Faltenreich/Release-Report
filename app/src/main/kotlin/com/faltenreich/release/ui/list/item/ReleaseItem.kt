@@ -7,6 +7,5 @@ import org.threeten.bp.LocalDate
 
 data class ReleaseItem(
     override val date: LocalDate,
-    override val release: Release,
-    override val dateStyle: DateStyle = DateStyle.NONE
+    override val release: Release
 ) : DateProvider, ReleaseProvider

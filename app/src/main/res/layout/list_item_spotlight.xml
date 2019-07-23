@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/card_corner_radius">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground">
+
+        <TextView
+            android:id="@+id/spotlightHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Title"/>
+
+        <View
+            android:id="@+id/spotlightSeparator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:background="@color/gray_lighter"
+            app:layout_constraintTop_toBottomOf="@id/spotlightHeader"
+            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
+            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"/>
+
+        <ImageView
+            android:id="@+id/spotlightCover"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toBottomOf="@id/spotlightSeparator"
+            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
+            tools:src="@tools:sample/avatars"/>
+
+        <TextView
+            android:id="@+id/spotlightTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_small"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="@dimen/text_size_medium"
+            android:maxLines="2"
+            app:layout_constraintTop_toTopOf="@id/spotlightCover"
+            app:layout_constraintStart_toEndOf="@id/spotlightCover"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/spotlightSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="?android:textColorTertiary"
+            android:maxLines="1"
+            app:layout_constraintTop_toBottomOf="@id/spotlightTitle"
+            app:layout_constraintStart_toStartOf="@id/spotlightTitle"
+            tools:text="@tools:sample/lorem"/>
+
+        <!-- TODO: Constrain spotlightDescription to divider -->
+
+        <TextView
+            android:id="@+id/spotlightDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:maxLines="4"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/spotlightCover"
+            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
+            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
+            tools:text="@tools:sample/lorem/random"/>
+
+        <ImageView
+            android:id="@+id/spotlightWallpaper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toBottomOf="@id/spotlightDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic"/>
+
+        <TextView
+            android:id="@+id/spotlightBottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginBottom="@dimen/margin_padding_size_small"
+            android:textColor="?android:textColorTertiary"
+            android:maxLines="1"
+            app:layout_constraintTop_toBottomOf="@id/spotlightWallpaper"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
+            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
+            tools:text="@tools:sample/lorem"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

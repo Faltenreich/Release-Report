@@ -30,10 +30,5 @@ class ReleaseImageViewHolder(
         releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
 
         releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
-        releaseSubtitleTextView.text = when (data.dateStyle) {
-            DateStyle.NONE -> null
-            DateStyle.SHORT -> release.releaseDate?.dayOfWeek?.getDisplayName(TextStyle.FULL, UserPreferences.locale)
-            DateStyle.FULL -> release.releaseDateForUi(context)
-        }
     }
 }

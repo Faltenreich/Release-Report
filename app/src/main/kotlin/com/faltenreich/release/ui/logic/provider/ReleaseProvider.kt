@@ -5,6 +5,5 @@ import com.faltenreich.release.ui.list.item.DateStyle
 
 interface ReleaseProvider {
     val release: Release
-    val dateStyle: DateStyle
     override fun equals(other:Any?): Boolean
 }
