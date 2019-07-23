@@ -11,16 +11,12 @@ import org.threeten.bp.LocalDate
 
 private typealias ReleaseKey = LocalDate
 
-class ReleaseListDataSource(
-    private var startAt: LocalDate,
-    private val onInitialLoad: ((Int) -> Unit)? = null
-) : PageKeyedDataSource<ReleaseKey, DateProvider>() {
+class ReleaseListDataSource(private var startAt: LocalDate) : PageKeyedDataSource<ReleaseKey, DateProvider>() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<ReleaseKey>, callback: LoadInitialCallback<ReleaseKey, DateProvider>) {
         load(startAt, params.requestedLoadSize, true, object : LoadCallback<ReleaseKey, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: ReleaseKey?) {
-                onInitialLoad?.invoke(data.size)
                 callback.onResult(data, startAt.minusDays(1), adjacentPageKey)
             }
         })

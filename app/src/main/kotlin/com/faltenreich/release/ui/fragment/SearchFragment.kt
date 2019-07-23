@@ -57,16 +57,13 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     }
 
     private fun initData() {
-        viewModel.observe(this, onObserve = { releases ->
+        viewModel.observe(this) { releases ->
             listAdapter?.submitList(releases)
-        }, onInitialLoad = { releases ->
-            runOnUiThread {
-                skeleton.showOriginal()
-                emptyView.isVisible = releases.isEmpty()
-                emptyIcon.isVisible = true
-                emptyLabel.textResource = R.string.nothing_found
-            }
-        })
+            skeleton.showOriginal()
+            emptyView.isVisible = releases.isEmpty()
+            emptyIcon.isVisible = true
+            emptyLabel.textResource = R.string.nothing_found
+        }
     }
 
     override fun onQueryTextChange(newText: CharSequence?) = Unit

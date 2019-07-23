@@ -133,15 +133,12 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             skeleton.showSkeleton()
             listItemDecoration.isSkeleton = true
 
-            viewModel.observeReleases(date, this, onObserve = { releases ->
+            viewModel.observeReleases(date, this) { releases ->
                 listAdapter?.submitList(releases)
-            }, onInitialLoad = { count ->
-                runOnUiThread {
-                    skeleton.showOriginal()
-                    listItemDecoration.isSkeleton = false
-                    emptyView.isVisible = count == 0
-                }
-            })
+                skeleton.showOriginal()
+                listItemDecoration.isSkeleton = false
+                emptyView.isVisible = releases.isEmpty()
+            }
         }
     }
 
