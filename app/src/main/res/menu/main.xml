@@ -5,16 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search"
-        android:title="@string/search"
-        android:icon="@drawable/ic_search"
+        android:id="@+id/date"
+        android:title="@string/date_select"
+        android:icon="@drawable/ic_date"
         app:showAsAction="ifRoom"
         app:iconTint="@color/colorPrimaryDark"/>
 
     <item
-        android:id="@+id/filter"
-        android:title="@string/filter"
-        android:icon="@drawable/ic_filter"
+        android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"
         app:iconTint="@color/colorPrimaryDark"/>
 

@@ -12,13 +12,14 @@ import com.faltenreich.release.extension.yearMonth
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
+import com.faltenreich.release.ui.logic.opener.SearchOpener
 import com.faltenreich.release.ui.logic.opener.YearMonthPickerOpener
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import kotlin.math.min
 
-class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calendar), YearMonthPickerOpener {
+class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), YearMonthPickerOpener, SearchOpener {
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
 
     private val listAdapter by lazy { context?.let { context -> CalendarListAdapter(context) } }
@@ -32,9 +33,14 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { openYearMonthPicker(); true }
-            R.id.search -> { openSearch(); true }
-            R.id.filter -> { TODO() }
+            R.id.date -> {
+                openYearMonthPicker(childFragmentManager, viewModel.yearMonth) { yearMonth ->
+                    viewModel.yearMonth = yearMonth
+                    initData(yearMonth)
+                }
+                true
+            }
+            R.id.search -> { openSearch(findNavController()); true }
             else -> false
         }
     }
@@ -81,16 +87,5 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.calenda
 
             viewModel.yearMonth = firstVisibleYearMonth
         }
-    }
-
-    private fun openYearMonthPicker() {
-        openYearMonthPicker(childFragmentManager, viewModel.yearMonth) { yearMonth ->
-            viewModel.yearMonth = yearMonth
-            initData(yearMonth)
-        }
-    }
-
-    private fun openSearch() {
-        findNavController().navigate(SearchFragmentDirections.openSearch(""))
     }
 }

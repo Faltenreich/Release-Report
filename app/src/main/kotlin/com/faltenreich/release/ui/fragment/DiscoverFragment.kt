@@ -21,6 +21,7 @@ import com.faltenreich.release.ui.list.decoration.DiscoverItemDecoration
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.DiscoverLayoutManager
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
+import com.faltenreich.release.ui.logic.opener.SearchOpener
 import com.faltenreich.release.ui.logic.search.SearchableObserver
 import com.faltenreich.release.ui.logic.search.SearchableProperties
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -31,7 +32,7 @@ import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
 
-class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discover), DatePickerOpener {
+class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), DatePickerOpener, SearchOpener {
     private val viewModel by lazy { createViewModel(DiscoverViewModel::class) }
     private val searchable by lazy { SearchableObserver() }
     
@@ -70,9 +71,8 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { openDatePicker(); true }
-            R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
-            R.id.filter -> { TODO() }
+            R.id.date -> { openDatePicker(childFragmentManager) { date -> initData(date, true) }; true }
+            R.id.search -> { openSearch(findNavController(), searchView.query.toString()); true }
             else -> false
         }
     }
@@ -208,10 +208,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.discove
             toggleTodayButton(true)
 
         } ?: initData(date, true)
-    }
-
-    private fun openDatePicker() {
-        openDatePicker(childFragmentManager) { date -> initData(date, true) }
     }
 
     companion object {

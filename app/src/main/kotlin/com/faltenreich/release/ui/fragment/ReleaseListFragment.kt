@@ -15,6 +15,7 @@ import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
+import com.faltenreich.release.ui.logic.opener.SearchOpener
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import kotlinx.android.synthetic.main.view_empty.*
@@ -22,7 +23,7 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textResource
 import org.threeten.bp.LocalDate
 
-class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.release_list), DatePickerOpener {
+class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.main), DatePickerOpener, SearchOpener {
     private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
     private val date: LocalDate? by lazy { arguments?.let { arguments -> ReleaseListFragmentArgs.fromBundle(arguments).date.asLocalDate } }
 
@@ -40,8 +41,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.date -> { openDatePicker(); true }
-            R.id.search -> { findNavController().navigate(SearchFragmentDirections.openSearch("")); true }
-            R.id.filter -> { TODO() }
+            R.id.search -> { openSearch(); true }
             else -> false
         }
     }
@@ -102,5 +102,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun openDatePicker() {
         openDatePicker(childFragmentManager) { date -> initData(date) }
+    }
+
+    private fun openSearch() {
+        openSearch(findNavController())
     }
 }
