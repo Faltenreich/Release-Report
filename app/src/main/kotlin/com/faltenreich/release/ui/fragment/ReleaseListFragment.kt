@@ -1,6 +1,7 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
+import android.text.method.Touch.scrollTo
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -13,6 +14,7 @@ import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
+import com.faltenreich.release.ui.list.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.ui.list.decoration.ReleaseListItemDecoration
 import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.logic.opener.SearchOpener
@@ -29,6 +31,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
+    private val listSpacing by lazy { context?.resources?.getDimension(SPACING_RES_DEFAULT)?.toInt() ?: 0 }
 
     private val skeleton by lazy {
         listView.applySkeleton(R.layout.list_item_release_image,
@@ -60,7 +63,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
             listView.layoutManager = listLayoutManager
             listView.adapter = listAdapter
-            listView.addItemDecoration(ReleaseListItemDecoration(context))
+            listView.addItemDecoration(ReleaseListItemDecoration(context, listSpacing))
 
             listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -74,16 +77,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     }
 
     private fun initData(date: LocalDate) {
-        viewModel.observeReleases(date, this, onObserve = { releases ->
+        viewModel.observeReleases(date, this) { releases ->
             listAdapter?.submitList(releases)
-        }, onInitialLoad = { itemCount ->
-            runOnUiThread {
-                skeleton.showOriginal()
-                emptyView.isVisible = itemCount == 0
-                emptyLabel.textResource = R.string.nothing_found
-                scrollTo(date)
-            }
-        })
+            skeleton.showOriginal()
+            emptyView.isVisible = releases.isEmpty()
+            emptyLabel.textResource = R.string.nothing_found
+            scrollTo(date)
+        }
     }
 
     private fun invalidateListHeader() {
@@ -96,7 +96,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private fun scrollTo(date: LocalDate) {
         listAdapter?.getFirstPositionForDate(date)?.let { position ->
             listView.stopScroll()
-            listLayoutManager.scrollToPositionWithOffset(position + 1, 0)
+            listLayoutManager.scrollToPositionWithOffset(position + 1, listSpacing)
         }
     }
 

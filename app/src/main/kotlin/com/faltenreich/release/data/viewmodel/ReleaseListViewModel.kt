@@ -19,8 +19,8 @@ class ReleaseListViewModel : ViewModel() {
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 
-    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>) -> Unit, onInitialLoad: ((Int) -> Unit)? = null) {
-        val dataSource = ReleaseListDataSource(startAt = date, onInitialLoad = onInitialLoad)
+    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>) -> Unit) {
+        val dataSource = ReleaseListDataSource(date)
         val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE_IN_MONTHS)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
