@@ -40,5 +40,6 @@
     <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="discover">Discover</string>
+    <string name="favorite">Favorite</string>
 
 </resources>

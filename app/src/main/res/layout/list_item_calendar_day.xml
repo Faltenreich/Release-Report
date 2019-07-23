@@ -9,19 +9,6 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackgroundBorderless">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@null"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        tools:src="@tools:sample/avatars"/>
-
     <TextView
         android:id="@+id/dayLabel"
         android:layout_width="0dp"
@@ -29,10 +16,36 @@
         android:gravity="center"
         android:textSize="@dimen/text_size_large"
         android:textColor="?android:textColorPrimaryInverse"
-        app:layout_constraintTop_toTopOf="@id/imageView"
-        app:layout_constraintBottom_toBottomOf="@id/imageView"
-        app:layout_constraintStart_toStartOf="@id/imageView"
-        app:layout_constraintEnd_toEndOf="@id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         tools:text="@tools:sample/date/day_of_week"/>
+
+    <ImageView
+        android:id="@+id/favoriteIcon"
+        android:layout_width="@dimen/image_size_xsmall"
+        android:layout_height="@dimen/image_size_xsmall"
+        android:src="@drawable/ic_favorite_on"
+        android:tint="@color/yellow"
+        android:contentDescription="@string/favorite"
+        app:layout_constraintTop_toBottomOf="@id/dayLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/releaseCountTextView"/>
+
+    <TextView
+        android:id="@+id/releaseCountTextView"
+        android:layout_width="@dimen/image_size_small"
+        android:layout_height="@dimen/image_size_small"
+        android:background="@drawable/background_round_primary"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/dayLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/favoriteIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

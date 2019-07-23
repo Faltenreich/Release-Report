@@ -31,7 +31,7 @@ class WeekView @JvmOverloads constructor(
             val dayOfWeek = day.dayOfWeek
             val view = LayoutInflater.from(context).inflate(R.layout.view_weekday, null)
             view.layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
-            view.label.text = dayOfWeek.getDisplayName(TextStyle.SHORT, UserPreferences.locale).toUpperCase()
+            view.label.text = dayOfWeek.getDisplayName(TextStyle.NARROW, UserPreferences.locale).toUpperCase()
             addView(view)
         }
     }

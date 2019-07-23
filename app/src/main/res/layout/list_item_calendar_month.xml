@@ -21,7 +21,6 @@
     <com.faltenreich.release.ui.view.WeekView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimaryDark"/>
+        android:orientation="horizontal"/>
 
 </LinearLayout>

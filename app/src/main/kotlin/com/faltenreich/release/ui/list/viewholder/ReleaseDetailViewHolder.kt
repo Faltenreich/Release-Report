@@ -32,5 +32,7 @@ class ReleaseDetailViewHolder(
         releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
         releaseDescriptionTextView.text = release.description
         releaseDescriptionTextView.isVisible = showDescription
+
+        releaseFavoriteImageView.isVisible = release.isFavorite
     }
 }
