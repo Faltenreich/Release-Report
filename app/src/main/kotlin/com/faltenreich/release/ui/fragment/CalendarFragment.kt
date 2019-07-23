@@ -10,6 +10,7 @@ import com.faltenreich.release.data.viewmodel.CalendarViewModel
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.extension.yearMonth
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
+import com.faltenreich.release.ui.list.decoration.CalendarItemDecoration
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.logic.opener.SearchOpener

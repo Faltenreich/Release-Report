@@ -2,50 +2,57 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?selectableItemBackgroundBorderless">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/dayLabel"
+    <LinearLayout
+        android:id="@+id/clickable"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
         android:gravity="center"
-        android:textSize="@dimen/text_size_large"
-        android:textColor="?android:textColorPrimaryInverse"
+        android:divider="@drawable/divider_xxxsmall"
+        android:showDividers="middle"
+        android:background="?selectableItemBackground"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        tools:text="@tools:sample/date/day_of_week"/>
+        app:layout_constraintDimensionRatio="1:1">
 
-    <ImageView
-        android:id="@+id/favoriteIcon"
-        android:layout_width="@dimen/image_size_xsmall"
-        android:layout_height="@dimen/image_size_xsmall"
-        android:src="@drawable/ic_favorite_on"
-        android:tint="@color/yellow"
-        android:contentDescription="@string/favorite"
-        app:layout_constraintTop_toBottomOf="@id/dayLabel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/releaseCountTextView"/>
+        <TextView
+            android:id="@+id/dayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="?android:textColorPrimaryInverse"
+            tools:text="@tools:sample/date/day_of_week"/>
 
-    <TextView
-        android:id="@+id/releaseCountTextView"
-        android:layout_width="@dimen/image_size_small"
-        android:layout_height="@dimen/image_size_small"
-        android:background="@drawable/background_round_primary"
-        android:textColor="?android:textColorPrimaryInverse"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/dayLabel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/favoriteIcon"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="5"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:divider="@drawable/divider_xsmall"
+            android:showDividers="middle">
+
+            <View
+                android:id="@+id/releaseIndicator"
+                android:layout_width="@dimen/image_size_xxsmall"
+                android:layout_height="@dimen/image_size_xxsmall"
+                android:background="@drawable/background_round_primary"/>
+
+            <ImageView
+                android:id="@+id/favoriteIcon"
+                android:layout_width="@dimen/image_size_xxsmall"
+                android:layout_height="@dimen/image_size_xxsmall"
+                android:src="@drawable/ic_favorite_on"
+                android:tint="@color/yellow"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

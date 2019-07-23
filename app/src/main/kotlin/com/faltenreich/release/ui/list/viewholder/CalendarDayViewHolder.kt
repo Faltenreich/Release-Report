@@ -25,8 +25,8 @@ class CalendarDayViewHolder(
         val isToday = date.isToday
         val isInSameMonth = data.isInSameMonth
 
-        container.setOnClickListener { openDate(navigationController, date) }
-        container.backgroundResource = if (isToday) R.color.colorPrimary else android.R.color.transparent
+        container.backgroundResource = if (isToday) R.color.colorPrimaryDarker else android.R.color.transparent
+        clickable.setOnClickListener { openDate(navigationController, date) }
 
         dayLabel.text = date.dayOfMonth.toString()
         dayLabel.textColorResource = if (isInSameMonth) android.R.color.white else R.color.gray_dark
