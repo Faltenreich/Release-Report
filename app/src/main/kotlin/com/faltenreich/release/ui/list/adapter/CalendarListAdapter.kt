@@ -2,7 +2,7 @@ package com.faltenreich.release.ui.list.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.ui.list.item.CalendarDateItem
+import com.faltenreich.release.ui.list.item.CalendarDayItem
 import com.faltenreich.release.ui.list.item.CalendarItem
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.pagination.CalendarItemDiffUtilCallback
@@ -15,7 +15,7 @@ class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarItem, Bas
     override fun getItemViewType(position: Int): Int {
         return when (val item = getListItemAt(position)) {
             is CalendarMonthItem -> VIEW_TYPE_MONTH
-            is CalendarDateItem -> VIEW_TYPE_DAY
+            is CalendarDayItem -> VIEW_TYPE_DAY
             else -> throw IllegalArgumentException("Unknown item: $item")
         }
     }

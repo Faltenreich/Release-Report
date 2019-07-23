@@ -1,15 +1,17 @@
 package com.faltenreich.release.ui.list.pagination
 
 import androidx.paging.PageKeyedDataSource
+import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.extension.LocalDateProgression
 import com.faltenreich.release.extension.atEndOfWeek
 import com.faltenreich.release.extension.atStartOfWeek
 import com.faltenreich.release.extension.isTrue
-import com.faltenreich.release.ui.list.item.CalendarDateItem
+import com.faltenreich.release.ui.list.item.CalendarDayItem
 import com.faltenreich.release.ui.list.item.CalendarItem
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
+import com.faltenreich.release.ui.list.item.ReleaseItem
 import org.threeten.bp.YearMonth
 
 private typealias CalendarKey = YearMonth
@@ -45,14 +47,17 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
         val start = firstMonth.atDay(1)
         val end = lastMonth.atEndOfMonth()
 
-        releaseRepository.getFavorites(start, end) { releases ->
+        releaseRepository.getBetween(start, end) { releases ->
+            val favorite = listOf<Release>()
             val items = yearMonths.flatMap { yearMonth ->
                 val monthItem = CalendarMonthItem(start, yearMonth)
                 val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek
                 val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek
                 val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
-                    val releasesOfToday = releases.filter { release -> (release.releaseDate == day).isTrue }
-                    CalendarDateItem(day, yearMonth, releasesOfToday)
+                    val releasesOfDay = releases.filter { release -> (release.releaseDate == day).isTrue }
+                    // TODO: Improve performance by bulk requesting favorites
+                    val hasFavorite = releasesOfDay.any { release -> release.isFavorite }
+                    CalendarDayItem(day, yearMonth, hasFavorite, releasesOfDay.size)
                 }
                 listOf(monthItem).plus(dayItems)
             }
