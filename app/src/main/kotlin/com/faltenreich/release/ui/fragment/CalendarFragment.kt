@@ -20,6 +20,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import kotlin.math.min
 
+// TODO: Add skeleton
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), YearMonthPickerOpener, SearchOpener {
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
 

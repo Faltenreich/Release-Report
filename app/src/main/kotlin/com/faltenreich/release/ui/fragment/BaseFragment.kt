@@ -20,6 +20,8 @@ abstract class BaseFragment(
     @StringRes private val subtitleResId: Int? = null
 ) : Fragment(), ViewModelCreator {
 
+    protected var isViewCreated: Boolean = false
+
     var title: String? = null
         set(value) {
             field = value
@@ -38,6 +40,11 @@ abstract class BaseFragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(layoutResId, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        isViewCreated = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

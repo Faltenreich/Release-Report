@@ -77,6 +77,11 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     }
 
     private fun initData(date: LocalDate) {
+        val mask = !isViewCreated
+        if (mask) {
+            skeleton.showSkeleton()
+        }
+
         viewModel.observeReleases(date, this) { releases ->
             listAdapter?.submitList(releases)
             skeleton.showOriginal()

@@ -41,10 +41,15 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
         searchView.logo = Search.Logo.ARROW
         searchView.setOnLogoClickListener { finish() }
         searchView.setOnQueryTextListener(this)
+    }
 
+    private fun initData() {
         if (viewModel.query == null) {
             if (query != null) {
-                skeleton.showSkeleton()
+                val mask = !isViewCreated
+                if (mask) {
+                    skeleton.showSkeleton()
+                }
                 emptyView.isVisible = false
                 searchView.setQuery(query, true)
             } else {
@@ -54,9 +59,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
                 searchView.open(null)
             }
         }
-    }
 
-    private fun initData() {
         viewModel.observe(this) { releases ->
             listAdapter?.submitList(releases)
             skeleton.showOriginal()

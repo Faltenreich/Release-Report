@@ -1,6 +1,7 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +72,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { openDatePicker(childFragmentManager) { date -> initData(date, true) }; true }
+            R.id.date -> { openDatePicker(childFragmentManager) { date -> initData(date) }; true }
             R.id.search -> { openSearch(findNavController(), searchView.query.toString()); true }
             else -> false
         }
@@ -85,7 +86,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             override fun onQueryTextChange(newText: CharSequence?) = Unit
             override fun onQueryTextSubmit(query: CharSequence?): Boolean {
                 val searchQuery = query?.toString()?.nonBlank ?: return true
-                findNavController().navigate(SearchFragmentDirections.openSearch(searchQuery))
+                openSearch(findNavController(), searchQuery)
                 return true
             }
         })
@@ -126,19 +127,18 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         }
     }
 
-    private fun initData(date: LocalDate, force: Boolean = false) {
-        // TODO: Find way to distinguish back navigation via Navigation Components
-        val itemCount = listAdapter?.itemCount ?: 0
-        if (force || itemCount == 0) {
+    private fun initData(date: LocalDate) {
+        val mask = !isViewCreated
+        if (mask) {
             skeleton.showSkeleton()
             listItemDecoration.isSkeleton = true
+        }
 
-            viewModel.observeReleases(date, this) { releases ->
-                listAdapter?.submitList(releases)
-                skeleton.showOriginal()
-                listItemDecoration.isSkeleton = false
-                emptyView.isVisible = releases.isEmpty()
-            }
+        viewModel.observeReleases(date, this) { releases ->
+            listAdapter?.submitList(releases)
+            skeleton.showOriginal()
+            listItemDecoration.isSkeleton = false
+            emptyView.isVisible = releases.isEmpty()
         }
     }
 
@@ -204,7 +204,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             todayButtonBehavior.isEnabled = show
             toggleTodayButton(true)
 
-        } ?: initData(date, true)
+        } ?: initData(date)
     }
 
     companion object {
