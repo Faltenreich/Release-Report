@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +46,11 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main)
             listView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             listView.addItemDecoration(SpotlightItemDecoration(context))
             listView.adapter = listAdapter
+
+            ViewCompat.setOnApplyWindowInsetsListener(listView) { view, insets ->
+                view.updatePadding(top = insets.systemWindowInsetTop)
+                insets
+            }
         }
     }
 
