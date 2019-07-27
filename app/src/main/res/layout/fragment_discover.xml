@@ -46,10 +46,10 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/standard_element_size_large"
             android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/list_item_release_image"
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:spanCount="2"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            tools:spanCount="2"/>
 
         <TextView
             style="@style/ListHeader"
@@ -57,7 +57,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
             android:background="@drawable/dogear_header_overlay"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:text="@tools:sample/date/mmddyy"/>
 
         <include

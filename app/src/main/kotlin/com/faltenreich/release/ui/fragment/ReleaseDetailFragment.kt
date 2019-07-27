@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
 import com.faltenreich.release.R
@@ -18,11 +19,12 @@ import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
+import com.faltenreich.release.ui.logic.opener.DateOpener
 import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release) {
+class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release), DateOpener {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
@@ -88,11 +90,17 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
                 release?.let {
                     metaChipContainer.removeAllViews()
-                    addChip(metaChipContainer, release.releaseDateForUi(context), R.drawable.ic_date)
+                    addChip(
+                        metaChipContainer,
+                        release.releaseDateForUi(context),
+                        R.drawable.ic_date,
+                        onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
+                    )
 
-                    // Change order of observation to prevent scrambled and jumping layout
-                    viewModel.observeGenres(release, this) { genres -> genreChipContainer.removeAllViews(); genres?.forEach { genre -> addGenre(genre) } }
-                    viewModel.observePlatforms(release, this) { platforms -> platforms?.forEach { platform -> addPlatform(platform) } }
+                    // TODO: Change order of observation to prevent scrambled and jumping layout
+                    // FIXME: Do not observe after observe to prevent duplicates
+                    viewModel.observeGenres(release, this) { genres -> addGenres(genres ?: listOf()) }
+                    viewModel.observePlatforms(release, this) { platforms -> addPlatforms(platforms ?: listOf()) }
                     // TODO: viewModel.observeImages(release, this) { media -> addImages(media ?: listOf()) }
                 }
 
@@ -121,19 +129,20 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
 
-    private fun addGenre(genre: Genre) {
-        addChip(genreChipContainer, genre.title)
+    private fun addGenres(genres: List<Genre>) {
+        genres.forEach { genre -> addChip(genreChipContainer, genre.title) }
     }
 
-    private fun addPlatform(platform: Platform) {
-        addChip(metaChipContainer, platform.title)
+    private fun addPlatforms(platforms: List<Platform>) {
+        platforms.forEach { platform -> addChip(metaChipContainer, platform.title) }
     }
 
-    private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null) = context?.let { context ->
+    private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null, onClick: (() -> Unit)? = null) = context?.let { context ->
         val chip = Chip(context).apply {
             text = title
             iconResId?.let { setChipIconResource(iconResId) }
             setChipBackgroundColorResource(viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary)
+            setOnClickListener { onClick?.invoke() }
         }
         container.addView(chip)
     }
