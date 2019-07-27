@@ -76,6 +76,6 @@ data class Release(
         const val PLATFORMS = "platforms"
         const val MEDIA = "media"
 
-        const val FALLBACK_COVER_COLOR_RES = android.R.color.black
+        const val FALLBACK_COVER_COLOR_RES = android.R.color.transparent
     }
 }

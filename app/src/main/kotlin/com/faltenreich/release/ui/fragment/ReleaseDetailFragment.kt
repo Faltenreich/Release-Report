@@ -23,7 +23,6 @@ import com.faltenreich.release.ui.logic.opener.DateOpener
 import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
-
 class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release), DateOpener {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
@@ -52,26 +51,35 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
     private fun initLayout() {
         context?.apply {
-            val transition = TransitionInflater.from(context).inflateTransition(R.transition.shared_element)
-            sharedElementEnterTransition = transition
-            sharedElementReturnTransition = transition
-            ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
-
-            toolbar.setNavigationOnClickListener { finish() }
-            // Workaround: Fixing fitsSystemWindows programmatically
-            toolbar.doOnPreDraw {
-                val frame = Rect()
-                activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
-                toolbar.layoutParams.height = toolbar.height + frame.top
-                toolbar.setPadding(0, frame.top, 0, 0)
-            }
-
+            initTransition()
+            initToolbar()
             fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite ?: false)) }
-
-            listLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-            galleryListView.layoutManager = listLayoutManager
-            galleryListView.adapter = listAdapter
+            initList()
         }
+    }
+
+    private fun initTransition() {
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = transition
+        // TODO: sharedElementExitTransition is not working
+        ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
+    }
+
+    private fun initToolbar() {
+        toolbar.setNavigationOnClickListener { finish() }
+        // Workaround: Fixing fitsSystemWindows programmatically
+        toolbar.doOnPreDraw {
+            val frame = Rect()
+            activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
+            toolbar.layoutParams.height = toolbar.height + frame.top
+            toolbar.setPadding(0, frame.top, 0, 0)
+        }
+    }
+
+    private fun initList() {
+        listLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        galleryListView.layoutManager = listLayoutManager
+        galleryListView.adapter = listAdapter
     }
 
     private fun initData() {

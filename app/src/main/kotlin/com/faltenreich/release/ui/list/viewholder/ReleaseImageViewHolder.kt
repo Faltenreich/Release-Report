@@ -24,7 +24,9 @@ class ReleaseImageViewHolder(
         val release = data.release
         container.setOnClickListener { openRelease(navigationController, release, releaseCoverImageView) }
 
-        release.imageUrlForThumbnail?.let { imageUrl -> releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 ) } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        release.imageUrlForThumbnail?.let { imageUrl ->
+            releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
+        } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
 
         releaseTypeImageView.imageResource = release.releaseType?.iconResId ?: android.R.color.transparent
         releaseTypeImageView.background = ContextCompat.getDrawable(context, R.drawable.dogear_type)?.apply { setTint(ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)) }

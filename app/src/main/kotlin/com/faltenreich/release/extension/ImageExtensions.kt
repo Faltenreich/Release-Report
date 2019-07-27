@@ -11,6 +11,7 @@ import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.lang.UnsupportedOperationException
 
 @GlideModule
 class ImageLoadingModule : AppGlideModule()
@@ -35,17 +36,17 @@ fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((Drawable
 }
 
 var ImageView.tint: Int
-    get() = TODO()
+    get() = throw UnsupportedOperationException()
     set(value) { imageTintList = ColorStateList.valueOf(value) }
 
 var ImageView.tintResource: Int
-    get() = TODO()
+    get() = throw UnsupportedOperationException()
     set(value) { tint = ContextCompat.getColor(context, value) }
 
 var FloatingActionButton.backgroundTint: Int
-    get() = TODO()
+    get() = throw UnsupportedOperationException()
     set(value) { backgroundTintList = ColorStateList.valueOf(value) }
 
 var FloatingActionButton.backgroundTintResource: Int
-    get() = TODO()
+    get() = throw UnsupportedOperationException()
     set(value) { backgroundTint = ContextCompat.getColor(context, value) }
