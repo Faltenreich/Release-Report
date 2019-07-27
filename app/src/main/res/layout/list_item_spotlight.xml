@@ -4,59 +4,86 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?selectableItemBackgroundBorderless"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?selectableItemBackground">
+        android:paddingBottom="@dimen/margin_padding_size_medium">
 
-        <TextView
-            android:id="@+id/spotlightHeader"
+        <ImageView
+            android:id="@+id/spotlightWallpaper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorPrimary"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/spotlightType"
-            tools:text="Title"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic"/>
+
+        <View
+            android:id="@+id/spotlightHeaderBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/dogear_type"
+            app:layout_constraintTop_toTopOf="@id/spotlightWallpaper"
+            app:layout_constraintBottom_toBottomOf="@id/spotlightHeader"
+            app:layout_constraintStart_toStartOf="@id/spotlightWallpaper"
+            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"/>
 
         <ImageView
             android:id="@+id/spotlightType"
-            android:layout_width="@dimen/image_size_xsmall"
-            android:layout_height="@dimen/image_size_xsmall"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:layout_width="@dimen/dogear"
+            android:layout_height="@dimen/dogear"
+            android:padding="@dimen/dogear_padding"
             android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="@id/spotlightHeader"
-            app:layout_constraintBottom_toBottomOf="@id/spotlightHeader"
-            app:layout_constraintStart_toEndOf="@id/spotlightHeader"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/spotlightHeaderBackground"
+            app:layout_constraintBottom_toBottomOf="@id/spotlightHeaderBackground"
+            app:layout_constraintStart_toStartOf="@id/spotlightHeaderBackground"
+            app:layout_constraintEnd_toStartOf="@+id/spotlightHeader"
             tools:src="@drawable/ic_music"
             tools:tint="@color/green"/>
 
-        <View
-            android:id="@+id/spotlightSeparator"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/margin_padding_size_medium"
-            android:background="@color/gray_lighter"
-            app:layout_constraintTop_toBottomOf="@id/spotlightHeader"
-            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
-            app:layout_constraintEnd_toEndOf="@id/spotlightType"/>
+        <TextView
+            android:id="@+id/spotlightHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/margin_padding_size_small"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="@id/spotlightHeaderBackground"
+            app:layout_constraintBottom_toBottomOf="@id/spotlightHeaderBackground"
+            app:layout_constraintStart_toEndOf="@id/spotlightType"
+            app:layout_constraintEnd_toEndOf="@id/spotlightHeaderBackground"
+            tools:text="Title"/>
+
+        <ImageView
+            android:id="@+id/spotlightFavorite"
+            android:layout_width="@dimen/dogear"
+            android:layout_height="@dimen/dogear"
+            android:padding="@dimen/dogear_padding"
+            android:background="@drawable/dogear_favorite"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_favorite_on"
+            android:tint="@color/brown"
+            app:layout_constraintTop_toTopOf="@id/spotlightWallpaper"
+            app:layout_constraintEnd_toEndOf="@id/spotlightWallpaper"/>
 
         <ImageView
             android:id="@+id/spotlightCover"
             android:layout_width="54dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:layout_marginTop="@dimen/margin_padding_size_medium"
             android:contentDescription="@null"
-            app:layout_constraintTop_toBottomOf="@id/spotlightSeparator"
-            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
+            app:layout_constraintTop_toBottomOf="@id/spotlightWallpaper"
+            app:layout_constraintStart_toStartOf="parent"
             tools:src="@tools:sample/avatars"/>
 
         <TextView
@@ -69,7 +96,7 @@
             android:maxLines="1"
             app:layout_constraintTop_toTopOf="@id/spotlightCover"
             app:layout_constraintStart_toEndOf="@id/spotlightCover"
-            app:layout_constraintEnd_toStartOf="@id/spotlightFavorite"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="@tools:sample/date/mmddyy"/>
 
         <TextView
@@ -84,16 +111,6 @@
             app:layout_constraintStart_toStartOf="@id/spotlightDate"
             app:layout_constraintEnd_toEndOf="@id/spotlightDate"
             tools:text="@tools:sample/lorem"/>
-
-        <ImageView
-            android:id="@+id/spotlightFavorite"
-            android:layout_width="@dimen/image_size_xsmall"
-            android:layout_height="@dimen/image_size_xsmall"
-            android:src="@drawable/ic_favorite_on"
-            android:tint="@color/yellow"
-            android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="@id/spotlightDate"
-            app:layout_constraintEnd_toEndOf="@id/spotlightType"/>
 
         <TextView
             android:id="@+id/spotlightSubtitle"
@@ -116,8 +133,8 @@
             android:maxLines="4"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/spotlightCover"
-            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
-            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
+            app:layout_constraintStart_toStartOf="@id/spotlightCover"
+            app:layout_constraintEnd_toEndOf="@id/spotlightDate"
             tools:text="@tools:sample/lorem/random"/>
 
         <TextView
@@ -128,22 +145,10 @@
             android:textColor="?android:textColorTertiary"
             android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@id/spotlightDescription"
-            app:layout_constraintStart_toStartOf="@id/spotlightHeader"
-            app:layout_constraintEnd_toEndOf="@id/spotlightHeader"
-            tools:text="@tools:sample/lorem"/>
-
-        <ImageView
-            android:id="@+id/spotlightWallpaper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_medium"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            app:layout_constraintTop_toBottomOf="@id/spotlightGenres"
+            app:layout_constraintStart_toStartOf="@id/spotlightCover"
+            app:layout_constraintEnd_toEndOf="@id/spotlightDate"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            tools:text="@tools:sample/lorem"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

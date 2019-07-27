@@ -30,9 +30,9 @@
 
         <ImageView
             android:id="@+id/releaseTypeImageView"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:padding="6dp"
+            android:layout_width="@dimen/dogear"
+            android:layout_height="@dimen/dogear"
+            android:padding="@dimen/dogear_padding"
             android:background="@drawable/dogear_type"
             android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
@@ -42,9 +42,9 @@
 
         <ImageView
             android:id="@+id/releaseFavoriteImageView"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:padding="6dp"
+            android:layout_width="@dimen/dogear"
+            android:layout_height="@dimen/dogear"
+            android:padding="@dimen/dogear_padding"
             android:background="@drawable/dogear_favorite"
             android:contentDescription="@null"
             android:src="@drawable/ic_favorite_on"
