@@ -20,10 +20,11 @@ import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
 import com.faltenreich.release.ui.logic.opener.DateOpener
+import com.faltenreich.release.ui.logic.opener.MediaOpener
 import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release), DateOpener {
+class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release), DateOpener, MediaOpener {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
@@ -53,6 +54,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         context?.apply {
             initTransition()
             initToolbar()
+            releaseWallpaperImageView.setOnClickListener { openMedia(findNavController(), viewModel.release!!, null, releaseWallpaperImageView) }
+            releaseCoverImageView.setOnClickListener { openMedia(findNavController(), viewModel.release!!, null, releaseCoverImageView) }
             fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite ?: false)) }
             initList()
         }

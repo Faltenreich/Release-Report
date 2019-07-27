@@ -15,12 +15,12 @@ class ReleaseDetailViewModel : ViewModel() {
     private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
     private val genreRepository = RepositoryFactory.repository<GenreRepository>()
     private val platformRepository = RepositoryFactory.repository<PlatformRepository>()
-    private val imageRepository = RepositoryFactory.repository<MediaRepository>()
+    private val mediaRepository = RepositoryFactory.repository<MediaRepository>()
 
     private val releaseLiveData = MutableLiveData<Release>()
     private val genreLiveData = MutableLiveData<List<Genre>>()
     private val platformLiveData = MutableLiveData<List<Platform>>()
-    private val imageLiveData = MutableLiveData<List<Media>>()
+    private val mediaLiveData = MutableLiveData<List<Media>>()
 
     var release: Release?
         get() = releaseLiveData.value
@@ -35,8 +35,8 @@ class ReleaseDetailViewModel : ViewModel() {
         set(value) = platformLiveData.postValue(value)
 
     var media: List<Media>?
-        get() = imageLiveData.value
-        set(value) = imageLiveData.postValue(value)
+        get() = mediaLiveData.value
+        set(value) = mediaLiveData.postValue(value)
 
     val color: Int
         get() = release?.releaseType?.colorResId ?: R.color.colorPrimary
@@ -51,22 +51,22 @@ class ReleaseDetailViewModel : ViewModel() {
 
     fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
         genreLiveData.observe(owner, Observer(onObserve))
-        release.genres?.takeIf(List<String>::isNotEmpty)?.let { ids ->
+        release.genres?.let { ids ->
             genreRepository.getByIds(ids) { genres -> this.genres = genres }
         }
     }
 
     fun observePlatforms(release: Release, owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
         platformLiveData.observe(owner, Observer(onObserve))
-        release.platforms?.takeIf(List<String>::isNotEmpty)?.let { ids ->
+        release.platforms?.let { ids ->
             platformRepository.getByIds(ids) { platforms -> this.platforms = platforms }
         }
     }
 
     fun observeMedia(release: Release, owner: LifecycleOwner, onObserve: (List<Media>?) -> Unit) {
-        imageLiveData.observe(owner, Observer(onObserve))
-        release.media?.takeIf(List<String>::isNotEmpty)?.let { ids ->
-            imageRepository.getByIds(ids) { images -> this.media = images }
+        mediaLiveData.observe(owner, Observer(onObserve))
+        release.media?.let { ids ->
+            mediaRepository.getByIds(ids) { media -> this.media = media }
         }
     }
 }
