@@ -18,10 +18,11 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.logic.opener.DateOpener
+import com.faltenreich.release.ui.logic.opener.UrlOpener
 import com.faltenreich.release.ui.view.Chip
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release), DateOpener {
+class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release), DateOpener, UrlOpener {
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId } }
 
@@ -38,7 +39,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.open -> { openExternally(); return true }
+            R.id.open -> { openUrl(viewModel.release?.externalUrl); return true }
             R.id.share -> { share(); return true }
             else -> super.onOptionsItemSelected(item)
         }
@@ -47,9 +48,9 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     private fun initLayout() {
         initTransition()
         initToolbar()
-        releaseWallpaperImageView.setOnClickListener { TODO() }
-        releaseCoverImageView.setOnClickListener { TODO() }
-        fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite ?: false)) }
+        releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
+        releaseCoverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
+        fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite.isTrue)) }
     }
 
     private fun initTransition() {
@@ -151,8 +152,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         fab.show()
     }
 
-    private fun openExternally() {
-
+    private fun openUrl(url: String?) {
+        context?.let { context ->
+            url?.let { url -> openUrl(context, url) }
+        }
     }
 
     private fun share() {
