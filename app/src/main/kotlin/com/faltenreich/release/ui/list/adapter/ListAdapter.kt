@@ -1,9 +1,5 @@
 package com.faltenreich.release.ui.list.adapter
 
-interface ListAdapter <ITEM : Any> {
-    val listItems: List<ITEM>
+import com.faltenreich.release.ui.logic.adapter.CollectionAdapter
 
-    fun getListItemCount(): Int = listItems.size
-
-    fun getListItemAt(position: Int): ITEM? = listItems.getOrNull(position)
-}
+interface ListAdapter <ITEM : Any> : CollectionAdapter<ITEM>

@@ -2,12 +2,9 @@
 
 <resources>
 
-    <dimen name="navigation_drawer_width">320dp</dimen>
     <dimen name="toolbar_height">48dp</dimen>
     <dimen name="toolbar_height_padded">72dp</dimen>
-    <dimen name="calendar_height">280dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
-    <dimen name="status_bar_height">24dp</dimen>
 
     <dimen name="margin_padding_size_xxxxsmall">1dp</dimen>
     <dimen name="margin_padding_size_xxxsmall">2dp</dimen>
@@ -35,6 +32,7 @@
     <dimen name="image_size_small">30dp</dimen>
     <dimen name="image_size_medium">48dp</dimen>
     <dimen name="image_size_large">72dp</dimen>
+    <dimen name="image_size_xlarge">200dp</dimen>
     <dimen name="dogear">28dp</dimen>
     <dimen name="dogear_padding">6dp</dimen>
 
