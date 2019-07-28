@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.isTrue
-import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.logic.opener.ReleaseOpener
@@ -18,7 +17,7 @@ class SpotlightPromoViewHolder(
 ) : BaseViewHolder<SpotlightPromoItem>(context, R.layout.list_item_release_promo, parent), ReleaseOpener {
     override fun onBind(data: SpotlightPromoItem) {
         val release = data.release
-        container.setOnClickListener { openRelease(navigationController, release, imageView) }
+        container.setOnClickListener { openRelease(navigationController, release) }
 
         dateView.text = release.releaseDateForUi(context)
         titleView.text = release.title
@@ -26,7 +25,7 @@ class SpotlightPromoViewHolder(
         subtitleView.isVisible = release.subtitle?.isNotBlank().isTrue
 
         release.imageUrlForWallpaper?.let { imageUrl ->
-            imageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
+            imageView.setImageAsync(imageUrl)
         } ?: imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
     }
 }
