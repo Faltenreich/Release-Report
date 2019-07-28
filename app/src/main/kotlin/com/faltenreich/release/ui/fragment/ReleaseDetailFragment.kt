@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
 import com.faltenreich.release.R
@@ -91,14 +92,18 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         context?.let { context ->
             collapsingToolbarLayout.title = release?.title
             releaseTitleTextView.text = release?.title
+            releaseSubtitleTextView.text = release?.subtitle
+            releaseSubtitleTextView.isVisible = release?.subtitle?.isNotBlank().isTrue
+            releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
+            releaseDescriptionTextView.setTypeface(releaseSubtitleTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
 
             release?.imageUrlForWallpaper?.let { url ->
                 releaseWallpaperImageView.setImageAsync(url)
             }
 
-            val description = release?.description?.takeIf(String::isNotBlank)
-            releaseSubtitleTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
-            releaseSubtitleTextView.setTypeface(releaseSubtitleTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
+            release?.imageUrlForThumbnail?.let { imageUrl ->
+                releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) { startPostponedEnterTransition() }
+            } ?: startPostponedEnterTransition()
 
             release?.let {
                 metaChipContainer.removeAllViews()
@@ -109,10 +114,6 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
                     onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
                 )
             }
-
-            release?.imageUrlForThumbnail?.let { imageUrl ->
-                releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) { startPostponedEnterTransition() }
-            } ?: startPostponedEnterTransition()
 
             invalidateTint()
             invalidateFavorite()

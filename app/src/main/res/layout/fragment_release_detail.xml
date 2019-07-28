@@ -101,6 +101,14 @@
                 android:textColor="?android:textColorPrimaryInverse"
                 tools:text="@tools:sample/lorem"/>
 
+            <TextView
+                android:id="@+id/releaseDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_size_small"
+                android:textColor="?android:textColorPrimaryInverse"
+                tools:text="@tools:sample/lorem"/>
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/genreChipContainer"
                 android:layout_width="match_parent"
