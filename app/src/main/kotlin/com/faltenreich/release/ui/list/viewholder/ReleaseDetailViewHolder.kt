@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.extension.tintResource
@@ -15,8 +16,7 @@ import kotlinx.android.synthetic.main.list_item_release_detail.*
 class ReleaseDetailViewHolder(
     context: Context,
     parent: ViewGroup,
-    private val showDate: Boolean = true,
-    private val showDescription: Boolean = true
+    private val showDate: Boolean = true
 ) : BaseViewHolder<ReleaseProvider>(context, R.layout.list_item_release_detail, parent), ReleaseOpener {
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
@@ -29,9 +29,10 @@ class ReleaseDetailViewHolder(
         releaseTypeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
         releaseTypeImageView.tintResource = release.releaseType?.colorResId ?: R.color.colorPrimary
 
-        releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
+        releaseTitleTextView.text = release.title
+        releaseSubtitleTextView.text = release.subtitle
+        releaseSubtitleTextView.isVisible = release.subtitle?.isNotBlank().isTrue
         releaseDescriptionTextView.text = release.description
-        releaseDescriptionTextView.isVisible = showDescription
 
         releaseFavoriteImageView.isVisible = release.isFavorite
     }

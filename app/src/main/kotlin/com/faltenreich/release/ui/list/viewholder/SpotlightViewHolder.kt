@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.extension.tintResource
@@ -28,9 +29,9 @@ class SpotlightViewHolder(
         spotlightTitle.text = release.title
         spotlightSubtitle.text = release.subtitle
 
-        spotlightDescription.text = release.description ?: context.getString(R.string.unknown_description)
+        spotlightDescription.text = release.description
+        spotlightDescription.isVisible = release.description?.isNotBlank().isTrue
         spotlightDescription.setTypeface(spotlightDescription.typeface, if (release.description != null) Typeface.NORMAL else Typeface.ITALIC)
-        spotlightGenres.isVisible = false // TODO
 
         release.imageUrlForCover?.let { imageUrl ->
             spotlightCover.setImageAsync(imageUrl, context.screenSize.x / 2 )

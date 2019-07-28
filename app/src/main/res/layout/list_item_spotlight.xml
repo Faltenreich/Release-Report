@@ -141,19 +141,6 @@
             app:layout_constraintEnd_toEndOf="@id/spotlightDate"
             tools:text="@tools:sample/lorem/random"/>
 
-        <TextView
-            android:id="@+id/spotlightGenres"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorTertiary"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/spotlightDescription"
-            app:layout_constraintStart_toStartOf="@id/spotlightCover"
-            app:layout_constraintEnd_toEndOf="@id/spotlightDate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="@tools:sample/lorem"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

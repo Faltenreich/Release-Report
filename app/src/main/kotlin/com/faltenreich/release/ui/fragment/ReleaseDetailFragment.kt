@@ -97,8 +97,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
             }
 
             val description = release?.description?.takeIf(String::isNotBlank)
-            releaseDescriptionTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
-            releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
+            releaseSubtitleTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
+            releaseSubtitleTextView.setTypeface(releaseSubtitleTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
 
             release?.let {
                 metaChipContainer.removeAllViews()

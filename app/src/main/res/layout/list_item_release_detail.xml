@@ -29,9 +29,9 @@
             android:id="@+id/releaseDateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
             android:textColor="?android:textColorTertiary"
             android:maxLines="1"
             android:ellipsize="end"
@@ -46,14 +46,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
             android:textColor="?android:textColorPrimary"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
             app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
             app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-            tools:text="@tools:sample/lorem/random"/>
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/releaseSubtitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_small"
+            android:textColor="?android:textColorTertiary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
+            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+            app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+            tools:text="@tools:sample/lorem"/>
 
         <TextView
             android:id="@+id/releaseDescriptionTextView"
@@ -61,28 +75,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
             android:textColor="?android:textColorTertiary"
             android:maxLines="2"
             android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/releaseSubtitleTextView"
             app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
             app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
             tools:text="@tools:sample/lorem/random"/>
-
-        <TextView
-            android:id="@+id/releasePlatformsTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorTertiary"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/releaseDescriptionTextView"
-            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-            app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-            tools:text="Platforms"/>
 
         <ImageView
             android:id="@+id/releaseTypeImageView"

@@ -4,9 +4,11 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.backgroundTint
+import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.ui.logic.opener.ReleaseOpener
@@ -30,6 +32,9 @@ class ReleaseImageViewHolder(
         releaseTypeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)
         releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
 
-        releaseTitleTextView.text = release.artistName?.let { artist -> "$artist - ${release.title}" } ?: release.title
+        releaseTitleTextView.text = release.title
+        val subtitle = release.subtitle
+        releaseSubTitleTextView.text = subtitle
+        releaseSubTitleTextView.isVisible = subtitle?.isNotBlank().isTrue
     }
 }

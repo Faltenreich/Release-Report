@@ -21,6 +21,12 @@
             android:title="@string/calendar"
             android:icon="@drawable/ic_calendar"/>
 
+    </group>
+
+    <group
+        android:id="@+id/other"
+        android:checkableBehavior="single">
+
         <item
             android:id="@+id/release_list"
             android:title="@string/releases"/>

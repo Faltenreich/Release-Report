@@ -95,7 +95,7 @@
                 tools:text="@tools:sample/lorem"/>
 
             <TextView
-                android:id="@+id/releaseDescriptionTextView"
+                android:id="@+id/releaseSubtitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="?android:textColorPrimaryInverse"
