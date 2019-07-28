@@ -34,6 +34,7 @@ class GalleryFragment : BaseFragment(R.layout.fragment_gallery) {
         // TODO: ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
 
         listAdapter = GalleryPagerAdapter()
+        viewPager.adapter = listAdapter
     }
 
     private fun initData() {

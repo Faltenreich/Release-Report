@@ -17,13 +17,15 @@ abstract class ViewPagerAdapter<ITEM : Any>(
         val context = container.context
         val view = LayoutInflater.from(context).inflate(layoutResId, container, false)
         container.addView(view)
-        bind(getListItemAt(position)!!)
+        bind(getListItemAt(position)!!, view)
         return view
     }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = Unit
 
     override fun getCount(): Int = getListItemCount()
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
-    abstract fun bind(data: ITEM)
+    abstract fun bind(data: ITEM, view: View)
 }
