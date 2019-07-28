@@ -6,9 +6,15 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.ui.logic.provider.LabelProvider
 import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 
-data class SpotlightItem(
+sealed class SpotlightItem
+
+data class SpotlightReleaseItem(
     override val release: Release,
     @StringRes val headerResId: Int
-) : ReleaseProvider, LabelProvider {
+) : SpotlightItem(), ReleaseProvider, LabelProvider {
     override fun print(context: Context): String? = context.getString(headerResId)
 }
+
+data class SpotlightPromoItem(
+    override val release: Release
+) : SpotlightItem(), ReleaseProvider

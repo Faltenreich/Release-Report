@@ -1,7 +1,6 @@
 package com.faltenreich.release.ui.list.viewholder
 
 import android.content.Context
-import android.graphics.Typeface
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
@@ -10,28 +9,25 @@ import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.screenSize
 import com.faltenreich.release.extension.setImageAsync
 import com.faltenreich.release.extension.tintResource
-import com.faltenreich.release.ui.list.item.SpotlightItem
+import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
 import com.faltenreich.release.ui.logic.opener.ReleaseOpener
 import kotlinx.android.synthetic.main.list_item_spotlight.*
 import org.jetbrains.anko.imageResource
 
-class SpotlightViewHolder(
+class SpotlightReleaseViewHolder(
     context: Context,
     parent: ViewGroup
-) : BaseViewHolder<SpotlightItem>(context, R.layout.list_item_spotlight, parent), ReleaseOpener {
-    override fun onBind(data: SpotlightItem) {
+) : BaseViewHolder<SpotlightReleaseItem>(context, R.layout.list_item_spotlight, parent), ReleaseOpener {
+    override fun onBind(data: SpotlightReleaseItem) {
         val release = data.release
         container.setOnClickListener { openRelease(navigationController, release, spotlightCover) }
 
         spotlightHeader.text = data.print(context)
         spotlightDate.text = release.releaseDateForUi(context)
-
         spotlightTitle.text = release.title
         spotlightSubtitle.text = release.subtitle
-
         spotlightDescription.text = release.description
         spotlightDescription.isVisible = release.description?.isNotBlank().isTrue
-        spotlightDescription.setTypeface(spotlightDescription.typeface, if (release.description != null) Typeface.NORMAL else Typeface.ITALIC)
 
         release.imageUrlForCover?.let { imageUrl ->
             spotlightCover.setImageAsync(imageUrl, context.screenSize.x / 2 )

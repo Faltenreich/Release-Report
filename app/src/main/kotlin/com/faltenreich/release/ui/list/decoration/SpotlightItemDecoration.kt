@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.ui.list.adapter.SpotlightListAdapter
 import com.faltenreich.release.ui.list.item.SpotlightItem
+import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
 
 class SpotlightItemDecoration(context: Context) : LinearLayoutItemDecoration<SpotlightItem, SpotlightListAdapter>() {
     private val spacingHorizontal: Int = context.resources.getDimension(SPACING_RES_DEFAULT).toInt()
@@ -15,12 +16,15 @@ class SpotlightItemDecoration(context: Context) : LinearLayoutItemDecoration<Spo
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildAdapterPosition(view)
+        val item = adapter?.getListItemAt(position)
 
-        if (position == 0) {
-            outRect.top = spacingVertical
+        if (item is SpotlightReleaseItem) {
+            if (position == 0) {
+                outRect.top = spacingVertical
+            }
+            outRect.left = spacingHorizontal
+            outRect.right = spacingHorizontal
         }
-        outRect.left = spacingHorizontal
-        outRect.right = spacingHorizontal
         outRect.bottom = spacingVertical
     }
 }

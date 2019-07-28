@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_size_xlarge"
+        android:scaleType="centerCrop"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@drawable/scrim_bottom"
+        android:paddingTop="@dimen/margin_padding_size_xxlarge"
+        android:paddingBottom="@dimen/margin_padding_size_medium"
+        android:paddingStart="@dimen/margin_padding_size_medium"
+        android:paddingEnd="@dimen/margin_padding_size_medium"
+        app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
+        app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
+        app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView">
+
+        <TextView
+            android:id="@+id/dateView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:textColorTertiaryInverse"
+            android:textSize="@dimen/text_size_medium"
+            tools:text="@tools:sample/date/ddmmyy"/>
+
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:textSize="@dimen/text_size_medium"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/subtitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="?android:textColorTertiaryInverse"
+            android:textSize="@dimen/text_size_medium"
+            tools:text="@tools:sample/lorem"/>
+
+    </LinearLayout>
+
+</FrameLayout>
