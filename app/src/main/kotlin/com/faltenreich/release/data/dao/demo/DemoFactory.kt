@@ -11,7 +11,7 @@ object DemoFactory {
     private const val IMAGE_PROVIDER = "https://picsum.photos"
 
     private val releases: List<Release> by lazy {
-        val startDate = LocalDate.now().minusDays(5)
+        val startDate = LocalDate.now().minusWeeks(1)
         (0 until 100).map { index ->
             Release().apply {
                 id = index.toString()
