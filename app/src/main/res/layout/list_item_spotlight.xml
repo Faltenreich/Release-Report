@@ -107,7 +107,6 @@
             android:id="@+id/spotlightTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
             android:textColor="?android:textColorPrimary"
             android:textSize="@dimen/text_size_medium"
             android:maxLines="2"

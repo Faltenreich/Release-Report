@@ -65,6 +65,15 @@
             app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView">
 
             <TextView
+                android:id="@+id/releaseDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="?android:textColorTertiaryInverse"
+                tools:text="@tools:sample/date/ddmmyy"/>
+
+            <TextView
                 android:id="@+id/releaseTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +84,7 @@
                 tools:text="@tools:sample/lorem"/>
 
             <TextView
-                android:id="@+id/releaseSubTitleTextView"
+                android:id="@+id/releaseSubtitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
