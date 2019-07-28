@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.ui.list.adapter.SpotlightContainerListAdapter
 import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 
-class SpotlightReleaseItemDecoration(context: Context) : GridLayoutItemDecoration<ReleaseProvider, SpotlightContainerListAdapter>() {
+abstract class GridLayoutSpacingItemDecoration(context: Context) : GridLayoutItemDecoration<ReleaseProvider, SpotlightContainerListAdapter>() {
     private val spacing: Int = context.resources.getDimension(SPACING_RES_DEFAULT).toInt()
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {

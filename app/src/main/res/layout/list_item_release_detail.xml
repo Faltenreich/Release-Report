@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,102 +9,96 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/releaseCoverImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="@dimen/margin_padding_size_small"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@tools:sample/avatars"/>
 
-        <ImageView
-            android:id="@+id/releaseCoverImageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:src="@tools:sample/avatars"/>
+    <TextView
+        android:id="@+id/releaseDateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:textColor="?android:textColorTertiary"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+        tools:text="@tools:sample/date/ddmmyy"/>
 
-        <TextView
-            android:id="@+id/releaseDateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorTertiary"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-            app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-            tools:text="@tools:sample/date/ddmmyy"/>
+    <TextView
+        android:id="@+id/releaseTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:textColor="?android:textColorPrimary"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+        tools:text="@tools:sample/lorem"/>
 
-        <TextView
-            android:id="@+id/releaseTitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorPrimary"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
-            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-            app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-            tools:text="@tools:sample/lorem"/>
+    <TextView
+        android:id="@+id/releaseSubtitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:textColor="?android:textColorTertiary"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+        tools:text="@tools:sample/lorem"/>
 
-        <TextView
-            android:id="@+id/releaseSubtitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorTertiary"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
-            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-            app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-            tools:text="@tools:sample/lorem"/>
+    <TextView
+        android:id="@+id/releaseDescriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:textColor="?android:textColorTertiary"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/releaseSubtitleTextView"
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+        tools:text="@tools:sample/lorem/random"/>
 
-        <TextView
-            android:id="@+id/releaseDescriptionTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorTertiary"
-            android:maxLines="2"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/releaseSubtitleTextView"
-            app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-            app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-            tools:text="@tools:sample/lorem/random"/>
+    <ImageView
+        android:id="@+id/releaseTypeImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@drawable/ic_music"
+        tools:tint="?attr/colorPrimary"/>
 
-        <ImageView
-            android:id="@+id/releaseTypeImageView"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="@dimen/margin_padding_size_small"
-            android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@drawable/ic_music"
-            tools:tint="?attr/colorPrimary"/>
+    <ImageView
+        android:id="@+id/releaseFavoriteImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/margin_padding_size_small"
+        android:src="@drawable/ic_favorite_on"
+        android:tint="@color/yellow"
+        android:contentDescription="@string/favorite"
+        app:layout_constraintTop_toBottomOf="@id/releaseTypeImageView"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:id="@+id/releaseFavoriteImageView"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            android:src="@drawable/ic_favorite_on"
-            android:tint="@color/yellow"
-            android:contentDescription="@string/favorite"
-            app:layout_constraintTop_toBottomOf="@id/releaseTypeImageView"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

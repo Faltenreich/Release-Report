@@ -3,18 +3,17 @@ package com.faltenreich.release.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.SearchViewModel
 import com.faltenreich.release.extension.hideKeyboard
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.ui.list.adapter.SearchListAdapter
+import com.faltenreich.release.ui.list.decoration.DividerItemDecoration
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_empty.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textResource
 
 class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
@@ -33,14 +32,16 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     }
 
     private fun initLayout() {
-        listLayoutManager = LinearLayoutManager(context)
-        listView.layoutManager = listLayoutManager
-        listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        listView.adapter = listAdapter
+        context?.let { context ->
+            listLayoutManager = LinearLayoutManager(context)
+            listView.layoutManager = listLayoutManager
+            listView.addItemDecoration(DividerItemDecoration(context))
+            listView.adapter = listAdapter
 
-        searchView.logo = Search.Logo.ARROW
-        searchView.setOnLogoClickListener { finish() }
-        searchView.setOnQueryTextListener(this)
+            searchView.logo = Search.Logo.ARROW
+            searchView.setOnLogoClickListener { finish() }
+            searchView.setOnQueryTextListener(this)
+        }
     }
 
     private fun initData() {

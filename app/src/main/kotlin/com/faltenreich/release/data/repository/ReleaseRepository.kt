@@ -21,10 +21,4 @@ class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) 
             dao.getByIds(favoriteReleaseIds, startAt) { releases -> onResult(releases.take(pageSize)) }
         } ?: onResult(listOf())
     }
-
-    fun getFavorites(startAt: LocalDate, endAt: LocalDate, onResult: (List<Release>) -> Unit) {
-        UserPreferences.favoriteReleaseIds.takeIf(Collection<*>::isNotEmpty)?.let { favoriteReleaseIds ->
-            dao.getByIds(favoriteReleaseIds, startAt, endAt, onResult)
-        } ?: onResult(listOf())
-    }
 }
