@@ -27,9 +27,16 @@ class SpotlightReleaseViewHolder(
 
     override fun onBind(data: SpotlightReleaseItem) {
         titleView.text = data.print(context)
-        data.releases.firstOrNull()?.release?.imageUrlForWallpaper?.let { imageUrl ->
-            imageView.setImageAsync(imageUrl)
-        } ?: imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+
+        data.releases.firstOrNull()?.release?.let { release ->
+            imageView.setOnClickListener { openRelease(navigationController, release) }
+            release.imageUrlForWallpaper?.let { imageUrl ->
+                imageView.setImageAsync(imageUrl)
+            } ?: imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        } ?: run {
+            imageView.setOnClickListener(null)
+            imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        }
 
         listAdapter.removeListItems()
         listAdapter.addListItems(data.releases)

@@ -20,6 +20,7 @@
             android:layout_height="@dimen/image_size_xlarge"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
+            android:foreground="?selectableItemBackground"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
