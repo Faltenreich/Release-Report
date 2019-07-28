@@ -1,7 +1,6 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,6 @@ import com.faltenreich.release.ui.logic.search.SearchableProperties
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_discover.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
@@ -111,6 +109,13 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
                     }
                 }
             })
+
+            /*
+            appbarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                // FIXME: Leads to jumping AppBarLayout
+                ((parentFragment?.parentFragment as Fragment).view as CoordinatorLayout).bottomAppBar.translationY = -verticalOffset.toFloat()
+            })
+            */
         }
     }
 
