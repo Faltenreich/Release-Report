@@ -46,21 +46,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     }
 
     private fun initLayout() {
-        initTransition()
-        initToolbar()
-        releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
-        releaseCoverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
-        fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite.isTrue)) }
-    }
-
-    private fun initTransition() {
         val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
-        // TODO: sharedElementExitTransition is not working
         ViewCompat.setTransitionName(releaseCoverImageView, SHARED_ELEMENT_NAME)
-    }
 
-    private fun initToolbar() {
         toolbar.setNavigationOnClickListener { finish() }
         // Workaround: Fixing fitsSystemWindows programmatically
         toolbar.doOnPreDraw {
@@ -69,6 +58,10 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
             toolbar.layoutParams.height = toolbar.height + frame.top
             toolbar.setPadding(0, frame.top, 0, 0)
         }
+
+        releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
+        releaseCoverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
+        fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite.isTrue)) }
     }
 
     private fun initData() {
@@ -95,33 +88,35 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     }
 
     private fun setRelease(release: Release?) {
-        collapsingToolbarLayout.title = release?.title
-        releaseTitleTextView.text = release?.title
+        context?.let { context ->
+            collapsingToolbarLayout.title = release?.title
+            releaseTitleTextView.text = release?.title
 
-        release?.imageUrlForWallpaper?.let { url ->
-            releaseWallpaperImageView.setImageAsync(url)
+            release?.imageUrlForWallpaper?.let { url ->
+                releaseWallpaperImageView.setImageAsync(url)
+            }
+
+            val description = release?.description?.takeIf(String::isNotBlank)
+            releaseDescriptionTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
+            releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
+
+            release?.let {
+                metaChipContainer.removeAllViews()
+                addChip(
+                    metaChipContainer,
+                    release.releaseDateForUi(context),
+                    R.drawable.ic_date,
+                    onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
+                )
+            }
+
+            release?.imageUrlForThumbnail?.let { imageUrl ->
+                releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) { startPostponedEnterTransition() }
+            } ?: startPostponedEnterTransition()
+
+            invalidateTint()
+            invalidateFavorite()
         }
-
-        val description = release?.description?.takeIf(String::isNotBlank)
-        releaseDescriptionTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
-        releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
-
-        release?.let {
-            metaChipContainer.removeAllViews()
-            addChip(
-                metaChipContainer,
-                release.releaseDateForUi(context),
-                R.drawable.ic_date,
-                onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
-            )
-        }
-
-        release?.imageUrlForThumbnail?.let { imageUrl ->
-            releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
-        } ?: startPostponedEnterTransition()
-
-        invalidateTint()
-        invalidateFavorite()
     }
 
     private fun addGenres(genres: List<Genre>) {

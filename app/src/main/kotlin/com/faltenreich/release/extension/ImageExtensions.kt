@@ -34,19 +34,3 @@ fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((Drawable
         })
         .into(this)
 }
-
-var ImageView.tint: Int
-    get() = throw UnsupportedOperationException()
-    set(value) { imageTintList = ColorStateList.valueOf(value) }
-
-var ImageView.tintResource: Int
-    get() = throw UnsupportedOperationException()
-    set(value) { tint = ContextCompat.getColor(context, value) }
-
-var FloatingActionButton.backgroundTint: Int
-    get() = throw UnsupportedOperationException()
-    set(value) { backgroundTintList = ColorStateList.valueOf(value) }
-
-var FloatingActionButton.backgroundTintResource: Int
-    get() = throw UnsupportedOperationException()
-    set(value) { backgroundTint = ContextCompat.getColor(context, value) }

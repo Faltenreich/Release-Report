@@ -1,38 +1,29 @@
 package com.faltenreich.release.extension
 
-import android.animation.AnimatorSet
-import android.animation.ValueAnimator
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.content.res.ColorStateList
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.annotation.ColorRes
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import com.google.android.material.animation.ArgbEvaluatorCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-private const val COLOR_FADE_ANIMATION_DURATION = 300
+var View.backgroundTint: Int
+    get() = throw UnsupportedOperationException()
+    set(value) {
+        backgroundTintList = ColorStateList.valueOf(value)
+    }
 
-fun View.animateHeight(to: Int) {
-    AnimatorSet().apply {
-        play(ValueAnimator.ofInt(height, to).apply {
-            duration = 500
-            addUpdateListener { animation ->
-                layoutParams.height = animation.animatedValue as Int
-                requestLayout()
-            }
-        })
-        interpolator = AccelerateDecelerateInterpolator()
-    }.start()
-}
+var ImageView.tint: Int
+    get() = throw java.lang.UnsupportedOperationException()
+    set(value) { imageTintList = ColorStateList.valueOf(value) }
 
-val View.backgroundColor: Int?
-    get() = (background as ColorDrawable?)?.color
+var ImageView.tintResource: Int
+    get() = throw java.lang.UnsupportedOperationException()
+    set(value) { tint = ContextCompat.getColor(context, value) }
 
-fun View.fadeBackgroundColorResource(@ColorRes to: Int) {
-    val colorFrom = backgroundColor ?: Color.TRANSPARENT
-    val colorTo = ContextCompat.getColor(context, to)
-    val colorAnimation = ValueAnimator.ofObject(ArgbEvaluatorCompat(), colorFrom, colorTo)
-    colorAnimation.addUpdateListener { animator -> setBackgroundColor(animator.animatedValue as Int) }
-    colorAnimation.duration = COLOR_FADE_ANIMATION_DURATION.toLong()
-    colorAnimation.start()
-}
+var FloatingActionButton.backgroundTint: Int
+    get() = throw java.lang.UnsupportedOperationException()
+    set(value) { backgroundTintList = ColorStateList.valueOf(value) }
+
+var FloatingActionButton.backgroundTintResource: Int
+    get() = throw java.lang.UnsupportedOperationException()
+    set(value) { backgroundTint = ContextCompat.getColor(context, value) }
