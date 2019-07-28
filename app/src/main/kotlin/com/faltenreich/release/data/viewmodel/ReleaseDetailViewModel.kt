@@ -45,28 +45,24 @@ class ReleaseDetailViewModel : ViewModel() {
         get() = release?.releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
 
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
-        releaseLiveData.observe(owner, Observer(onObserve))
-        releaseRepository.getById(id) { release = it }
+        releaseLiveData.observe(owner, Observer { release ->
+            onObserve(release)
+            release.genres?.let { ids -> genreRepository.getByIds(ids) { genres -> this.genres = genres } }
+            release.platforms?.let { ids -> platformRepository.getByIds(ids) { platforms -> this.platforms = platforms } }
+            release.media?.let { ids -> mediaRepository.getByIds(ids) { media -> this.media = media } }
+        })
+        releaseRepository.getById(id) { release -> this.release = release }
     }
 
-    fun observeGenres(release: Release, owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
+    fun observeGenres(owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
         genreLiveData.observe(owner, Observer(onObserve))
-        release.genres?.let { ids ->
-            genreRepository.getByIds(ids) { genres -> this.genres = genres }
-        }
     }
 
-    fun observePlatforms(release: Release, owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
+    fun observePlatforms(owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
         platformLiveData.observe(owner, Observer(onObserve))
-        release.platforms?.let { ids ->
-            platformRepository.getByIds(ids) { platforms -> this.platforms = platforms }
-        }
     }
 
-    fun observeMedia(release: Release, owner: LifecycleOwner, onObserve: (List<Media>?) -> Unit) {
+    fun observeMedia(owner: LifecycleOwner, onObserve: (List<Media>?) -> Unit) {
         mediaLiveData.observe(owner, Observer(onObserve))
-        release.media?.let { ids ->
-            mediaRepository.getByIds(ids) { media -> this.media = media }
-        }
     }
 }

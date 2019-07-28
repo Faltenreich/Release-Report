@@ -47,7 +47,7 @@ class GalleryFragment : BaseFragment(R.layout.fragment_gallery) {
             .from(galleryView)
             .settings(GallerySettings
                 .from(fragmentManager)
-                .thumbnailSize(100)
+                .thumbnailSize(300)
                 .enableZoom(true)
                 .build()
             )
@@ -56,7 +56,7 @@ class GalleryFragment : BaseFragment(R.layout.fragment_gallery) {
                     media.url?.let { url ->
                         when (media.mediaType) {
                             MediaType.IMAGE -> add(image(url))
-                            MediaType.VIDEO -> add(video(url, R.drawable.placeholder_video)) // TODO: Replace placeholder (no vectors supported)
+                            MediaType.VIDEO -> add(video(url, R.drawable.transparent))
                             else -> throw IllegalArgumentException("Unsupported media type: ${media.mediaType}")
                         }
                     }

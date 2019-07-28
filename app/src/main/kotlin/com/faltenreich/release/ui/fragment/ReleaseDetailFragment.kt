@@ -16,6 +16,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Media
 import com.faltenreich.release.data.model.Platform
+import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.viewmodel.ReleaseDetailViewModel
 import com.faltenreich.release.extension.*
 import com.faltenreich.release.ui.list.adapter.GalleryListAdapter
@@ -87,41 +88,11 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
     private fun initData() {
         releaseId?.let { id ->
-            viewModel.observeRelease(id, this) { release ->
-                collapsingToolbarLayout.title = release?.title
-                releaseTitleTextView.text = release?.title
-
-                release?.imageUrlForWallpaper?.let { url ->
-                    releaseWallpaperImageView.setImageAsync(url)
-                }
-
-                val description = release?.description?.takeIf(String::isNotBlank)
-                releaseDescriptionTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
-                releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
-
-                release?.let {
-                    metaChipContainer.removeAllViews()
-                    addChip(
-                        metaChipContainer,
-                        release.releaseDateForUi(context),
-                        R.drawable.ic_date,
-                        onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
-                    )
-
-                    // TODO: Change order of observation to prevent scrambled and jumping layout
-                    // FIXME: Do not observe after observe to prevent duplicates
-                    viewModel.observeGenres(release, this) { genres -> addGenres(genres ?: listOf()) }
-                    viewModel.observePlatforms(release, this) { platforms -> addPlatforms(platforms ?: listOf()) }
-                    // TODO: viewModel.observeImages(release, this) { media -> addImages(media ?: listOf()) }
-                }
-
-                release?.imageUrlForThumbnail?.let { imageUrl ->
-                    releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
-                } ?: startPostponedEnterTransition()
-
-                invalidateTint()
-                invalidateFavorite()
-            }
+            // TODO: Change order of observation to prevent scrambled and jumping layout
+            viewModel.observeRelease(id, this) { release -> setRelease(release) }
+            viewModel.observeGenres(this) { genres -> addGenres(genres ?: listOf()) }
+            viewModel.observePlatforms(this) { platforms -> addPlatforms(platforms ?: listOf()) }
+            viewModel.observeMedia(this) { media ->  }
         }
     }
 
@@ -140,7 +111,38 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
     }
 
+    private fun setRelease(release: Release?) {
+        collapsingToolbarLayout.title = release?.title
+        releaseTitleTextView.text = release?.title
+
+        release?.imageUrlForWallpaper?.let { url ->
+            releaseWallpaperImageView.setImageAsync(url)
+        }
+
+        val description = release?.description?.takeIf(String::isNotBlank)
+        releaseDescriptionTextView.text = description ?: getString(com.faltenreich.release.R.string.unknown_description)
+        releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (description != null) Typeface.NORMAL else Typeface.ITALIC)
+
+        release?.let {
+            metaChipContainer.removeAllViews()
+            addChip(
+                metaChipContainer,
+                release.releaseDateForUi(context),
+                R.drawable.ic_date,
+                onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
+            )
+        }
+
+        release?.imageUrlForThumbnail?.let { imageUrl ->
+            releaseCoverImageView.setImageAsync(imageUrl, context?.screenSize?.x?.let { width -> width / 2 }) { startPostponedEnterTransition() }
+        } ?: startPostponedEnterTransition()
+
+        invalidateTint()
+        invalidateFavorite()
+    }
+
     private fun addGenres(genres: List<Genre>) {
+        genreChipContainer.removeAllViews()
         genres.forEach { genre -> addChip(genreChipContainer, genre.title) }
     }
 
