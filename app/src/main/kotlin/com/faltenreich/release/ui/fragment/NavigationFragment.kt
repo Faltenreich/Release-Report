@@ -22,4 +22,8 @@ class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navig
     private fun selectCurrentDestination() {
         navigationView.menu.children.forEach { menuItem -> menuItem.isChecked = previousDestinationId == menuItem.itemId }
     }
+
+    companion object {
+        const val ARGUMENT_PREVIOUS_DESTINATION_ID = "previousDestinationId"
+    }
 }

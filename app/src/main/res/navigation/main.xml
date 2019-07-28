@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_graph"
-    app:startDestination="@id/discover">
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/spotlight">
 
     <action
         android:id="@+id/open_release"
@@ -40,23 +40,6 @@
         app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="query"
-            app:argType="string"/>
-    </action>
-
-    <action
-        android:id="@+id/open_gallery"
-        app:destination="@+id/gallery"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out"
-        app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out">
-        <argument
-            android:name="releaseId"
-            app:argType="string"/>
-        <argument
-            android:name="mediaId"
-            android:defaultValue="@null"
-            app:nullable="true"
             app:argType="string"/>
     </action>
 
@@ -99,20 +82,6 @@
         tools:layout="@layout/fragment_release_detail">
         <argument
             android:name="releaseId"
-            app:argType="string"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/gallery"
-        android:name="com.faltenreich.release.ui.fragment.GalleryFragment"
-        tools:layout="@layout/fragment_gallery">
-        <argument
-            android:name="releaseId"
-            app:argType="string"/>
-        <argument
-            android:name="mediaId"
-            android:defaultValue="@null"
-            app:nullable="true"
             app:argType="string"/>
     </fragment>
 

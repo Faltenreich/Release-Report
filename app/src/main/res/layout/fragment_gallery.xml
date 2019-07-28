@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <com.veinhorn.scrollgalleryview.ScrollGalleryView
         android:id="@+id/galleryView"
@@ -21,7 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/Toolbar"
-            app:navigationIcon="@drawable/ic_arrow_back"/>
+            app:popupTheme="@style/ToolbarPopup"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:contentInsetStartWithNavigation="0dp"/>
 
     </FrameLayout>
 

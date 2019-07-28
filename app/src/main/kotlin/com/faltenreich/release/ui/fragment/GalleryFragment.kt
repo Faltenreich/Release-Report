@@ -10,7 +10,6 @@ import com.faltenreich.release.data.viewmodel.GalleryViewModel
 import com.veinhorn.scrollgalleryview.ScrollGalleryView
 import com.veinhorn.scrollgalleryview.builder.GallerySettings
 import kotlinx.android.synthetic.main.fragment_gallery.*
-import kotlinx.android.synthetic.main.fragment_main.*
 import ogbe.ozioma.com.glideimageloader.dsl.DSL.image
 import ogbe.ozioma.com.glideimageloader.dsl.DSL.video
 import java.lang.IllegalArgumentException

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
@@ -55,8 +56,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         context?.apply {
             initTransition()
             initToolbar()
-            releaseWallpaperImageView.setOnClickListener { openMedia(findNavController(), viewModel.release!!, null, releaseWallpaperImageView) }
-            releaseCoverImageView.setOnClickListener { openMedia(findNavController(), viewModel.release!!, null, releaseCoverImageView) }
+            releaseWallpaperImageView.setOnClickListener { openMedia(releaseWallpaperImageView) }
+            releaseCoverImageView.setOnClickListener { openMedia(releaseCoverImageView) }
             fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite ?: false)) }
             initList()
         }
@@ -173,6 +174,14 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         fab.hide()
         invalidateFavorite()
         fab.show()
+    }
+
+    private fun openMedia(sharedElement: View) {
+        viewModel.release?.let { release ->
+            appNavigationController?.let { navigationController ->
+                openMedia(navigationController, release, null, sharedElement)
+            }
+        }
     }
 
     private fun openExternally() {

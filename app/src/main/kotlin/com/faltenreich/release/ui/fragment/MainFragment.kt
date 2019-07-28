@@ -26,7 +26,9 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun openNavigation() {
-        val arguments = navigationController.currentDestination?.id?.let { id -> Bundle().apply { putInt("previousDestinationId", id) } }
+        val arguments = navigationController.currentDestination?.id?.let { id ->
+            Bundle().apply { putInt(NavigationFragment.ARGUMENT_PREVIOUS_DESTINATION_ID, id) }
+        }
         navigationController.navigate(R.id.navigation, arguments)
     }
 }
