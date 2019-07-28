@@ -16,17 +16,21 @@ class SpotlightReleaseViewHolder(
     context: Context,
     parent: ViewGroup
 ) : BaseViewHolder<SpotlightReleaseItem>(context, R.layout.list_item_spotlight, parent), ReleaseOpener {
-    override fun onBind(data: SpotlightReleaseItem) {
+    private val listAdapter = SpotlightContainerListAdapter(context)
 
+    init {
+        listView.layoutManager = GridLayoutManager(context, SPAN_COUNT)
+        listView.addItemDecoration(SpotlightReleaseItemDecoration(context))
+        listView.adapter = listAdapter
+    }
+
+    override fun onBind(data: SpotlightReleaseItem) {
         titleView.text = data.print(context)
         data.releases.firstOrNull()?.release?.imageUrlForWallpaper?.let { imageUrl ->
             imageView.setImageAsync(imageUrl)
         } ?: imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
 
-        listView.layoutManager = GridLayoutManager(context, SPAN_COUNT)
-        listView.addItemDecoration(SpotlightReleaseItemDecoration(context))
-        val listAdapter = SpotlightContainerListAdapter(context)
-        listView.adapter = listAdapter
+        listAdapter.removeListItems()
         listAdapter.addListItems(data.releases)
         listAdapter.notifyDataSetChanged()
     }
