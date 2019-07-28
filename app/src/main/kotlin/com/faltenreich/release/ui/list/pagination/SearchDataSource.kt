@@ -26,7 +26,7 @@ class SearchDataSource(private val query: String?) : PageKeyedDataSource<Int, Re
 
     private fun load(page: Int, pageSize: Int, callback: LoadCallback<Int, ReleaseProvider>) {
         val onResponse = { data: List<Release> ->
-            val items = data.map { release -> ReleaseItem(release.releaseDate!!, release) }
+            val items = data.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }
             callback.onResult(items, page + 1)
         }
         query?.let { query -> releaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())

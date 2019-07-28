@@ -39,7 +39,7 @@ class ReleaseListDataSource(private var startAt: LocalDate) : PageKeyedDataSourc
             val items = dates.flatMap { date ->
                 val dayItem = ReleaseDateItem(date)
                 val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
-                val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }
                 listOf(dayItem).plus(releaseItems)
             }
             callback.onResult(items, adjacentDate)

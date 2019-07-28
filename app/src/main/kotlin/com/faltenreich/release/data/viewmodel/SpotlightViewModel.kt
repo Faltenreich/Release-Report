@@ -8,6 +8,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.data.repository.RepositoryFactory
+import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
 import com.faltenreich.release.ui.list.item.SpotlightReleaseItem
@@ -58,13 +59,13 @@ class SpotlightViewModel : ViewModel() {
             items.add(SpotlightPromoItem(release))
         }
         favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release, R.string.for_you) })
+            items.add(SpotlightReleaseItem(R.string.for_you, releases.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }))
         }
         weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release, R.string.this_week) })
+            items.add(SpotlightReleaseItem(R.string.this_week, releases.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }))
         }
         recentReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.addAll(releases.map { release -> SpotlightReleaseItem(release, R.string.recently) })
+            items.add(SpotlightReleaseItem(R.string.recently, releases.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }))
         }
         spotlightItems = items.toList()
     }

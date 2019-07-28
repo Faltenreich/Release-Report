@@ -9,9 +9,9 @@ import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 sealed class SpotlightItem
 
 data class SpotlightReleaseItem(
-    override val release: Release,
-    @StringRes val headerResId: Int
-) : SpotlightItem(), ReleaseProvider, LabelProvider {
+    @StringRes val headerResId: Int,
+    val releases: List<ReleaseProvider>
+) : SpotlightItem(), LabelProvider {
     override fun print(context: Context): String? = context.getString(headerResId)
 }
 

@@ -45,12 +45,12 @@ class DiscoverDataSource(private var startAt: LocalDate) : PageKeyedDataSource<D
                     val splitUpReleases = releasesOfDay.size > MAXIMUM_RELEASES_PER_DAY
                     if (splitUpReleases) {
                         val threshold = MAXIMUM_RELEASES_PER_DAY - 1
-                        val releaseItems = releasesOfDay.subList(0, threshold).mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                        val releaseItems = releasesOfDay.subList(0, threshold).mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }
                         val moreReleases = releasesOfDay.subList(threshold, releasesOfDay.size)
                         val moreItem = ReleaseMoreItem(date, moreReleases)
                         listOf(dayItem).plus(releaseItems).plus(moreItem)
                     } else {
-                        val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(date, release) } }
+                        val releaseItems = releasesOfDay.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }
                         listOf(dayItem).plus(releaseItems)
                     }
                 } else {
