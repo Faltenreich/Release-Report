@@ -8,7 +8,6 @@ object RepositoryFactory {
             ReleaseRepository::class -> ReleaseRepository(DaoFactory.dao())
             GenreRepository::class -> GenreRepository(DaoFactory.dao())
             PlatformRepository::class -> PlatformRepository(DaoFactory.dao())
-            MediaRepository::class -> MediaRepository(DaoFactory.dao())
             else -> throw IllegalArgumentException("Unknown type: ${T::class}")
         } as T
     }

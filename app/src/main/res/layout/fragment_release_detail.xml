@@ -106,14 +106,6 @@
                 android:layout_marginTop="@dimen/margin_padding_size_medium"
                 app:chipSpacing="@dimen/margin_padding_size_small"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/galleryListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/list_item_gallery"
-                tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                tools:spanCount="3"/>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

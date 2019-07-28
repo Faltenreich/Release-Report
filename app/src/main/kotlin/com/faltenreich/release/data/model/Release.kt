@@ -24,8 +24,7 @@ data class Release(
     var imageUrlForWallpaper: String? = null,
     var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
-    var platforms: List<String>? = null,
-    var media: List<String>? = null
+    var platforms: List<String>? = null
 ) : Model, DateProvider, TitleProvider {
 
     var releaseType: ReleaseType?
@@ -60,7 +59,6 @@ data class Release(
         popularity = parseObject.getNumber(POPULARITY)?.toFloat()
         genres = parseObject.getJSONArrayValues(GENRES)
         platforms = parseObject.getJSONArrayValues(PLATFORMS)
-        media = parseObject.getJSONArrayValues(MEDIA)
     }
 
     companion object {
@@ -74,7 +72,6 @@ data class Release(
         const val POPULARITY = "popularity"
         const val GENRES = "genres"
         const val PLATFORMS = "platforms"
-        const val MEDIA = "media"
 
         const val FALLBACK_COVER_COLOR_RES = android.R.color.transparent
     }
