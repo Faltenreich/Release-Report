@@ -18,6 +18,7 @@ class ReleaseListItemDecoration(
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
+
         val position = parent.getChildAdapterPosition(view)
         when (adapter?.getListItemAt(position)) {
             is ReleaseDateItem -> {

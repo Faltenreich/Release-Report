@@ -19,7 +19,7 @@ object DemoFactory {
                 artistName = "Artist ${index + 1}"
                 releaseDate = startDate.plusDays((index / 10).toLong())
                 releaseType = if (index % 3 == 0) ReleaseType.MOVIE else if (index % 2 == 0) ReleaseType.MUSIC else ReleaseType.GAME
-                popularity = 100f
+                popularity = 200f - index
                 externalUrl = "https://www.google.de"
                 imageUrlForThumbnail = getImageUrl(index, 300 to 400)
                 imageUrlForCover = getImageUrl(index, 1080 to 1920)

@@ -19,19 +19,6 @@ class ReleaseDemoDao : ReleaseDao {
         onResult(releases.filter { release -> ids.contains(release.id) })
     }
 
-    override fun getByIds(
-        ids: Collection<String>,
-        startAt: LocalDate,
-        endAt: LocalDate,
-        onResult: (List<Release>) -> Unit
-    ) {
-        onResult(releases.filter { release ->
-            ids.contains(release.id)
-                    && release.releaseDate?.isAfterOrEqual(startAt).isTrue
-                    && release.releaseDate?.isBeforeOrEqual(endAt.plusDays(1)).isTrue
-        })
-    }
-
     override fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         onResult(releases.filter { release ->
             ids.contains(release.id) && startAt?.let { release.releaseDate?.isAfterOrEqual(startAt).isTrue }.isTrueOrNull
@@ -39,14 +26,19 @@ class ReleaseDemoDao : ReleaseDao {
     }
 
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
-        onResult(releases.filter { release ->
-            release.releaseDate?.let { date -> date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt) }.isTrue
-        }.let { releases ->
-            pageSize?.let { releases.take(pageSize) } ?: releases
-        })
+        val filtered = releases.filter { release ->
+            release.releaseDate?.let { date ->
+                date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
+            }.isTrue
+        }
+        val sorted = filtered.sortedByDescending(Release::popularity)
+        val paged = pageSize?.let { sorted.take(pageSize) } ?: sorted
+        onResult(paged)
     }
 
     override fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        onResult(if (page == 0) releases.filter { release -> release.title?.contains(string, ignoreCase = true).isTrue } else listOf())
+        val filtered = if (page == 0) releases.filter { release -> release.title?.contains(string, ignoreCase = true).isTrue } else listOf()
+        val sorted = filtered.sortedByDescending(Release::popularity)
+        onResult(sorted)
     }
 }

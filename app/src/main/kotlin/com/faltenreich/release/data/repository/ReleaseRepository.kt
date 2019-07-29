@@ -8,11 +8,11 @@ import org.threeten.bp.LocalDate
 class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) {
 
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
-        dao.getBetween(startAt, endAt, pageSize, onResult)
+        dao.getBetween(startAt, endAt, pageSize) { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }
     }
 
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        dao.search(string, page, pageSize, onResult)
+        dao.search(string, page, pageSize)  { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }
     }
 
     // TODO: Proper filter and pagination

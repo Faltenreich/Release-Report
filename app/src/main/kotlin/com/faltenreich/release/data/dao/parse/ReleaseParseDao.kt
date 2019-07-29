@@ -13,15 +13,6 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
     override val clazz: KClass<Release> = Release::class
     override val modelName: String = "Release"
 
-    override fun getByIds(
-        ids: Collection<String>,
-        startAt: LocalDate,
-        endAt: LocalDate,
-        onResult: (List<Release>) -> Unit
-    ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereContainedIn(Model.ID, ids)
