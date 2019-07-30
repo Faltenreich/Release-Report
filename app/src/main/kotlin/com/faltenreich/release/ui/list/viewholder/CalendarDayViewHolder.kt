@@ -26,7 +26,7 @@ class CalendarDayViewHolder(
         dayLabel.text = date.dayOfMonth.toString()
         dayLabel.textColorResource = if (isInSameMonth) android.R.color.white else R.color.gray_dark
 
-        releaseIndicator.isVisible = releaseCount > 0
-        favoriteIcon.isVisible = hasFavorite
+        releaseIndicator.isVisible = isInSameMonth && releaseCount > 0
+        favoriteIcon.isVisible = isInSameMonth && hasFavorite
     }
 }
