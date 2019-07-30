@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import java.util.*
 
 abstract class SharedPreferences {
-
     @PublishedApi internal lateinit var preferences: SharedPreferences
 
     lateinit var locale: Locale

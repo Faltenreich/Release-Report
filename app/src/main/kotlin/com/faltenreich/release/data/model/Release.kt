@@ -1,7 +1,7 @@
 package com.faltenreich.release.data.model
 
+import com.faltenreich.release.data.dao.FavoriteDao
 import com.faltenreich.release.data.enum.ReleaseType
-import com.faltenreich.release.data.preference.UserPreferences
 import com.faltenreich.release.data.provider.DateProvider
 import com.faltenreich.release.data.provider.TitleProvider
 import com.faltenreich.release.extension.localDate
@@ -32,10 +32,14 @@ data class Release(
         set(value) { type = value?.key }
 
     var isFavorite: Boolean
-        get() = id?.let { id -> UserPreferences.favoriteReleaseIds.contains(id) } ?: false
+        get() = id?.let { id -> FavoriteDao.isFavorite(id) } ?: false
         set(value) {
             id?.let { id ->
-                UserPreferences.favoriteReleaseIds = UserPreferences.favoriteReleaseIds.filter { otherId -> otherId != id }.toMutableSet().apply { if (value) add(id) }
+                if (value) {
+                    FavoriteDao.addFavorite(id)
+                } else {
+                    FavoriteDao.removeFavorite(id)
+                }
             }
         }
 
