@@ -11,12 +11,8 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.data.repository.RepositoryFactory
 
 class ReleaseDetailViewModel : ViewModel() {
-    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
-    private val genreRepository = RepositoryFactory.repository<GenreRepository>()
-    private val platformRepository = RepositoryFactory.repository<PlatformRepository>()
 
     private val releaseLiveData = MutableLiveData<Release>()
     private val genreLiveData = MutableLiveData<List<Genre>>()
@@ -43,10 +39,10 @@ class ReleaseDetailViewModel : ViewModel() {
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { release ->
             onObserve(release)
-            release.genres?.let { ids -> genreRepository.getByIds(ids) { genres -> this.genres = genres } }
-            release.platforms?.let { ids -> platformRepository.getByIds(ids) { platforms -> this.platforms = platforms } }
+            release.genres?.let { ids -> GenreRepository.getByIds(ids) { genres -> this.genres = genres } }
+            release.platforms?.let { ids -> PlatformRepository.getByIds(ids) { platforms -> this.platforms = platforms } }
         })
-        releaseRepository.getById(id) { release -> this.release = release }
+        ReleaseRepository.getById(id) { release -> this.release = release }
     }
 
     fun observeGenres(owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {

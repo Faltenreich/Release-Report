@@ -10,7 +10,7 @@ object DemoFactory {
     private const val VIDEO_PROVIDER = "https://www.youtube.com"
     private const val IMAGE_PROVIDER = "https://picsum.photos"
 
-    private val releases: List<Release> by lazy {
+    val releases: List<Release> by lazy {
         val startDate = LocalDate.now().minusWeeks(1)
         (0 until 100).map { index ->
             Release().apply {
@@ -30,7 +30,7 @@ object DemoFactory {
         }
     }
 
-    private val genres: List<Genre> by lazy {
+    val genres: List<Genre> by lazy {
         (0 until 10).map { index ->
             Genre().apply {
                 id = index.toString()
@@ -39,7 +39,7 @@ object DemoFactory {
         }
     }
 
-    private val platforms: List<Platform> by lazy {
+    val platforms: List<Platform> by lazy {
         (0 until 10).map { index ->
             Platform().apply {
                 id = index.toString()
@@ -54,17 +54,5 @@ object DemoFactory {
 
     private fun getVideoUrl(id: String): String {
         return "$VIDEO_PROVIDER/watch?v=$id"
-    }
-
-    fun releases(): List<Release> {
-        return releases
-    }
-
-    fun genres(): List<Genre> {
-        return genres
-    }
-
-    fun platforms(): List<Platform> {
-        return platforms
     }
 }

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.list.item.SpotlightPromoItem
@@ -16,7 +15,6 @@ import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
-    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
     private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>>()
     private val weeklyReleasesLiveData = MutableLiveData<List<Release>>()
     private val recentReleasesLiveData = MutableLiveData<List<Release>>()
@@ -48,9 +46,9 @@ class SpotlightViewModel : ViewModel() {
         val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
         val startAt = endAt.minusMonths(1)
 
-        releaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), pageSize + 1) { releases -> weeklyReleases = releases }
-        releaseRepository.getFavorites(today, pageSize) { releases -> favoriteReleases = releases }
-        releaseRepository.getBetween(startAt, endAt, pageSize) { releases -> recentReleases = releases }
+        ReleaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), pageSize + 1) { releases -> weeklyReleases = releases }
+        ReleaseRepository.getFavorites(today, pageSize) { releases -> favoriteReleases = releases }
+        ReleaseRepository.getBetween(startAt, endAt, pageSize) { releases -> recentReleases = releases }
     }
 
     private fun refresh() {

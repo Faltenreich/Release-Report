@@ -7,14 +7,15 @@ import com.faltenreich.release.data.dao.demo.ReleaseDemoDao
 import com.faltenreich.release.data.dao.parse.GenreParseDao
 import com.faltenreich.release.data.dao.parse.PlatformParseDao
 import com.faltenreich.release.data.dao.parse.ReleaseParseDao
+import kotlin.reflect.KClass
 
 object DaoFactory {
-    inline fun <reified T : Dao<out Any>> dao(): T {
-        return when (T::class) {
+    fun <T : Dao<out Any>> dao(clazz: KClass<T>): T {
+        return when (clazz) {
             ReleaseDao::class -> if (Application.isDemo) ReleaseDemoDao() else ReleaseParseDao()
             GenreDao::class -> if (Application.isDemo) GenreDemoDao() else GenreParseDao()
             PlatformDao::class -> if (Application.isDemo) PlatformDemoDao() else PlatformParseDao()
-            else -> throw IllegalArgumentException("Unknown type: ${T::class}")
+            else -> throw IllegalArgumentException("Unknown type: $clazz")
         } as T
     }
 }

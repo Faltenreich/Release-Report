@@ -5,7 +5,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.preference.UserPreferences
 import org.threeten.bp.LocalDate
 
-class ReleaseRepository(dao: ReleaseDao) : Repository<Release, ReleaseDao>(dao) {
+object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
 
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
         dao.getBetween(startAt, endAt, pageSize) { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }

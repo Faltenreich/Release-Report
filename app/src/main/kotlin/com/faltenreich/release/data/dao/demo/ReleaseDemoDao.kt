@@ -9,7 +9,7 @@ import com.faltenreich.release.extension.isTrueOrNull
 import org.threeten.bp.LocalDate
 
 class ReleaseDemoDao : ReleaseDao {
-    private val releases by lazy { DemoFactory.releases() }
+    private val releases by lazy { DemoFactory.releases }
 
     override fun getById(id: String, onResult: (Release?) -> Unit) {
         onResult(releases.firstOrNull { release -> release.id == id })

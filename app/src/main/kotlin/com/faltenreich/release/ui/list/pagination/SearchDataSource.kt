@@ -3,12 +3,10 @@ package com.faltenreich.release.ui.list.pagination
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.data.repository.RepositoryFactory
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 
 class SearchDataSource(private val query: String?) : PageKeyedDataSource<Int, ReleaseProvider>() {
-    private val releaseRepository = RepositoryFactory.repository<ReleaseRepository>()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseProvider>) {
         load(0, params.requestedLoadSize, object : LoadCallback<Int, ReleaseProvider>() {
@@ -29,6 +27,6 @@ class SearchDataSource(private val query: String?) : PageKeyedDataSource<Int, Re
             val items = data.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }
             callback.onResult(items, page + 1)
         }
-        query?.let { query -> releaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())
+        query?.let { query -> ReleaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())
     }
 }
