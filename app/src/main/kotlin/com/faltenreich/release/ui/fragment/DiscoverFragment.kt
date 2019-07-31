@@ -43,8 +43,8 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private val skeleton by lazy {
         listView.applySkeleton(R.layout.list_item_release_image,
             itemCount = LIST_SKELETON_ITEM_COUNT,
-            maskColor = ContextCompat.getColor(context!!, R.color.colorPrimary),
-            shimmerColor = ContextCompat.getColor(context!!, R.color.blue_gray),
+            maskColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+            shimmerColor = ContextCompat.getColor(requireContext(), R.color.colorPrimaryShimmer),
             cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
     }
 
@@ -139,12 +139,13 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             listItemDecoration.isSkeleton = true
         }
 
-        viewModel.observeReleases(date, this) { releases ->
+        viewModel.observeReleases(date, this, onObserve = { releases ->
             listAdapter?.submitList(releases)
+        }, afterLoadInitial = { size ->
             skeleton.showOriginal()
             listItemDecoration.isSkeleton = false
-            emptyView.isVisible = releases.isEmpty()
-        }
+            emptyView.isVisible = size == 0
+        })
     }
 
     private fun invalidateTodayButton(commit: Boolean) {

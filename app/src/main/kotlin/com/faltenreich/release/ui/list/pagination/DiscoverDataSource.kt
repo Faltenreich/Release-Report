@@ -12,12 +12,16 @@ import org.threeten.bp.LocalDate
 
 private typealias DiscoverKey = LocalDate
 
-class DiscoverDataSource(private var startAt: LocalDate) : PageKeyedDataSource<DiscoverKey, DateProvider>() {
+class DiscoverDataSource(
+    private var startAt: LocalDate,
+    private val afterLoadInitial: (Int) -> Unit
+) : PageKeyedDataSource<DiscoverKey, DateProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<DiscoverKey>, callback: LoadInitialCallback<DiscoverKey, DateProvider>) {
         load(startAt, params.requestedLoadSize, true, object : LoadCallback<DiscoverKey, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: DiscoverKey?) {
                 callback.onResult(data, startAt.minusDays(1), adjacentPageKey)
+                afterLoadInitial(data.size)
             }
         })
     }
