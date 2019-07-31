@@ -1,6 +1,5 @@
 package com.faltenreich.release.data.repository
 
-import com.faltenreich.release.data.dao.FavoriteDao
 import com.faltenreich.release.data.dao.ReleaseDao
 import com.faltenreich.release.data.model.Release
 import org.threeten.bp.LocalDate
@@ -15,10 +14,19 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
         dao.search(string, page, pageSize)  { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }
     }
 
-    // TODO: Proper filter and pagination
-    fun getFavorites(startAt: LocalDate? = null, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        FavoriteDao.getFavorites().takeIf(Collection<*>::isNotEmpty)?.let { ids ->
-            dao.getByIds(ids, startAt) { releases -> onResult(releases.take(pageSize)) }
-        } ?: onResult(listOf())
+    fun getFavorites(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        dao.getFavorites(startAt, pageSize, onResult)
+    }
+
+    fun isFavorite(release: Release): Boolean {
+        return dao.isFavorite(release)
+    }
+
+    fun addFavorite(release: Release) {
+        dao.addFavorite(release)
+    }
+
+    fun removeFavorite(release: Release) {
+        dao.removeFavorite(release)
     }
 }

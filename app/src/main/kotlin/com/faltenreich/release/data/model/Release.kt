@@ -1,9 +1,9 @@
 package com.faltenreich.release.data.model
 
-import com.faltenreich.release.data.dao.FavoriteDao
 import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.provider.DateProvider
 import com.faltenreich.release.data.provider.TitleProvider
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.extension.localDate
 import com.faltenreich.release.parse.database.getJSONArrayValues
 import com.parse.ParseObject
@@ -32,14 +32,12 @@ data class Release(
         set(value) { type = value?.key }
 
     var isFavorite: Boolean
-        get() = id?.let { id -> FavoriteDao.isFavorite(id) } ?: false
+        get() = ReleaseRepository.isFavorite(this)
         set(value) {
-            id?.let { id ->
-                if (value) {
-                    FavoriteDao.addFavorite(id)
-                } else {
-                    FavoriteDao.removeFavorite(id)
-                }
+            if (value) {
+                ReleaseRepository.addFavorite(this)
+            } else {
+                ReleaseRepository.removeFavorite(this)
             }
         }
 

@@ -1,6 +1,7 @@
 package com.faltenreich.release.data.dao.parse
 
 import com.faltenreich.release.data.dao.ReleaseDao
+import com.faltenreich.release.data.dao.preference.ReleasePreferenceDao
 import com.faltenreich.release.data.model.Model
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.extension.date
@@ -9,7 +10,7 @@ import com.faltenreich.release.parse.database.whereContainsText
 import org.threeten.bp.LocalDate
 import kotlin.reflect.KClass
 
-class ReleaseParseDao : ReleaseDao, ParseDao<Release> {
+class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
     override val clazz: KClass<Release> = Release::class
     override val modelName: String = "Release"
 
