@@ -55,6 +55,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         lifecycle.addObserver(searchable)
     }
 
+    // FIXME: Do not reload data onBackNavigation()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearch()
