@@ -49,7 +49,6 @@ class DiscoverDataSource(
 
     private fun onResponse(releases: List<Release>, info: PaginationInfo, callback: LoadCallback<DiscoverKey, DateProvider>) {
         GlobalScope.launch {
-
             val items = mutableListOf<DateProvider>()
             val releasesByDate = releases.groupBy(Release::releaseDate)
 
