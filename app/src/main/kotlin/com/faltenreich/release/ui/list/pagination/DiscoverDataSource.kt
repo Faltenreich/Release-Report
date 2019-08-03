@@ -1,6 +1,7 @@
 package com.faltenreich.release.ui.list.pagination
 
 import androidx.paging.PageKeyedDataSource
+import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
@@ -13,7 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
-private typealias DiscoverKey = LocalDate
+private typealias DiscoverKey = Int
 
 class DiscoverDataSource(
     private var startAt: LocalDate,
@@ -21,9 +22,9 @@ class DiscoverDataSource(
 ) : PageKeyedDataSource<DiscoverKey, DateProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<DiscoverKey>, callback: LoadInitialCallback<DiscoverKey, DateProvider>) {
-        load(startAt, params.requestedLoadSize, true, object : LoadCallback<DiscoverKey, DateProvider>() {
+        load(0, params.requestedLoadSize, true, object : LoadCallback<DiscoverKey, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: DiscoverKey?) {
-                callback.onResult(data, startAt.minusDays(1), adjacentPageKey)
+                callback.onResult(data, 0, adjacentPageKey)
                 afterLoadInitial(data.size)
             }
         })
@@ -37,15 +38,19 @@ class DiscoverDataSource(
         load(params.key, params.requestedLoadSize, true, callback)
     }
 
-    private fun load(date: LocalDate, pageSize: Int, descending: Boolean, callback: LoadCallback<DiscoverKey, DateProvider>) {
-        val progression = if (descending) (0L until pageSize) else (-pageSize + 1L .. 0L)
-        val dates = progression.map { page -> date.plusDays(page) }
-        val (start, end) = dates.first() to dates.last()
+    private fun load(page: Int, pageSize: Int, descending: Boolean, callback: LoadCallback<DiscoverKey, DateProvider>) {
+        val onResult = { releases: List<Release> -> onResponse(releases, page, descending, callback) }
+        if (descending) {
+            ReleaseRepository.getAfter(startAt, page, pageSize, onResult)
+        } else {
+            ReleaseRepository.getBefore(startAt.minusDays(1), page, pageSize, onResult)
+        }
+    }
 
-        ReleaseRepository.getBetween(start, end) { releases ->
-            GlobalScope.launch {
-                val adjacentDate = if (descending) end.plusDays(1) else start.minusDays(1)
-                val items = dates.flatMap { date ->
+    private fun onResponse(releases: List<Release>, page: Int, descending: Boolean, callback: LoadCallback<DiscoverKey, DateProvider>) {
+        GlobalScope.launch {
+            val items = releases.groupBy(Release::releaseDate).flatMap { group ->
+                group.key?.let { date ->
                     val dayItem = ReleaseDateItem(date)
                     val releasesOfDay = releases.filter { release -> release.releaseDate?.equals(date).isTrue }
                     if (releasesOfDay.isNotEmpty()) {
@@ -77,9 +82,9 @@ class DiscoverDataSource(
                     } else {
                         listOf(dayItem).plus(ReleaseEmptyItem(date))
                     }
-                }
-                GlobalScope.launch(Dispatchers.Main) { callback.onResult(items, adjacentDate) }
+                } ?: listOf()
             }
+            GlobalScope.launch(Dispatchers.Main) { callback.onResult(items, page + 1) }
         }
     }
 

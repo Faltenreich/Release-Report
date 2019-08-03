@@ -6,6 +6,14 @@ import org.threeten.bp.LocalDate
 
 object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
 
+    fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        dao.getBefore(date, page, pageSize, onResult)
+    }
+
+    fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        dao.getAfter(date, page, pageSize, onResult)
+    }
+
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
         dao.getBetween(startAt, endAt, pageSize) { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }
     }

@@ -21,6 +21,14 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
             .findInBackground(onResult)
     }
 
+    override fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        TODO()
+    }
+
+    override fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        TODO()
+    }
+
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date)
