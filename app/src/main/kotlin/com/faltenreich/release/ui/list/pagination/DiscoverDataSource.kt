@@ -5,7 +5,6 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
-import com.faltenreich.release.ui.list.item.ReleaseEmptyItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.list.item.ReleaseMoreItem
 import com.faltenreich.release.ui.logic.provider.DateProvider
@@ -39,7 +38,7 @@ class DiscoverDataSource(
     }
 
     private fun load(page: Int, pageSize: Int, descending: Boolean, callback: LoadCallback<DiscoverKey, DateProvider>) {
-        val onResult = { releases: List<Release> -> onResponse(releases, page, descending, callback) }
+        val onResult = { releases: List<Release> -> onResponse(releases, page, callback) }
         if (descending) {
             ReleaseRepository.getAfter(startAt, page, pageSize, onResult)
         } else {
@@ -47,7 +46,7 @@ class DiscoverDataSource(
         }
     }
 
-    private fun onResponse(releases: List<Release>, page: Int, descending: Boolean, callback: LoadCallback<DiscoverKey, DateProvider>) {
+    private fun onResponse(releases: List<Release>, page: Int, callback: LoadCallback<DiscoverKey, DateProvider>) {
         GlobalScope.launch {
             val items = releases.groupBy(Release::releaseDate).flatMap { group ->
                 group.key?.let { date ->
@@ -80,7 +79,7 @@ class DiscoverDataSource(
                             listOf(dayItem).plus(releaseItems)
                         }
                     } else {
-                        listOf(dayItem).plus(ReleaseEmptyItem(date))
+                        listOf()
                     }
                 } ?: listOf()
             }
