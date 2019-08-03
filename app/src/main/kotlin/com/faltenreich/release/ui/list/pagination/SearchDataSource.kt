@@ -1,12 +1,14 @@
 package com.faltenreich.release.ui.list.pagination
 
 import androidx.paging.PageKeyedDataSource
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.logic.provider.ReleaseProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class SearchDataSource(private val query: String?) : PageKeyedDataSource<Int, ReleaseProvider>() {
+class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, ReleaseProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseProvider>) {
         load(0, params.requestedLoadSize, object : LoadCallback<Int, ReleaseProvider>() {
@@ -23,10 +25,13 @@ class SearchDataSource(private val query: String?) : PageKeyedDataSource<Int, Re
     }
 
     private fun load(page: Int, pageSize: Int, callback: LoadCallback<Int, ReleaseProvider>) {
-        val onResponse = { data: List<Release> ->
-            val items = data.mapNotNull { release -> release.releaseDate?.let { date -> ReleaseItem(release, date) } }
-            callback.onResult(items, page + 1)
+        ReleaseRepository.search(query, page, pageSize) { releases ->
+            GlobalScope.launch {
+                val items = releases.mapNotNull { release ->
+                    release.releaseDate?.let { date -> ReleaseItem(release, date) }
+                }
+                GlobalScope.launch(Dispatchers.Main) { callback.onResult(items, page + 1) }
+            }
         }
-        query?.let { query -> ReleaseRepository.search(query, page, pageSize) { releases -> onResponse(releases) } } ?: onResponse(listOf())
     }
 }

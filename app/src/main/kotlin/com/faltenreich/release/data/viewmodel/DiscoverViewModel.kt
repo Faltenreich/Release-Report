@@ -19,8 +19,8 @@ class DiscoverViewModel : ViewModel() {
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 
-    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>) -> Unit) {
-        val dataSource = DiscoverDataSource(date)
+    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>) -> Unit, afterLoadInitial: (Int) -> Unit) {
+        val dataSource = DiscoverDataSource(date, afterLoadInitial)
         val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE_IN_MONTHS)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })

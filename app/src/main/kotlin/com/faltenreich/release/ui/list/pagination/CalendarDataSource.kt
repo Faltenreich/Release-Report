@@ -9,6 +9,9 @@ import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.ui.list.item.CalendarDayItem
 import com.faltenreich.release.ui.list.item.CalendarItem
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.threeten.bp.YearMonth
 
 private typealias CalendarKey = YearMonth
@@ -32,31 +35,33 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
     }
 
     private fun load(yearMonth: CalendarKey, pageSize: Int, descending: Boolean, callback: LoadCallback<CalendarKey, CalendarItem>) {
-        val progression = if (descending) (0L until pageSize) else (-pageSize + 1L .. 0L)
+        val progression = if (descending) (0L until pageSize) else (-pageSize + 1L..0L)
         val yearMonths = progression.map { page -> yearMonth.plusMonths(page) }
 
         val firstMonth = yearMonths.first()
         val lastMonth = yearMonths.last()
 
-        val adjacent= if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
+        val adjacent = if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
 
         val start = firstMonth.atDay(1)
         val end = lastMonth.atEndOfMonth()
 
         ReleaseRepository.getBetween(start, end) { releases ->
-            val items = yearMonths.flatMap { yearMonth ->
-                val monthItem = CalendarMonthItem(start, yearMonth)
-                val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek
-                val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek
-                val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
-                    val releasesOfDay = releases.filter { release -> (release.releaseDate == day).isTrue }
-                    // TODO: Improve performance by bulk requesting favorites
-                    val hasFavorite = releasesOfDay.any { release -> release.isFavorite }
-                    CalendarDayItem(day, yearMonth, hasFavorite, releasesOfDay.size)
+            GlobalScope.launch {
+                val items = yearMonths.flatMap { yearMonth ->
+                    val monthItem = CalendarMonthItem(start, yearMonth)
+                    val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek
+                    val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek
+                    val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
+                        val releasesOfDay = releases.filter { release -> (release.releaseDate == day).isTrue }
+                        // TODO: Improve performance by bulk requesting favorites
+                        val hasFavorite = releasesOfDay.any { release -> release.isFavorite }
+                        CalendarDayItem(day, yearMonth, hasFavorite, releasesOfDay.size)
+                    }
+                    listOf(monthItem).plus(dayItems)
                 }
-                listOf(monthItem).plus(dayItems)
+                GlobalScope.launch(Dispatchers.Main) { callback.onResult(items, adjacent) }
             }
-            callback.onResult(items, adjacent)
         }
     }
 }
