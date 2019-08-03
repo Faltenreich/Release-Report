@@ -37,14 +37,8 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
     private fun load(yearMonth: CalendarKey, pageSize: Int, descending: Boolean, callback: LoadCallback<CalendarKey, CalendarItem>) {
         val progression = if (descending) (0L until pageSize) else (-pageSize + 1L..0L)
         val yearMonths = progression.map { page -> yearMonth.plusMonths(page) }
-
-        val firstMonth = yearMonths.first()
-        val lastMonth = yearMonths.last()
-
-        val adjacent = if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
-
-        val start = firstMonth.atDay(1)
-        val end = lastMonth.atEndOfMonth()
+        val (firstMonth, lastMonth) = yearMonths.first() to yearMonths.last()
+        val (start, end) = firstMonth.atDay(1) to lastMonth.atEndOfMonth()
 
         ReleaseRepository.getBetween(start, end) { releases ->
             GlobalScope.launch {
@@ -60,6 +54,7 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
                     }
                     listOf(monthItem).plus(dayItems)
                 }
+                val adjacent = if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
                 GlobalScope.launch(Dispatchers.Main) { callback.onResult(items, adjacent) }
             }
         }
