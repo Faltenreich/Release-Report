@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/image_size_xlarge"
+            android:layout_height="@dimen/image_size_wallpaper"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:foreground="?selectableItemBackground"

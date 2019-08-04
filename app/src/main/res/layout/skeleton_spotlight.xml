@@ -14,7 +14,7 @@
         <View
             android:id="@+id/image0"
             android:layout_width="0dp"
-            android:layout_height="@dimen/image_size_xlarge"
+            android:layout_height="@dimen/image_size_wallpaper"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -22,7 +22,7 @@
         <View
             android:id="@+id/image1"
             android:layout_width="0dp"
-            android:layout_height="@dimen/image_size_xlarge"
+            android:layout_height="@dimen/image_size_wallpaper"
             android:layout_marginTop="@dimen/margin_padding_size_small"
             android:layout_marginStart="@dimen/margin_padding_size_small"
             android:layout_marginEnd="@dimen/margin_padding_size_small"
