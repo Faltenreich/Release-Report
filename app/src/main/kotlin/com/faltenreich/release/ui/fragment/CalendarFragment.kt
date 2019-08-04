@@ -10,7 +10,6 @@ import com.faltenreich.release.data.viewmodel.CalendarViewModel
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.extension.yearMonth
 import com.faltenreich.release.ui.list.adapter.CalendarListAdapter
-import com.faltenreich.release.ui.list.decoration.CalendarItemDecoration
 import com.faltenreich.release.ui.list.item.CalendarMonthItem
 import com.faltenreich.release.ui.list.layoutmanager.CalendarLayoutManager
 import com.faltenreich.release.ui.logic.opener.SearchOpener
@@ -30,7 +29,9 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
-        initData(viewModel.yearMonth ?: YearMonth.now())
+        if (!isViewCreated) {
+            initData(viewModel.yearMonth ?: YearMonth.now())
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

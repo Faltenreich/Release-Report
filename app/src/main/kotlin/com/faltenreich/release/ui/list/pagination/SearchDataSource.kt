@@ -8,12 +8,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, ReleaseProvider>() {
+class SearchDataSource(
+    private val query: String,
+    private val afterLoadInitial: (Int) -> Unit
+) : PageKeyedDataSource<Int, ReleaseProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseProvider>) {
         load(0, params.requestedLoadSize, object : LoadCallback<Int, ReleaseProvider>() {
             override fun onResult(data: MutableList<ReleaseProvider>, adjacentPageKey: Int?) {
                 callback.onResult(data, 0, 1)
+                afterLoadInitial(data.size)
             }
         })
     }

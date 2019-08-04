@@ -1,7 +1,6 @@
 package com.faltenreich.release.ui.fragment
 
 import android.os.Bundle
-import android.text.method.Touch.scrollTo
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -21,7 +20,6 @@ import com.faltenreich.release.ui.logic.opener.SearchOpener
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import kotlinx.android.synthetic.main.view_empty.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textResource
 import org.threeten.bp.LocalDate
 
@@ -52,7 +50,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        initData(date ?: LocalDate.now())
+        if (!isViewCreated) {
+            initData(date ?: LocalDate.now())
+        }
     }
 
     private fun initLayout() {
@@ -77,11 +77,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     }
 
     private fun initData(date: LocalDate) {
-        val mask = !isViewCreated
-        if (mask) {
-            skeleton.showSkeleton()
-        }
-
+        skeleton.showSkeleton()
         viewModel.observeReleases(date, this) { releases ->
             listAdapter?.submitList(releases)
             skeleton.showOriginal()

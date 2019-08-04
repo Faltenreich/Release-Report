@@ -28,7 +28,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        initData()
+        if (!isViewCreated) {
+            initData()
+        }
     }
 
     private fun initLayout() {
@@ -47,10 +49,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     private fun initData() {
         if (viewModel.query == null) {
             if (query != null) {
-                val mask = !isViewCreated
-                if (mask) {
-                    skeleton.showSkeleton()
-                }
+                skeleton.showSkeleton()
                 emptyView.isVisible = false
                 searchView.setQuery(query, true)
             } else {
@@ -61,13 +60,13 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
             }
         }
 
-        viewModel.observe(this) { releases ->
+        viewModel.observe(this, onObserve = { releases ->
             listAdapter?.submitList(releases)
+        }, afterLoadInitial = { size ->
             skeleton.showOriginal()
-            emptyView.isVisible = releases.isEmpty()
-            emptyIcon.isVisible = true
+            emptyView.isVisible = size == 0
             emptyLabel.textResource = R.string.nothing_found
-        }
+        })
     }
 
     override fun onQueryTextChange(newText: CharSequence?) = Unit

@@ -18,10 +18,10 @@ class SearchViewModel : ViewModel() {
         get() = queryLiveData.value
         set(value) = queryLiveData.postValue(value)
 
-    fun observe(owner: LifecycleOwner, onObserve: (PagedList<ReleaseProvider>) -> Unit) {
+    fun observe(owner: LifecycleOwner, onObserve: (PagedList<ReleaseProvider>) -> Unit, afterLoadInitial: (Int) -> Unit) {
         queryLiveData.observe(owner, Observer { query ->
             query?.let {
-                val dataSource = SearchDataSource(query)
+                val dataSource = SearchDataSource(query, afterLoadInitial)
                 val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
                 releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
                 releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
