@@ -123,13 +123,12 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         listSkeleton.showSkeleton()
         listItemDecoration.isSkeleton = true
 
-        viewModel.observeReleases(date, this, onObserve = { releases ->
-            listAdapter?.submitList(releases)
-        }, afterLoadInitial = { size ->
+        viewModel.observeReleases(date, this) { releases ->
             listSkeleton.showOriginal()
+            listAdapter?.submitList(releases)
             listItemDecoration.isSkeleton = false
-            emptyView.isVisible = size == 0
-        })
+            emptyView.isVisible = releases.isEmpty()
+        }
     }
 
     private fun invalidateTodayButton(commit: Boolean) {

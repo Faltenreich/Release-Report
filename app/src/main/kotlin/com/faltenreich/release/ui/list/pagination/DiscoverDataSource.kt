@@ -6,21 +6,14 @@ import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.logic.provider.DateProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
-class DiscoverDataSource(
-    private val startAt: LocalDate,
-    private val afterLoadInitial: (Int) -> Unit
-) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
+class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<PaginationInfo>, callback: LoadInitialCallback<PaginationInfo, DateProvider>) {
         val info = PaginationInfo(0, params.requestedLoadSize, true, null)
         load(info, object : LoadCallback<PaginationInfo, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
-                afterLoadInitial(data.size)
                 val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, startAt.minusDays(1))
                 callback.onResult(data, previousPageKey, adjacentPageKey)
             }
@@ -45,45 +38,43 @@ class DiscoverDataSource(
     }
 
     private fun onResponse(releases: List<Release>, info: PaginationInfo, callback: LoadCallback<PaginationInfo, DateProvider>) {
-        GlobalScope.launch {
-            val items = mutableListOf<DateProvider>()
-            val releasesByDate = releases.groupBy(Release::releaseDate)
+        val items = mutableListOf<DateProvider>()
+        val releasesByDate = releases.groupBy(Release::releaseDate)
 
-            releasesByDate.toList().forEachIndexed { index, group ->
-                group.first?.let { date ->
-                    val appendDate = when (info.descending) {
-                        true -> info.previousDate == null || date != info.previousDate
-                        false -> index != 0
-                    }
-                    if (appendDate) {
-                        items.add(ReleaseDateItem(date))
-                    }
+        releasesByDate.toList().forEachIndexed { index, group ->
+            group.first?.let { date ->
+                val appendDate = when (info.descending) {
+                    true -> info.previousDate == null || date != info.previousDate
+                    false -> index != 0
+                }
+                if (appendDate) {
+                    items.add(ReleaseDateItem(date))
+                }
 
-                    val releasesOfDay = group.second
-                    if (releasesOfDay.isNotEmpty()) {
-                        val listItemsOfDay = releasesOfDay.mapNotNull { release ->
-                            release.releaseDate?.let { date ->
-                                ReleaseItem(release, date)
-                            }
+                val releasesOfDay = group.second
+                if (releasesOfDay.isNotEmpty()) {
+                    val listItemsOfDay = releasesOfDay.mapNotNull { release ->
+                        release.releaseDate?.let { date ->
+                            ReleaseItem(release, date)
                         }
-                        items.addAll(listItemsOfDay)
                     }
+                    items.addAll(listItemsOfDay)
                 }
             }
-
-            val adjacentPageKey = items.takeIf(List<*>::isNotEmpty)?.let {
-                val previousDate = if (info.descending) items.last().date else items.first().date
-                PaginationInfo(info.page + 1, info.pageSize, info.descending, previousDate)
-            }
-
-            info.previousDate?.let { previousDate ->
-                val appendMissingDate = !info.descending && items.lastOrNull()?.date != previousDate
-                if (appendMissingDate) {
-                    items.add(ReleaseDateItem(previousDate))
-                }
-            }
-
-            GlobalScope.launch(Dispatchers.Main) { callback.onResult(items, adjacentPageKey) }
         }
+
+        val adjacentPageKey = items.takeIf(List<*>::isNotEmpty)?.let {
+            val previousDate = if (info.descending) items.last().date else items.first().date
+            PaginationInfo(info.page + 1, info.pageSize, info.descending, previousDate)
+        }
+
+        info.previousDate?.let { previousDate ->
+            val appendMissingDate = !info.descending && items.lastOrNull()?.date != previousDate
+            if (appendMissingDate) {
+                items.add(ReleaseDateItem(previousDate))
+            }
+        }
+
+        callback.onResult(items, adjacentPageKey)
     }
 }

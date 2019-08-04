@@ -60,13 +60,12 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
             }
         }
 
-        viewModel.observe(this, onObserve = { releases ->
-            listAdapter?.submitList(releases)
-        }, afterLoadInitial = { size ->
+        viewModel.observe(this) { releases ->
             listSkeleton.showOriginal()
-            emptyView.isVisible = size == 0
+            listAdapter?.submitList(releases)
+            emptyView.isVisible = releases.isEmpty()
             emptyLabel.textResource = R.string.nothing_found
-        })
+        }
     }
 
     override fun onQueryTextChange(newText: CharSequence?) = Unit
