@@ -20,9 +20,9 @@ class DiscoverDataSource(
         val info = PaginationInfo(0, params.requestedLoadSize, true, null)
         load(info, object : LoadCallback<PaginationInfo, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
+                afterLoadInitial(data.size)
                 val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, startAt.minusDays(1))
                 callback.onResult(data, previousPageKey, adjacentPageKey)
-                afterLoadInitial(data.size)
             }
         })
     }

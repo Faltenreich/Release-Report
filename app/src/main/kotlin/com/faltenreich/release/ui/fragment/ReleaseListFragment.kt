@@ -32,10 +32,10 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private val listSpacing by lazy { context?.resources?.getDimension(SPACING_RES_DEFAULT)?.toInt() ?: 0 }
 
     private val skeleton by lazy {
-        listView.applySkeleton(R.layout.list_item_release_image,
-            itemCount = 6,
-            maskColor = ContextCompat.getColor(context!!, R.color.colorPrimary),
-            shimmerColor = ContextCompat.getColor(context!!, R.color.blue_gray),
+        listView.applySkeleton(R.layout.list_item_release_detail,
+            itemCount = 8,
+            maskColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+            shimmerColor = ContextCompat.getColor(requireContext(), R.color.blue_gray),
             cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
     }
 
@@ -78,20 +78,19 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun initData(date: LocalDate) {
         skeleton.showSkeleton()
-        viewModel.observeReleases(date, this, onObserve = { releases ->
-            listAdapter?.submitList(releases)
-        }, afterLoadInitial = { size ->
+        viewModel.observeReleases(date, this) { releases ->
             skeleton.showOriginal()
-            emptyView.isVisible = size == 0
+            listAdapter?.submitList(releases)
+            emptyView.isVisible = releases.isEmpty()
             emptyLabel.textResource = R.string.nothing_found
             scrollTo(date)
-        })
+        }
     }
 
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
+        val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
         toolbar.title = currentDate?.print(context)
     }
 
