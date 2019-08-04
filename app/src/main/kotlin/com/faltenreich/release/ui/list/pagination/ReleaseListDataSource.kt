@@ -11,7 +11,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
-class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
+class ReleaseListDataSource(
+    private val startAt: LocalDate,
+    private val afterLoadInitial: (Int) -> Unit
+) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
     override fun loadInitial(
         params: LoadInitialParams<PaginationInfo>,
@@ -22,6 +25,7 @@ class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSourc
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
                 val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, startAt.minusDays(1))
                 callback.onResult(data, previousPageKey, adjacentPageKey)
+                afterLoadInitial(data.size)
             }
         })
     }
@@ -43,11 +47,7 @@ class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSourc
         }
     }
 
-    private fun onResponse(
-        releases: List<Release>,
-        info: PaginationInfo,
-        callback: LoadCallback<PaginationInfo, DateProvider>
-    ) {
+    private fun onResponse(releases: List<Release>, info: PaginationInfo, callback: LoadCallback<PaginationInfo, DateProvider>) {
         GlobalScope.launch {
             val items = mutableListOf<DateProvider>()
             val releasesByDate = releases.groupBy(Release::releaseDate)
@@ -64,10 +64,8 @@ class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSourc
 
                     val releasesOfDay = group.second
                     if (releasesOfDay.isNotEmpty()) {
-                        val listItemsOfDay = releases.mapNotNull { release ->
-                            release.releaseDate?.let { date ->
-                                ReleaseItem(release, date)
-                            }
+                        val listItemsOfDay = releasesOfDay.mapNotNull { release ->
+                            release.releaseDate?.let { date -> ReleaseItem(release, date) }
                         }
                         items.addAll(listItemsOfDay)
                     }

@@ -78,13 +78,14 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun initData(date: LocalDate) {
         skeleton.showSkeleton()
-        viewModel.observeReleases(date, this) { releases ->
+        viewModel.observeReleases(date, this, onObserve = { releases ->
             listAdapter?.submitList(releases)
+        }, afterLoadInitial = { size ->
             skeleton.showOriginal()
-            emptyView.isVisible = releases.isEmpty()
+            emptyView.isVisible = size == 0
             emptyLabel.textResource = R.string.nothing_found
             scrollTo(date)
-        }
+        })
     }
 
     private fun invalidateListHeader() {
