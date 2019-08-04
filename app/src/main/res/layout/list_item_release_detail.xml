@@ -7,8 +7,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:foreground="?attr/selectableItemBackground">
+    android:background="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/releaseCoverImageView"
@@ -99,6 +98,8 @@
         android:src="@drawable/ic_favorite_on"
         android:tint="@color/yellow"
         android:contentDescription="@string/favorite"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/releaseTypeImageView"
         app:layout_constraintEnd_toEndOf="parent"/>
 

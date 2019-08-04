@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,9 +50,11 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main)
     }
 
     private fun fetchData() {
+        skeletonLayout.isVisible = true
         skeletonLayout.showSkeleton()
         viewModel.observeData(this, MAX_ITEMS_PER_CATEGORY) { data ->
             skeletonLayout.showOriginal()
+            skeletonLayout.isVisible = false
             setData(data)
         }
     }
