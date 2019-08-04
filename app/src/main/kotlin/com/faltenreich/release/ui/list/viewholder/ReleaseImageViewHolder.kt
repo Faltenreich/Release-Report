@@ -18,8 +18,7 @@ import org.jetbrains.anko.imageResource
 
 class ReleaseImageViewHolder(
     context: Context,
-    parent: ViewGroup,
-    private val showDate: Boolean = true
+    parent: ViewGroup
 ) : BaseViewHolder<ReleaseProvider>(context, R.layout.list_item_release_image, parent), ReleaseOpener {
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
@@ -37,6 +36,5 @@ class ReleaseImageViewHolder(
         releaseSubtitleTextView.text = release.subtitle
         releaseSubtitleTextView.isVisible = release.subtitle?.isNotBlank().isTrue
         releaseDateTextView.text = release.releaseDateForUi(context)
-        releaseDateTextView.isVisible = showDate
     }
 }

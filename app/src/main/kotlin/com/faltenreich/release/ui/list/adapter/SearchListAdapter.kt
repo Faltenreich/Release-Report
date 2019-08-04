@@ -8,5 +8,5 @@ import com.faltenreich.release.ui.list.viewholder.ReleaseDetailViewHolder
 import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 
 class SearchListAdapter(context: Context) : PagedListAdapter<ReleaseProvider, BaseViewHolder<ReleaseProvider>>(context, ReleaseProviderDiffUtilCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ReleaseDetailViewHolder(context, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ReleaseDetailViewHolder(context, parent, showDate = true)
 }

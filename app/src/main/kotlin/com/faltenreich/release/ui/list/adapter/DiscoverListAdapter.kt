@@ -23,8 +23,8 @@ class DiscoverListAdapter(context: Context) : PagedListAdapter<DateProvider, Bas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DateProvider> {
         return when (viewType) {
-            VIEW_TYPE_DATE -> HeaderViewHolder(context, parent)
-            VIEW_TYPE_RELEASE -> ReleaseImageViewHolder(context, parent, showDate = false)
+            VIEW_TYPE_DATE -> HeaderViewHolder(context, parent, showButton = true)
+            VIEW_TYPE_RELEASE -> ReleaseImageViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>
     }

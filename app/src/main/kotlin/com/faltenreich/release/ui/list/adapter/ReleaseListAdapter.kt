@@ -23,7 +23,7 @@ class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, Base
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DateProvider> {
         return when (viewType) {
-            VIEW_TYPE_DATE -> HeaderViewHolder(context, parent)
+            VIEW_TYPE_DATE -> HeaderViewHolder(context, parent, showButton = false)
             VIEW_TYPE_RELEASE -> ReleaseDetailViewHolder(context, parent, showDate = false)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>

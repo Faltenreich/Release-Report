@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ListHeader"
-    android:id="@+id/headerTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/toolbar_height"
-    tools:text="@tools:sample/lorem"/>
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/ListHeader"
+        android:id="@+id/headerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/toolbar_height"
+        tools:text="@tools:sample/lorem"/>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:id="@+id/headerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:text="@string/all"/>
+
+</FrameLayout>
