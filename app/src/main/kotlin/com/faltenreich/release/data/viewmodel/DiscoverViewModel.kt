@@ -27,6 +27,6 @@ class DiscoverViewModel : ViewModel() {
     }
 
     companion object {
-        private const val PAGE_SIZE = 12
+        private const val PAGE_SIZE = 20
     }
 }

@@ -30,7 +30,7 @@ class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
 
     override fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         val filtered = releases.filter { release -> release.releaseDate?.isBeforeOrEqual(date).isTrue }
-        val sorted = filtered.sortedWith(compareBy(Release::releaseDate, Release::isFavorite))
+        val sorted = filtered.sortedWith(compareBy(Release::releaseDate).thenByDescending(Release::popularity))
         val endIndex = sorted.size - 1 - page * pageSize
         val startIndex = max(0, endIndex - pageSize + 1)
         val limited = sorted.slice(startIndex..endIndex)
@@ -39,7 +39,7 @@ class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
 
     override fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         val filtered = releases.filter { release -> release.releaseDate?.isAfterOrEqual(date).isTrue }
-        val sorted = filtered.sortedWith(compareBy(Release::releaseDate, Release::isFavorite))
+        val sorted = filtered.sortedWith(compareBy(Release::releaseDate).thenByDescending(Release::popularity))
         val startIndex = page * pageSize
         val endIndex = min(sorted.size - 1, startIndex + pageSize - 1)
         val limited = sorted.slice(startIndex..endIndex)

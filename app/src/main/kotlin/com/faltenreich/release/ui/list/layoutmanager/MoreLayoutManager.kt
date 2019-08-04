@@ -3,8 +3,6 @@ package com.faltenreich.release.ui.list.layoutmanager
 import android.content.Context
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.faltenreich.release.ui.list.adapter.MoreListAdapter
 
 class MoreLayoutManager(context: Context) : GridLayoutManager(context, 2) {
     private var adapter: RecyclerView.Adapter<*>? = null
