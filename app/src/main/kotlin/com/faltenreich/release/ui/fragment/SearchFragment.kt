@@ -22,7 +22,6 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
 
     private val listAdapter by lazy { context?.let { context -> SearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
-
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 6) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

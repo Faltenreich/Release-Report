@@ -14,12 +14,15 @@ import com.faltenreich.release.ui.list.decoration.SpotlightItemDecoration
 import com.faltenreich.release.ui.list.item.SpotlightItem
 import com.faltenreich.release.ui.logic.opener.ReleaseOpener
 import com.faltenreich.release.ui.logic.opener.SearchOpener
+import com.faltenreich.release.ui.view.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 
 class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main), ReleaseOpener, SearchOpener {
     private val viewModel by lazy { createViewModel(SpotlightViewModel::class) }
 
     private val listAdapter by lazy { context?.let { context -> SpotlightListAdapter(context) } }
+    // TODO: Optimize skeleton layout
+    private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_spotlight, 12) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,7 +51,11 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main)
     }
 
     private fun fetchData() {
-        viewModel.observeData(this, MAX_ITEMS_PER_CATEGORY) { data -> setData(data) }
+        listSkeleton.showSkeleton()
+        viewModel.observeData(this, MAX_ITEMS_PER_CATEGORY) { data ->
+            listSkeleton.showOriginal()
+            setData(data)
+        }
     }
 
     private fun setData(data: List<SpotlightItem>) {

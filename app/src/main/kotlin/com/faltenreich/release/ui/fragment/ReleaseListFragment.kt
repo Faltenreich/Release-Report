@@ -29,8 +29,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private val listAdapter by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
     private val listSpacing by lazy { context?.resources?.getDimension(SPACING_RES_DEFAULT)?.toInt() ?: 0 }
-
-    private val skeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 8) }
+    private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 8) }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -70,9 +69,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     }
 
     private fun initData(date: LocalDate) {
-        skeleton.showSkeleton()
+        listSkeleton.showSkeleton()
         viewModel.observeReleases(date, this) { releases ->
-            skeleton.showOriginal()
+            listSkeleton.showOriginal()
             listAdapter?.submitList(releases)
             emptyView.isVisible = releases.isEmpty()
             emptyLabel.textResource = R.string.nothing_found
