@@ -10,7 +10,7 @@ import com.faltenreich.release.extension.hideKeyboard
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.ui.list.adapter.SearchListAdapter
 import com.faltenreich.release.ui.list.decoration.DividerItemDecoration
-import com.faltenreich.skeletonlayout.applySkeleton
+import com.faltenreich.release.ui.view.SkeletonFactory
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_empty.*
@@ -23,7 +23,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     private val listAdapter by lazy { context?.let { context -> SearchListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
 
-    private val skeleton by lazy { listView.applySkeleton(R.layout.list_item_release_detail, itemCount = 6) }
+    private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 6) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +49,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     private fun initData() {
         if (viewModel.query == null) {
             if (query != null) {
-                skeleton.showSkeleton()
+                listSkeleton.showSkeleton()
                 emptyView.isVisible = false
                 searchView.setQuery(query, true)
             } else {
@@ -63,7 +63,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
         viewModel.observe(this, onObserve = { releases ->
             listAdapter?.submitList(releases)
         }, afterLoadInitial = { size ->
-            skeleton.showOriginal()
+            listSkeleton.showOriginal()
             emptyView.isVisible = size == 0
             emptyLabel.textResource = R.string.nothing_found
         })

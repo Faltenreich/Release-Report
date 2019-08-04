@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,7 @@ import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.logic.opener.SearchOpener
 import com.faltenreich.release.ui.logic.search.SearchableObserver
 import com.faltenreich.release.ui.logic.search.SearchableProperties
-import com.faltenreich.skeletonlayout.applySkeleton
+import com.faltenreich.release.ui.view.SkeletonFactory
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.threeten.bp.LocalDate
@@ -39,14 +38,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private lateinit var listLayoutManager: DiscoverLayoutManager
     private lateinit var listItemDecoration: DiscoverItemDecoration
     private lateinit var todayButtonBehavior: SlideOutBehavior
-
-    private val skeleton by lazy {
-        listView.applySkeleton(R.layout.list_item_release_image,
-            itemCount = LIST_SKELETON_ITEM_COUNT,
-            maskColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary),
-            shimmerColor = ContextCompat.getColor(requireContext(), R.color.colorPrimaryShimmer),
-            cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
-    }
+    private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10) }
 
     private var showTodayButton: Boolean = false
 
@@ -128,13 +120,13 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     }
 
     private fun initData(date: LocalDate) {
-        skeleton.showSkeleton()
+        listSkeleton.showSkeleton()
         listItemDecoration.isSkeleton = true
 
         viewModel.observeReleases(date, this, onObserve = { releases ->
             listAdapter?.submitList(releases)
         }, afterLoadInitial = { size ->
-            skeleton.showOriginal()
+            listSkeleton.showOriginal()
             listItemDecoration.isSkeleton = false
             emptyView.isVisible = size == 0
         })
@@ -206,7 +198,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     }
 
     companion object {
-        private const val LIST_SKELETON_ITEM_COUNT = 10
         private const val TODAY_BUTTON_TOGGLE_DURATION = 200L
     }
 }
