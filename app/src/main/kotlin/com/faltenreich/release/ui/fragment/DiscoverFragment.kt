@@ -55,13 +55,14 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         lifecycle.addObserver(searchable)
     }
 
-    // FIXME: Do not reload data onBackNavigation()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearch()
         initList()
         initTodayButton()
-        initData(LocalDate.now())
+        if (!isViewCreated) {
+            initData(LocalDate.now())
+        }
     }
 
     override fun onResume() {
@@ -110,13 +111,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
                     }
                 }
             })
-
-            /*
-            appbarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                // FIXME: Leads to jumping AppBarLayout
-                ((parentFragment?.parentFragment as Fragment).view as CoordinatorLayout).bottomAppBar.translationY = -verticalOffset.toFloat()
-            })
-            */
         }
     }
 
@@ -134,11 +128,8 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     }
 
     private fun initData(date: LocalDate) {
-        val mask = !isViewCreated
-        if (mask) {
-            skeleton.showSkeleton()
-            listItemDecoration.isSkeleton = true
-        }
+        skeleton.showSkeleton()
+        listItemDecoration.isSkeleton = true
 
         viewModel.observeReleases(date, this, onObserve = { releases ->
             listAdapter?.submitList(releases)
@@ -174,21 +165,21 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
         val approachingHeader = secondVisibleListItem is ReleaseDateItem
-        if (approachingHeader) {
+
+        headerTextView.translationY = if (approachingHeader) {
             val headerIndexInLayoutManager = firstCompletelyVisibleListItemPosition - firstVisibleListItemPosition
             val headerHeight = headerTextView.height
             val secondVisibleListItemTop = listLayoutManager.getChildAt(headerIndexInLayoutManager)?.top ?: headerHeight
             val translateHeader = secondVisibleListItemTop != 0 && abs(secondVisibleListItemTop) < headerHeight
-            // TODO: Transition into approachingHeader (via MotionLayout?)
             if (translateHeader) {
                 val top = secondVisibleListItemTop - headerTextView.height
                 val translationY = min(top, 0)
-                headerTextView.translationY = translationY.toFloat()
+                translationY.toFloat()
             } else {
-                headerTextView.translationY = 0f
+                0f
             }
         } else {
-            headerTextView.translationY = 0f
+            0f
         }
     }
 
