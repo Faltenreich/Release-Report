@@ -55,19 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <Button
-            android:id="@+id/todayButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_margin="@dimen/margin_padding_size_small"
-            android:text="@string/scroll_to_today"
-            android:backgroundTint="?backgroundColorPrimary"
-            android:textColor="?attr/colorPrimary"
-            android:textAllCaps="false"
-            app:layout_anchor="@id/listView"
-            app:layout_anchorGravity="bottom|center_horizontal"/>
-
     </FrameLayout>
 
     <com.lapism.searchview.widget.SearchView

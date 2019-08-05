@@ -3,19 +3,13 @@ package com.faltenreich.release.ui.fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.DiscoverViewModel
-import com.faltenreich.release.extension.isTrue
 import com.faltenreich.release.extension.nonBlank
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.DiscoverListAdapter
-import com.faltenreich.release.ui.list.behavior.SlideOutBehavior
 import com.faltenreich.release.ui.list.decoration.DiscoverItemDecoration
 import com.faltenreich.release.ui.list.item.ReleaseDateItem
 import com.faltenreich.release.ui.list.layoutmanager.DiscoverLayoutManager
@@ -37,10 +31,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
     private lateinit var listLayoutManager: DiscoverLayoutManager
     private lateinit var listItemDecoration: DiscoverItemDecoration
-    private lateinit var todayButtonBehavior: SlideOutBehavior
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10) }
-
-    private var showTodayButton: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +42,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         super.onViewCreated(view, savedInstanceState)
         initSearch()
         initList()
-        initTodayButton()
         if (!isViewCreated) {
             initData(LocalDate.now())
         }
@@ -92,30 +82,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
             listView.adapter = listAdapter
-
-            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (isAdded) {
-                        val isScrollingUp = dy < 0
-                        invalidateTodayButton(isScrollingUp)
-                        invalidateListHeader()
-                    }
-                }
-            })
-        }
-    }
-
-    private fun initTodayButton() {
-        context?.let { context ->
-            todayButton.setOnClickListener { focusDate(LocalDate.now()) }
-            todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
-
-            todayButtonBehavior = SlideOutBehavior(context)
-            todayButtonBehavior.isEnabled = false
-            // FIXME: todayButton.layoutParams is of LinearLayout.LayoutParams
-            (todayButton.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = todayButtonBehavior
-            toggleTodayButton(false)
         }
     }
 
@@ -128,22 +94,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             listAdapter?.submitList(releases)
             listItemDecoration.isSkeleton = false
             emptyView.isVisible = releases.isEmpty()
-        }
-    }
-
-    private fun invalidateTodayButton(commit: Boolean) {
-        val show = listAdapter?.let { listAdapter ->
-            val today = LocalDate.now()
-            val isBeforeToday = listAdapter.getListItemAt(listLayoutManager.findLastVisibleItemPosition())?.date?.isBefore(today).isTrue
-            val isAfterToday = listAdapter.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date?.isAfter(today).isTrue
-            isBeforeToday || isAfterToday
-        } ?: false
-        if (showTodayButton != show) {
-            showTodayButton = show
-            todayButtonBehavior.isEnabled = show
-            if (commit) {
-                toggleTodayButton(true)
-            }
         }
     }
 
@@ -174,6 +124,50 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         }
     }
 
+    /*
+    private lateinit var todayButtonBehavior: SlideOutBehavior
+    private var showTodayButton: Boolean = false
+
+    private fun initTodayButton() {
+        context?.let { context ->
+            todayButton.setOnClickListener { focusDate(LocalDate.now()) }
+            todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
+
+            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (isAdded) {
+                        val isScrollingUp = dy < 0
+                        invalidateTodayButton(isScrollingUp)
+                        invalidateListHeader()
+                    }
+                }
+            })
+
+            todayButtonBehavior = SlideOutBehavior(context)
+            todayButtonBehavior.isEnabled = false
+            // FIXME: todayButton.layoutParams is of LinearLayout.LayoutParams
+            (todayButton.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = todayButtonBehavior
+            toggleTodayButton(false)
+        }
+    }
+
+    private fun invalidateTodayButton(commit: Boolean) {
+        val show = listAdapter?.let { listAdapter ->
+            val today = LocalDate.now()
+            val isBeforeToday = listAdapter.getListItemAt(listLayoutManager.findLastVisibleItemPosition())?.date?.isBefore(today).isTrue
+            val isAfterToday = listAdapter.getListItemAt(listLayoutManager.findFirstVisibleItemPosition())?.date?.isAfter(today).isTrue
+            isBeforeToday || isAfterToday
+        } ?: false
+        if (showTodayButton != show) {
+            showTodayButton = show
+            todayButtonBehavior.isEnabled = show
+            if (commit) {
+                toggleTodayButton(true)
+            }
+        }
+    }
+
     private fun toggleTodayButton(animated: Boolean) {
         val translationY = if (showTodayButton) 0f else todayButton.height + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin.toFloat()
         if (animated) {
@@ -199,4 +193,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     companion object {
         private const val TODAY_BUTTON_TOGGLE_DURATION = 200L
     }
+
+    */
 }

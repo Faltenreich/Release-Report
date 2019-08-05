@@ -35,6 +35,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/standard_element_size_large"
         android:clipToPadding="false"
+        android:background="@android:color/white"
         tools:listitem="@layout/list_item_release_detail"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

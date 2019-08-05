@@ -13,12 +13,12 @@ class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navig
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // FIXME: Selection does not work, since checked destination is NavigationFragment
+        // Workaround: Selection does not work, since checked destination is NavigationFragment
         navigationView.setupWithNavController(findNavController())
         selectCurrentDestination()
     }
 
-    // Workaround: Preselect current destination manually
+    // Workaround: Preselect current destination manually, since selection does not work due to checked destination being NavigationFragment
     private fun selectCurrentDestination() {
         navigationView.menu.children.forEach { menuItem -> menuItem.isChecked = previousDestinationId == menuItem.itemId }
     }
