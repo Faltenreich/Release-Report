@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.DiscoverViewModel
 import com.faltenreich.release.extension.nonBlank
@@ -82,6 +83,17 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             listView.layoutManager = listLayoutManager
             listView.addItemDecoration(listItemDecoration)
             listView.adapter = listAdapter
+
+            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (isAdded) {
+                        val isScrollingUp = dy < 0
+                        // invalidateTodayButton(isScrollingUp)
+                        invalidateListHeader()
+                    }
+                }
+            })
         }
     }
 
@@ -132,17 +144,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         context?.let { context ->
             todayButton.setOnClickListener { focusDate(LocalDate.now()) }
             todayButton.doOnPreDraw { todayButton.translationY = todayButton.height.toFloat() + (todayButton.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin }
-
-            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (isAdded) {
-                        val isScrollingUp = dy < 0
-                        invalidateTodayButton(isScrollingUp)
-                        invalidateListHeader()
-                    }
-                }
-            })
 
             todayButtonBehavior = SlideOutBehavior(context)
             todayButtonBehavior.isEnabled = false

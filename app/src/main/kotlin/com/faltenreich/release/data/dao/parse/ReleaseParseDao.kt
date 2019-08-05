@@ -22,11 +22,21 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
     }
 
     override fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        TODO()
+        getQuery()
+            .whereLessThanOrEqualTo(Release.RELEASED_AT, date.date)
+            .orderByDescending(Release.RELEASED_AT)
+            .setSkip(page * pageSize)
+            .setLimit(pageSize)
+            .findInBackground { releases -> onResult(releases.sortedByDescending(Release::releaseDate)) }
     }
 
     override fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        TODO()
+        getQuery()
+            .whereGreaterThanOrEqualTo(Release.RELEASED_AT, date.date)
+            .orderByAscending(Release.RELEASED_AT)
+            .setSkip(page * pageSize)
+            .setLimit(pageSize)
+            .findInBackground { releases -> onResult(releases) }
     }
 
     override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
