@@ -17,7 +17,7 @@ class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSourc
         val info = PaginationInfo(0, params.requestedLoadSize, true, null)
         load(info, object : LoadCallback<PaginationInfo, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
-                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, startAt.minusDays(1))
+                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, null)
                 callback.onResult(data, previousPageKey, adjacentPageKey)
             }
         })

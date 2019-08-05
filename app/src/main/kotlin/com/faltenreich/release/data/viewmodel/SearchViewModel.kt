@@ -22,14 +22,10 @@ class SearchViewModel : ViewModel() {
         queryLiveData.observe(owner, Observer { query ->
             query?.let {
                 val dataSource = SearchDataSource(query)
-                val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE)
+                val dataFactory = PagingDataFactory(dataSource)
                 releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
                 releaseLiveData.observe(owner, Observer { releases -> onObserve(releases) })
             }
         })
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 30
     }
 }

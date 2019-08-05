@@ -47,8 +47,6 @@ class DiscoverDataSource(
 
         releasesByDate.toList().forEachIndexed { index, group ->
             group.first?.let { date ->
-                val releasesOfDay = group.second
-
                 val appendDate = when (info.descending) {
                     true -> info.previousDate == null || date != info.previousDate
                     false -> index != 0
@@ -57,6 +55,7 @@ class DiscoverDataSource(
                     items.add(ReleaseDateItem(date))
                 }
 
+                val releasesOfDay = group.second
                 if (releasesOfDay.isNotEmpty()) {
                     val listItemsOfDay = releasesOfDay.mapNotNull { release ->
                         release.releaseDate?.let { date ->

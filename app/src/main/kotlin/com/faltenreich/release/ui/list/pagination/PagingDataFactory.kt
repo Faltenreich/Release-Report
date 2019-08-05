@@ -5,7 +5,7 @@ import androidx.paging.PagedList
 
 class PagingDataFactory<Key, Value : Any>(
     private val dataSource: DataSource<Key, Value>,
-    pageSize: Int
+    pageSize: Int = PAGE_SIZE
 ) : DataSource.Factory<Key, Value>() {
 
     val config by lazy {
@@ -17,4 +17,8 @@ class PagingDataFactory<Key, Value : Any>(
     }
 
     override fun create(): DataSource<Key, Value> = dataSource
+
+    companion object {
+        private const val PAGE_SIZE = 50
+    }
 }
