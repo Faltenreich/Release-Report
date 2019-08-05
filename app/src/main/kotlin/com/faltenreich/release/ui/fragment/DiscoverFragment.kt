@@ -99,14 +99,17 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         listSkeleton.showSkeleton()
         listItemDecoration.isSkeleton = true
 
-        viewModel.observeReleases(date, this) { releases ->
+        // TODO: Find way to showOriginal() afterInitialLoad() without casting exception
+        viewModel.observeReleases(date, this, onObserve = { releases ->
             listSkeleton.showOriginal()
-            listAdapter?.submitList(releases)
             listItemDecoration.isSkeleton = false
-            emptyView.isVisible = releases.isEmpty()
-        }
+            listAdapter?.submitList(releases)
+        }, afterInitialLoad = { size ->
+            emptyView.isVisible = size == 0
+        })
     }
 
+    // FIXME: Width broken onStart()
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
