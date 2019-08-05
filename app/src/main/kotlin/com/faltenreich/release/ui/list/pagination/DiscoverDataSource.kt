@@ -14,7 +14,7 @@ class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<P
         val info = PaginationInfo(0, params.requestedLoadSize, true, null)
         load(info, object : LoadCallback<PaginationInfo, DateProvider>() {
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
-                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, startAt.minusDays(1))
+                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, null)
                 callback.onResult(data, previousPageKey, adjacentPageKey)
             }
         })
@@ -43,6 +43,8 @@ class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<P
 
         releasesByDate.toList().forEachIndexed { index, group ->
             group.first?.let { date ->
+                val releasesOfDay = group.second
+
                 val appendDate = when (info.descending) {
                     true -> info.previousDate == null || date != info.previousDate
                     false -> index != 0
@@ -51,7 +53,6 @@ class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<P
                     items.add(ReleaseDateItem(date))
                 }
 
-                val releasesOfDay = group.second
                 if (releasesOfDay.isNotEmpty()) {
                     val listItemsOfDay = releasesOfDay.mapNotNull { release ->
                         release.releaseDate?.let { date ->

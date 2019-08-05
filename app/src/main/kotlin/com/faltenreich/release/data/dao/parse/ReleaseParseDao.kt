@@ -25,15 +25,17 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
         getQuery()
             .whereLessThanOrEqualTo(Release.RELEASED_AT, date.date)
             .orderByDescending(Release.RELEASED_AT)
+            .addAscendingOrder(Release.POPULARITY)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
-            .findInBackground { releases -> onResult(releases.sortedByDescending(Release::releaseDate)) }
+            .findInBackground { releases -> onResult(releases.reversed()) }
     }
 
     override fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereGreaterThanOrEqualTo(Release.RELEASED_AT, date.date)
             .orderByAscending(Release.RELEASED_AT)
+            .addDescendingOrder(Release.POPULARITY)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
             .findInBackground { releases -> onResult(releases) }
