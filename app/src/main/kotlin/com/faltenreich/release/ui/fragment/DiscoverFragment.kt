@@ -3,7 +3,6 @@ package com.faltenreich.release.ui.fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -99,14 +98,11 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         listSkeleton.showSkeleton()
         listItemDecoration.isSkeleton = true
 
-        // TODO: Find way to showOriginal() afterInitialLoad() without casting exception
-        viewModel.observeReleases(date, this, onObserve = { releases ->
+        viewModel.observeReleases(date, this) { list ->
             listSkeleton.showOriginal()
             listItemDecoration.isSkeleton = false
-            listAdapter?.submitList(releases)
-        }, afterInitialLoad = { size ->
-            emptyView.isVisible = size == 0
-        })
+            listAdapter?.submitList(list)
+        }
     }
 
     // FIXME: Width broken onStart()

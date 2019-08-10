@@ -59,11 +59,11 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
             }
         }
 
-        viewModel.observe(this) { releases ->
+        viewModel.observe(this) { list ->
             listSkeleton.showOriginal()
-            listAdapter?.submitList(releases)
-            emptyView.isVisible = releases.isEmpty()
+            emptyView.isVisible = list.isEmpty()
             emptyLabel.textResource = R.string.nothing_found
+            listAdapter?.submitList(list)
         }
     }
 

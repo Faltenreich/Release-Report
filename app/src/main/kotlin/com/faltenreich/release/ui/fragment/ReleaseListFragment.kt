@@ -3,7 +3,6 @@ package com.faltenreich.release.ui.fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +17,6 @@ import com.faltenreich.release.ui.logic.opener.DatePickerOpener
 import com.faltenreich.release.ui.logic.opener.SearchOpener
 import com.faltenreich.release.ui.view.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_release_list.*
-import kotlinx.android.synthetic.main.view_empty.*
-import org.jetbrains.anko.textResource
 import org.threeten.bp.LocalDate
 
 class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.main), DatePickerOpener, SearchOpener {
@@ -73,8 +70,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         viewModel.observeReleases(date, this) { releases ->
             listSkeleton.showOriginal()
             listAdapter?.submitList(releases)
-            emptyView.isVisible = releases.isEmpty()
-            emptyLabel.textResource = R.string.nothing_found
             scrollTo(date)
         }
     }

@@ -8,10 +8,7 @@ import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.logic.provider.DateProvider
 import org.threeten.bp.LocalDate
 
-class DiscoverDataSource(
-    private val startAt: LocalDate,
-    private val afterInitialLoad: (Int) -> Unit
-) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
+class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<PaginationInfo>, callback: LoadInitialCallback<PaginationInfo, DateProvider>) {
         val info = PaginationInfo(0, params.requestedLoadSize, true, null)
@@ -19,7 +16,6 @@ class DiscoverDataSource(
             override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
                 val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, null)
                 callback.onResult(data, previousPageKey, adjacentPageKey)
-                afterInitialLoad(data.size)
             }
         })
     }

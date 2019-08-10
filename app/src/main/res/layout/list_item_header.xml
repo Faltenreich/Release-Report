@@ -4,14 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/toolbar_height">
 
     <TextView
         style="@style/ListHeader"
         android:id="@+id/headerTextView"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/toolbar_height"
-        tools:text="@tools:sample/lorem"/>
+        android:layout_height="match_parent"
+        tools:text="@tools:sample/date/ddmmyy"/>
 
     <com.google.android.material.button.MaterialButton
         style="@style/Widget.MaterialComponents.Button.TextButton"
