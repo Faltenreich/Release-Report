@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
-import com.faltenreich.release.extension.onInserted
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
@@ -69,15 +68,9 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private fun initData(date: LocalDate) {
         listSkeleton.showSkeleton()
         viewModel.observeReleases(date, this) { list ->
-            list.onInserted { _, _ ->
-                listAdapter?.let { listAdapter ->
-                    if (listAdapter.itemCount == 0) {
-                        listAdapter.listItems.firstOrNull()?.date?.let { date -> scrollTo(date) }
-                    }
-                }
-            }
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
+            scrollTo(date)
         }
     }
 

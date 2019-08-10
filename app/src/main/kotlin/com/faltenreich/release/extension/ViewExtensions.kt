@@ -32,7 +32,10 @@ var FloatingActionButton.backgroundTintResource: Int
 
 fun <T> PagedList<T>.onInserted(onInserted: (position: Int, count: Int) -> Unit) {
     addWeakCallback(this, object : PagedList.Callback() {
-        override fun onInserted(position: Int, count: Int) = onInserted(position, count)
+        override fun onInserted(position: Int, count: Int) {
+            onInserted(position, count)
+            removeWeakCallback(this)
+        }
         override fun onChanged(position: Int, count: Int) = Unit
         override fun onRemoved(position: Int, count: Int) = Unit
     })
