@@ -3,6 +3,7 @@ package com.faltenreich.release.ui.fragment
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -41,9 +42,13 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.open -> { openUrl(viewModel.release?.externalUrl); return true }
-            R.id.share -> { share(); return true }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.open).isVisible = viewModel.release?.externalUrl != null
     }
 
     private fun initLayout() {
@@ -117,6 +122,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
             invalidateTint()
             invalidateFavorite()
+            invalidateOptionsMenu()
         }
     }
 
@@ -149,13 +155,9 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     }
 
     private fun openUrl(url: String?) {
-        context?.let { context ->
-            url?.let { url -> openUrl(context, url) }
-        }
-    }
-
-    private fun share() {
-
+        val context = context ?: return
+        if (url == null) return
+        openUrl(context, url)
     }
 
     companion object {
