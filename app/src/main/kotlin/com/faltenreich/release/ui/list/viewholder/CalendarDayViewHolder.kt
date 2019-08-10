@@ -24,7 +24,7 @@ class CalendarDayViewHolder(
         clickable.setOnClickListener { openDate(navigationController, date) }
 
         dayLabel.text = date.dayOfMonth.toString()
-        dayLabel.textColorResource = if (isInSameMonth) android.R.color.white else R.color.gray_dark
+        dayLabel.textColorResource = if (isInSameMonth) android.R.color.white else R.color.gray
 
         container.backgroundResource = if (isInSameMonth && isToday) R.color.colorPrimaryDarker else android.R.color.transparent
         releaseIndicator.isVisible = isInSameMonth && releases.isNotEmpty()

@@ -68,6 +68,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
         releaseCoverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite.isTrue)) }
+        dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
     }
 
     private fun initData() {
@@ -110,15 +111,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
                 releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) { startPostponedEnterTransition() }
             } ?: startPostponedEnterTransition()
 
-            release?.let {
-                metaChipContainer.removeAllViews()
-                addChip(
-                    metaChipContainer,
-                    release.releaseDateForUi(context),
-                    R.drawable.ic_date,
-                    onClick = { release.releaseDate?.let { date -> openDate(findNavController(), date) } }
-                )
-            }
+            dateChip.text = release?.releaseDateForUi(context)
+            dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
 
             invalidateTint()
             invalidateFavorite()
@@ -132,7 +126,8 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
     }
 
     private fun addPlatforms(platforms: List<Platform>) {
-        platforms.forEach { platform -> addChip(metaChipContainer, platform.title) }
+        platformChipContainer.removeAllViews()
+        platforms.forEach { platform -> addChip(platformChipContainer, platform.title) }
     }
 
     private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null, onClick: (() -> Unit)? = null) = context?.let { context ->
