@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -67,10 +68,19 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun initData(date: LocalDate) {
         listSkeleton.showSkeleton()
-        viewModel.observeReleases(date, this) { releases ->
+        viewModel.observeReleases(date, this) { list ->
+            list.addWeakCallback(list, object : PagedList.Callback() {
+                override fun onInserted(position: Int, count: Int) {
+                    val isInitialLoad = count == listAdapter?.itemCount ?: 0
+                    if (isInitialLoad) {
+                        listAdapter?.listItems?.firstOrNull()?.date?.let { date -> scrollTo(date) }
+                    }
+                }
+                override fun onChanged(position: Int, count: Int) = Unit
+                override fun onRemoved(position: Int, count: Int) = Unit
+            })
             listSkeleton.showOriginal()
-            listAdapter?.submitList(releases)
-            scrollTo(date)
+            listAdapter?.submitList(list)
         }
     }
 
