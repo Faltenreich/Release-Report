@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.data.viewmodel.ReleaseListViewModel
 import com.faltenreich.release.extension.asLocalDate
+import com.faltenreich.release.extension.onInserted
 import com.faltenreich.release.extension.print
 import com.faltenreich.release.ui.list.adapter.ReleaseListAdapter
 import com.faltenreich.release.ui.list.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
@@ -69,16 +69,13 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private fun initData(date: LocalDate) {
         listSkeleton.showSkeleton()
         viewModel.observeReleases(date, this) { list ->
-            list.addWeakCallback(list, object : PagedList.Callback() {
-                override fun onInserted(position: Int, count: Int) {
-                    val isInitialLoad = count == listAdapter?.itemCount ?: 0
-                    if (isInitialLoad) {
-                        listAdapter?.listItems?.firstOrNull()?.date?.let { date -> scrollTo(date) }
+            list.onInserted { _, _ ->
+                listAdapter?.let { listAdapter ->
+                    if (listAdapter.itemCount == 0) {
+                        listAdapter.listItems.firstOrNull()?.date?.let { date -> scrollTo(date) }
                     }
                 }
-                override fun onChanged(position: Int, count: Int) = Unit
-                override fun onRemoved(position: Int, count: Int) = Unit
-            })
+            }
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
         }

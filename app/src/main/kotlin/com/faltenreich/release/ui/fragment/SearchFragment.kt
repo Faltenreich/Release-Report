@@ -14,7 +14,6 @@ import com.faltenreich.release.ui.view.SkeletonFactory
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_empty.*
-import org.jetbrains.anko.textResource
 
 class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
     private val viewModel by lazy { createViewModel(SearchViewModel::class) }
@@ -48,30 +47,26 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     private fun initData() {
         if (viewModel.query == null) {
             if (query != null) {
-                listSkeleton.showSkeleton()
-                emptyView.isVisible = false
                 searchView.setQuery(query, true)
             } else {
-                emptyView.isVisible = true
-                emptyIcon.isVisible = false
-                emptyLabel.textResource = R.string.search_hint_desc
                 searchView.open(null)
             }
         }
 
-        viewModel.observe(this) { list ->
+        viewModel.observe(this, onObserve = { list ->
             listSkeleton.showOriginal()
-            emptyView.isVisible = list.isEmpty()
-            emptyLabel.textResource = R.string.nothing_found
             listAdapter?.submitList(list)
-        }
+        }, afterInitialLoad = { list ->
+            emptyView.isVisible = list.isEmpty()
+        })
     }
 
     override fun onQueryTextChange(newText: CharSequence?) = Unit
 
     override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-        viewModel.query = query?.toString().nonBlank
         hideKeyboard()
+        listSkeleton.showSkeleton()
+        viewModel.query = query?.toString().nonBlank
         return true
     }
 }

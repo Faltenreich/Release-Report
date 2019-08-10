@@ -3,15 +3,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/emptyView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:divider="@drawable/divider_small"
+    android:showDividers="middle"
     android:visibility="gone"
-    tools:visibility="visible">
+    tools:visibility="visible"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
-        android:id="@+id/emptyIcon"
         android:layout_width="@dimen/image_size_large"
         android:layout_height="@dimen/image_size_large"
         android:layout_gravity="center"
@@ -19,10 +22,8 @@
         android:contentDescription="@null"/>
 
     <TextView
-        android:id="@+id/emptyLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_size_small"
         android:text="@string/nothing_found"
         android:textColor="?android:textColorPrimaryInverse"/>
 

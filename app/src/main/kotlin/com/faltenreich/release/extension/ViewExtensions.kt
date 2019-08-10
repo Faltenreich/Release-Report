@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.paging.PagedList
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 var View.backgroundTint: Int
@@ -27,3 +28,12 @@ var FloatingActionButton.backgroundTint: Int
 var FloatingActionButton.backgroundTintResource: Int
     get() = throw java.lang.UnsupportedOperationException()
     set(value) { backgroundTint = ContextCompat.getColor(context, value) }
+
+
+fun <T> PagedList<T>.onInserted(onInserted: (position: Int, count: Int) -> Unit) {
+    addWeakCallback(this, object : PagedList.Callback() {
+        override fun onInserted(position: Int, count: Int) = onInserted(position, count)
+        override fun onChanged(position: Int, count: Int) = Unit
+        override fun onRemoved(position: Int, count: Int) = Unit
+    })
+}

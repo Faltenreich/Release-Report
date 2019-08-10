@@ -5,12 +5,16 @@ import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.ui.list.item.ReleaseItem
 import com.faltenreich.release.ui.logic.provider.ReleaseProvider
 
-class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, ReleaseProvider>() {
+class SearchDataSource(
+    private val query: String,
+    private val afterInitialLoad: (data: List<ReleaseProvider>) -> Unit
+) : PageKeyedDataSource<Int, ReleaseProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseProvider>) {
         load(0, params.requestedLoadSize, object : LoadCallback<Int, ReleaseProvider>() {
             override fun onResult(data: MutableList<ReleaseProvider>, adjacentPageKey: Int?) {
                 callback.onResult(data, 0, 1)
+                afterInitialLoad(data)
             }
         })
     }
