@@ -3,6 +3,7 @@ package com.faltenreich.release.ui.fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -105,12 +106,11 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         }
     }
 
-    // FIXME: Width broken onStart()
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date ?: viewModel.date ?: LocalDate.now()
-        headerTextView.text = currentDate?.print(context)
+        val currentDate = firstVisibleListItem?.date
+        headerTextView.doOnPreDraw { headerTextView.text = currentDate?.print(context) }
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
         val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
