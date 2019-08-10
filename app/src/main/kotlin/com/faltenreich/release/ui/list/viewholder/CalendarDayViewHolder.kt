@@ -16,9 +16,10 @@ class CalendarDayViewHolder(
     parent: ViewGroup
 ) : BaseViewHolder<CalendarDayItem>(context, R.layout.list_item_calendar_day, parent), DateOpener {
     override fun onBind(data: CalendarDayItem) {
-        val (date, _, hasFavorite, releaseCount) = data
+        val (date, _, releases) = data
         val isToday = date.isToday
         val isInSameMonth = data.isInSameMonth
+        val hasFavorite = releases.any { release -> release.isFavorite }
 
         clickable.setOnClickListener { openDate(navigationController, date) }
 
@@ -26,7 +27,7 @@ class CalendarDayViewHolder(
         dayLabel.textColorResource = if (isInSameMonth) android.R.color.white else R.color.gray_dark
 
         container.backgroundResource = if (isInSameMonth && isToday) R.color.colorPrimaryDarker else android.R.color.transparent
-        releaseIndicator.isVisible = isInSameMonth && releaseCount > 0
+        releaseIndicator.isVisible = isInSameMonth && releases.isNotEmpty()
         favoriteIcon.isVisible = isInSameMonth && hasFavorite
     }
 }

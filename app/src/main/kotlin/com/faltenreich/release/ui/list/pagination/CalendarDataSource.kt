@@ -44,8 +44,7 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
                 val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek
                 val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
                     val releasesOfDay = releases.filter { release -> (release.releaseDate == day).isTrue }
-                    val hasFavorite = releasesOfDay.any { release -> release.isFavorite }
-                    CalendarDayItem(day, yearMonth, hasFavorite, releasesOfDay.size)
+                    CalendarDayItem(day, yearMonth, releasesOfDay)
                 }
                 listOf(monthItem).plus(dayItems)
             }

@@ -7,6 +7,5 @@ import org.threeten.bp.YearMonth
 data class CalendarDayItem(
     override val date: LocalDate,
     override val yearMonth: YearMonth,
-    val hasFavorite: Boolean,
-    val releaseCount: Int
+    val releases: List<Release>
 ) : CalendarItem
