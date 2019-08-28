@@ -45,7 +45,7 @@
 
     <dialog
         android:id="@+id/navigation"
-        android:name="com.faltenreich.release.ui.fragment.NavigationFragment"
+        android:name="com.faltenreich.release.domain.navigation.NavigationFragment"
         tools:layout="@layout/fragment_navigation">
         <argument
             android:name="previousDestinationId"
@@ -54,13 +54,13 @@
 
     <fragment
         android:id="@+id/spotlight"
-        android:name="com.faltenreich.release.ui.fragment.SpotlightFragment"
+        android:name="com.faltenreich.release.domain.release.spotlight.SpotlightFragment"
         android:label="@string/spotlight"
         tools:layout="@layout/fragment_spotlight"/>
 
     <fragment
         android:id="@+id/discover"
-        android:name="com.faltenreich.release.ui.fragment.DiscoverFragment"
+        android:name="com.faltenreich.release.domain.release.discover.DiscoverFragment"
         android:label="@string/releases"
         tools:layout="@layout/fragment_discover">
         <argument
@@ -72,13 +72,13 @@
 
     <fragment
         android:id="@+id/calendar"
-        android:name="com.faltenreich.release.ui.fragment.CalendarFragment"
+        android:name="com.faltenreich.release.domain.release.calendar.CalendarFragment"
         android:label="@string/calendar"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/release"
-        android:name="com.faltenreich.release.ui.fragment.ReleaseDetailFragment"
+        android:name="com.faltenreich.release.domain.release.detail.ReleaseDetailFragment"
         tools:layout="@layout/fragment_release_detail">
         <argument
             android:name="releaseId"
@@ -87,7 +87,7 @@
 
     <fragment
         android:id="@+id/release_list"
-        android:name="com.faltenreich.release.ui.fragment.ReleaseListFragment"
+        android:name="com.faltenreich.release.domain.release.list.ReleaseListFragment"
         tools:layout="@layout/fragment_release_list">
         <argument
             android:name="date"
@@ -98,7 +98,7 @@
 
     <fragment
         android:id="@+id/search"
-        android:name="com.faltenreich.release.ui.fragment.SearchFragment"
+        android:name="com.faltenreich.release.domain.release.search.SearchFragment"
         tools:layout="@layout/fragment_search">
         <argument
             android:name="query"
@@ -107,7 +107,7 @@
 
     <fragment
         android:id="@+id/preferences"
-        android:name="com.faltenreich.release.ui.fragment.PreferenceFragment"
+        android:name="com.faltenreich.release.domain.preference.PreferenceFragment"
         android:label="@string/preferences"
         tools:layout="@layout/fragment_preference"/>
 

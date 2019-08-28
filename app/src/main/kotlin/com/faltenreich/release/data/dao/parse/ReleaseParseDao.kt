@@ -4,9 +4,9 @@ import com.faltenreich.release.data.dao.ReleaseDao
 import com.faltenreich.release.data.dao.preference.ReleasePreferenceDao
 import com.faltenreich.release.data.model.Model
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.extension.date
-import com.faltenreich.release.parse.database.ParseDao
-import com.faltenreich.release.parse.database.whereContainsText
+import com.faltenreich.release.base.date.date
+import com.faltenreich.release.framework.parse.database.ParseDao
+import com.faltenreich.release.framework.parse.database.whereContainsText
 import org.threeten.bp.LocalDate
 import kotlin.reflect.KClass
 

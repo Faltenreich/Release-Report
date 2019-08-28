@@ -1,9 +1,9 @@
 package com.faltenreich.release
 
 import android.app.Application
-import com.faltenreich.release.data.preference.FavoriteManager
-import com.faltenreich.release.data.preference.UserPreferences
-import com.faltenreich.release.parse.ParseServer
+import com.faltenreich.release.domain.preference.FavoriteManager
+import com.faltenreich.release.domain.preference.UserPreferences
+import com.faltenreich.release.framework.parse.ParseServer
 import com.jakewharton.threetenabp.AndroidThreeTen
 
 @Suppress("unused")

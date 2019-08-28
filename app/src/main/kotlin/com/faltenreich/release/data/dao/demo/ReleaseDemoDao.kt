@@ -3,10 +3,10 @@ package com.faltenreich.release.data.dao.demo
 import com.faltenreich.release.data.dao.ReleaseDao
 import com.faltenreich.release.data.dao.preference.ReleasePreferenceDao
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.extension.isAfterOrEqual
-import com.faltenreich.release.extension.isBeforeOrEqual
-import com.faltenreich.release.extension.isTrue
-import com.faltenreich.release.extension.isTrueOrNull
+import com.faltenreich.release.base.date.isAfterOrEqual
+import com.faltenreich.release.base.date.isBeforeOrEqual
+import com.faltenreich.release.base.primitive.isTrue
+import com.faltenreich.release.base.primitive.isTrueOrNull
 import org.threeten.bp.LocalDate
 import kotlin.math.max
 import kotlin.math.min

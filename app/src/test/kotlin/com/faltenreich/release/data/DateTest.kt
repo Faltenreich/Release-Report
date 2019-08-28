@@ -1,7 +1,7 @@
 package com.faltenreich.release.data
 
-import com.faltenreich.release.extension.date
-import com.faltenreich.release.extension.localDate
+import com.faltenreich.release.base.date.date
+import com.faltenreich.release.base.date.localDate
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.threeten.bp.LocalDate

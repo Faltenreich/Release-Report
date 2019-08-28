@@ -1,6 +1,6 @@
 package com.faltenreich.release.data.model
 
-import com.faltenreich.release.data.provider.DateProvider
+import com.faltenreich.release.data.provider.ReleaseDateProvider
 import com.faltenreich.release.data.provider.TitleProvider
 import com.parse.ParseObject
 
@@ -10,7 +10,7 @@ data class Platform(
     override var title: String? = null,
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null
-) : Model, DateProvider, TitleProvider {
+) : Model, ReleaseDateProvider, TitleProvider {
 
     override fun fromParseObject(parseObject: ParseObject) {
         id = parseObject.getString(Model.ID)

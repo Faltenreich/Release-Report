@@ -1,11 +1,11 @@
 package com.faltenreich.release.data.model
 
+import com.faltenreich.release.base.date.localDate
 import com.faltenreich.release.data.enum.ReleaseType
-import com.faltenreich.release.data.provider.DateProvider
+import com.faltenreich.release.data.provider.ReleaseDateProvider
 import com.faltenreich.release.data.provider.TitleProvider
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.extension.localDate
-import com.faltenreich.release.parse.database.getJSONArrayValues
+import com.faltenreich.release.framework.parse.database.getJSONArrayValues
 import com.parse.ParseObject
 
 data class Release(
@@ -25,7 +25,7 @@ data class Release(
     var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
     var platforms: List<String>? = null
-) : Model, DateProvider, TitleProvider {
+) : Model, ReleaseDateProvider, TitleProvider {
 
     var releaseType: ReleaseType?
         get() = type?.let { type -> ReleaseType.valueForKey(type) }

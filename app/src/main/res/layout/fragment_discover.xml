@@ -63,6 +63,6 @@
         android:layout_height="match_parent"
         app:search_hint="@string/search_hint"
         app:search_hint_color="@color/gray_dark"
-        app:layout_behavior="com.faltenreich.release.ui.list.behavior.SearchBehavior"/>
+        app:layout_behavior="com.faltenreich.release.domain.release.search.SearchBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,9 +2,9 @@ package com.faltenreich.release.data.dao.preference
 
 import com.faltenreich.release.data.dao.ReleaseDao
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.preference.FavoriteManager
-import com.faltenreich.release.extension.isAfterOrEqual
-import com.faltenreich.release.extension.isTrue
+import com.faltenreich.release.domain.preference.FavoriteManager
+import com.faltenreich.release.base.date.isAfterOrEqual
+import com.faltenreich.release.base.primitive.isTrue
 import org.threeten.bp.LocalDate
 
 interface ReleasePreferenceDao : ReleaseDao {

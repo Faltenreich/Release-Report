@@ -18,7 +18,7 @@
             tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".domain.navigation.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <service android:enabled="true" android:name=".reminder.ReminderService"/>
+        <service android:enabled="true" android:name="com.faltenreich.release.domain.reminder.ReminderService"/>
 
     </application>
 
