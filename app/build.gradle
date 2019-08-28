@@ -19,14 +19,14 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
-            useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules-dontobfuscate.pro'
         }
         release {
             minifyEnabled true
             useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -52,8 +52,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 
     testOptions {
@@ -67,7 +67,7 @@ androidExtensions {
 
 ext {
     parse = '1.19.0'
-    lifecycle = '2.2.0-alpha02'
+    lifecycle = '2.2.0-alpha03'
     glide = '4.8.0'
     scrollgalleryview = '1.2.8'
 }
@@ -92,7 +92,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
 
     implementation "com.github.parse-community.Parse-SDK-Android:parse:$parse"
     implementation "com.github.parse-community.Parse-SDK-Android:ktx:$parse"
