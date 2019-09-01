@@ -39,8 +39,8 @@ class ReleaseDetailViewModel : ViewModel() {
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { release ->
             onObserve(release)
-            release.genres?.let { ids -> GenreRepository.getByIds(ids) { genres -> this.genres = genres } }
-            release.platforms?.let { ids -> PlatformRepository.getByIds(ids) { platforms -> this.platforms = platforms } }
+            release.genres?.let { ids -> GenreRepository.getByIds(ids) { genres -> this.genres = genres.sortedBy(Genre::title) } }
+            release.platforms?.let { ids -> PlatformRepository.getByIds(ids) { platforms -> this.platforms = platforms.sortedBy(Platform::title) } }
         })
         ReleaseRepository.getById(id) { release -> this.release = release }
     }

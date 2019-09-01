@@ -7,14 +7,14 @@ import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.base.date.print
-import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.domain.release.list.ReleaseDateItem
+import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.domain.date.DatePickerOpener
+import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.domain.release.search.SearchableObserver
 import com.faltenreich.release.domain.release.search.SearchableProperties
+import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_discover.*
@@ -115,7 +115,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main),
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date
+        val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
         headerTextView.doOnPreDraw { headerTextView.text = currentDate?.print(context) }
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
