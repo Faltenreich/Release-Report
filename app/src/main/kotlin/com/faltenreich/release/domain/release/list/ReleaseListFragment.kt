@@ -28,7 +28,7 @@ class ReleaseListFragment : BaseFragment(
         arguments?.run { ReleaseListFragmentArgs.fromBundle(this).date?.asLocalDate }
     }
 
-    private lateinit var listAdapter: ReleaseListAdapter
+    private val listAdapter: ReleaseListAdapter? by lazy { context?.let { context -> ReleaseListAdapter(context) } }
     private lateinit var listLayoutManager: LinearLayoutManager
     private val listSpacing by lazy { context?.resources?.getDimension(SPACING_RES_DEFAULT)?.toInt() ?: 0 }
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 8) }
@@ -54,8 +54,8 @@ class ReleaseListFragment : BaseFragment(
 
         toolbar.setNavigationOnClickListener { finish() }
 
-        listAdapter = ReleaseListAdapter(context)
         listLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
         listView.layoutManager = listLayoutManager
         listView.adapter = listAdapter
         listView.addItemDecoration(ReleaseListItemDecoration(context, listSpacing))
@@ -73,20 +73,20 @@ class ReleaseListFragment : BaseFragment(
         listSkeleton.showSkeleton()
         viewModel.observeReleases(date, this) { list ->
             listSkeleton.showOriginal()
-            listAdapter.submitList(list)
+            listAdapter?.submitList(list)
             scrollTo(date)
         }
     }
 
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleListItem = listAdapter.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
-        toolbar.title = currentDate?.print(context)
+        val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
+        val currentDate = firstVisibleListItem?.date ?: return
+        toolbar.title = currentDate.print(context)
     }
 
     private fun scrollTo(date: LocalDate) {
-        listAdapter.getFirstPositionForDate(date)?.let { position ->
+        listAdapter?.getFirstPositionForDate(date)?.let { position ->
             listView.stopScroll()
             // Skip header since date is being displayed in Toolbar as well
             listLayoutManager.scrollToPositionWithOffset(position + 1, listSpacing)

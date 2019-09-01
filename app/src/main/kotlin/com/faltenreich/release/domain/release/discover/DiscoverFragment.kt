@@ -22,17 +22,15 @@ import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
 
-class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main),
-    DatePickerOpener,
-    SearchOpener {
+class DiscoverFragment : BaseFragment(
+    R.layout.fragment_discover,
+    R.menu.main
+), DatePickerOpener, SearchOpener {
+
     private val viewModel by lazy { createViewModel(DiscoverViewModel::class) }
     private val searchable by lazy { SearchableObserver() }
     
-    private val listAdapter by lazy { context?.let { context ->
-        DiscoverListAdapter(
-            context
-        )
-    } }
+    private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
     private lateinit var listLayoutManager: DiscoverLayoutManager
     private lateinit var listItemDecoration: DiscoverItemDecoration
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10) }
@@ -65,8 +63,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main),
     }
 
     private fun initSearch() {
-        searchable.properties =
-            SearchableProperties(this, searchView)
+        searchable.properties = SearchableProperties(this, searchView)
         searchView.setLogoIcon(R.drawable.ic_search)
         searchView.setOnLogoClickListener {  }
         searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
@@ -80,25 +77,23 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main),
     }
 
     private fun initList() {
-        context?.let { context ->
-            listLayoutManager =
-                DiscoverLayoutManager(context, listAdapter)
-            listItemDecoration =
-                DiscoverItemDecoration(context)
+        val context = context ?: return
 
-            listView.layoutManager = listLayoutManager
-            listView.addItemDecoration(listItemDecoration)
-            listView.adapter = listAdapter
+        listLayoutManager = DiscoverLayoutManager(context, listAdapter)
+        listItemDecoration = DiscoverItemDecoration(context)
 
-            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (isAdded) {
-                        invalidateListHeader()
-                    }
+        listView.layoutManager = listLayoutManager
+        listView.addItemDecoration(listItemDecoration)
+        listView.adapter = listAdapter
+
+        listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (isAdded) {
+                    invalidateListHeader()
                 }
-            })
-        }
+            }
+        })
     }
 
     private fun initData(date: LocalDate) {
