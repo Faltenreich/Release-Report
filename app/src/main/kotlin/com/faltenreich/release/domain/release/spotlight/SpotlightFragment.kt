@@ -59,9 +59,7 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main)
     private fun fetchData() {
         skeletonLayout.isVisible = true
         skeletonLayout.showSkeleton()
-        viewModel.observeData(this,
-            MAX_ITEMS_PER_CATEGORY
-        ) { data ->
+        viewModel.observeData(this) { data ->
             skeletonLayout.showOriginal()
             skeletonLayout.isVisible = false
             setData(data)
@@ -78,6 +76,5 @@ class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main)
 
     companion object {
         private const val COLUMN_COUNT = 2
-        private const val MAX_ITEMS_PER_CATEGORY = COLUMN_COUNT * 2
     }
 }

@@ -5,96 +5,82 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.calendarWeek
+import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
+import com.faltenreich.release.domain.preference.FavoriteManager
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
     private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>>()
-    private val weeklyReleasesLiveData = MutableLiveData<List<Release>>()
-    private val recentReleasesLiveData = MutableLiveData<List<Release>>()
-    private val favoriteReleasesLiveData = MutableLiveData<List<Release>>()
+    private val today by lazy { LocalDate.now() }
 
     var spotlightItems: List<SpotlightItem>?
         get() = spotlightItemsLiveData.value
         set(value) = spotlightItemsLiveData.postValue(value)
 
-    private var weeklyReleases: List<Release>?
-        get() = weeklyReleasesLiveData.value
-        set(value) = weeklyReleasesLiveData.postValue(value)
+    fun observeData(owner: LifecycleOwner, onObserve: (List<SpotlightItem>) -> Unit) {
+        spotlightItemsLiveData.observe(owner, Observer(onObserve))
 
-    private var recentReleases: List<Release>?
-        get() = recentReleasesLiveData.value
-        set(value) = recentReleasesLiveData.postValue(value)
+        val startAt = today.minusMonths(1)
+        val endAt = today.with(DayOfWeek.SUNDAY)
 
-    private var favoriteReleases: List<Release>?
-        get() = favoriteReleasesLiveData.value
-        set(value) = favoriteReleasesLiveData.postValue(value)
-
-    fun observeData(owner: LifecycleOwner, pageSize: Int, onObserve: (List<SpotlightItem>) -> Unit) {
-        spotlightItemsLiveData.observe(owner, Observer { data -> onObserve(data) })
-        weeklyReleasesLiveData.observe(owner, Observer { refresh() })
-        recentReleasesLiveData.observe(owner, Observer { refresh() })
-        favoriteReleasesLiveData.observe(owner, Observer { refresh() })
-
-        val today = LocalDate.now()
-        val endAt = today.minusWeeks(1).with(DayOfWeek.SUNDAY)
-        val startAt = endAt.minusMonths(1)
-
-        ReleaseRepository.getBetween(today.with(DayOfWeek.MONDAY), today.with(DayOfWeek.SUNDAY), pageSize + 1) { releases -> weeklyReleases = releases }
-        ReleaseRepository.getFavorites(today, pageSize) { releases -> favoriteReleases = releases }
-        ReleaseRepository.getBetween(startAt, endAt, pageSize) { releases -> recentReleases = releases }
+        ReleaseRepository.getBetween(startAt, endAt, PAGE_SIZE) { releases -> setData(releases) }
     }
 
-    private fun refresh() {
+    private fun setData(data: List<Release>) {
         val items = mutableListOf<SpotlightItem>()
-        weeklyReleases?.firstOrNull()?.let { release ->
-            items.add(SpotlightPromoItem(release))
-        }
-        favoriteReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+        val (weekly, recent) = data.partition { release -> release.releaseDate?.calendarWeek == today.calendarWeek }
+
+        weekly.firstOrNull()?.let { release -> items.add(SpotlightPromoItem(release)) }
+
+        FavoriteManager.getFavorites().filter { release ->
+            release.releaseDate?.calendarWeek?.let { calendarWeek ->
+                calendarWeek >= today.calendarWeek
+            }.isTrue
+        }.sortedBy(Release::releaseDate).take(5).takeIf(List<Any>::isNotEmpty)?.let { releases ->
             items.add(
                 SpotlightReleaseItem(
                     R.string.for_you,
                     releases.mapNotNull { release ->
-                        release.releaseDate?.let { date ->
-                            ReleaseItem(
-                                release,
-                                date
-                            )
-                        }
-                    })
+                        release.releaseDate?.let { date -> ReleaseItem(release, date) }
+                    },
+                    totalReleaseCount = null
+                )
             )
         }
-        weeklyReleases?.drop(1)?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+
+        weekly.drop(1).take(5).takeIf(List<Any>::isNotEmpty)?.let { releases ->
             items.add(
                 SpotlightReleaseItem(
                     R.string.this_week,
                     releases.mapNotNull { release ->
-                        release.releaseDate?.let { date ->
-                            ReleaseItem(
-                                release,
-                                date
-                            )
-                        }
-                    })
+                        release.releaseDate?.let { date -> ReleaseItem(release, date) }
+                    },
+                    totalReleaseCount = weekly.size
+                )
             )
         }
-        recentReleases?.takeIf(List<Any>::isNotEmpty)?.let { releases ->
+
+        recent.take(5).takeIf(List<Any>::isNotEmpty)?.let { releases ->
             items.add(
                 SpotlightReleaseItem(
                     R.string.recently,
                     releases.mapNotNull { release ->
-                        release.releaseDate?.let { date ->
-                            ReleaseItem(
-                                release,
-                                date
-                            )
-                        }
-                    })
+                        release.releaseDate?.let { date -> ReleaseItem(release, date) }
+                    },
+                    totalReleaseCount = null
+                )
             )
         }
+
         spotlightItems = items.toList()
+    }
+
+    companion object {
+        private const val PAGE_SIZE = 25
     }
 }

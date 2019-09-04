@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.framework.android.decoration.DividerItemDecoration
-import com.faltenreich.release.framework.android.view.setImageAsync
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_spotlight.*
 
@@ -28,15 +26,8 @@ class SpotlightReleaseViewHolder(
 
     override fun onBind(data: SpotlightReleaseItem) {
         titleView.text = data.print(context)
-
-        data.releases.firstOrNull()?.release?.let { release ->
-            imageView.setOnClickListener { openRelease(navigationController, release) }
-            release.imageUrlForWallpaper?.let { imageUrl ->
-                imageView.setImageAsync(imageUrl)
-            } ?: imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
-        } ?: run {
-            imageView.setOnClickListener(null)
-            imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        descriptionView.text = data.totalReleaseCount?.let { totalReleaseCount ->
+            "$totalReleaseCount ${context.getString(R.string.releases)}"
         }
 
         listAdapter.removeListItems()

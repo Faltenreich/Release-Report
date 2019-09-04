@@ -14,31 +14,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/image_size_wallpaper"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            android:foreground="?selectableItemBackground"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
-
         <TextView
             android:id="@+id/titleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/dogear_type"
-            android:gravity="center_vertical"
-            android:padding="@dimen/margin_padding_size_small"
+            android:background="@drawable/dogear_primary"
+            android:paddingTop="@dimen/margin_padding_size_small"
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:paddingStart="@dimen/margin_padding_size_medium"
             android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorPrimary"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
+            android:textColor="?android:textColorPrimaryInverse"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/descriptionView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_padding_size_small"
+            android:paddingBottom="@dimen/margin_padding_size_small"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintTop_toTopOf="@id/titleView"
+            app:layout_constraintBottom_toBottomOf="@id/titleView"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="@tools:sample/lorem"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -46,9 +47,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/titleView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:spanCount="2"
             tools:listitem="@layout/list_item_release_image"/>
