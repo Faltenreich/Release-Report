@@ -67,6 +67,17 @@ class ReleaseListFragment : BaseFragment(
                 }
             }
         })
+
+        listAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                val totalItemCount = listAdapter?.itemCount ?: 0
+                val isInitialLoad = itemCount > 0 && itemCount == totalItemCount
+                if (isInitialLoad) {
+                    scrollTo(date ?: LocalDate.now())
+                }
+            }
+        })
     }
 
     private fun initData(date: LocalDate) {
@@ -74,7 +85,6 @@ class ReleaseListFragment : BaseFragment(
         viewModel.observeReleases(date, this) { list ->
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
-            scrollTo(date)
         }
     }
 
