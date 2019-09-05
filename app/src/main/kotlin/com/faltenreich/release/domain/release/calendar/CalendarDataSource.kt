@@ -1,16 +1,18 @@
 package com.faltenreich.release.domain.release.calendar
 
 import androidx.paging.PageKeyedDataSource
-import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.base.date.LocalDateProgression
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
-import com.faltenreich.release.base.primitive.isTrue
+import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
 private typealias CalendarKey = YearMonth
 
-class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<CalendarKey, CalendarItem>() {
+class CalendarDataSource(
+    private val startAt: YearMonth,
+    private val onLoad: (start: LocalDate, end: LocalDate) -> Unit
+) : PageKeyedDataSource<CalendarKey, CalendarItem>() {
 
     override fun loadInitial(params: LoadInitialParams<CalendarKey>, callback: LoadInitialCallback<CalendarKey, CalendarItem>) {
         load(startAt, params.requestedLoadSize, true, object : LoadCallback<CalendarKey, CalendarItem>() {
@@ -34,27 +36,19 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
         val (firstMonth, lastMonth) = yearMonths.first() to yearMonths.last()
         val (start, end) = firstMonth.atDay(1) to lastMonth.atEndOfMonth()
 
-        ReleaseRepository.getBetween(start, end) { releases ->
-            val items = yearMonths.flatMap { yearMonth ->
-                val monthItem =
-                    CalendarMonthItem(start, yearMonth)
-                val startOfFirstWeek = yearMonth.atDay(1).atStartOfWeek
-                val endOfLastWeek = yearMonth.atEndOfMonth().atEndOfWeek
-                val dayItems = LocalDateProgression(
-                    startOfFirstWeek,
-                    endOfLastWeek
-                ).map { day ->
-                    val releasesOfDay = releases.filter { release -> (release.releaseDate == day).isTrue }
-                    CalendarDayItem(
-                        day,
-                        yearMonth,
-                        releasesOfDay
-                    )
-                }
-                listOf(monthItem).plus(dayItems)
+        val items = yearMonths.flatMap { currentYearMonth ->
+            val monthItem = CalendarMonthItem(start, currentYearMonth)
+            val startOfFirstWeek = currentYearMonth.atDay(1).atStartOfWeek
+            val endOfLastWeek = currentYearMonth.atEndOfMonth().atEndOfWeek
+            val dayItems = LocalDateProgression(startOfFirstWeek, endOfLastWeek).map { day ->
+                CalendarDayItem(day, currentYearMonth)
             }
-            val adjacentPageKey = if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
-            callback.onResult(items, adjacentPageKey)
+            listOf(monthItem).plus(dayItems)
         }
+
+        val adjacentPageKey = if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
+        callback.onResult(items, adjacentPageKey)
+
+        onLoad(start, end)
     }
 }

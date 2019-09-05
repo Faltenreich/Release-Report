@@ -8,15 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.date.yearMonth
-import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.domain.release.search.SearchOpener
+import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.date.YearMonthPickerOpener
+import com.faltenreich.release.domain.release.search.SearchOpener
+import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import kotlin.math.min
 
-// TODO: Add skeleton
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     YearMonthPickerOpener,
     SearchOpener {
@@ -53,8 +56,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
 
     private fun initList() {
         context?.let { context ->
-            listLayoutManager =
-                CalendarLayoutManager(context, listAdapter)
+            listLayoutManager = CalendarLayoutManager(context, listAdapter)
             listView.layoutManager = listLayoutManager
             listView.adapter = listAdapter
 
@@ -70,7 +72,26 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     }
 
     private fun initData(yearMonth: YearMonth) {
-        viewModel.observeReleases(yearMonth, this) { list -> listAdapter?.submitList(list) }
+        viewModel.observeReleases(yearMonth, this, onObserve = { list ->
+            listAdapter?.submitList(list)
+        }, onLoad = { start, end ->
+            fetchReleases(start, end)
+        })
+    }
+
+    private fun fetchReleases(start: LocalDate, end: LocalDate) {
+        ReleaseRepository.getBetween(start, end) { releases ->
+            GlobalScope.launch {
+                val items = listAdapter?.listItems?.filterIsInstance<CalendarDayItem>()
+                releases.groupBy(Release::releaseDate).forEach { (day, releases) ->
+                    items?.withIndex()?.firstOrNull { item -> item.value.date == day }?.let { indexedItem ->
+                        val (index, item) = indexedItem.index to indexedItem.value
+                        item.releases = releases
+                        listView.post { listAdapter?.notifyItemChanged(index) }
+                    }
+                }
+            }
+        }
     }
 
     private fun invalidateListHeader() {
