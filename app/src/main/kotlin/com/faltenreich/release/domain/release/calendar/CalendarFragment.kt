@@ -59,6 +59,15 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
             listLayoutManager = CalendarLayoutManager(context, listAdapter)
             listView.layoutManager = listLayoutManager
             listView.adapter = listAdapter
+            listAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    super.onItemRangeInserted(positionStart, itemCount)
+                    val listAdapter = listAdapter ?: return
+                    val start = listAdapter.getListItemAt(positionStart)?.date ?: return
+                    val end = listAdapter.getListItemAt(positionStart + itemCount - 1)?.date ?: return
+                    fetchReleases(start, end)
+                }
+            })
 
             listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -72,11 +81,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     }
 
     private fun initData(yearMonth: YearMonth) {
-        viewModel.observeReleases(yearMonth, this, onObserve = { list ->
-            listAdapter?.submitList(list)
-        }, onLoad = { start, end ->
-            fetchReleases(start, end)
-        })
+        viewModel.observeReleases(yearMonth, this) { list -> listAdapter?.submitList(list) }
     }
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {

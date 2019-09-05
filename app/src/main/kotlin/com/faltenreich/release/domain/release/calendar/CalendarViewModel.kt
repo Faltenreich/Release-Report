@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
-import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {
@@ -18,10 +17,9 @@ class CalendarViewModel : ViewModel() {
     fun observeReleases(
         yearMonth: YearMonth,
         owner: LifecycleOwner,
-        onObserve: (PagedList<CalendarItem>) -> Unit,
-        onLoad: (start: LocalDate, end: LocalDate) -> Unit
+        onObserve: (PagedList<CalendarItem>) -> Unit
     ) {
-        val dataSource = CalendarDataSource(yearMonth, onLoad)
+        val dataSource = CalendarDataSource(yearMonth)
         val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE_IN_MONTHS)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })

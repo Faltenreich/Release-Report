@@ -4,15 +4,11 @@ import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.base.date.LocalDateProgression
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
-import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
 private typealias CalendarKey = YearMonth
 
-class CalendarDataSource(
-    private val startAt: YearMonth,
-    private val onLoad: (start: LocalDate, end: LocalDate) -> Unit
-) : PageKeyedDataSource<CalendarKey, CalendarItem>() {
+class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<CalendarKey, CalendarItem>() {
 
     override fun loadInitial(params: LoadInitialParams<CalendarKey>, callback: LoadInitialCallback<CalendarKey, CalendarItem>) {
         load(startAt, params.requestedLoadSize, true, object : LoadCallback<CalendarKey, CalendarItem>() {
@@ -34,7 +30,7 @@ class CalendarDataSource(
         val progression = if (descending) (0L until pageSize) else (-pageSize + 1L..0L)
         val yearMonths = progression.map { page -> yearMonth.plusMonths(page) }
         val (firstMonth, lastMonth) = yearMonths.first() to yearMonths.last()
-        val (start, end) = firstMonth.atDay(1) to lastMonth.atEndOfMonth()
+        val start = firstMonth.atDay(1)
 
         val items = yearMonths.flatMap { currentYearMonth ->
             val monthItem = CalendarMonthItem(start, currentYearMonth)
@@ -48,7 +44,5 @@ class CalendarDataSource(
 
         val adjacentPageKey = if (descending) lastMonth.plusMonths(1) else firstMonth.minusMonths(1)
         callback.onResult(items, adjacentPageKey)
-
-        onLoad(start, end)
     }
 }
