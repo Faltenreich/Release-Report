@@ -6,10 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.calendarWeek
-import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.domain.preference.FavoriteManager
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -18,7 +16,7 @@ class SpotlightViewModel : ViewModel() {
     private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>>()
     private val today by lazy { LocalDate.now() }
 
-    var spotlightItems: List<SpotlightItem>?
+    private var spotlightItems: List<SpotlightItem>?
         get() = spotlightItemsLiveData.value
         set(value) = spotlightItemsLiveData.postValue(value)
 
@@ -28,45 +26,60 @@ class SpotlightViewModel : ViewModel() {
         val startAt = today.minusMonths(1)
         val endAt = today.with(DayOfWeek.SUNDAY)
 
-        ReleaseRepository.getBetween(startAt, endAt, PAGE_SIZE) { releases -> setData(releases) }
+        ReleaseRepository.getBetween(startAt, endAt, PAGE_SIZE) { releases ->
+            ReleaseRepository.getFavorites(LocalDate.now(), 5) { favorites ->
+                setData(releases, favorites)
+            }
+        }
     }
 
-    private fun setData(data: List<Release>) {
+    private fun setData(releases: List<Release>, favorites: List<Release>) {
         val items = mutableListOf<SpotlightItem>()
-        val (weekly, recent) = data.partition { release -> release.releaseDate?.calendarWeek == today.calendarWeek }
-
-        weekly.firstOrNull()?.let { release -> items.add(SpotlightPromoItem(release)) }
-
-        FavoriteManager.getFavorites().filter { release ->
-            release.releaseDate?.calendarWeek?.let { calendarWeek ->
-                calendarWeek >= today.calendarWeek
-            }.isTrue
-        }.sortedBy(Release::releaseDate).take(5).takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(
-                SpotlightReleaseItem(
-                    R.string.for_you,
-                    releases.mapNotNull { release ->
-                        release.releaseDate?.let { date -> ReleaseItem(release, date) }
-                    },
-                    totalReleaseCount = null
-                )
-            )
+        val (weekly, recent) = releases.partition { release ->
+            release.releaseDate?.calendarWeek == today.calendarWeek
         }
 
-        weekly.drop(1).take(5).takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(
+        addPromo(weekly, items)
+        addFavorites(favorites, items)
+        addWeekly(weekly, items)
+        addRecent(recent, items)
+
+        spotlightItems = items.toList()
+    }
+
+    private fun addPromo(from: List<Release>, to: MutableList<SpotlightItem>) {
+        from.firstOrNull()?.let { release -> to.add(SpotlightPromoItem(release)) }
+    }
+
+    private fun addFavorites(from: List<Release>, to: MutableList<SpotlightItem>) {
+        to.add(
+            SpotlightReleaseItem(
+                R.string.for_you,
+                from.mapNotNull { release ->
+                    release.releaseDate?.let { date -> ReleaseItem(release, date) }
+                },
+                totalReleaseCount = null
+            )
+        )
+    }
+
+    private fun addWeekly(from: List<Release>, to: MutableList<SpotlightItem>) {
+        from.drop(1).take(PARTITION_SIZE).takeIf(List<*>::isNotEmpty)?.let { releases ->
+            to.add(
                 SpotlightReleaseItem(
                     R.string.this_week,
                     releases.mapNotNull { release ->
                         release.releaseDate?.let { date -> ReleaseItem(release, date) }
                     },
-                    totalReleaseCount = weekly.size
+                    totalReleaseCount = from.size
                 )
             )
         }
+    }
 
-        recent.take(5).takeIf(List<Any>::isNotEmpty)?.let { releases ->
-            items.add(
+    private fun addRecent(from: List<Release>, to: MutableList<SpotlightItem>) {
+        from.take(PARTITION_SIZE).takeIf(List<*>::isNotEmpty)?.let { releases ->
+            to.add(
                 SpotlightReleaseItem(
                     R.string.recently,
                     releases.mapNotNull { release ->
@@ -76,11 +89,11 @@ class SpotlightViewModel : ViewModel() {
                 )
             )
         }
-
-        spotlightItems = items.toList()
     }
+
 
     companion object {
         private const val PAGE_SIZE = 25
+        private const val PARTITION_SIZE = 5
     }
 }

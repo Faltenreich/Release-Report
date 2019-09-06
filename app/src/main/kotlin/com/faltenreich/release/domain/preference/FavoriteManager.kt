@@ -1,17 +1,20 @@
 package com.faltenreich.release.domain.preference
 
+import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.base.primitive.isTrue
 
 // Caches favorite releases whose ids are stored via shared preferences
 object FavoriteManager {
+
     private var favorites: MutableSet<Release> = mutableSetOf()
 
     fun init() {
-        val favoriteIds: MutableSet<String> = UserPreferences.favoriteReleaseIds.toMutableSet()
+        val favoriteReleaseIds = UserPreferences.favoriteReleaseIds
         // TODO: Clean favorites at some point to prevent exploding data set
-        ReleaseRepository.getByIds(favoriteIds) { releases -> favorites.addAll(releases) }
+        ReleaseRepository.getByIds(favoriteReleaseIds) { releases ->
+            favorites.addAll(releases)
+        }
     }
 
     private fun invalidate() {
@@ -19,8 +22,8 @@ object FavoriteManager {
     }
 
     // FIXME: May be empty due to init() not being processed yet - make asynchronous
-    fun getFavorites(): Set<Release> {
-        return favorites
+    fun getFavorites(): List<Release> {
+        return favorites.toList()
     }
 
     fun isFavorite(release: Release): Boolean {
