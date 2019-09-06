@@ -15,6 +15,12 @@ interface ReleasePreferenceDao : ReleaseDao {
         }.take(pageSize))
     }
 
+    override fun getFavorites(date: LocalDate, onResult: (List<Release>) -> Unit) {
+        onResult(FavoriteManager.getFavorites().filter { release ->
+            release.releaseDate?.isEqual(date).isTrue
+        })
+    }
+
     override fun isFavorite(release: Release): Boolean {
         return FavoriteManager.isFavorite(release)
     }

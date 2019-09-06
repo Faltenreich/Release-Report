@@ -26,6 +26,10 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
         dao.getFavorites(startAt, pageSize, onResult)
     }
 
+    fun getFavorites(date: LocalDate, onResult: (List<Release>) -> Unit) {
+        dao.getFavorites(date, onResult)
+    }
+
     fun isFavorite(release: Release): Boolean {
         return dao.isFavorite(release)
     }

@@ -1,51 +1,41 @@
 package com.faltenreich.release.domain.reminder
 
 import android.content.Context
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.reminder.notification.Notification
 import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
-import java.util.concurrent.TimeUnit
+import org.threeten.bp.LocalDate
 
 object ReminderManager {
 
     private const val SERVICE_ID = 1337
 
     fun init(context: Context) {
-        val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS).build()
-        WorkManager.getInstance(context).enqueue(request)
+        ReminderWorker.enqueue(context)
     }
 
     fun remind(context: Context) {
-        fetchReleasesOfToday { releases -> showNotification(context, releases) }
+        ReleaseRepository.getFavorites(LocalDate.now()) { favorites ->
+            showNotification(context, favorites)
+        }
     }
 
-    private fun fetchReleasesOfToday(onResponse: (List<Release>) -> Unit) {
-        TODO()
-        /*
-        ReleaseRepository.getAll(
-            Query(
-                orderBy = "releasedAt",
-                equalTo = LocalDate.now().asString
-            ), onSuccess = { releases ->
-                onResponse(releases)
-            }, onError = {
-                onResponse(listOf())
-            })
-        */
-    }
-
-    private fun showNotification(context: Context, releases: List<Release>) {
-        val message = context.getString(R.string.reminder_title).format(releases.size)
+    private fun showNotification(context: Context, favorites: List<Release>) {
+        val message = context.getString(R.string.reminder_title).format(favorites.size)
+        val printedReleases = favorites.mapNotNull { release ->
+            release.title?.let { title ->
+                release.artistName?.let { artistName -> "$artistName - $title" } ?: title
+            }
+        }
         val notification = Notification(
             SERVICE_ID,
             context,
             NotificationChannel.MAIN,
-            null,
-            message
+            title = message,
+            message = printedReleases.joinToString(", ")
         )
         NotificationManager.showNotification(notification)
     }
