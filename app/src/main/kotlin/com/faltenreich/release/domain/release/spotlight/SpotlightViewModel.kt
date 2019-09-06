@@ -57,8 +57,7 @@ class SpotlightViewModel : ViewModel() {
                 R.string.for_you,
                 from.mapNotNull { release ->
                     release.releaseDate?.let { date -> ReleaseItem(release, date) }
-                },
-                totalReleaseCount = null
+                }
             )
         )
     }
@@ -70,8 +69,7 @@ class SpotlightViewModel : ViewModel() {
                     R.string.this_week,
                     releases.mapNotNull { release ->
                         release.releaseDate?.let { date -> ReleaseItem(release, date) }
-                    },
-                    totalReleaseCount = from.size
+                    }
                 )
             )
         }
@@ -84,8 +82,7 @@ class SpotlightViewModel : ViewModel() {
                     R.string.recently,
                     releases.mapNotNull { release ->
                         release.releaseDate?.let { date -> ReleaseItem(release, date) }
-                    },
-                    totalReleaseCount = null
+                    }
                 )
             )
         }

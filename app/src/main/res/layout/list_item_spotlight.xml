@@ -28,20 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@tools:sample/lorem"/>
 
-        <TextView
-            android:id="@+id/descriptionView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_padding_size_small"
-            android:paddingBottom="@dimen/margin_padding_size_small"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorSecondary"
-            app:layout_constraintTop_toTopOf="@id/titleView"
-            app:layout_constraintBottom_toBottomOf="@id/titleView"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="@tools:sample/lorem"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listView"
             android:layout_width="0dp"

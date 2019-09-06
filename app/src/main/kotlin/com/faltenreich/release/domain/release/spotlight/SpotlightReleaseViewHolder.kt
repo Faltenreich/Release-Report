@@ -26,10 +26,6 @@ class SpotlightReleaseViewHolder(
 
     override fun onBind(data: SpotlightReleaseItem) {
         titleView.text = data.print(context)
-        descriptionView.text = data.totalReleaseCount?.let { totalReleaseCount ->
-            "$totalReleaseCount ${context.getString(R.string.releases)}"
-        }
-
         listAdapter.removeListItems()
         listAdapter.addListItems(data.releases)
         listAdapter.notifyDataSetChanged()

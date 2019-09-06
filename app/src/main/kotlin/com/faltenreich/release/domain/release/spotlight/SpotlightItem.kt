@@ -10,8 +10,7 @@ sealed class SpotlightItem
 
 data class SpotlightReleaseItem(
     @StringRes val headerResId: Int,
-    val releases: List<ReleaseProvider>,
-    val totalReleaseCount: Int?
+    val releases: List<ReleaseProvider>
 ) : SpotlightItem(), LabelProvider {
     override fun print(context: Context): String? = context.getString(headerResId)
 }
