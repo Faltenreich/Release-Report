@@ -26,8 +26,6 @@
             </intent-filter>
         </activity>
 
-        <service android:enabled="true" android:name="com.faltenreich.release.domain.reminder.ReminderService"/>
-
     </application>
 
 </manifest>

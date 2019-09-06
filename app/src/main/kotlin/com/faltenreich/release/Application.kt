@@ -3,6 +3,7 @@ package com.faltenreich.release
 import android.app.Application
 import com.faltenreich.release.domain.preference.FavoriteManager
 import com.faltenreich.release.domain.preference.UserPreferences
+import com.faltenreich.release.domain.reminder.ReminderManager
 import com.faltenreich.release.framework.parse.ParseServer
 import com.jakewharton.threetenabp.AndroidThreeTen
 
@@ -19,7 +20,7 @@ class Application : Application() {
         UserPreferences.init(this)
         ParseServer.init(this)
         FavoriteManager.init()
-        // ReminderManager.remind(this)
+        ReminderManager.init(this)
     }
 
     companion object {
