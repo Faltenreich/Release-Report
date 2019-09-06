@@ -10,7 +10,10 @@ import com.google.android.material.snackbar.Snackbar
 import kotlin.math.abs
 import kotlin.math.min
 
-open class StepAsideBehavior(context: Context, attrs: AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attrs) {
+open class StepAsideBehavior @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : CoordinatorLayout.Behavior<View>(context, attrs) {
     private var snackbarTranslation: Float = 0.toFloat()
 
     @Override

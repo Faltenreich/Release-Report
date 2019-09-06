@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <PreferenceCategory
+        android:title="@string/notifications">
+
+        <com.faltenreich.release.domain.reminder.ReminderTimePreference
+            android:key="@string/preference_reminder_time"
+            android:title="@string/reminder_time"
+            tools:summary="@string/reminder_time_desc"/>
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/about">

@@ -24,6 +24,8 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="notifications">Notifications</string>
+    <string name="reminder_time">Reminder time</string>
+    <string name="reminder_time_desc">You will be notified about new releases at %s</string>
     <string name="reminder_title">%d new releases for you today</string>
     <string name="date_select">Select date</string>
     <string name="search_hint_desc">Start searching by typing</string>
