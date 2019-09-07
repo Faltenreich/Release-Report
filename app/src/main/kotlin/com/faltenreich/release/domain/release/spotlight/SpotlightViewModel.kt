@@ -52,14 +52,16 @@ class SpotlightViewModel : ViewModel() {
     }
 
     private fun addFavorites(from: List<Release>, to: MutableList<SpotlightItem>) {
-        to.add(
-            SpotlightReleaseItem(
-                R.string.for_you,
-                from.mapNotNull { release ->
-                    release.releaseDate?.let { date -> ReleaseItem(release, date) }
-                }
+        from.takeIf(List<*>::isNotEmpty)?.let { releases ->
+            to.add(
+                SpotlightReleaseItem(
+                    R.string.for_you,
+                    releases.mapNotNull { release ->
+                        release.releaseDate?.let { date -> ReleaseItem(release, date) }
+                    }
+                )
             )
-        )
+        }
     }
 
     private fun addWeekly(from: List<Release>, to: MutableList<SpotlightItem>) {
