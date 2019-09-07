@@ -28,8 +28,9 @@
     <string name="reminder">Reminder</string>
     <string name="reminder_time">Time of day</string>
     <string name="reminder_time_desc">Reminders will appear at %s</string>
-    <string name="reminder_title">%d new releases for you today</string>
+    <string name="reminder_weekly_notification">Upcoming next week</string>
     <string name="reminder_weekly_desc">Weekly reminder about upcoming releases</string>
+    <string name="reminder_subscriptions_notification">%d new releases for you today</string>
     <string name="reminder_subscriptions_desc">Daily reminder about subscribed releases</string>
     <string name="scroll_to_today">Scroll back</string>
     <string name="search">Search</string>
