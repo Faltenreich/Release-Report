@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.preference
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.faltenreich.release.R
@@ -33,35 +34,66 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
     // Attention: Must be public to be properly recreated from instance state
     class PreferenceListFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
+        private val preferenceForVersionName: Preference?
+            get() = findPreference(R.string.preference_version_name)
+
+        private val preferenceForVersionCode: Preference?
+            get() = findPreference(R.string.preference_version_code)
+
+        private val preferenceForReminderIsEnabled: Preference?
+            get() = findPreference(R.string.preference_reminder_is_enabled)
+
+        private val preferenceForReminderTime: Preference?
+            get() = findPreference(R.string.preference_reminder_time)
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences, rootKey)
         }
 
         override fun onResume() {
             super.onResume()
-            UserPreferences.registerOnSharedPreferenceChangeListener(this)
-            invalidateSummaries()
+            preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            invalidatePreferences()
         }
 
         override fun onPause() {
             super.onPause()
-            UserPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        }
+
+        private fun findPreference(@StringRes stringRes: Int): Preference? {
+            return findPreference(getString(stringRes))
         }
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-            invalidateSummaries()
+            invalidatePreferences()
+
+            val context = context ?: return
+            when (key) {
+                context.getString(R.string.preference_reminder_is_enabled) -> onReminderIsEnabledChanged()
+            }
         }
 
-        private fun invalidateSummaries() {
+        private fun invalidatePreferences() {
             if (isAdded) {
-                findPreference<Preference>(getString(R.string.preference_version_name))?.summary =
-                    context?.versionName
+                preferenceForVersionName?.summary = context?.versionName
+                preferenceForVersionCode?.summary = context?.versionCode?.toString()
 
-                findPreference<Preference>(getString(R.string.preference_version_code))?.summary =
-                    context?.versionCode?.toString()
+                preferenceForReminderTime?.let { preference ->
+                    preference.isEnabled = UserPreferences.reminderIsEnabled
+                    preference.summary = context?.getString(
+                        R.string.reminder_time_desc,
+                        UserPreferences.reminderTime.print()
+                    )
+                }
+            }
+        }
 
-                findPreference<Preference>(getString(R.string.preference_reminder_time))?.summary =
-                    context?.getString(R.string.reminder_time_desc, UserPreferences.reminderTime.print())
+        private fun onReminderIsEnabledChanged() {
+            if (UserPreferences.reminderIsEnabled) {
+
+            } else {
+
             }
         }
     }

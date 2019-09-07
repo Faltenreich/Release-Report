@@ -7,6 +7,11 @@
     <PreferenceCategory
         android:title="@string/notifications">
 
+        <CheckBoxPreference
+            android:key="@string/preference_reminder_is_enabled"
+            android:title="@string/reminder"
+            android:defaultValue="true"/>
+
         <com.faltenreich.release.domain.reminder.ReminderTimePreference
             android:key="@string/preference_reminder_time"
             android:title="@string/reminder_time"
