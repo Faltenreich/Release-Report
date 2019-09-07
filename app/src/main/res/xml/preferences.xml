@@ -6,20 +6,28 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/notifications"
+        android:title="@string/reminder"
         app:iconSpaceReserved="false">
-
-        <CheckBoxPreference
-            android:key="@string/preference_reminder_is_enabled"
-            android:title="@string/reminder"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"/>
 
         <com.faltenreich.release.domain.reminder.ReminderTimePreference
             android:key="@string/preference_reminder_time"
             android:title="@string/reminder_time"
             app:iconSpaceReserved="false"
             tools:summary="@string/reminder_time_desc"/>
+
+        <CheckBoxPreference
+            android:key="@string/preference_reminder_weekly_is_enabled"
+            android:title="@string/weekly"
+            android:summary="@string/reminder_weekly_desc"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"/>
+
+        <CheckBoxPreference
+            android:key="@string/preference_reminder_subscriptions_is_enabled"
+            android:title="@string/subscriptions"
+            android:summary="@string/reminder_subscriptions_desc"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"/>
 
     </PreferenceCategory>
 

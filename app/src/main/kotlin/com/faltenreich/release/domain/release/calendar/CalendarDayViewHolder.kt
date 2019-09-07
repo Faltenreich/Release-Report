@@ -21,7 +21,7 @@ class CalendarDayViewHolder(
         val (date, _, releases) = data
         val isToday = date.isToday
         val isInSameMonth = data.isInSameMonth
-        val hasFavorite = releases?.any { release -> release.isFavorite }.isTrue
+        val containsSubscription = releases?.any { release -> release.isSubscribed }.isTrue
 
         clickable.setOnClickListener { openDate(navigationController, date) }
 
@@ -30,6 +30,6 @@ class CalendarDayViewHolder(
 
         container.backgroundResource = if (isInSameMonth && isToday) R.color.colorPrimaryDarker else android.R.color.transparent
         releaseIndicator.isVisible = isInSameMonth && releases?.isNotEmpty().isTrue
-        favoriteIcon.isVisible = isInSameMonth && hasFavorite
+        subscriptionIcon.isVisible = isInSameMonth && containsSubscription
     }
 }

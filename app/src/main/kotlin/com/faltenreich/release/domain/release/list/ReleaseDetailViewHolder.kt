@@ -35,6 +35,6 @@ class ReleaseDetailViewHolder(
         releaseSubtitleTextView.isVisible = release.subtitle?.isNotBlank().isTrue
         releaseDescriptionTextView.text = release.description
 
-        releaseFavoriteImageView.isVisible = release.isFavorite
+        releaseSubscriptionImageView.isVisible = release.isSubscribed
     }
 }

@@ -76,7 +76,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
         releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
         releaseCoverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
-        fab.setOnClickListener { setFavorite(!(viewModel.release?.isFavorite.isTrue)) }
+        fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
     }
 
@@ -96,11 +96,11 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         collapsingToolbarLayout.setStatusBarScrimResource(color)
     }
 
-    private fun invalidateFavorite() {
-        val isFavorite = viewModel.release?.isFavorite ?: false
-        fab.backgroundTintResource = if (isFavorite) R.color.yellow else viewModel.color
-        fab.tintResource = if (isFavorite) R.color.brown else android.R.color.white
-        fab.setImageResource(if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off)
+    private fun invalidateSubscriptions() {
+        val isSubscribed = viewModel.release?.isSubscribed ?: false
+        fab.backgroundTintResource = if (isSubscribed) R.color.yellow else viewModel.color
+        fab.tintResource = if (isSubscribed) R.color.brown else android.R.color.white
+        fab.setImageResource(if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off)
     }
 
     private fun setRelease(release: Release?) {
@@ -124,7 +124,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
             dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
 
             invalidateTint()
-            invalidateFavorite()
+            invalidateSubscriptions()
             invalidateOptionsMenu()
         }
     }
@@ -149,12 +149,12 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
         container.addView(chip)
     }
 
-    private fun setFavorite(isFavorite: Boolean) {
-        viewModel.release?.isFavorite = isFavorite
-        context?.showToast(if (isFavorite) R.string.favorite_added else R.string.favorite_removed)
+    private fun setSubscription(isSubscribed: Boolean) {
+        viewModel.release?.isSubscribed = isSubscribed
+        context?.showToast(if (isSubscribed) R.string.subscription_added else R.string.subscription_removed)
         // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
         fab.hide()
-        invalidateFavorite()
+        invalidateSubscriptions()
         fab.show()
     }
 

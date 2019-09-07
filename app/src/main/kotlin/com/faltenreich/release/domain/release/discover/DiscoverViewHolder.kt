@@ -32,7 +32,7 @@ class DiscoverViewHolder(
 
         releaseTypeImageView.imageResource = release.releaseType?.iconResId ?: android.R.color.transparent
         releaseTypeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)
-        releaseFavoriteImageView.visibility = if (release.isFavorite) View.VISIBLE else View.GONE
+        releaseSubscriptionImageView.visibility = if (release.isSubscribed) View.VISIBLE else View.GONE
 
         releaseTitleTextView.text = release.title
         releaseSubtitleTextView.text = release.subtitle

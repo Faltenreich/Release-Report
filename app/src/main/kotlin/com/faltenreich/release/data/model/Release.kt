@@ -31,13 +31,13 @@ data class Release(
         get() = type?.let { type -> ReleaseType.valueForKey(type) }
         set(value) { type = value?.key }
 
-    var isFavorite: Boolean
-        get() = ReleaseRepository.isFavorite(this)
+    var isSubscribed: Boolean
+        get() = ReleaseRepository.isSubscribed(this)
         set(value) {
             if (value) {
-                ReleaseRepository.addFavorite(this)
+                ReleaseRepository.subscribe(this)
             } else {
-                ReleaseRepository.removeFavorite(this)
+                ReleaseRepository.unsubscribe(this)
             }
         }
 

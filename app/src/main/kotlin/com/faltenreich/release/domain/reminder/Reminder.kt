@@ -40,6 +40,6 @@ object Reminder {
     }
 
     fun remind(context: Context) {
-        FavoriteReminder().remind(context)
+        SubscriptionReminder().remind(context)
     }
 }

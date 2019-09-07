@@ -9,19 +9,19 @@ import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
 import org.threeten.bp.LocalDate
 
-class FavoriteReminder {
+class SubscriptionReminder {
 
     fun remind(context: Context) {
-        ReleaseRepository.getFavorites(LocalDate.now()) { favorites ->
-            if (favorites.isNotEmpty()) {
-                showNotification(context, favorites)
+        ReleaseRepository.getSubscriptions(LocalDate.now()) { subscriptions ->
+            if (subscriptions.isNotEmpty()) {
+                showNotification(context, subscriptions)
             }
         }
     }
 
-    private fun showNotification(context: Context, favorites: List<Release>) {
-        val message = context.getString(R.string.reminder_title).format(favorites.size)
-        val printedReleases = favorites.mapNotNull { release ->
+    private fun showNotification(context: Context, subscriptions: List<Release>) {
+        val message = context.getString(R.string.reminder_title).format(subscriptions.size)
+        val printedReleases = subscriptions.mapNotNull { release ->
             release.title?.let { title ->
                 release.artistName?.let { artistName -> "$artistName - $title" } ?: title
             }

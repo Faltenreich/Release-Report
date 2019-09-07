@@ -47,10 +47,10 @@
                 android:contentDescription="@null"/>
 
             <ImageView
-                android:id="@+id/favoriteIcon"
+                android:id="@+id/subscriptionIcon"
                 android:layout_width="@dimen/image_size_xxsmall"
                 android:layout_height="@dimen/image_size_xxsmall"
-                android:src="@drawable/ic_favorite_on"
+                android:src="@drawable/ic_subscription_on"
                 android:tint="@color/yellow"
                 android:contentDescription="@null"/>
 

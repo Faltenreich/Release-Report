@@ -27,20 +27,20 @@ class SpotlightViewModel : ViewModel() {
         val endAt = today.atEndOfWeek
 
         ReleaseRepository.getBetween(startAt, endAt, PAGE_SIZE) { releases ->
-            ReleaseRepository.getFavorites(LocalDate.now(), 5) { favorites ->
-                setData(releases, favorites)
+            ReleaseRepository.getSubscriptions(LocalDate.now(), 5) { subscriptions ->
+                setData(releases, subscriptions)
             }
         }
     }
 
-    private fun setData(releases: List<Release>, favorites: List<Release>) {
+    private fun setData(releases: List<Release>, subscriptions: List<Release>) {
         val items = mutableListOf<SpotlightItem>()
         val (weekly, recent) = releases.partition { release ->
             release.releaseDate?.calendarWeek == today.calendarWeek
         }
 
         addPromo(weekly, items)
-        addFavorites(favorites, items)
+        addSubscriptions(subscriptions, items)
         addWeekly(weekly, items)
         addRecent(recent, items)
 
@@ -51,7 +51,7 @@ class SpotlightViewModel : ViewModel() {
         from.firstOrNull()?.let { release -> to.add(SpotlightPromoItem(release)) }
     }
 
-    private fun addFavorites(from: List<Release>, to: MutableList<SpotlightItem>) {
+    private fun addSubscriptions(from: List<Release>, to: MutableList<SpotlightItem>) {
         from.takeIf(List<*>::isNotEmpty)?.let { releases ->
             to.add(
                 SpotlightReleaseItem(

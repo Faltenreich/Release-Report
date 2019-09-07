@@ -9,9 +9,9 @@ interface ReleaseDao : Dao<Release> {
     fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit)
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit)
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit)
-    fun getFavorites(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit)
-    fun getFavorites(date: LocalDate, onResult: (List<Release>) -> Unit)
-    fun isFavorite(release: Release): Boolean
-    fun addFavorite(release: Release)
-    fun removeFavorite(release: Release)
+    fun getSubscriptions(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit)
+    fun getSubscriptions(date: LocalDate, onResult: (List<Release>) -> Unit)
+    fun isSubscribed(release: Release): Boolean
+    fun subscribe(release: Release)
+    fun unsubscribe(release: Release)
 }

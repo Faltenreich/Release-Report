@@ -41,11 +41,14 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
         private val preferenceForVersionCode: Preference?
             get() = findPreference(R.string.preference_version_code)
 
-        private val preferenceForReminderIsEnabled: Preference?
-            get() = findPreference(R.string.preference_reminder_is_enabled)
-
         private val preferenceForReminderTime: Preference?
             get() = findPreference(R.string.preference_reminder_time)
+
+        private val preferenceForWeeklyReminderIsEnabled: Preference?
+            get() = findPreference(R.string.preference_reminder_weekly_is_enabled)
+
+        private val preferenceForSubscriptioRemindersIsEnabled: Preference?
+            get() = findPreference(R.string.preference_reminder_subscriptions_is_enabled)
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -71,7 +74,8 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
 
             val context = context ?: return
             when (key) {
-                context.getString(R.string.preference_reminder_is_enabled) -> Reminder.refresh(context)
+                context.getString(R.string.preference_reminder_weekly_is_enabled) -> Reminder.refresh(context)
+                context.getString(R.string.preference_reminder_subscriptions_is_enabled) -> Reminder.refresh(context)
             }
         }
 
@@ -81,7 +85,6 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
                 preferenceForVersionCode?.summary = context?.versionCode?.toString()
 
                 preferenceForReminderTime?.let { preference ->
-                    preference.isEnabled = UserPreferences.reminderIsEnabled
                     preference.summary = context?.getString(
                         R.string.reminder_time_desc,
                         UserPreferences.reminderTime.print()

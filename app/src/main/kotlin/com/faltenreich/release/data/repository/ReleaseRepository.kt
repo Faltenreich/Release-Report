@@ -15,30 +15,30 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
     }
 
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
-        dao.getBetween(startAt, endAt, pageSize) { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }
+        dao.getBetween(startAt, endAt, pageSize) { releases -> onResult(releases.sortedByDescending(Release::isSubscribed)) }
     }
 
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        dao.search(string, page, pageSize)  { releases -> onResult(releases.sortedByDescending(Release::isFavorite)) }
+        dao.search(string, page, pageSize)  { releases -> onResult(releases.sortedByDescending(Release::isSubscribed)) }
     }
 
-    fun getFavorites(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        dao.getFavorites(startAt, pageSize, onResult)
+    fun getSubscriptions(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit) {
+        dao.getSubscriptions(startAt, pageSize, onResult)
     }
 
-    fun getFavorites(date: LocalDate, onResult: (List<Release>) -> Unit) {
-        dao.getFavorites(date, onResult)
+    fun getSubscriptions(date: LocalDate, onResult: (List<Release>) -> Unit) {
+        dao.getSubscriptions(date, onResult)
     }
 
-    fun isFavorite(release: Release): Boolean {
-        return dao.isFavorite(release)
+    fun isSubscribed(release: Release): Boolean {
+        return dao.isSubscribed(release)
     }
 
-    fun addFavorite(release: Release) {
-        dao.addFavorite(release)
+    fun subscribe(release: Release) {
+        dao.subscribe(release)
     }
 
-    fun removeFavorite(release: Release) {
-        dao.removeFavorite(release)
+    fun unsubscribe(release: Release) {
+        dao.unsubscribe(release)
     }
 }

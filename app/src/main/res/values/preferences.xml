@@ -4,7 +4,8 @@
 
     <string name="preference_version_name" translatable="false">version_name</string>
     <string name="preference_version_code" translatable="false">version_code</string>
-    <string name="preference_reminder_is_enabled" translatable="false">reminder_is_enabled</string>
     <string name="preference_reminder_time" translatable="false">reminder_time</string>
+    <string name="preference_reminder_weekly_is_enabled" translatable="false">reminder_weekly_is_enabled</string>
+    <string name="preference_reminder_subscriptions_is_enabled" translatable="false">reminder_subscriptions_is_enabled</string>
 
 </resources>
