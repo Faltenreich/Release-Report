@@ -1,7 +1,9 @@
 package com.faltenreich.release.base.date
 
 import android.content.Context
+import android.util.Log
 import com.faltenreich.release.R
+import com.faltenreich.release.base.log.tag
 import com.faltenreich.release.domain.preference.UserPreferences
 import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
@@ -12,6 +14,7 @@ import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.WeekFields
 import java.util.*
 
+private const val FORMAT_TIME = "HH:mm"
 private const val FORMAT_DATE = "yyyy-MM-dd"
 private const val FORMAT_YEAR_MONTH = "MM/yyyy"
 
@@ -26,11 +29,11 @@ fun LocalDate.isBeforeOrEqual(date: LocalDate): Boolean {
     return !isAfter(date)
 }
 
-val String?.asLocalDate: LocalDate?
+val String.asLocalDate: LocalDate?
     get() = try {
         LocalDate.parse(this, DateTimeFormatter.ofPattern(FORMAT_DATE))
     } catch (exception: DateTimeParseException) {
-        println(exception)
+        Log.e(tag, exception.message)
         null
     }
 
@@ -51,6 +54,21 @@ val LocalDateTime.millis: Long
 
 val LocalDate.millis: Long
     get() = atTime(0, 0).millis
+
+val LocalTime.asString: String
+    get() = format(DateTimeFormatter.ofPattern(FORMAT_TIME))
+
+fun LocalTime.print(): String {
+    return asString
+}
+
+val String.asLocalTime: LocalTime?
+    get() = try {
+        LocalTime.parse(this, DateTimeFormatter.ofPattern(FORMAT_TIME))
+    } catch (exception: DateTimeParseException) {
+        Log.e(tag, exception.message)
+        null
+    }
 
 fun LocalDate.print(context: Context?): String? {
     val today = LocalDate.now()

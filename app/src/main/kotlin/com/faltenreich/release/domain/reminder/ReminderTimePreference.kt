@@ -5,7 +5,8 @@ import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import com.faltenreich.release.domain.date.TimePickerOpener
-import org.threeten.bp.LocalDateTime
+import com.faltenreich.release.domain.preference.UserPreferences
+import org.threeten.bp.LocalTime
 
 class ReminderTimePreference @JvmOverloads constructor(
     context: Context,
@@ -19,12 +20,11 @@ class ReminderTimePreference @JvmOverloads constructor(
 
     private fun openTimePicker() {
         val fragmentManager = (context as? AppCompatActivity)?.supportFragmentManager ?: return
-        // TODO: Get time from preference
-        val now = LocalDateTime.now()
-        openTimePicker(fragmentManager, now.hour, now.minute, ::onTimeChanged)
+        val time = UserPreferences.reminderTime
+        openTimePicker(fragmentManager, time, ::onTimeChanged)
     }
 
-    private fun onTimeChanged(hour: Int, minute: Int) {
-        // TODO: Set time to preference
+    private fun onTimeChanged(time: LocalTime) {
+        UserPreferences.reminderTime = time
     }
 }

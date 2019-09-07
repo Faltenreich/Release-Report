@@ -5,39 +5,36 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import org.threeten.bp.LocalDateTime
+import org.threeten.bp.LocalTime
 
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
-    private val hour by lazy { arguments?.getInt(ARGUMENT_HOUR) }
-    private val minute by lazy { arguments?.getInt(ARGUMENT_MINUTE) }
+    
+    private val time: LocalTime? by lazy { arguments?.getSerializable(ARGUMENT_TIME) as? LocalTime }
 
-    var onValueChanged: ((hour: Int, minute: Int) -> Unit)? = null
+    var onValueChanged: ((LocalTime) -> Unit)? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val now = LocalDateTime.now()
+        val time = time ?: LocalTime.now()
         return TimePickerDialog(
             requireContext(),
             this,
-            hour ?: now.hour,
-            minute ?: now.minute,
+            time.hour,
+            time.minute,
             true
         )
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        onValueChanged?.invoke(hourOfDay, minute)
+        onValueChanged?.invoke(LocalTime.of(hourOfDay, minute))
     }
 
     companion object {
-        private const val ARGUMENT_HOUR = "hour"
-        private const val ARGUMENT_MINUTE = "minute"
+        
+        private const val ARGUMENT_TIME = "time"
 
-        fun newInstance(hour: Int, minute: Int): TimePickerFragment {
+        fun newInstance(time: LocalTime): TimePickerFragment {
             return TimePickerFragment().also { fragment ->
-                fragment.arguments = Bundle().apply {
-                    putInt(ARGUMENT_HOUR, hour)
-                    putInt(ARGUMENT_MINUTE, minute)
-                }
+                fragment.arguments = Bundle().apply { putSerializable(ARGUMENT_TIME, time) }
             }
         }
     }
