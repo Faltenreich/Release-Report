@@ -6,7 +6,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.faltenreich.release.base.image.GlideApp
+import com.faltenreich.release.framework.glide.GlideApp
 
 fun ImageView.setImageAsync(url: String, size: Int? = null, callback: ((Drawable?) -> Unit)? = null) {
     GlideApp

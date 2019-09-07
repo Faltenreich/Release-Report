@@ -13,6 +13,7 @@ import com.faltenreich.release.domain.preference.UserPreferences
 import com.faltenreich.release.domain.reminder.notification.Notification
 import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
+import com.faltenreich.release.framework.glide.toBitmap
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit
@@ -20,8 +21,6 @@ import org.threeten.bp.temporal.ChronoUnit
 object Reminder {
 
     private const val ID = 1337
-    private const val NOTIFICATION_MAXIMUM_RELEASE_COUNT = 3
-    private const val NOTIFICATION_DELIMITER = ", "
 
     fun refresh(context: Context) {
         if (UserPreferences.reminderIsEnabled) {
@@ -58,11 +57,11 @@ object Reminder {
 
     private fun remindAboutNextWeek(context: Context) {
         val today = LocalDate.now()
-        val showReminder = today == today.atEndOfWeek
+        val startOfWeek = today.atStartOfWeek
+        val showReminder = today == startOfWeek
         if (true) {
-            val nextWeek = today.plusWeeks(1)
-            val (start, end) = nextWeek.atStartOfWeek to nextWeek.atEndOfWeek
-            ReleaseRepository.getBetween(start, end) { releases ->
+            val endOfWeek = today.atEndOfWeek
+            ReleaseRepository.getBetween(startOfWeek, endOfWeek) { releases ->
                 val title = context.getString(R.string.reminder_weekly_notification)
                 showNotification(context, title, releases)
 
@@ -72,25 +71,37 @@ object Reminder {
 
     private fun remindAboutSubscriptions(context: Context) {
         ReleaseRepository.getSubscriptions(LocalDate.now()) { releases ->
-            if (releases.isNotEmpty()) {
-                val title = context.getString(R.string.reminder_subscriptions_notification).format(releases.size)
-                showNotification(context, title, releases)
-            }
+            val title = context.getString(R.string.reminder_subscriptions_notification).format(releases.size)
+            showNotification(context, title, releases)
         }
     }
 
     private fun showNotification(context: Context, title: String, releases: List<Release>) {
-        val message = releases.take(NOTIFICATION_MAXIMUM_RELEASE_COUNT).mapNotNull { release ->
-            release.title?.let { title ->
-                release.artistName?.let { artistName -> "$artistName - $title" } ?: title
-            }
-        }.joinToString(NOTIFICATION_DELIMITER).plus(if (releases.size > NOTIFICATION_MAXIMUM_RELEASE_COUNT) "$NOTIFICATION_DELIMITER..." else null)
+        releases.takeIf(List<*>::isNotEmpty) ?: return
+
+        val releaseCount = releases.size
+        val release = releases.first()
+        val releaseString = release.title?.let { releaseTitle ->
+            release.artistName?.let { artistName ->
+                "$artistName - $releaseTitle"
+            } ?: releaseTitle
+        }
+
+        val message = if (releaseCount > 1) {
+            context.getString(R.string.reminder_notification_message).format(releaseString, releaseCount)
+        } else {
+            releaseString
+        }
+
+        val image = release.imageUrlForThumbnail?.toBitmap(context)
+
         val notification = Notification(
             ID,
             context,
             NotificationChannel.MAIN,
             title = title,
-            message = message
+            message = message,
+            largeIcon = image
         )
         NotificationManager.showNotification(notification)
     }

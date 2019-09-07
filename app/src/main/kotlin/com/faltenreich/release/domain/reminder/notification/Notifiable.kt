@@ -20,6 +20,7 @@ interface Notifiable {
     val isGroup: Boolean
     val sortKey: String?
     val localOnly: Boolean
+    val style: NotificationCompat.Style?
 
     private val pendingIntent: PendingIntent
         get() = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -39,7 +40,7 @@ interface Notifiable {
                 setContentTitle(title)
                 setContentText(message)
                 setTicker(message)
-                setStyle(NotificationCompat.BigTextStyle().bigText(message))
+                setStyle(style)
                 setSortKey(sortKey)
                 setLocalOnly(localOnly)
             }.build()

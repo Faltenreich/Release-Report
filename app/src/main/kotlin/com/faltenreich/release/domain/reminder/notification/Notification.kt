@@ -3,7 +3,7 @@ package com.faltenreich.release.domain.reminder.notification
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import androidx.core.app.NotificationCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.navigation.MainActivity
 
@@ -15,9 +15,10 @@ data class Notification(
     override val title: String,
     override val message: String? = null,
     override val smallIconRes: Int = R.drawable.ic_notification,
-    override val largeIcon: Bitmap? = BitmapFactory.decodeResource(context.resources, smallIconRes),
+    override val largeIcon: Bitmap?,
     override val intent: Intent = Intent(context, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP },
     override val isGroup: Boolean = false,
     override val sortKey: String? = null,
-    override val localOnly: Boolean = true
+    override val localOnly: Boolean = true,
+    override val style: NotificationCompat.Style? = null
 ) : Notifiable

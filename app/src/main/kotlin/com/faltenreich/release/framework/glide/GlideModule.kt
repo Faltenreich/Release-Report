@@ -1,7 +1,7 @@
-package com.faltenreich.release.base.image
+package com.faltenreich.release.framework.glide
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 
 @GlideModule
-class ImageLoadingModule : AppGlideModule()
+class GlideModule : AppGlideModule()
