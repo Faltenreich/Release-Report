@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.calendarWeek
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
-import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
@@ -24,7 +24,7 @@ class SpotlightViewModel : ViewModel() {
         spotlightItemsLiveData.observe(owner, Observer(onObserve))
 
         val startAt = today.minusMonths(1)
-        val endAt = today.with(DayOfWeek.SUNDAY)
+        val endAt = today.atEndOfWeek
 
         ReleaseRepository.getBetween(startAt, endAt, PAGE_SIZE) { releases ->
             ReleaseRepository.getFavorites(LocalDate.now(), 5) { favorites ->
