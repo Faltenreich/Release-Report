@@ -9,6 +9,7 @@ import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
+
     private val navigationHostFragment: NavHostFragment
         get() = childFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment
 

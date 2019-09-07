@@ -28,12 +28,18 @@ import com.faltenreich.release.framework.android.view.setImageAsync
 import com.faltenreich.release.framework.android.view.tintResource
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
-class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.menu.release),
-    DateOpener, UrlOpener {
+class ReleaseDetailFragment : BaseFragment(
+    R.layout.fragment_release_detail,
+    R.menu.release
+), DateOpener, UrlOpener {
+
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
-    private val releaseId: String? by lazy { arguments?.let { arguments -> ReleaseDetailFragmentArgs.fromBundle(
-        arguments
-    ).releaseId } }
+
+    private val releaseId: String? by lazy {
+        arguments?.let { arguments ->
+            ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,6 +157,7 @@ class ReleaseDetailFragment : BaseFragment(R.layout.fragment_release_detail, R.m
 
     private fun setSubscription(isSubscribed: Boolean) {
         viewModel.release?.isSubscribed = isSubscribed
+        // FIXME: Replace with Snackbar when being placed behind BottomAppBar
         context?.showToast(if (isSubscribed) R.string.subscription_added else R.string.subscription_removed)
         // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
         fab.hide()

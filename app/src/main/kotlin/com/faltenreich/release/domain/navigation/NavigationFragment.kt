@@ -10,9 +10,12 @@ import com.faltenreich.release.framework.android.fragment.BaseBottomSheetDialogF
 import kotlinx.android.synthetic.main.fragment_navigation.*
 
 class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navigation) {
-    private val previousDestinationId: Int? by lazy { arguments?.let { bundle -> NavigationFragmentArgs.fromBundle(
-        bundle
-    ).previousDestinationId } }
+
+    private val previousDestinationId: Int? by lazy {
+        arguments?.let { bundle ->
+            NavigationFragmentArgs.fromBundle(bundle).previousDestinationId
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

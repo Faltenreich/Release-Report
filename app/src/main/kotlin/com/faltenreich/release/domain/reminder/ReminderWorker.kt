@@ -20,7 +20,7 @@ class ReminderWorker(
 
         fun enqueue(context: Context, delayInMillis: Long) {
             val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
-                .setInitialDelay(0, TimeUnit.MILLISECONDS)
+                .setInitialDelay(delayInMillis, TimeUnit.MILLISECONDS)
                 .build()
             WorkManager.getInstance(context).enqueueUniquePeriodicWork(
                 NAME,

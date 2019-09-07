@@ -3,6 +3,7 @@ package com.faltenreich.release.framework.android.view
 import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.paging.PagedList
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,6 +43,10 @@ fun <T> PagedList<T>.onInserted(onInserted: (position: Int, count: Int) -> Unit)
     })
 }
 
-fun View.showSnackbar(textRes: Int) {
-    Snackbar.make(this, textRes, Snackbar.LENGTH_LONG).show()
+fun View.showSnackbar(text: String) {
+    Snackbar.make(this, text, Snackbar.LENGTH_LONG).show()
+}
+
+fun View.showSnackbar(@StringRes textRes: Int) {
+    showSnackbar(context.getString(textRes))
 }
