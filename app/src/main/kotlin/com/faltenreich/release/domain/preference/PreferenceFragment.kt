@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.primitive.className
+import com.faltenreich.release.domain.reminder.Reminder
 import com.faltenreich.release.framework.android.context.versionCode
 import com.faltenreich.release.framework.android.context.versionName
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -70,7 +71,7 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
 
             val context = context ?: return
             when (key) {
-                context.getString(R.string.preference_reminder_is_enabled) -> onReminderIsEnabledChanged()
+                context.getString(R.string.preference_reminder_is_enabled) -> Reminder.refresh(context)
             }
         }
 
@@ -86,14 +87,6 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
                         UserPreferences.reminderTime.print()
                     )
                 }
-            }
-        }
-
-        private fun onReminderIsEnabledChanged() {
-            if (UserPreferences.reminderIsEnabled) {
-
-            } else {
-
             }
         }
     }

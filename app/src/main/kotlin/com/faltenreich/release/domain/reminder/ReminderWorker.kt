@@ -10,7 +10,7 @@ class ReminderWorker(
 ) : Worker(applicationContext, params) {
 
     override fun doWork(): Result {
-        ReminderManager.remind(applicationContext)
+        Reminder.remind(applicationContext)
         return Result.success()
     }
 
@@ -18,13 +18,19 @@ class ReminderWorker(
 
         private const val NAME = "ReminderWorker"
 
-        fun enqueue(context: Context) {
-            val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS).build()
+        fun enqueue(context: Context, delayInMillis: Long) {
+            val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
+                .setInitialDelay(delayInMillis, TimeUnit.MILLISECONDS)
+                .build()
             WorkManager.getInstance(context).enqueueUniquePeriodicWork(
                 NAME,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 request
             )
+        }
+
+        fun cancel(context: Context) {
+            WorkManager.getInstance(context).cancelUniqueWork(NAME)
         }
     }
 }
