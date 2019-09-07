@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.navigation.MainActivity
 
@@ -20,5 +21,6 @@ data class Notification(
     override val isGroup: Boolean = false,
     override val sortKey: String? = null,
     override val localOnly: Boolean = true,
-    override val style: NotificationCompat.Style? = null
+    override val style: NotificationCompat.Style? = null,
+    override val color: Int = ContextCompat.getColor(context, R.color.colorPrimary)
 ) : Notifiable

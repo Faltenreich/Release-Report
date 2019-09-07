@@ -21,6 +21,7 @@ interface Notifiable {
     val sortKey: String?
     val localOnly: Boolean
     val style: NotificationCompat.Style?
+    val color: Int
 
     private val pendingIntent: PendingIntent
         get() = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -43,6 +44,7 @@ interface Notifiable {
                 setStyle(style)
                 setSortKey(sortKey)
                 setLocalOnly(localOnly)
+                color = this@Notifiable.color
             }.build()
         }
 }
