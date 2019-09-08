@@ -14,6 +14,8 @@ import com.faltenreich.release.domain.reminder.notification.Notification
 import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
 import com.faltenreich.release.framework.glide.toBitmap
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit
@@ -79,30 +81,33 @@ object Reminder {
     private fun showNotification(context: Context, title: String, releases: List<Release>) {
         releases.takeIf(List<*>::isNotEmpty) ?: return
 
-        val releaseCount = releases.size
-        val release = releases.first()
-        val releaseString = release.title?.let { releaseTitle ->
-            release.artistName?.let { artistName ->
-                "$artistName - $releaseTitle"
-            } ?: releaseTitle
+        GlobalScope.launch {
+            val releaseCount = releases.size
+            val release = releases.first()
+            val releaseString = release.title?.let { releaseTitle ->
+                release.artistName?.let { artistName ->
+                    "$artistName - $releaseTitle"
+                } ?: releaseTitle
+            }
+
+            val message = if (releaseCount > 1) {
+                context.getString(R.string.reminder_notification_message).format(releaseString, releaseCount)
+            } else {
+                releaseString
+            }
+
+            // Must be executed within background thread
+            val image = release.imageUrlForThumbnail?.toBitmap(context)
+
+            val notification = Notification(
+                ID,
+                context,
+                NotificationChannel.MAIN,
+                title = title,
+                message = message,
+                largeIcon = image
+            )
+            NotificationManager.showNotification(notification)
         }
-
-        val message = if (releaseCount > 1) {
-            context.getString(R.string.reminder_notification_message).format(releaseString, releaseCount)
-        } else {
-            releaseString
-        }
-
-        val image = release.imageUrlForThumbnail?.toBitmap(context)
-
-        val notification = Notification(
-            ID,
-            context,
-            NotificationChannel.MAIN,
-            title = title,
-            message = message,
-            largeIcon = image
-        )
-        NotificationManager.showNotification(notification)
     }
 }
