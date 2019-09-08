@@ -77,7 +77,12 @@ fun LocalDate.print(context: Context?): String? {
         0L -> context?.getString(R.string.today)
         -1L -> context?.getString(R.string.yesterday)
         1L -> context?.getString(R.string.tomorrow)
-        else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(this)
+        else -> {
+            val weekDay = dayOfWeek.getDisplayName(TextStyle.FULL, UserPreferences.locale)
+            // TODO: Do not print year for current year
+            val dateString = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(this)
+            "$weekDay, $dateString"
+        }
     }
 }
 
