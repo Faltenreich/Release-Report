@@ -24,7 +24,8 @@ class SpotlightViewModel : ViewModel() {
 
         val today = LocalDate.now()
         val (startOfWeek, endOfWeek) = today.atStartOfWeek to today.atEndOfWeek
-        ReleaseRepository.getBetween(startOfWeek, endOfWeek, PAGE_SIZE) { weekly ->
+        // Plus one for the promo
+        ReleaseRepository.getBetween(startOfWeek, endOfWeek, PAGE_SIZE + 1) { weekly ->
             val lastMonth = today.minusMonths(1)
             val endOfLastWeek = startOfWeek.minusDays(1)
             ReleaseRepository.getBetween(lastMonth, endOfLastWeek, PAGE_SIZE) { recent ->

@@ -2,6 +2,7 @@ package com.faltenreich.release.domain.release.detail
 
 import android.graphics.Rect
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -110,29 +111,34 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun setRelease(release: Release?) {
-        context?.let { context ->
-            collapsingToolbarLayout.title = release?.title
-            releaseTitleTextView.text = release?.title
-            releaseSubtitleTextView.text = release?.subtitle
-            releaseSubtitleTextView.isVisible = release?.subtitle?.isNotBlank().isTrue
-            releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
-            releaseDescriptionTextView.setTypeface(releaseSubtitleTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
+        val context = context ?: return
 
-            release?.imageUrlForWallpaper?.let { url ->
-                releaseWallpaperImageView.setImageAsync(url)
-            }
+        collapsingToolbarLayout.title = release?.title
+        releaseTitleTextView.text = release?.title
+        releaseSubtitleTextView.text = release?.subtitle
+        releaseSubtitleTextView.isVisible = release?.subtitle?.isNotBlank().isTrue
+        releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
+        releaseDescriptionTextView.setTypeface(releaseSubtitleTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
 
-            release?.imageUrlForThumbnail?.let { imageUrl ->
-                releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) { startPostponedEnterTransition() }
-            } ?: startPostponedEnterTransition()
-
-            dateChip.text = release?.releaseDateForUi(context)
-            dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
-
-            invalidateTint()
-            invalidateSubscriptions()
-            invalidateOptionsMenu()
+        val onWallpaperSet = { drawable: Drawable? ->
+            val hasDrawable = drawable != null
+            appbarLayout.setExpanded(hasDrawable, false)
+            // TODO: Prevent expanding
         }
+        release?.imageUrlForWallpaper?.let { url ->
+            releaseWallpaperImageView.setImageAsync(url) { drawable -> onWallpaperSet(drawable) }
+        } ?: onWallpaperSet(null)
+
+        release?.imageUrlForThumbnail?.let { imageUrl ->
+            releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) {  startPostponedEnterTransition() }
+        } ?: startPostponedEnterTransition()
+
+        dateChip.text = release?.releaseDateForUi(context)
+        dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
+
+        invalidateTint()
+        invalidateSubscriptions()
+        invalidateOptionsMenu()
     }
 
     private fun addGenres(genres: List<Genre>) {
