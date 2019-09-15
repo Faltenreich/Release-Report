@@ -88,7 +88,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         ReleaseRepository.getBetween(start, end) { releases ->
             GlobalScope.launch {
                 val items = listAdapter?.listItems?.filterIsInstance<CalendarDayItem>()
-                releases.groupBy(Release::releaseDate).forEach { (day, releases) ->
+                val itemsByDay = releases.groupBy(Release::releaseDate)
+                itemsByDay.forEach { (day, releases) ->
                     items?.withIndex()?.firstOrNull { item -> item.value.date == day }?.let { indexedItem ->
                         val (index, item) = indexedItem.index to indexedItem.value
                         item.releases = releases

@@ -2,7 +2,6 @@ package com.faltenreich.release.domain.release.detail
 
 import android.graphics.Rect
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -120,14 +119,10 @@ class ReleaseDetailFragment : BaseFragment(
         releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
         releaseDescriptionTextView.setTypeface(releaseSubtitleTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
 
-        val onWallpaperSet = { drawable: Drawable? ->
-            val hasDrawable = drawable != null
-            appbarLayout.setExpanded(hasDrawable, false)
-            // TODO: Prevent expanding
-        }
+        // TODO: Show placeholders?
         release?.imageUrlForWallpaper?.let { url ->
-            releaseWallpaperImageView.setImageAsync(url) { drawable -> onWallpaperSet(drawable) }
-        } ?: onWallpaperSet(null)
+            releaseWallpaperImageView.setImageAsync(url)
+        }
 
         release?.imageUrlForThumbnail?.let { imageUrl ->
             releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) {  startPostponedEnterTransition() }
