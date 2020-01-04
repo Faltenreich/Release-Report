@@ -1,32 +1,34 @@
 package com.faltenreich.release.domain.release.discover
 
 import androidx.paging.PageKeyedDataSource
+import com.faltenreich.release.base.pagination.PaginationInfo
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
+import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.list.ReleaseItem
-import com.faltenreich.release.base.pagination.PaginationInfo
-import com.faltenreich.release.domain.date.DateProvider
 import org.threeten.bp.LocalDate
 
 class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
     override fun loadInitial(params: LoadInitialParams<PaginationInfo>, callback: LoadInitialCallback<PaginationInfo, DateProvider>) {
-        val info = PaginationInfo(
-            0,
-            params.requestedLoadSize,
-            true,
-            null
-        )
-        load(info, object : LoadCallback<PaginationInfo, DateProvider>() {
-            override fun onResult(data: MutableList<DateProvider>, adjacentPageKey: PaginationInfo?) {
-                val previousPageKey = PaginationInfo(
-                    0,
-                    params.requestedLoadSize,
-                    false,
-                    null
-                )
-                callback.onResult(data, previousPageKey, adjacentPageKey)
+        load(PaginationInfo(params, true), object : LoadCallback<PaginationInfo, DateProvider>() {
+            override fun onResult(
+                data: MutableList<DateProvider>,
+                adjacentPageKey: PaginationInfo?
+            ) {
+                if (data.isNotEmpty()) {
+                    callback.onResult(data, PaginationInfo(params, false), adjacentPageKey)
+                } else {
+                    load(PaginationInfo(params, false), object : LoadCallback<PaginationInfo, DateProvider>() {
+                        override fun onResult(
+                            data: MutableList<DateProvider>,
+                            adjacentPageKey: PaginationInfo?
+                        ) {
+                            callback.onResult(data, PaginationInfo(params, false), adjacentPageKey)
+                        }
+                    })
+                }
             }
         })
     }
@@ -85,7 +87,7 @@ class DiscoverDataSource(private val startAt: LocalDate) : PageKeyedDataSource<P
         }
 
         info.previousDate?.let { previousDate ->
-            val appendMissingDate = !info.descending && items.lastOrNull()?.date != previousDate
+            val appendMissingDate = info.page == 0 && !info.descending && items.lastOrNull()?.date != previousDate
             if (appendMissingDate) {
                 items.add(ReleaseDateItem(previousDate))
             }
