@@ -17,4 +17,6 @@
 
     <include layout="@layout/skeleton_spotlight"/>
 
+    <include layout="@layout/view_empty"/>
+
 </FrameLayout>
