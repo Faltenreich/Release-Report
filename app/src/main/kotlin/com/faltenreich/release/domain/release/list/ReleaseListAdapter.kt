@@ -2,13 +2,16 @@ package com.faltenreich.release.domain.release.list
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.domain.date.DateProviderDiffUtilCallback
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
-import com.faltenreich.release.framework.android.adapter.PagedListAdapter
 import com.faltenreich.release.domain.date.DateProvider
+import com.faltenreich.release.domain.date.DateProviderDiffUtilCallback
+import com.faltenreich.release.framework.android.adapter.PagedListAdapter
+import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import org.threeten.bp.LocalDate
 
-class ReleaseListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context,
+class ReleaseListAdapter(
+    context: Context
+) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(
+    context,
     DateProviderDiffUtilCallback()
 ) {
 

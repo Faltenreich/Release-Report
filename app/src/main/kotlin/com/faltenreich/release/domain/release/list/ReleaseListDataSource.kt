@@ -13,12 +13,12 @@ class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSourc
     override fun loadInitial(params: LoadInitialParams<PaginationInfo>, callback: LoadInitialCallback<PaginationInfo, DateProvider>) {
         loadInitial(params, true) { data, adjacentPageKey ->
             if (data.isNotEmpty()) {
-                val info = PaginationInfo(0, params.requestedLoadSize, false, null)
-                callback.onResult(data, info, adjacentPageKey)
+                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, true, null)
+                callback.onResult(data, previousPageKey, adjacentPageKey)
             } else {
-                loadInitial(params, false) { data, adjacentPageKey ->
-                    val info = PaginationInfo(1, params.requestedLoadSize, false, null)
-                    callback.onResult(data, info, adjacentPageKey)
+                loadInitial(params, false) { data, _ ->
+                    val previousPageKey = PaginationInfo(1, params.requestedLoadSize, false, null)
+                    callback.onResult(data, previousPageKey, null)
                 }
             }
         }
@@ -83,23 +83,30 @@ class ReleaseListDataSource(private val startAt: LocalDate) : PageKeyedDataSourc
             }
         }
 
-        val adjacentPageKey = items.takeIf(List<*>::isNotEmpty)?.let {
-            val previousDate = if (info.descending) items.last().date else items.first().date
-            PaginationInfo(
-                info.page + 1,
-                info.pageSize,
-                info.descending,
-                previousDate
-            )
-        }
-
-        info.previousDate?.let { previousDate ->
-            val appendMissingDate = info.page == 0 && !info.descending && items.lastOrNull()?.date != previousDate
-            if (appendMissingDate) {
-                items.add(ReleaseDateItem(previousDate))
+        if (items.isEmpty()) {
+            if (!info.descending && info.previousDate != null) {
+                items.add(ReleaseDateItem(info.previousDate))
             }
-        }
+            callback.onResult(items, null)
+        } else {
+            val adjacentPageKey = items.takeIf(List<*>::isNotEmpty)?.let {
+                val previousDate = if (info.descending) items.last().date else items.first().date
+                PaginationInfo(
+                    info.page + 1,
+                    info.pageSize,
+                    info.descending,
+                    previousDate
+                )
+            }
 
-        callback.onResult(items, adjacentPageKey)
+            info.previousDate?.let { previousDate ->
+                val appendMissingDate = info.page == 0 && !info.descending && items.lastOrNull()?.date != previousDate
+                if (appendMissingDate) {
+                    items.add(ReleaseDateItem(previousDate))
+                }
+            }
+
+            callback.onResult(items, adjacentPageKey)
+        }
     }
 }
