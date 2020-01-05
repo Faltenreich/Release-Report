@@ -96,11 +96,12 @@ class ReleaseListFragment : BaseFragment(
     }
 
     private fun scrollTo(date: LocalDate) {
-        listAdapter?.getFirstPositionForDate(date)?.let { position ->
-            listView.stopScroll()
-            // Skip header since date is being displayed in Toolbar as well
-            listLayoutManager.scrollToPositionWithOffset(position + 1, listSpacing)
-        }
+        val position = listAdapter?.getFirstPositionForDate(date)
+            ?: listAdapter?.getNearestPositionForDate(date)
+            ?: return
+        listView.stopScroll()
+        // Skip header since date is being displayed in Toolbar as well
+        listLayoutManager.scrollToPositionWithOffset(position + 1, listSpacing)
     }
 
     private fun openDatePicker() {

@@ -43,6 +43,21 @@ class ReleaseListAdapter(
         return listItems.indexOfFirst { item -> item.date.isEqual(date) }.takeIf { index -> index >= 0 }
     }
 
+    /**
+     * @return Either the index of the last header item before or equal the given date, or the next one
+     */
+    fun getNearestPositionForDate(date: LocalDate): Int? {
+        return listItems.indexOfLast { item ->
+            item is ReleaseDateItem && (item.date.isEqual(date) || item.date.isBefore(date))
+        }.takeIf { index ->
+            index >= 0
+        } ?: listItems.indexOfFirst { item ->
+            item is ReleaseDateItem && item.date.isAfter(date)
+        }.takeIf { index ->
+            index >= 0
+        }
+    }
+
     companion object {
         const val VIEW_TYPE_DATE = 0
         const val VIEW_TYPE_RELEASE = 1
