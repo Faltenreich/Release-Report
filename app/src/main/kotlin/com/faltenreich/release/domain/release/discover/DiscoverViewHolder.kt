@@ -4,12 +4,10 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.faltenreich.release.R
-import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
+import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.framework.android.context.screenSize
 import com.faltenreich.release.framework.android.view.backgroundTint
 import com.faltenreich.release.framework.android.view.setImageAsync
@@ -24,19 +22,17 @@ class DiscoverViewHolder(
     ReleaseOpener {
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
-        container.setOnClickListener { openRelease(navigationController, release, releaseCoverImageView) }
+        container.setOnClickListener { openRelease(navigationController, release, coverImageView) }
 
         release.imageUrlForThumbnail?.let { imageUrl ->
-            releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
-        } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+            coverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
+        } ?: coverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
 
-        releaseTypeImageView.imageResource = release.releaseType?.iconResId ?: android.R.color.transparent
-        releaseTypeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)
-        releaseSubscriptionImageView.visibility = if (release.isSubscribed) View.VISIBLE else View.GONE
+        typeImageView.imageResource = release.releaseType?.iconResId ?: android.R.color.transparent
+        typeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)
+        subscriptionImageView.visibility = if (release.isSubscribed) View.VISIBLE else View.GONE
 
-        releaseTitleTextView.text = release.title
-        releaseSubtitleTextView.text = release.subtitle
-        releaseSubtitleTextView.isVisible = release.subtitle?.isNotBlank().isTrue
-        releaseDateTextView.text = release.releaseDateForUi(context)
+        artistTextView.text = release.artist
+        titleTextView.text = release.title
     }
 }

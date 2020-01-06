@@ -16,7 +16,7 @@ object DemoFactory {
             Release().apply {
                 id = index.toString()
                 title = "Release ${index + 1}"
-                artistName = "Artist ${index + 1}"
+                artist = "Artist ${index + 1}"
                 releaseDate = startDate.plusDays((index / 10).toLong())
                 releaseType = if (index % 3 == 0) ReleaseType.MOVIE else if (index % 2 == 0) ReleaseType.MUSIC else ReleaseType.GAME
                 popularity = 100f - index

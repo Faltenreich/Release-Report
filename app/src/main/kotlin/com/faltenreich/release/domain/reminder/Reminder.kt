@@ -84,16 +84,11 @@ object Reminder {
         GlobalScope.launch {
             val releaseCount = releases.size
             val release = releases.first()
-            val releaseString = release.title?.let { releaseTitle ->
-                release.artistName?.let { artistName ->
-                    "$artistName - $releaseTitle"
-                } ?: releaseTitle
-            }
 
             val message = if (releaseCount > 1) {
-                context.getString(R.string.reminder_notification_message).format(releaseString, releaseCount)
+                context.getString(R.string.reminder_notification_message).format(release.titleFull, releaseCount)
             } else {
-                releaseString
+                release.titleFull
             }
 
             // Must be executed within background thread

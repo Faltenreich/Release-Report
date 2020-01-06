@@ -30,9 +30,9 @@
         android:paddingBottom="@dimen/margin_padding_size_medium"
         android:paddingStart="@dimen/margin_padding_size_medium"
         android:paddingEnd="@dimen/margin_padding_size_medium"
-        app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
-        app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
-        app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView">
+        app:layout_constraintBottom_toBottomOf="@+id/coverImageView"
+        app:layout_constraintStart_toStartOf="@+id/coverImageView"
+        app:layout_constraintEnd_toEndOf="@+id/coverImageView">
 
         <TextView
             android:id="@+id/dateView"
@@ -52,7 +52,7 @@
             tools:text="@tools:sample/lorem"/>
 
         <TextView
-            android:id="@+id/subtitleView"
+            android:id="@+id/artistView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"

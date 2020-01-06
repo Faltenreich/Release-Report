@@ -22,8 +22,8 @@ class SpotlightPromoViewHolder(
 
         dateView.text = release.releaseDateForUi(context)
         titleView.text = release.title
-        subtitleView.text = release.subtitle
-        subtitleView.isVisible = release.subtitle?.isNotBlank().isTrue
+        artistView.text = release.artist
+        artistView.isVisible = release.artist?.isNotBlank().isTrue
 
         release.imageUrlForWallpaper?.let { imageUrl ->
             imageView.setImageAsync(imageUrl)

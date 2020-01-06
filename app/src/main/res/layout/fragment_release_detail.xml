@@ -77,7 +77,7 @@
                 tools:text="@tools:sample/date/ddmmyy" />
 
             <ImageView
-                android:id="@+id/releaseCoverImageView"
+                android:id="@+id/coverImageView"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_padding_size_medium"
@@ -107,7 +107,7 @@
             </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/releaseTitleTextView"
+                android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_padding_size_medium"
@@ -115,15 +115,6 @@
                 android:layout_marginEnd="@dimen/margin_padding_size_medium"
                 android:textColor="?android:textColorPrimaryInverse"
                 android:textSize="@dimen/text_size_large"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/releaseSubtitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                android:textColor="?android:textColorPrimaryInverse"
                 tools:text="@tools:sample/lorem" />
 
             <TextView

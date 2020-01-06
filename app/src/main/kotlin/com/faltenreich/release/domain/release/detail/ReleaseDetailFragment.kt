@@ -67,7 +67,7 @@ class ReleaseDetailFragment : BaseFragment(
     private fun initLayout() {
         val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
-        ViewCompat.setTransitionName(releaseCoverImageView,
+        ViewCompat.setTransitionName(coverImageView,
             SHARED_ELEMENT_NAME
         )
 
@@ -81,7 +81,7 @@ class ReleaseDetailFragment : BaseFragment(
         }
 
         releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
-        releaseCoverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
+        coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
     }
@@ -113,11 +113,9 @@ class ReleaseDetailFragment : BaseFragment(
         val context = context ?: return
 
         collapsingToolbarLayout.title = release?.title
-        releaseTitleTextView.text = release?.title
-        releaseSubtitleTextView.text = release?.subtitle
-        releaseSubtitleTextView.isVisible = release?.subtitle?.isNotBlank().isTrue
+        titleTextView.text = release?.title
         releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
-        releaseDescriptionTextView.setTypeface(releaseSubtitleTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
+        releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
 
         // TODO: Show placeholders?
         release?.imageUrlForWallpaper?.let { url ->
@@ -125,7 +123,7 @@ class ReleaseDetailFragment : BaseFragment(
         }
 
         release?.imageUrlForThumbnail?.let { imageUrl ->
-            releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) {  startPostponedEnterTransition() }
+            coverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) {  startPostponedEnterTransition() }
         } ?: startPostponedEnterTransition()
 
         dateChip.text = release?.releaseDateForUi(context)

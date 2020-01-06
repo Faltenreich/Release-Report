@@ -20,20 +20,20 @@ class ReleaseDetailViewHolder(
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
         container.setOnClickListener {
-            openRelease(navigationController, release, releaseCoverImageView)
+            openRelease(navigationController, release, coverImageView)
         }
 
         releaseDateTextView.text = release.releaseDateForUi(context)
 
         release.imageUrlForThumbnail?.let { imageUrl ->
-            releaseCoverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
-        } ?: releaseCoverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
-        releaseTypeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
-        releaseTypeImageView.tintResource = release.releaseType?.colorResId ?: R.color.colorPrimary
+            coverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
+        } ?: coverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        typeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
+        typeImageView.tintResource = release.releaseType?.colorResId ?: R.color.colorPrimary
 
-        releaseTitleTextView.text = release.title
-        releaseDescriptionTextView.text = release.description
+        titleTextView.text = release.title
+        releaseDescriptionTextView.text = release.subtitle
 
-        releaseSubscriptionImageView.isVisible = release.isSubscribed
+        subscriptionImageView.isVisible = release.isSubscribed
     }
 }

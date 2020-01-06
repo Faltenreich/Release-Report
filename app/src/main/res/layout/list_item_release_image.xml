@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/releaseCoverImageView"
+            android:id="@+id/coverImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@null"
@@ -28,19 +28,19 @@
             tools:src="@tools:sample/avatars"/>
 
         <ImageView
-            android:id="@+id/releaseTypeImageView"
+            android:id="@+id/typeImageView"
             android:layout_width="@dimen/dogear"
             android:layout_height="@dimen/dogear"
             android:padding="@dimen/dogear_padding"
             android:background="@drawable/dogear_type"
             android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
-            app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
+            app:layout_constraintTop_toTopOf="@+id/coverImageView"
+            app:layout_constraintStart_toStartOf="@+id/coverImageView"
             tools:src="@drawable/ic_music"
             tools:tint="?attr/colorPrimary"/>
 
         <ImageView
-            android:id="@+id/releaseSubscriptionImageView"
+            android:id="@+id/subscriptionImageView"
             android:layout_width="@dimen/dogear"
             android:layout_height="@dimen/dogear"
             android:padding="@dimen/dogear_padding"
@@ -48,8 +48,8 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_subscription_on"
             android:tint="@color/brown"
-            app:layout_constraintTop_toTopOf="@+id/releaseCoverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView"/>
+            app:layout_constraintTop_toTopOf="@+id/coverImageView"
+            app:layout_constraintEnd_toEndOf="@+id/coverImageView"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -60,21 +60,12 @@
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:paddingStart="@dimen/margin_padding_size_small"
             android:paddingEnd="@dimen/margin_padding_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/releaseCoverImageView"
-            app:layout_constraintStart_toStartOf="@+id/releaseCoverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/releaseCoverImageView">
+            app:layout_constraintBottom_toBottomOf="@+id/coverImageView"
+            app:layout_constraintStart_toStartOf="@+id/coverImageView"
+            app:layout_constraintEnd_toEndOf="@+id/coverImageView">
 
             <TextView
-                android:id="@+id/releaseDateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:textColor="?android:textColorTertiaryInverse"
-                tools:text="@tools:sample/date/ddmmyy"/>
-
-            <TextView
-                android:id="@+id/releaseTitleTextView"
+                android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
@@ -84,10 +75,10 @@
                 tools:text="@tools:sample/lorem"/>
 
             <TextView
-                android:id="@+id/releaseSubtitleTextView"
+                android:id="@+id/artistTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:ellipsize="end"
                 android:textColor="?android:textColorTertiaryInverse"
                 android:textSize="@dimen/text_size_medium"

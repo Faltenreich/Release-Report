@@ -13,7 +13,7 @@ data class Release(
     override var releasedAt: String? = null,
     override var title: String? = null,
     var type: String? = null,
-    var artistName: String? = null,
+    var artist: String? = null,
     var description: String? = null,
     var durationInSeconds: Long? = null,
     var popularity: Float? = null,
@@ -26,6 +26,18 @@ data class Release(
     var genres: List<String>? = null,
     var platforms: List<String>? = null
 ) : Model, ReleaseDateProvider, TitleProvider {
+
+    val titleFull: String?
+        get() = when (releaseType) {
+            ReleaseType.MUSIC -> "$artist - $title"
+            else -> title
+        }
+
+    val subtitle: String?
+        get() = when (releaseType) {
+            ReleaseType.MUSIC -> artist
+            else -> description
+        }
 
     var releaseType: ReleaseType?
         get() = type?.let { type -> ReleaseType.valueForKey(type) }
@@ -41,17 +53,10 @@ data class Release(
             }
         }
 
-    val subtitle: String?
-        get() = when (releaseType) {
-            ReleaseType.MOVIE -> null // TODO: Actors?
-            ReleaseType.MUSIC -> artistName
-            ReleaseType.GAME -> null // TODO: Platforms
-            null -> null
-        }
-
     override fun fromParseObject(parseObject: ParseObject) {
         id = parseObject.getString(Model.ID)
         type = parseObject.getString(TYPE)
+        artist = parseObject.getString(ARTIST)
         title = parseObject.getString(TITLE)
         description = parseObject.getString(DESCRIPTION)
         releaseDate = parseObject.getDate(RELEASED_AT)?.localDate
@@ -65,6 +70,7 @@ data class Release(
 
     companion object {
         const val TYPE = "type"
+        const val ARTIST = "artist"
         const val TITLE = "title"
         const val DESCRIPTION = "description"
         const val RELEASED_AT = "releasedAt"
