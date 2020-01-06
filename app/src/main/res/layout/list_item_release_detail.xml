@@ -17,91 +17,76 @@
         android:layout_margin="@dimen/margin_padding_size_small"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:src="@tools:sample/avatars"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/releaseDateTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
         android:layout_marginStart="@dimen/margin_padding_size_medium"
         android:layout_marginEnd="@dimen/margin_padding_size_small"
-        android:textColor="?android:textColorTertiary"
-        android:maxLines="1"
+        android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
         android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+        android:maxLines="1"
+        android:textColor="?android:textColorTertiary"
         app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-        tools:text="@tools:sample/date/ddmmyy"/>
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
+        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+    <ImageView
+        android:id="@+id/releaseSubscriptionImageView"
+        android:layout_width="@dimen/image_size_xsmall"
+        android:layout_height="@dimen/image_size_xsmall"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:contentDescription="@string/subscription"
+        android:src="@drawable/ic_subscription_on"
+        android:tint="@color/yellow"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
+        app:layout_constraintTop_toTopOf="@id/releaseTypeImageView"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/releaseTypeImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="@dimen/margin_padding_size_xsmall"
+        android:layout_marginEnd="@dimen/margin_padding_size_medium"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_music"
+        tools:tint="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/releaseTitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_padding_size_medium"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="?android:textColorPrimary"
-        android:maxLines="1"
-        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@id/releaseTypeImageView"
+        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
         app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
-        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-        tools:text="@tools:sample/lorem"/>
-
-    <TextView
-        android:id="@+id/releaseSubtitleTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
-        android:layout_marginStart="@dimen/margin_padding_size_medium"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
-        android:textColor="?android:textColorTertiary"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
-        app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-        tools:text="@tools:sample/lorem"/>
+        tools:text="@tools:sample/lorem" />
 
     <TextView
         android:id="@+id/releaseDescriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_padding_size_medium"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
-        android:textColor="?android:textColorTertiary"
-        android:maxLines="2"
         android:ellipsize="end"
-        app:layout_constraintTop_toBottomOf="@id/releaseSubtitleTextView"
+        android:maxLines="2"
+        android:textColor="?android:textColorTertiary"
+        app:layout_constraintEnd_toEndOf="@id/releaseTypeImageView"
         app:layout_constraintStart_toEndOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toStartOf="@id/releaseTypeImageView"
-        tools:text="@tools:sample/lorem/random"/>
-
-    <ImageView
-        android:id="@+id/releaseTypeImageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
-        android:contentDescription="@null"
-        app:layout_constraintTop_toTopOf="@id/releaseCoverImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/ic_music"
-        tools:tint="?attr/colorPrimary"/>
-
-    <ImageView
-        android:id="@+id/releaseSubscriptionImageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_margin="@dimen/margin_padding_size_small"
-        android:src="@drawable/ic_subscription_on"
-        android:tint="@color/yellow"
-        android:contentDescription="@string/subscription"
-        android:visibility="gone"
-        tools:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/releaseTypeImageView"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/releaseTitleTextView"
+        tools:text="@tools:sample/lorem/random" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
