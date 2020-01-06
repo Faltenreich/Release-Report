@@ -11,6 +11,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
 import com.faltenreich.release.data.repository.ReleaseRepository
+import java.util.*
 
 class ReleaseDetailViewModel : ViewModel() {
 
@@ -39,10 +40,22 @@ class ReleaseDetailViewModel : ViewModel() {
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { release ->
             onObserve(release)
-            release.genres?.let { ids -> GenreRepository.getByIds(ids) { genres -> this.genres = genres.sortedBy(Genre::title) } }
-            release.platforms?.let { ids -> PlatformRepository.getByIds(ids) { platforms -> this.platforms = platforms.sortedBy(Platform::title) } }
+            release.genres?.let { ids -> fetchGenres(ids) }
+            release.platforms?.let { ids -> fetchPlatforms(ids) }
         })
         ReleaseRepository.getById(id) { release -> this.release = release }
+    }
+
+    private fun fetchPlatforms(ids: List<String>) {
+        PlatformRepository.getByIds(ids) { platforms ->
+            this.platforms = platforms.sortedBy { platform -> platform.title?.toLowerCase(Locale.getDefault()) }
+        }
+    }
+
+    private fun fetchGenres(ids: List<String>) {
+        GenreRepository.getByIds(ids) { genres ->
+            this.genres = genres.sortedBy { genre -> genre.title?.toLowerCase(Locale.getDefault()) }
+        }
     }
 
     fun observeGenres(owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
