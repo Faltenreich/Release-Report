@@ -18,7 +18,7 @@ class ReleaseListDataSource(
     ) {
         loadInitial(params, true) { data, adjacentPageKey ->
             if (data.isNotEmpty()) {
-                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, true, adjacentPageKey?.previousDate)
+                val previousPageKey = PaginationInfo(0, params.requestedLoadSize, false, null)
                 callback.onResult(data, previousPageKey, adjacentPageKey)
             } else {
                 loadInitial(params, false) { data, adjacentPageKey ->

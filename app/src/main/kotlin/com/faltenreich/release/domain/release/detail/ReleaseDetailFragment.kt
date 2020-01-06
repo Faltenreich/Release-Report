@@ -112,10 +112,13 @@ class ReleaseDetailFragment : BaseFragment(
     private fun setRelease(release: Release?) {
         val context = context ?: return
 
-        collapsingToolbarLayout.title = release?.title
-        titleTextView.text = release?.title
+        collapsingToolbarLayout.title = release?.titleFull
+        titleTextView.text = release?.titleFull
         releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
-        releaseDescriptionTextView.setTypeface(releaseDescriptionTextView.typeface, if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC)
+        releaseDescriptionTextView.setTypeface(
+            releaseDescriptionTextView.typeface,
+            if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC
+        )
 
         // TODO: Show placeholders?
         release?.imageUrlForWallpaper?.let { url ->
