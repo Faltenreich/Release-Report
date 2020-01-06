@@ -136,17 +136,25 @@ class ReleaseDetailFragment : BaseFragment(
         invalidateOptionsMenu()
     }
 
-    private fun addGenres(genres: List<Genre>) {
-        genreChipContainer.removeAllViews()
-        genres.forEach { genre -> addChip(genreChipContainer, genre.title) }
-    }
-
     private fun addPlatforms(platforms: List<Platform>) {
         platformChipContainer.removeAllViews()
+        platformChipContainer.isVisible = platforms.isNotEmpty()
         platforms.forEach { platform -> addChip(platformChipContainer, platform.title) }
     }
 
-    private fun addChip(container: ViewGroup, title: String?, @DrawableRes iconResId: Int? = null, onClick: (() -> Unit)? = null) = context?.let { context ->
+    private fun addGenres(genres: List<Genre>) {
+        genreChipContainer.removeAllViews()
+        genreChipContainer.isVisible = genres.isNotEmpty()
+        genres.forEach { genre -> addChip(genreChipContainer, genre.title) }
+    }
+
+    private fun addChip(
+        container: ViewGroup,
+        title: String?,
+        @DrawableRes iconResId: Int? = null,
+        onClick: (() -> Unit)? = null
+    ) {
+        val context = context ?: return
         val chip = ChipView(context).apply {
             text = title
             iconResId?.let { setChipIconResource(iconResId) }
