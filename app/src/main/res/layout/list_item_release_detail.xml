@@ -77,7 +77,7 @@
         tools:text="@tools:sample/lorem" />
 
     <TextView
-        android:id="@+id/releaseDescriptionTextView"
+        android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_padding_size_medium"

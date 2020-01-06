@@ -64,6 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/toolbar_height_padded"
             android:orientation="vertical">
 
             <com.faltenreich.release.domain.release.detail.ChipView
@@ -89,9 +90,10 @@
                 tools:src="@tools:sample/avatars" />
 
             <HorizontalScrollView
+                android:id="@+id/platformChipScrollContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
+                android:layout_marginTop="@dimen/margin_padding_size_xsmall"
                 android:clipToPadding="false"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
@@ -118,21 +120,29 @@
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:id="@+id/releaseDescriptionTextView"
+                android:id="@+id/artistTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_padding_size_medium"
+                android:layout_marginEnd="@dimen/margin_padding_size_medium"
+                android:textColor="?android:textColorTertiaryInverse"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_padding_size_medium"
                 android:layout_marginTop="@dimen/margin_padding_size_small"
                 android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                android:textColor="?android:textColorPrimaryInverse"
+                android:textColor="?android:textColorTertiaryInverse"
                 tools:text="@tools:sample/lorem" />
 
             <HorizontalScrollView
+                android:id="@+id/genreChipScrollContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:layout_marginBottom="@dimen/margin_padding_size_medium"
-                android:clipToPadding="false"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
                 android:scrollbars="none">

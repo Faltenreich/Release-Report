@@ -112,11 +112,13 @@ class ReleaseDetailFragment : BaseFragment(
     private fun setRelease(release: Release?) {
         val context = context ?: return
 
-        collapsingToolbarLayout.title = release?.titleFull
-        titleTextView.text = release?.titleFull
-        releaseDescriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
-        releaseDescriptionTextView.setTypeface(
-            releaseDescriptionTextView.typeface,
+        collapsingToolbarLayout.title = release?.title
+        titleTextView.text = release?.title
+        artistTextView.text = release?.artist
+        artistTextView.isVisible = artistTextView.text.isNotBlank()
+        descriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
+        descriptionTextView.setTypeface(
+            descriptionTextView.typeface,
             if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC
         )
 
@@ -139,14 +141,14 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun addPlatforms(platforms: List<Platform>) {
         platformChipContainer.removeAllViews()
-        platformChipContainer.isVisible = platforms.isNotEmpty()
         platforms.forEach { platform -> addChip(platformChipContainer, platform.title) }
+        platformChipScrollContainer.isVisible = platforms.isNotEmpty()
     }
 
     private fun addGenres(genres: List<Genre>) {
         genreChipContainer.removeAllViews()
-        genreChipContainer.isVisible = genres.isNotEmpty()
         genres.forEach { genre -> addChip(genreChipContainer, genre.title) }
+        genreChipScrollContainer.isVisible = genres.isNotEmpty()
     }
 
     private fun addChip(
