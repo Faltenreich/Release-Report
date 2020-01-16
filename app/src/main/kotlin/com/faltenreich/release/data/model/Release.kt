@@ -1,5 +1,6 @@
 package com.faltenreich.release.data.model
 
+import android.widget.ImageView
 import com.faltenreich.release.base.date.localDate
 import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.provider.ReleaseDateProvider

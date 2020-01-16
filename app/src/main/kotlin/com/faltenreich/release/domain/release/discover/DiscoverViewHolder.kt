@@ -6,12 +6,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.list.ReleaseProvider
-import com.faltenreich.release.framework.android.context.screenSize
 import com.faltenreich.release.framework.android.view.backgroundTint
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.android.view.setCover
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_image.*
 import org.jetbrains.anko.imageResource
@@ -29,9 +27,7 @@ class DiscoverViewHolder(
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
 
-        release.imageUrlForThumbnail?.let { imageUrl ->
-            coverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
-        } ?: coverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        coverImageView.setCover(release)
 
         typeImageView.imageResource = release.releaseType?.iconResId ?: android.R.color.transparent
         typeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)

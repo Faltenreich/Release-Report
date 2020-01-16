@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrue
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.android.view.setWallpaper
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_promo.*
 
@@ -25,8 +24,6 @@ class SpotlightPromoViewHolder(
         artistView.text = release.artist
         artistView.isVisible = release.artist?.isNotBlank().isTrue
 
-        release.imageUrlForWallpaper?.let { imageUrl ->
-            imageView.setImageAsync(imageUrl)
-        } ?: imageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        imageView.setWallpaper(release)
     }
 }

@@ -4,10 +4,8 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
-import com.faltenreich.release.framework.android.context.screenSize
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.android.view.setThumbnail
 import com.faltenreich.release.framework.android.view.tintResource
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_detail.*
@@ -25,9 +23,8 @@ class ReleaseDetailViewHolder(
 
         releaseDateTextView.text = release.releaseDateForUi(context)
 
-        release.imageUrlForThumbnail?.let { imageUrl ->
-            coverImageView.setImageAsync(imageUrl, context.screenSize.x / 2 )
-        } ?: coverImageView.setImageResource(Release.FALLBACK_COVER_COLOR_RES)
+        coverImageView.setThumbnail(release)
+
         typeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
         typeImageView.tintResource = release.releaseType?.colorResId ?: R.color.colorPrimary
 

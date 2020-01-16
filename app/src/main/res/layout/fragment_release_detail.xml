@@ -25,7 +25,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
-                android:id="@+id/releaseWallpaperImageView"
+                android:id="@+id/wallpaperImageView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/image_size_wallpaper_large"
                 android:contentDescription="@null"

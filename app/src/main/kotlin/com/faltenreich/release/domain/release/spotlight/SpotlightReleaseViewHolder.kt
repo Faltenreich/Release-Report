@@ -15,8 +15,8 @@ class SpotlightReleaseViewHolder(
     parent: ViewGroup
 ) : BaseViewHolder<SpotlightReleaseItem>(context, R.layout.list_item_spotlight, parent),
     ReleaseOpener {
-    private val listAdapter =
-        SpotlightContainerListAdapter(context)
+
+    private val listAdapter = SpotlightContainerListAdapter(context)
 
     init {
         listView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

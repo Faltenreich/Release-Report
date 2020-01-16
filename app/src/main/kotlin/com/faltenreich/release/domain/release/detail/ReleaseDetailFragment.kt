@@ -19,12 +19,12 @@ import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
-import com.faltenreich.release.framework.android.context.screenSize
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.view.backgroundTintResource
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.android.view.setCover
+import com.faltenreich.release.framework.android.view.setWallpaper
 import com.faltenreich.release.framework.android.view.tintResource
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
@@ -80,7 +80,7 @@ class ReleaseDetailFragment : BaseFragment(
             toolbar.setPadding(0, frame.top, 0, 0)
         }
 
-        releaseWallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
+        wallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
         coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
@@ -122,14 +122,8 @@ class ReleaseDetailFragment : BaseFragment(
             if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC
         )
 
-        // TODO: Show placeholders?
-        release?.imageUrlForWallpaper?.let { url ->
-            releaseWallpaperImageView.setImageAsync(url)
-        }
-
-        release?.imageUrlForThumbnail?.let { imageUrl ->
-            coverImageView.setImageAsync(imageUrl, context.screenSize.x / 2) {  startPostponedEnterTransition() }
-        } ?: startPostponedEnterTransition()
+        wallpaperImageView.setWallpaper(release)
+        coverImageView.setCover(release) {  startPostponedEnterTransition() }
 
         dateChip.text = release?.releaseDateForUi(context)
         dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
