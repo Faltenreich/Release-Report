@@ -2,16 +2,18 @@ package com.faltenreich.release.domain.release.discover
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.framework.android.adapter.PagedListAdapter
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
-import com.faltenreich.release.domain.release.list.HeaderViewHolder
 import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.date.DateProviderDiffUtilCallback
+import com.faltenreich.release.domain.release.list.HeaderViewHolder
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.list.ReleaseItem
-import org.threeten.bp.LocalDate
+import com.faltenreich.release.framework.android.adapter.PagedListAdapter
+import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 
-class DiscoverListAdapter(context: Context) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(context,
+class DiscoverListAdapter(
+    context: Context
+) : PagedListAdapter<DateProvider, BaseViewHolder<DateProvider>>(
+    context,
     DateProviderDiffUtilCallback()
 ) {
 
@@ -36,10 +38,6 @@ class DiscoverListAdapter(context: Context) : PagedListAdapter<DateProvider, Bas
             )
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>
-    }
-
-    fun getFirstPositionForDate(date: LocalDate): Int? {
-        return listItems.indexOfFirst { item -> item.date.isEqual(date) }.takeIf { index -> index >= 0 }
     }
 
     companion object {

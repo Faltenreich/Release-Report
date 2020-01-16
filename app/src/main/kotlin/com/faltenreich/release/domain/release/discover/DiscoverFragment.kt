@@ -30,14 +30,16 @@ class DiscoverFragment : BaseFragment(
     private val viewModel by lazy { createViewModel(DiscoverViewModel::class) }
     private val searchable by lazy { SearchableObserver() }
     
-    private val listAdapter by lazy { context?.let { context -> DiscoverListAdapter(context) } }
+    private lateinit var listAdapter: DiscoverListAdapter
     private lateinit var listLayoutManager: DiscoverLayoutManager
     private lateinit var listItemDecoration: DiscoverItemDecoration
-    private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10) }
+    private val listSkeleton by lazy {
+        SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(searchable)
+        init()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +62,11 @@ class DiscoverFragment : BaseFragment(
             R.id.search -> { openSearch(findNavController(), searchView.query.toString()); true }
             else -> false
         }
+    }
+
+    private fun init() {
+        lifecycle.addObserver(searchable)
+        listAdapter = DiscoverListAdapter(requireContext())
     }
 
     private fun initSearch() {
@@ -103,18 +110,18 @@ class DiscoverFragment : BaseFragment(
         viewModel.observeReleases(date, this) { list ->
             listSkeleton.showOriginal()
             listItemDecoration.isSkeleton = false
-            listAdapter?.submitList(list)
+            listAdapter.submitList(list)
         }
     }
 
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
+        val firstVisibleListItem = listAdapter.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
         headerTextView.doOnPreDraw { headerTextView.text = currentDate?.print(context) }
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
-        val secondVisibleListItem = listAdapter?.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
+        val secondVisibleListItem = listAdapter.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
         val approachingHeader = secondVisibleListItem is ReleaseDateItem
 
         headerTextView.translationY = if (approachingHeader) {
