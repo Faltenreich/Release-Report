@@ -1,6 +1,7 @@
 package com.faltenreich.release.data.dao.preference
 
 import com.faltenreich.release.base.date.isAfterOrEqual
+import com.faltenreich.release.base.date.isBeforeOrEqual
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.dao.ReleaseDao
 import com.faltenreich.release.data.model.Release
@@ -19,6 +20,13 @@ interface ReleasePreferenceDao : ReleaseDao {
         onResult(SubscriptionManager.getSubscriptions().filter { release ->
             release.releaseDate?.isEqual(date).isTrue
         })
+    }
+
+    override fun getSubscriptions(startAt: LocalDate, endAt: LocalDate, onResult: (List<Release>) -> Unit) {
+        onResult(SubscriptionManager.getSubscriptions().filter { release ->
+            val date = release.releaseDate ?: return@filter false
+            date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
+        }.sortedBy(Release::releaseDate))
     }
 
     override fun isSubscribed(release: Release): Boolean {

@@ -7,6 +7,7 @@ import com.faltenreich.release.base.pagination.PagingDataFactory
 import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {
+
     private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>>
     private val yearMonthLiveData = MutableLiveData<YearMonth>()
 

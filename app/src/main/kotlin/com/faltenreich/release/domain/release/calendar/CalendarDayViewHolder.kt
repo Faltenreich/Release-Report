@@ -15,8 +15,12 @@ import org.jetbrains.anko.textColorResource
 class CalendarDayViewHolder(
     context: Context,
     parent: ViewGroup
-) : BaseViewHolder<CalendarDayItem>(context, R.layout.list_item_calendar_day, parent),
-    DateOpener {
+) : BaseViewHolder<CalendarDayItem>(
+    context,
+    R.layout.list_item_calendar_day,
+    parent
+), DateOpener {
+
     override fun onBind(data: CalendarDayItem) {
         val (date, _, releases) = data
         val isToday = date.isToday
@@ -26,10 +30,13 @@ class CalendarDayViewHolder(
         clickable.setOnClickListener { openDate(navigationController, date) }
 
         dayLabel.text = date.dayOfMonth.toString()
-        dayLabel.textColorResource = if (isInSameMonth) android.R.color.white else R.color.gray
+        dayLabel.textColorResource =
+            if (isInSameMonth) android.R.color.white
+            else R.color.gray
 
-        container.backgroundResource = if (isInSameMonth && isToday) R.color.colorPrimaryDarker else android.R.color.transparent
-        releaseIndicator.isVisible = isInSameMonth && releases?.isNotEmpty().isTrue
+        container.backgroundResource =
+            if (isInSameMonth && isToday) R.color.colorPrimaryDarker
+            else android.R.color.transparent
         subscriptionIcon.isVisible = isInSameMonth && containsSubscription
     }
 }

@@ -10,6 +10,7 @@ interface ReleaseDao : Dao<Release> {
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit)
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit)
     fun getSubscriptions(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit)
+    fun getSubscriptions(startAt: LocalDate, endAt: LocalDate, onResult: (List<Release>) -> Unit)
     fun getSubscriptions(date: LocalDate, onResult: (List<Release>) -> Unit)
     fun isSubscribed(release: Release): Boolean
     fun subscribe(release: Release)

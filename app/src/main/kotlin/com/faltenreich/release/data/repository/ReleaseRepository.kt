@@ -26,6 +26,10 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
         dao.getSubscriptions(startAt, pageSize, onResult)
     }
 
+    fun getSubscriptions(startAt: LocalDate, endAt: LocalDate, onResult: (List<Release>) -> Unit) {
+        dao.getSubscriptions(startAt, endAt, onResult)
+    }
+
     fun getSubscriptions(date: LocalDate, onResult: (List<Release>) -> Unit) {
         dao.getSubscriptions(date, onResult)
     }

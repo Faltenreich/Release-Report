@@ -23,18 +23,20 @@ import kotlin.math.min
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     YearMonthPickerOpener,
     SearchOpener {
+
     private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
 
-    private val listAdapter by lazy { context?.let { context ->
-        CalendarListAdapter(
-            context
-        )
-    } }
+    private lateinit var listAdapter: CalendarListAdapter
     private lateinit var listLayoutManager: CalendarLayoutManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        init()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initList()
+        initLayout()
         if (!isViewCreated) {
             initData(viewModel.yearMonth ?: YearMonth.now())
         }
@@ -54,30 +56,35 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         }
     }
 
-    private fun initList() {
-        context?.let { context ->
-            listLayoutManager = CalendarLayoutManager(context, listAdapter)
-            listView.layoutManager = listLayoutManager
-            listView.adapter = listAdapter
-            listAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    super.onItemRangeInserted(positionStart, itemCount)
-                    val listAdapter = listAdapter ?: return
-                    val start = listAdapter.getListItemAt(positionStart)?.date ?: return
-                    val end = listAdapter.getListItemAt(positionStart + itemCount - 1)?.date ?: return
-                    fetchReleases(start, end)
-                }
-            })
+    private fun init() {
+        listAdapter = CalendarListAdapter(requireContext())
+    }
 
-            listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (isAdded) {
-                        invalidateListHeader()
-                    }
+    private fun initLayout() {
+        val context = context ?: return
+
+        listLayoutManager = CalendarLayoutManager(context, listAdapter)
+        listView.layoutManager = listLayoutManager
+        listView.adapter = listAdapter
+
+        listAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                val listAdapter = listAdapter ?: return
+                val start = listAdapter.getListItemAt(positionStart)?.date ?: return
+                val end = listAdapter.getListItemAt(positionStart + itemCount - 1)?.date ?: return
+                fetchReleases(start, end)
+            }
+        })
+
+        listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (isAdded) {
+                    invalidateListHeader()
                 }
-            })
-        }
+            }
+        })
     }
 
     private fun initData(yearMonth: YearMonth) {
@@ -85,41 +92,40 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     }
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {
-        ReleaseRepository.getBetween(start, end) { releases ->
+        ReleaseRepository.getSubscriptions(start, end) { subscriptions ->
             GlobalScope.launch {
                 val items = listAdapter?.listItems?.filterIsInstance<CalendarDayItem>()
-                val itemsByDay = releases.groupBy(Release::releaseDate)
+                val itemsByDay = subscriptions.groupBy(Release::releaseDate)
                 itemsByDay.forEach { (day, releases) ->
-                    items?.withIndex()?.firstOrNull { item -> item.value.date == day }?.let { indexedItem ->
-                        val (index, item) = indexedItem.index to indexedItem.value
-                        item.releases = releases
-                        listView.post { listAdapter?.notifyItemChanged(index) }
-                    }
+                    val indexedItem = items?.withIndex()?.firstOrNull { item ->
+                        item.value.date == day
+                    } ?: return@forEach
+                    val (index, item) = indexedItem.index to indexedItem.value
+                    item.releases = releases
+                    listView.post { listAdapter?.notifyItemChanged(index) }
                 }
             }
         }
     }
 
     private fun invalidateListHeader() {
-        listAdapter?.let { listAdapter ->
-            val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-            val upcomingItems = listAdapter.listItems.let { items -> items.subList(firstVisibleItemPosition, items.size) }
-            val firstVisibleItem = upcomingItems.firstOrNull()
-            val firstVisibleYearMonth = firstVisibleItem?.yearMonth
-            val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
-            headerMonthLabel.text = month.print()
+        val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
+        val upcomingItems = listAdapter.listItems.let { items -> items.subList(firstVisibleItemPosition, items.size) }
+        val firstVisibleItem = upcomingItems.firstOrNull()
+        val firstVisibleYearMonth = firstVisibleItem?.yearMonth
+        val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
+        headerMonthLabel.text = month.print()
 
-            val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthItem }
-            val translationY = if (upcomingHeaderIndex >= 0) {
-                val upcomingHeaderOffset = listLayoutManager.getChildAt(upcomingHeaderIndex)?.top?.toFloat() ?: 0f
-                val top = if (upcomingHeaderOffset > 0f) upcomingHeaderOffset - header.height else 0f
-                min(top, 0f)
-            } else {
-                0f
-            }
-            header.translationY = translationY
-
-            viewModel.yearMonth = firstVisibleYearMonth
+        val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthItem }
+        val translationY = if (upcomingHeaderIndex >= 0) {
+            val upcomingHeaderOffset = listLayoutManager.getChildAt(upcomingHeaderIndex)?.top?.toFloat() ?: 0f
+            val top = if (upcomingHeaderOffset > 0f) upcomingHeaderOffset - header.height else 0f
+            min(top, 0f)
+        } else {
+            0f
         }
+        header.translationY = translationY
+
+        viewModel.yearMonth = firstVisibleYearMonth
     }
 }
