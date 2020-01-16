@@ -61,7 +61,7 @@ object Reminder {
         val today = LocalDate.now()
         val startOfWeek = today.atStartOfWeek
         val showReminder = today == startOfWeek
-        if (true) {
+        if (showReminder) {
             val endOfWeek = today.atEndOfWeek
             ReleaseRepository.getBetween(startOfWeek, endOfWeek) { releases ->
                 val title = context.getString(R.string.reminder_weekly_notification)

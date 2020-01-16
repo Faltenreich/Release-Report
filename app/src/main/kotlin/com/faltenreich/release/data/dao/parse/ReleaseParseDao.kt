@@ -26,7 +26,7 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
         getQuery()
             .whereLessThanOrEqualTo(Release.RELEASED_AT, date.date)
             .orderByDescending(Release.RELEASED_AT)
-            .addAscendingOrder(Release.POPULARITY)
+            .addDescendingOrder(Release.POPULARITY)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
             .findInBackground { releases -> onResult(releases.reversed()) }
@@ -46,8 +46,7 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
         getQuery()
             .whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date)
             .whereLessThanOrEqualTo(Release.RELEASED_AT, endAt.date)
-            .orderByDescending(Release.RELEASED_AT)
-            .addDescendingOrder(Release.POPULARITY)
+            .orderByDescending(Release.POPULARITY)
             .run { pageSize?.let { limit -> setLimit(limit) } ?: this }
             .findInBackground { releases -> onResult(releases) }
     }
