@@ -12,7 +12,7 @@ interface ReleasePreferenceDao : ReleaseDao {
     override fun getSubscriptions(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit) {
         onResult(SubscriptionManager.getSubscriptions().filter { release ->
             release.releaseDate?.isAfterOrEqual(startAt).isTrue
-        }.take(pageSize))
+        }.sortedBy(Release::releaseDate).take(pageSize))
     }
 
     override fun getSubscriptions(date: LocalDate, onResult: (List<Release>) -> Unit) {

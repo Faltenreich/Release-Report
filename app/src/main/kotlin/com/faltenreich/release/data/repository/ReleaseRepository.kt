@@ -15,11 +15,11 @@ object ReleaseRepository : Repository<Release, ReleaseDao>(ReleaseDao::class) {
     }
 
     fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit) {
-        dao.getBetween(startAt, endAt, pageSize) { releases -> onResult(releases.sortedByDescending(Release::isSubscribed)) }
+        dao.getBetween(startAt, endAt, pageSize, onResult)
     }
 
     fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
-        dao.search(string, page, pageSize)  { releases -> onResult(releases.sortedByDescending(Release::isSubscribed)) }
+        dao.search(string, page, pageSize, onResult)
     }
 
     fun getSubscriptions(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit) {

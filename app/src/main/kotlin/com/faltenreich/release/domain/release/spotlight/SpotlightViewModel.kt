@@ -30,7 +30,11 @@ class SpotlightViewModel : ViewModel() {
             val endOfLastWeek = startOfWeek.minusDays(1)
             ReleaseRepository.getBetween(lastMonth, endOfLastWeek, PAGE_SIZE) { recent ->
                 ReleaseRepository.getSubscriptions(LocalDate.now(), PAGE_SIZE) { subscriptions ->
-                    setData(weekly, recent, subscriptions)
+                    setData(
+                        weekly.sortedByDescending(Release::popularity),
+                        recent.sortedByDescending(Release::popularity),
+                        subscriptions
+                    )
                 }
             }
         }
