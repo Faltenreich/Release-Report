@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutContainer"
@@ -64,8 +65,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/toolbar_height_padded"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/toolbar_height_padded">
 
             <com.faltenreich.release.domain.release.detail.ChipView
                 android:id="@+id/dateChip"
@@ -88,6 +89,15 @@
                 android:contentDescription="@null"
                 android:foreground="?selectableItemBackground"
                 tools:src="@tools:sample/avatars" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imageListView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/margin_padding_size_medium"
+                android:paddingEnd="@dimen/margin_padding_size_medium"
+                tools:listitem="@layout/list_item_release_image" />
 
             <HorizontalScrollView
                 android:id="@+id/platformChipScrollContainer"

@@ -19,12 +19,12 @@ import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
+import com.faltenreich.release.domain.release.setCover
+import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.view.backgroundTintResource
-import com.faltenreich.release.framework.android.view.setCover
-import com.faltenreich.release.framework.android.view.setWallpaper
 import com.faltenreich.release.framework.android.view.tintResource
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
