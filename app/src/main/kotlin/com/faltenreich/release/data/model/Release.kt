@@ -1,6 +1,5 @@
 package com.faltenreich.release.data.model
 
-import android.widget.ImageView
 import com.faltenreich.release.base.date.localDate
 import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.provider.ReleaseDateProvider
@@ -25,7 +24,8 @@ data class Release(
     var imageUrlForWallpaper: String? = null,
     var indexForSpotlight: String? = null,
     var genres: List<String>? = null,
-    var platforms: List<String>? = null
+    var platforms: List<String>? = null,
+    var images: List<String>? = null
 ) : Model, ReleaseDateProvider, TitleProvider {
 
     val titleFull: String?
@@ -65,6 +65,7 @@ data class Release(
         imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
         imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
         popularity = parseObject.getNumber(POPULARITY)?.toFloat()
+        images = parseObject.getJSONArrayValues(IMAGES)
         genres = parseObject.getJSONArrayValues(GENRES)
         platforms = parseObject.getJSONArrayValues(PLATFORMS)
     }
@@ -79,6 +80,7 @@ data class Release(
         const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
         const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
         const val POPULARITY = "popularity"
+        const val IMAGES = "images"
         const val GENRES = "genres"
         const val PLATFORMS = "platforms"
 

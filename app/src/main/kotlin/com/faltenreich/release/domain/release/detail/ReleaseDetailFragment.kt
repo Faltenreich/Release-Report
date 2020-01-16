@@ -12,6 +12,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrue
@@ -41,9 +43,12 @@ class ReleaseDetailFragment : BaseFragment(
         }
     }
 
+    private lateinit var imageListAdapter: ImageListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         postponeEnterTransition()
+        init()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +67,10 @@ class ReleaseDetailFragment : BaseFragment(
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.findItem(R.id.open).isVisible = viewModel.release?.externalUrl != null
+    }
+
+    private fun init() {
+        imageListAdapter = ImageListAdapter(requireContext())
     }
 
     private fun initLayout() {
@@ -84,6 +93,9 @@ class ReleaseDetailFragment : BaseFragment(
         coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
+
+        imageListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        imageListView.adapter = imageListAdapter
     }
 
     private fun initData() {
@@ -109,6 +121,13 @@ class ReleaseDetailFragment : BaseFragment(
         fab.setImageResource(if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off)
     }
 
+    private fun invalidateImages() {
+        val imageUrls = viewModel.release?.images ?: listOf()
+        imageListAdapter.removeListItems()
+        imageListAdapter.addListItems(imageUrls)
+        imageListAdapter.notifyDataSetChanged()
+    }
+
     private fun setRelease(release: Release?) {
         val context = context ?: return
 
@@ -130,6 +149,7 @@ class ReleaseDetailFragment : BaseFragment(
 
         invalidateTint()
         invalidateSubscriptions()
+        invalidateImages()
         invalidateOptionsMenu()
     }
 
