@@ -160,13 +160,16 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imageListView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_size_small"
                 android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
                 android:paddingStart="@dimen/margin_padding_size_medium"
                 android:paddingEnd="@dimen/margin_padding_size_medium"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/list_item_image"
-                tools:orientation="horizontal" />
+                tools:orientation="vertical"
+                tools:spanCount="3" />
 
         </LinearLayout>
 

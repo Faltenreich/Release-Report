@@ -7,12 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.adapter.ListAdapter
 
-abstract class ItemDecoration<ITEM : Any, ADAPTER : ListAdapter<ITEM>, LAYOUT : RecyclerView.LayoutManager> : RecyclerView.ItemDecoration() {
+abstract class ItemDecoration<ITEM : Any, ADAPTER : ListAdapter<ITEM>, LAYOUT : RecyclerView.LayoutManager> :
+    RecyclerView.ItemDecoration() {
+
     protected var adapter: ADAPTER? = null
     protected var layoutManager: LAYOUT? = null
 
     @CallSuper
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         if (adapter == null) {
             adapter = parent.adapter as? ADAPTER
         }

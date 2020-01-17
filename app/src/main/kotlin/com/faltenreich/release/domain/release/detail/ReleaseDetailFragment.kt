@@ -12,8 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.TransitionInflater
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrue
@@ -24,6 +23,7 @@ import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
+import com.faltenreich.release.framework.android.decoration.GridLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.view.backgroundTintResource
@@ -74,6 +74,8 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun initLayout() {
+        val context = context ?: return
+
         val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
         ViewCompat.setTransitionName(coverImageView,
@@ -94,7 +96,8 @@ class ReleaseDetailFragment : BaseFragment(
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
 
-        imageListView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        imageListView.layoutManager = GridLayoutManager(context, 3)
+        imageListView.addItemDecoration(GridLayoutSpacingItemDecoration(context))
         imageListView.adapter = imageListAdapter
     }
 
