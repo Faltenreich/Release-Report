@@ -91,7 +91,7 @@ class ReleaseDetailFragment : BaseFragment(
             toolbar.setPadding(0, frame.top, 0, 0)
         }
 
-        wallpaperImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForWallpaper) }
+        wallpaperImageView.setOnClickListener { openUrl(viewModel.release?.videos?.firstOrNull()) }
         coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
@@ -125,7 +125,8 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateImages() {
-        val imageUrls = viewModel.release?.images ?: listOf()
+        val release = viewModel.release
+        val imageUrls = listOfNotNull(release?.imageUrlForWallpaper).plus(release?.images ?: listOf())
         imageListAdapter.removeListItems()
         imageListAdapter.addListItems(imageUrls)
         imageListAdapter.notifyDataSetChanged()
@@ -149,6 +150,8 @@ class ReleaseDetailFragment : BaseFragment(
 
         dateChip.text = release?.releaseDateForUi(context)
         dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
+
+        videoIndicatorView.isVisible = release?.videos?.firstOrNull() != null
 
         invalidateTint()
         invalidateSubscriptions()

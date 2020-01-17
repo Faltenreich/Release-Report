@@ -49,5 +49,6 @@
     <string name="version_code">Build</string>
     <string name="weekly">Weekly</string>
     <string name="yesterday">Yesterday</string>
+    <string name="video_play">Play video</string>
 
 </resources>

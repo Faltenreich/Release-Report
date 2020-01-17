@@ -18,14 +18,13 @@ data class Release(
     var durationInSeconds: Long? = null,
     var popularity: Float? = null,
     var externalUrl: String? = null,
-    var videoUrl: String? = null,
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null,
     var imageUrlForWallpaper: String? = null,
-    var indexForSpotlight: String? = null,
+    var images: List<String>? = null,
+    var videos: List<String>? = null,
     var genres: List<String>? = null,
-    var platforms: List<String>? = null,
-    var images: List<String>? = null
+    var platforms: List<String>? = null
 ) : Model, ReleaseDateProvider, TitleProvider {
 
     val titleFull: String?
@@ -61,11 +60,12 @@ data class Release(
         title = parseObject.getString(TITLE)
         description = parseObject.getString(DESCRIPTION)
         releaseDate = parseObject.getDate(RELEASED_AT)?.localDate
+        popularity = parseObject.getNumber(POPULARITY)?.toFloat()
         imageUrlForThumbnail = parseObject.getString(IMAGE_URL_FOR_THUMBNAIL)
         imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
         imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
-        popularity = parseObject.getNumber(POPULARITY)?.toFloat()
         images = parseObject.getJSONArrayValues(IMAGES)
+        videos = parseObject.getJSONArrayValues(VIDEOS)
         genres = parseObject.getJSONArrayValues(GENRES)
         platforms = parseObject.getJSONArrayValues(PLATFORMS)
     }
@@ -76,11 +76,12 @@ data class Release(
         const val TITLE = "title"
         const val DESCRIPTION = "description"
         const val RELEASED_AT = "releasedAt"
+        const val POPULARITY = "popularity"
         const val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
         const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
         const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
-        const val POPULARITY = "popularity"
         const val IMAGES = "images"
+        const val VIDEOS = "videos"
         const val GENRES = "genres"
         const val PLATFORMS = "platforms"
 
