@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.decoration.GridLayoutItemDecoration
-import com.faltenreich.release.domain.date.DateProvider
 
-class DiscoverItemDecoration(context: Context) : GridLayoutItemDecoration<DateProvider, DiscoverListAdapter>() {
+class DiscoverItemDecoration(context: Context) : GridLayoutItemDecoration() {
+
     private val spacing: Int = context.resources.getDimension(SPACING_RES_DEFAULT).toInt()
     private val stickyHeaderHeight: Int = context.resources.getDimensionPixelSize(R.dimen.toolbar_height)
 

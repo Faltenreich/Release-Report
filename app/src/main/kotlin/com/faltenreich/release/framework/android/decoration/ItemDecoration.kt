@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.adapter.ListAdapter
 
-abstract class ItemDecoration<ITEM : Any, ADAPTER : ListAdapter<ITEM>, LAYOUT : RecyclerView.LayoutManager> :
-    RecyclerView.ItemDecoration() {
+abstract class ItemDecoration<LAYOUT : RecyclerView.LayoutManager> : RecyclerView.ItemDecoration() {
 
-    protected var adapter: ADAPTER? = null
+    protected var adapter: ListAdapter<*>? = null
     protected var layoutManager: LAYOUT? = null
 
     @CallSuper
@@ -21,10 +20,10 @@ abstract class ItemDecoration<ITEM : Any, ADAPTER : ListAdapter<ITEM>, LAYOUT : 
         state: RecyclerView.State
     ) {
         if (adapter == null) {
-            adapter = parent.adapter as? ADAPTER
+            adapter = parent.adapter as? ListAdapter<*>
         }
         if (layoutManager == null) {
-            layoutManager = parent.layoutManager as? LAYOUT
+            layoutManager = parent.layoutManager as LAYOUT
         }
     }
 

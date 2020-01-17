@@ -11,7 +11,7 @@ import com.faltenreich.release.framework.android.decoration.LinearLayoutItemDeco
 class ReleaseListItemDecoration(
     context: Context,
     private val spacing: Int
-) : LinearLayoutItemDecoration<DateProvider, ReleaseListAdapter>() {
+) : LinearLayoutItemDecoration() {
     private val divider: Int = context.resources.getDimension(R.dimen.margin_padding_size_xxxxsmall).toInt()
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {

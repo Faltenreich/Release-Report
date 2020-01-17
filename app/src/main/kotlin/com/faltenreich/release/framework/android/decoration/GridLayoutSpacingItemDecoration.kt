@@ -5,10 +5,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.faltenreich.release.domain.release.list.ReleaseProvider
-import com.faltenreich.release.domain.release.spotlight.SpotlightContainerListAdapter
 
-class GridLayoutSpacingItemDecoration(context: Context) : GridLayoutItemDecoration<ReleaseProvider, SpotlightContainerListAdapter>() {
+class GridLayoutSpacingItemDecoration(context: Context) : GridLayoutItemDecoration() {
 
     private val spacing: Int = context.resources.getDimension(SPACING_RES_DEFAULT).toInt()
 
