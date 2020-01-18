@@ -25,8 +25,9 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
     override fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
         getQuery()
             .whereLessThanOrEqualTo(Release.RELEASED_AT, date.date)
+            // Orders are inverted
             .orderByDescending(Release.RELEASED_AT)
-            .addDescendingOrder(Release.POPULARITY)
+            .addAscendingOrder(Release.POPULARITY)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
             .findInBackground { releases -> onResult(releases.reversed()) }
