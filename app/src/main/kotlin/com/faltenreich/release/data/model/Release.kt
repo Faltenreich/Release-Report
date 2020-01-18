@@ -84,7 +84,5 @@ data class Release(
         const val VIDEOS = "videos"
         const val GENRES = "genres"
         const val PLATFORMS = "platforms"
-
-        const val FALLBACK_COVER_COLOR_RES = android.R.color.transparent
     }
 }
