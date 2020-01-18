@@ -61,6 +61,7 @@ data class Release(
         description = parseObject.getString(DESCRIPTION)
         releaseDate = parseObject.getDate(RELEASED_AT)?.localDate
         popularity = parseObject.getNumber(POPULARITY)?.toFloat()
+        externalUrl = parseObject.getString(EXTERNAL_URL)
         imageUrlForThumbnail = parseObject.getString(IMAGE_URL_FOR_THUMBNAIL)
         imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
         imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
@@ -77,6 +78,7 @@ data class Release(
         const val DESCRIPTION = "description"
         const val RELEASED_AT = "releasedAt"
         const val POPULARITY = "popularity"
+        const val EXTERNAL_URL = "externalUrl"
         const val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
         const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
         const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
