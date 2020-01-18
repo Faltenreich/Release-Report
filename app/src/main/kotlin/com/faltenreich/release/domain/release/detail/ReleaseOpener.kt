@@ -8,6 +8,7 @@ import com.faltenreich.release.MainNavigationDirections
 import com.faltenreich.release.data.model.Release
 
 interface ReleaseOpener {
+
     fun openRelease(navigationController: NavController, release: Release, sharedElement: View? = null) {
         release.id?.also { id ->
             val destination = MainNavigationDirections.openRelease(id)

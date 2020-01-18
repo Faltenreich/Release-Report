@@ -5,9 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/open"
+        android:id="@+id/web_search"
+        android:icon="@drawable/ic_research"
+        android:title="@string/web_search"
+        app:iconTint="@color/colorPrimaryDark"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/web_open"
         android:icon="@drawable/ic_exit"
-        android:title="@string/open_homepage"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/web_open"
+        app:iconTint="@color/colorPrimaryDark"
+        app:showAsAction="ifRoom" />
 
 </menu>

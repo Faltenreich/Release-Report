@@ -8,8 +8,8 @@
         android:id="@+id/date"
         android:title="@string/date_select"
         android:icon="@drawable/ic_date"
-        app:showAsAction="ifRoom"
-        app:iconTint="@color/colorPrimaryDark"/>
+        app:iconTint="@color/colorPrimaryDark"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/search"

@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.TransitionInflater
 import com.faltenreich.release.R
+import com.faltenreich.release.base.intent.UrlOpener
+import com.faltenreich.release.base.intent.WebSearchOpener
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
@@ -33,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_release_detail.*
 class ReleaseDetailFragment : BaseFragment(
     R.layout.fragment_release_detail,
     R.menu.release
-), DateOpener, UrlOpener {
+), DateOpener, UrlOpener, WebSearchOpener {
 
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
 
@@ -59,14 +61,15 @@ class ReleaseDetailFragment : BaseFragment(
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.open -> { openUrl(viewModel.release?.externalUrl); return true }
+            R.id.web_search -> { searchInWeb(context, viewModel.release?.titleFull); return true }
+            R.id.web_open -> { openUrl(viewModel.release?.externalUrl); return true }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        menu.findItem(R.id.open).isVisible = viewModel.release?.externalUrl != null
+        menu.findItem(R.id.web_open).isVisible = viewModel.release?.externalUrl != null
     }
 
     private fun init() {

@@ -20,7 +20,6 @@
     <string name="music">Listen</string>
     <string name="nothing_found">Nothing found</string>
     <string name="notifications">Notifications</string>
-    <string name="open_homepage">Open homepage</string>
     <string name="placeholder">-</string>
     <string name="preferences">Preferences</string>
     <string name="recently">Recently</string>
@@ -50,5 +49,7 @@
     <string name="weekly">Weekly</string>
     <string name="yesterday">Yesterday</string>
     <string name="video_play">Play video</string>
+    <string name="web_search">Web search</string>
+    <string name="web_open">Open in web</string>
 
 </resources>

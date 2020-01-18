@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.faltenreich.release.data.provider.ViewModelCreator
 import com.faltenreich.release.base.primitive.isTrue
+import com.faltenreich.release.data.provider.ViewModelCreator
 import kotlin.reflect.KClass
 
 abstract class BaseFragment(
