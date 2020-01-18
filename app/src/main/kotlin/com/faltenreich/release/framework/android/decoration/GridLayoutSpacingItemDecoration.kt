@@ -17,9 +17,10 @@ class GridLayoutSpacingItemDecoration(context: Context) : GridLayoutItemDecorati
         val position = layoutParams.viewAdapterPosition
         val column = layoutParams.spanIndex
 
-        outRect.top = if (position < spanCount) spacing else 0
-        outRect.bottom = spacing
-        outRect.left = spacing - column * spacing / spanCount
-        outRect.right = (column + 1) * spacing / spanCount
+        outRect.left = column * spacing / spanCount
+        outRect.right = spacing - (column + 1) * spacing / spanCount
+        if (position >= spanCount) {
+            outRect.top = spacing
+        }
     }
 }
