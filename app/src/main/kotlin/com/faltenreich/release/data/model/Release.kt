@@ -21,8 +21,8 @@ data class Release(
     var imageUrlForThumbnail: String? = null,
     var imageUrlForCover: String? = null,
     var imageUrlForWallpaper: String? = null,
-    var images: List<String>? = null,
-    var videos: List<String>? = null,
+    var imageUrls: List<String>? = null,
+    var videoUrls: List<String>? = null,
     var genres: List<String>? = null,
     var platforms: List<String>? = null
 ) : Model, ReleaseDateProvider, TitleProvider {
@@ -64,8 +64,8 @@ data class Release(
         imageUrlForThumbnail = parseObject.getString(IMAGE_URL_FOR_THUMBNAIL)
         imageUrlForCover = parseObject.getString(IMAGE_URL_FOR_COVER)
         imageUrlForWallpaper = parseObject.getString(IMAGE_URL_FOR_WALLPAPER)
-        images = parseObject.getJSONArrayValues(IMAGES)
-        videos = parseObject.getJSONArrayValues(VIDEOS)
+        imageUrls = parseObject.getJSONArrayValues(IMAGE_URLS)
+        videoUrls = parseObject.getJSONArrayValues(VIDEO_URLS)
         genres = parseObject.getJSONArrayValues(GENRES)
         platforms = parseObject.getJSONArrayValues(PLATFORMS)
     }
@@ -80,8 +80,8 @@ data class Release(
         const val IMAGE_URL_FOR_THUMBNAIL = "imageUrlForThumbnail"
         const val IMAGE_URL_FOR_COVER = "imageUrlForCover"
         const val IMAGE_URL_FOR_WALLPAPER = "imageUrlForWallpaper"
-        const val IMAGES = "images"
-        const val VIDEOS = "videos"
+        const val IMAGE_URLS = "imageUrls"
+        const val VIDEO_URLS = "videoUrls"
         const val GENRES = "genres"
         const val PLATFORMS = "platforms"
     }

@@ -96,7 +96,7 @@ class ReleaseDetailFragment : BaseFragment(
 
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
-            val url = release?.videos?.firstOrNull() ?: release?.imageUrlForWallpaper
+            val url = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
             openUrl(url)
         }
 
@@ -134,7 +134,7 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun invalidateImages() {
         val release = viewModel.release
-        val imageUrls = release?.images ?: listOf()
+        val imageUrls = release?.imageUrls ?: listOf()
         imageListAdapter.removeListItems()
         imageListAdapter.addListItems(imageUrls)
         imageListAdapter.notifyDataSetChanged()
@@ -159,7 +159,7 @@ class ReleaseDetailFragment : BaseFragment(
         dateChip.text = release?.releaseDateForUi(context)
         dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
 
-        videoIndicatorView.isVisible = release?.videos?.firstOrNull() != null
+        videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
 
         invalidateTint()
         invalidateSubscriptions()
