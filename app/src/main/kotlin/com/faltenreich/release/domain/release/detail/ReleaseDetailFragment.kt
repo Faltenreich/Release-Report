@@ -94,7 +94,12 @@ class ReleaseDetailFragment : BaseFragment(
             toolbar.setPadding(0, frame.top, 0, 0)
         }
 
-        wallpaperImageView.setOnClickListener { openUrl(viewModel.release?.videos?.firstOrNull()) }
+        wallpaperImageView.setOnClickListener {
+            val release = viewModel.release
+            val url = release?.videos?.firstOrNull() ?: release?.imageUrlForWallpaper
+            openUrl(url)
+        }
+
         coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
         dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
@@ -129,7 +134,7 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun invalidateImages() {
         val release = viewModel.release
-        val imageUrls = listOfNotNull(release?.imageUrlForWallpaper).plus(release?.images ?: listOf())
+        val imageUrls = release?.images ?: listOf()
         imageListAdapter.removeListItems()
         imageListAdapter.addListItems(imageUrls)
         imageListAdapter.notifyDataSetChanged()
