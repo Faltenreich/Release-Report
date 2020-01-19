@@ -14,6 +14,7 @@ import ogbe.ozioma.com.glideimageloader.dsl.DSL
 class ImageGalleryFragment : BaseFragment(R.layout.fragment_image_gallery) {
 
     private val imageUrls by lazy { ImageGalleryFragmentArgs.fromBundle(requireArguments()).imageUrls }
+    private val imageUrl by lazy { ImageGalleryFragmentArgs.fromBundle(requireArguments()).imageUrl }
 
     private lateinit var scrollGalleryView: ScrollGalleryView
 
@@ -44,6 +45,9 @@ class ImageGalleryFragment : BaseFragment(R.layout.fragment_image_gallery) {
                 imageUrls.forEach { imageUrl -> add(DSL.image(imageUrl)) }
             }
             .build()
+
+        // FIXME: Does not scroll to thumbnail
+        scrollGalleryView.currentItem = imageUrls.indexOf(imageUrl)
     }
 
     companion object {

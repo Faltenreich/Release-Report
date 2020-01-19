@@ -53,6 +53,9 @@
         <argument
             android:name="imageUrls"
             app:argType="string[]"/>
+        <argument
+            android:name="imageUrl"
+            app:argType="string"/>
     </action>
 
     <dialog
@@ -124,6 +127,9 @@
         <argument
             android:name="imageUrls"
             app:argType="string[]"/>
+        <argument
+            android:name="imageUrl"
+            app:argType="string"/>
     </fragment>
 
     <fragment

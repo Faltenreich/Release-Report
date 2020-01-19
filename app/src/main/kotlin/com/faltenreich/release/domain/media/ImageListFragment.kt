@@ -50,9 +50,8 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
     }
 
     private fun openGallery(imageUrl: String) {
-        // TODO: Preselect given imageUrl
         val imageUrls = imageUrls?.toTypedArray() ?: arrayOf()
-        findNavController().navigate(ImageGalleryFragmentDirections.openGallery(imageUrls))
+        findNavController().navigate(ImageGalleryFragmentDirections.openGallery(imageUrls, imageUrl))
     }
 
     companion object {
