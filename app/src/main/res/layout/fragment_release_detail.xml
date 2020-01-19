@@ -12,7 +12,8 @@
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
@@ -24,7 +25,6 @@
             app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -72,127 +72,28 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/toolbar_height_padded">
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/green"
+            app:tabMode="scrollable"
+            app:tabContentStart="72dp" />
 
-            <com.faltenreich.release.domain.release.detail.ChipView
-                android:id="@+id/dateChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                app:chipIcon="@drawable/ic_date"
-                tools:text="@tools:sample/date/ddmmyy" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/toolbar_height_padded" />
 
-            <ImageView
-                android:id="@+id/coverImageView"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:foreground="?selectableItemBackground"
-                tools:src="@tools:sample/avatars" />
-
-            <HorizontalScrollView
-                android:id="@+id/platformChipScrollContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_size_xsmall"
-                android:clipToPadding="false"
-                android:paddingStart="@dimen/margin_padding_size_medium"
-                android:paddingEnd="@dimen/margin_padding_size_medium"
-                android:scrollbars="none">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/platformChipContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
-                    app:singleLine="true" />
-
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                android:textColor="?android:textColorPrimaryInverse"
-                android:textSize="@dimen/text_size_large"
-                android:textIsSelectable="true"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/artistTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                android:textColor="?android:textColorTertiaryInverse"
-                android:textIsSelectable="true"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/descriptionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                android:textColor="?android:textColorTertiaryInverse"
-                android:textIsSelectable="true"
-                tools:text="@tools:sample/lorem" />
-
-            <HorizontalScrollView
-                android:id="@+id/genreChipScrollContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:paddingStart="@dimen/margin_padding_size_medium"
-                android:clipToPadding="false"
-                android:paddingEnd="@dimen/margin_padding_size_medium"
-                android:scrollbars="none">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/genreChipContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
-                    app:singleLine="true" />
-
-            </HorizontalScrollView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/imageListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_size_small"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingStart="@dimen/margin_padding_size_medium"
-                android:paddingEnd="@dimen/margin_padding_size_medium"
-                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/list_item_image"
-                tools:orientation="vertical"
-                tools:spanCount="3" />
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

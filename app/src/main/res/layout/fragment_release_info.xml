@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_padding_size_xxxsmall">
+
+        <com.faltenreich.release.domain.release.detail.ChipView
+            android:id="@+id/dateChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            app:chipIcon="@drawable/ic_date"
+            tools:text="@tools:sample/date/ddmmyy" />
+
+        <ImageView
+            android:id="@+id/coverImageView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginTop="@dimen/margin_padding_size_xxxsmall"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:foreground="?selectableItemBackground"
+            tools:src="@tools:sample/avatars" />
+
+        <HorizontalScrollView
+            android:id="@+id/platformChipScrollContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_xxxsmall"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/platformChipContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
+                app:singleLine="true" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/text_size_large"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/artistTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorTertiaryInverse"
+            android:textIsSelectable="true"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:textColor="?android:textColorTertiaryInverse"
+            android:textIsSelectable="true"
+            tools:text="@tools:sample/lorem" />
+
+        <HorizontalScrollView
+            android:id="@+id/genreChipScrollContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/genreChipContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
+                app:singleLine="true" />
+
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imageListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/list_item_image"
+            tools:orientation="vertical"
+            tools:spanCount="3" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

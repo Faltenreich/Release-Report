@@ -51,5 +51,8 @@
     <string name="video_play">Play video</string>
     <string name="web_search">Web search</string>
     <string name="web_open">Open in web</string>
+    <string name="info">Info</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
 
 </resources>

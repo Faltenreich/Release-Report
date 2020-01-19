@@ -13,12 +13,16 @@ interface ReleaseOpener {
         release.id?.also { id ->
             val destination = MainNavigationDirections.openRelease(id)
             sharedElement?.let { sharedElement ->
-                ViewCompat.setTransitionName(sharedElement, ReleaseDetailFragment.SHARED_ELEMENT_NAME)
+                ViewCompat.setTransitionName(sharedElement, SHARED_ELEMENT_NAME)
                 navigationController.navigate(
                     destination,
-                    FragmentNavigatorExtras(sharedElement to ReleaseDetailFragment.SHARED_ELEMENT_NAME)
+                    FragmentNavigatorExtras(sharedElement to SHARED_ELEMENT_NAME)
                 )
             } ?: navigationController.navigate(destination)
         }
+    }
+
+    companion object {
+        private const val SHARED_ELEMENT_NAME = "cover"
     }
 }

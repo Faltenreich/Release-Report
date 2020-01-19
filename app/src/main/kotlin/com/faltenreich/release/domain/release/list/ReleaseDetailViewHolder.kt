@@ -13,8 +13,12 @@ import kotlinx.android.synthetic.main.list_item_release_detail.*
 class ReleaseDetailViewHolder(
     context: Context,
     parent: ViewGroup
-) : BaseViewHolder<ReleaseProvider>(context, R.layout.list_item_release_detail, parent),
-    ReleaseOpener {
+) : BaseViewHolder<ReleaseProvider>(
+    context,
+    R.layout.list_item_release_detail,
+    parent
+), ReleaseOpener {
+
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
         container.setOnClickListener {
