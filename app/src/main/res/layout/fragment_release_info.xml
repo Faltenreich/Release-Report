@@ -10,8 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/margin_padding_size_xxxsmall">
+        android:orientation="vertical">
 
         <com.faltenreich.release.domain.release.detail.ChipView
             android:id="@+id/dateChip"
@@ -19,7 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:layout_marginEnd="@dimen/margin_padding_size_medium"
-            app:chipIcon="@drawable/ic_date"
             tools:text="@tools:sample/date/ddmmyy" />
 
         <ImageView
@@ -34,31 +32,12 @@
             android:foreground="?selectableItemBackground"
             tools:src="@tools:sample/avatars" />
 
-        <HorizontalScrollView
-            android:id="@+id/platformChipScrollContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_xxxsmall"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:scrollbars="none">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/platformChipContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
-                app:singleLine="true" />
-
-        </HorizontalScrollView>
-
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
             android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:textColor="?android:textColorPrimaryInverse"
             android:textIsSelectable="true"
@@ -75,12 +54,29 @@
             android:textIsSelectable="true"
             tools:text="@tools:sample/lorem" />
 
+        <HorizontalScrollView
+            android:id="@+id/platformChipScrollContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:paddingEnd="@dimen/margin_padding_size_medium"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/platformChipContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
+                app:singleLine="true" />
+
+        </HorizontalScrollView>
+
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
             android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:textColor="?android:textColorTertiaryInverse"
             android:textIsSelectable="true"

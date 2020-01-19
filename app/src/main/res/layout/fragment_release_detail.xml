@@ -76,8 +76,8 @@
         but adds strange scroll behavior when tabs do not occupy whole width,
         so we leave it like that at this point -->
         <com.google.android.material.tabs.TabLayout
-            style="@style/Widget.MaterialComponents.TabLayout"
             android:id="@+id/tabLayout"
+            style="@style/Widget.MaterialComponents.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -87,12 +87,6 @@
             app:tabMode="scrollable"
             app:tabSelectedTextColor="?android:textColorPrimaryInverse"
             app:tabTextColor="?android:textColorTertiaryInverse" />
-        
-        <View
-            android:id="@+id/tabSeparator"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            tools:background="@color/colorPrimary"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
