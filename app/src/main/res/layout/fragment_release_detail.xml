@@ -51,12 +51,6 @@
 
             </FrameLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/scrim_bottom" />
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -82,17 +76,23 @@
         but adds strange scroll behavior when tabs do not occupy whole width,
         so we leave it like that at this point -->
         <com.google.android.material.tabs.TabLayout
+            style="@style/Widget.MaterialComponents.TabLayout"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/green"
-            app:tabContentStart="72dp"
+            android:backgroundTint="@android:color/transparent"
+            app:tabContentStart="30dp"
             app:tabIndicatorColor="?android:textColorPrimaryInverse"
-            app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="?android:textColorPrimaryInverse"
             app:tabTextColor="?android:textColorTertiaryInverse" />
+        
+        <View
+            android:id="@+id/tabSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            tools:background="@color/colorPrimary"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
