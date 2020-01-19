@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.list_item_release_promo.imageView
 
 class ImageViewHolder(
     context: Context,
-    parent: ViewGroup
+    parent: ViewGroup,
+    private val onImageSelected: (String) -> Unit
 ) : BaseViewHolder<String>(
     context,
     R.layout.list_item_image,
@@ -20,7 +21,7 @@ class ImageViewHolder(
 ), UrlOpener {
 
     init {
-        imageView.setOnClickListener { openUrl(context, data) }
+        imageView.setOnClickListener { onImageSelected(data) }
     }
 
     override fun onBind(data: String) {

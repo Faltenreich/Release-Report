@@ -43,6 +43,18 @@
             app:argType="string"/>
     </action>
 
+    <action
+        android:id="@+id/open_gallery"
+        app:destination="@+id/gallery"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out">
+        <argument
+            android:name="imageUrls"
+            app:argType="string[]"/>
+    </action>
+
     <dialog
         android:id="@+id/navigation"
         android:name="com.faltenreich.release.domain.navigation.NavigationFragment"
@@ -103,6 +115,15 @@
         <argument
             android:name="query"
             app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/gallery"
+        android:name="com.faltenreich.release.domain.media.ImageGalleryFragment"
+        tools:layout="@layout/fragment_image_gallery">
+        <argument
+            android:name="imageUrls"
+            app:argType="string[]"/>
     </fragment>
 
     <fragment

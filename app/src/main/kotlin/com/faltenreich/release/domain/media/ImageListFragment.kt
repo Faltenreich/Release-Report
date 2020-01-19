@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.media
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ImageListAdapter
@@ -28,7 +29,7 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
     }
 
     private fun init() {
-        imageListAdapter = ImageListAdapter(requireContext())
+        imageListAdapter = ImageListAdapter(requireContext(), ::openGallery)
     }
 
     private fun initLayout() {
@@ -46,6 +47,12 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
         imageListAdapter.notifyDataSetChanged()
 
         emptyView.isVisible = imageUrls.isEmpty()
+    }
+
+    private fun openGallery(imageUrl: String) {
+        // TODO: Preselect given imageUrl
+        val imageUrls = imageUrls?.toTypedArray() ?: arrayOf()
+        findNavController().navigate(ImageGalleryFragmentDirections.openGallery(imageUrls))
     }
 
     companion object {

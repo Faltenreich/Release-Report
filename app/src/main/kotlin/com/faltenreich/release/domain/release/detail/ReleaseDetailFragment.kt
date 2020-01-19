@@ -1,11 +1,9 @@
 package com.faltenreich.release.domain.release.detail
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
@@ -20,6 +18,7 @@ import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.tablayout.setupWithViewPager2
 import com.faltenreich.release.framework.android.view.backgroundTintResource
+import com.faltenreich.release.framework.android.view.fitSystemWindows
 import com.faltenreich.release.framework.android.view.tintResource
 import com.faltenreich.release.framework.android.viewpager.ViewPager2FragmentAdapter
 import kotlinx.android.synthetic.main.fragment_release_detail.*
@@ -60,13 +59,7 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun initLayout() {
         toolbar.setNavigationOnClickListener { finish() }
-        // Workaround: Fixing fitsSystemWindows programmatically
-        toolbar.doOnPreDraw {
-            val frame = Rect()
-            activity?.window?.decorView?.getWindowVisibleDisplayFrame(frame)
-            toolbar.layoutParams.height = toolbar.height + frame.top
-            toolbar.setPadding(0, frame.top, 0, 0)
-        }
+        toolbar.fitSystemWindows()
 
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
@@ -87,6 +80,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun setRelease(release: Release?) {
+        // FIXME: Find way to prevent reconstruction onResume
         collapsingToolbarLayout.title = release?.title
         wallpaperImageView.setWallpaper(release)
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
