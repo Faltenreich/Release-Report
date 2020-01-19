@@ -39,11 +39,6 @@ class ReleaseDetailFragment : BaseFragment(
 
     private lateinit var viewPagerAdapter: ViewPager2FragmentAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        init()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
@@ -61,10 +56,6 @@ class ReleaseDetailFragment : BaseFragment(
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.findItem(R.id.web_open).isVisible = viewModel.release?.externalUrl != null
-    }
-
-    private fun init() {
-        viewPagerAdapter = ViewPager2FragmentAdapter(this)
     }
 
     private fun initLayout() {
@@ -85,6 +76,7 @@ class ReleaseDetailFragment : BaseFragment(
 
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
 
+        viewPagerAdapter = ViewPager2FragmentAdapter(this)
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager2(viewPager)
     }
@@ -121,7 +113,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateTabs() {
-        val release = viewModel.release ?: return
+        val release = viewModel.release?.takeIf { viewPagerAdapter.children.isEmpty() } ?: return
         val imageUrls = release.imageUrls ?: listOf()
         val videoUrls = release.videoUrls ?: listOf()
 

@@ -78,6 +78,9 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- Workaround: paddingEnd leaves enough space for fab
+        but adds strange scroll behavior when tabs do not occupy whole width,
+        so we leave it like that at this point -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
