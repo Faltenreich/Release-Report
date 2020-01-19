@@ -2,6 +2,7 @@ package com.faltenreich.release.domain.media
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ImageListAdapter
@@ -39,9 +40,12 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
 
     private fun setImages() {
         val imageUrls = imageUrls ?: listOf()
+
         imageListAdapter.removeListItems()
         imageListAdapter.addListItems(imageUrls)
         imageListAdapter.notifyDataSetChanged()
+
+        emptyView.isVisible = imageUrls.isEmpty()
     }
 
     companion object {
