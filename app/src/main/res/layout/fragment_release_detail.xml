@@ -45,9 +45,9 @@
                     android:id="@+id/videoIndicatorView"
                     android:layout_width="@dimen/image_size_medium"
                     android:layout_height="@dimen/image_size_medium"
-                    android:src="@drawable/ic_play"
+                    android:layout_gravity="center"
                     android:contentDescription="@string/video_play"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/ic_play" />
 
             </FrameLayout>
 
@@ -84,14 +84,19 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             android:backgroundTint="@color/green"
+            app:tabContentStart="72dp"
+            app:tabIndicatorColor="?android:textColorPrimaryInverse"
+            app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
-            app:tabContentStart="72dp" />
+            app:tabSelectedTextColor="?android:textColorPrimaryInverse"
+            app:tabTextColor="?android:textColorTertiaryInverse" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/toolbar_height_padded" />
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/toolbar_height" />
 
     </LinearLayout>
 
