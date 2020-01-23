@@ -77,30 +77,24 @@ class ReleaseDetailFragment : BaseFragment(
 
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
 
+        // FIXME: Leads to IllegalArgumentException on recreation
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager2(viewPager)
     }
 
     private fun fetchData() {
-        viewModel.observeRelease(releaseId, this) { release -> setRelease(release) }
+        viewModel.observeRelease(releaseId, this, ::setRelease)
     }
 
-    private fun setRelease(release: Release?) {
+    private fun invalidateMetadata() {
+        val release = viewModel.release
         collapsingToolbarLayout.title = release?.title
         wallpaperImageView.setWallpaper(release)
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
-
-        invalidateTint()
-        invalidateSubscription()
-        invalidateOptionsMenu()
-
-        infoViewModel.release = release
-        imageListViewModel.imageUrls = release?.imageUrls
     }
 
     private fun invalidateTint() {
-        val color = viewModel.color
-        val colorDark = viewModel.colorDark
+        val (color, colorDark) = viewModel.color to viewModel.colorDark
         layoutContainer.setBackgroundResource(colorDark)
         collapsingToolbarLayout.setContentScrimResource(color)
         collapsingToolbarLayout.setStatusBarScrimResource(color)
@@ -111,6 +105,16 @@ class ReleaseDetailFragment : BaseFragment(
         fab.backgroundTintResource = if (isSubscribed) R.color.yellow else viewModel.color
         fab.tintResource = if (isSubscribed) R.color.brown else android.R.color.white
         fab.setImageResource(if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off)
+    }
+
+    private fun setRelease(release: Release?) {
+        invalidateMetadata()
+        invalidateTint()
+        invalidateSubscription()
+        invalidateOptionsMenu()
+
+        infoViewModel.release = release
+        imageListViewModel.imageUrls = release?.imageUrls
     }
 
     private fun setSubscription(isSubscribed: Boolean) {
