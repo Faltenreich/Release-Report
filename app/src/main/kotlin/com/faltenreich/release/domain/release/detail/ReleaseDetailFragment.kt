@@ -11,7 +11,6 @@ import com.faltenreich.release.base.intent.WebSearchOpener
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
-import com.faltenreich.release.domain.media.ImageListFragment
 import com.faltenreich.release.domain.media.ImageListViewModel
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
@@ -21,7 +20,6 @@ import com.faltenreich.release.framework.android.tablayout.setupWithViewPager2
 import com.faltenreich.release.framework.android.view.backgroundTintResource
 import com.faltenreich.release.framework.android.view.fitSystemWindows
 import com.faltenreich.release.framework.android.view.tintResource
-import com.faltenreich.release.framework.android.viewpager.ViewPager2FragmentAdapter
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 
 class ReleaseDetailFragment : BaseFragment(
@@ -37,7 +35,7 @@ class ReleaseDetailFragment : BaseFragment(
         ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
     }
 
-    private lateinit var viewPagerAdapter: ViewPager2FragmentAdapter
+    private lateinit var viewPagerAdapter: ReleaseDetailFragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,11 +62,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun init() {
-        val fragments = listOf(
-            getString(R.string.info) to ReleaseInfoFragment(),
-            getString(R.string.images) to ImageListFragment()
-        )
-        viewPagerAdapter = ViewPager2FragmentAdapter(this, fragments)
+        viewPagerAdapter = ReleaseDetailFragmentAdapter(this)
     }
 
     private fun initLayout() {
