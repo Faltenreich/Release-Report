@@ -13,22 +13,15 @@ import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
-import com.faltenreich.release.domain.release.ReleaseObserver
 import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_release_info.*
 
 class ReleaseInfoFragment : BaseFragment(
     R.layout.fragment_release_info
-), UrlOpener, DateOpener, ReleaseObserver {
+), UrlOpener, DateOpener {
 
-    private val viewModel by lazy { createViewModel(ReleaseInfoViewModel::class) }
-
-    override var release: Release?
-        get() = viewModel.release
-        set(value) {
-            viewModel.release = value
-        }
+    private val viewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -10,7 +10,13 @@ import kotlin.reflect.KClass
 
 abstract class BaseActivity(@LayoutRes private val layoutRes: Int) : AppCompatActivity(), ViewModelCreator {
 
-    override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T = ViewModelProviders.of(this).get(clazz.java)
+    override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T {
+        return ViewModelProviders.of(this).get(clazz.java)
+    }
+
+    override fun <T : ViewModel> createSharedViewModel(clazz: KClass<T>): T {
+        return createViewModel(clazz)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

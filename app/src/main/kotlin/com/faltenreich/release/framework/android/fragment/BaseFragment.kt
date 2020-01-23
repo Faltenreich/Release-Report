@@ -21,6 +21,7 @@ abstract class BaseFragment(
     @MenuRes private val menuResId: Int? = null,
     @StringRes private val titleResId: Int? = null
 ) : Fragment(), ViewModelCreator {
+
     protected var isViewCreated: Boolean = false
 
     var title: String? = null
@@ -66,6 +67,10 @@ abstract class BaseFragment(
 
     override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T {
         return ViewModelProviders.of(this).get(clazz.java)
+    }
+
+    override fun <T : ViewModel> createSharedViewModel(clazz: KClass<T>): T {
+        return ViewModelProviders.of(requireActivity()).get(clazz.java)
     }
 
     private fun init() {

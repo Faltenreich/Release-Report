@@ -12,8 +12,7 @@ import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.ImageListFragment
-import com.faltenreich.release.domain.media.ImageUrlObserver
-import com.faltenreich.release.domain.release.ReleaseObserver
+import com.faltenreich.release.domain.media.ImageListViewModel
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -31,6 +30,8 @@ class ReleaseDetailFragment : BaseFragment(
 ), DateOpener, UrlOpener, WebSearchOpener {
 
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
+    private val infoViewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
+    private val imageListViewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
 
     private val releaseId by lazy {
         ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
@@ -91,15 +92,16 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun setRelease(release: Release?) {
-        // FIXME: Find way to prevent reconstruction onResume
         collapsingToolbarLayout.title = release?.title
         wallpaperImageView.setWallpaper(release)
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
 
         invalidateTint()
         invalidateSubscription()
-        invalidateTabs()
         invalidateOptionsMenu()
+
+        infoViewModel.release = release
+        imageListViewModel.imageUrls = release?.imageUrls
     }
 
     private fun invalidateTint() {
@@ -115,13 +117,6 @@ class ReleaseDetailFragment : BaseFragment(
         fab.backgroundTintResource = if (isSubscribed) R.color.yellow else viewModel.color
         fab.tintResource = if (isSubscribed) R.color.brown else android.R.color.white
         fab.setImageResource(if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off)
-    }
-
-    private fun invalidateTabs() {
-        viewPagerAdapter.children.forEach { (_, fragment) ->
-            (fragment as? ReleaseObserver)?.apply { this.release = viewModel.release }
-            (fragment as? ImageUrlObserver)?.apply { this.imageUrls = viewModel.release?.imageUrls }
-        }
     }
 
     private fun setSubscription(isSubscribed: Boolean) {

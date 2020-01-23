@@ -22,4 +22,8 @@ abstract class BaseBottomSheetDialogFragment(
     override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T {
         return ViewModelProviders.of(this).get(clazz.java)
     }
+
+    override fun <T : ViewModel> createSharedViewModel(clazz: KClass<T>): T {
+        return ViewModelProviders.of(requireActivity()).get(clazz.java)
+    }
 }

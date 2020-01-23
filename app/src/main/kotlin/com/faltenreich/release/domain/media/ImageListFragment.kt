@@ -6,22 +6,17 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
+import com.faltenreich.release.base.primitive.isTrueOrNull
 import com.faltenreich.release.domain.release.detail.ImageListAdapter
 import com.faltenreich.release.framework.android.decoration.GridLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_image_list.*
 
-class ImageListFragment : BaseFragment(R.layout.fragment_image_list), ImageUrlObserver {
+class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
+
+    private val viewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
 
     private lateinit var imageListAdapter: ImageListAdapter
-
-    override var imageUrls: List<String>? = null
-        set(value) {
-            field = value
-            if (isAdded) {
-                setImages()
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +26,7 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list), ImageUrlOb
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        setImages()
+        fetchData()
     }
 
     private fun init() {
@@ -45,18 +40,20 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list), ImageUrlOb
         imageListView.adapter = imageListAdapter
     }
 
-    private fun setImages() {
-        val imageUrls = imageUrls ?: listOf()
+    private fun fetchData() {
+        viewModel.observeImageUrls(this, ::setImages)
+    }
 
+    private fun setImages(imageUrls: List<String>?) {
         imageListAdapter.removeListItems()
-        imageListAdapter.addListItems(imageUrls)
+        imageListAdapter.addListItems(imageUrls ?: listOf())
         imageListAdapter.notifyDataSetChanged()
 
-        emptyView.isVisible = imageUrls.isEmpty()
+        emptyView.isVisible = imageUrls?.isEmpty().isTrueOrNull
     }
 
     private fun openGallery(imageUrl: String) {
-        val imageUrls = imageUrls?.toTypedArray() ?: arrayOf()
+        val imageUrls = viewModel.imageUrls?.toTypedArray() ?: arrayOf()
         findNavController().navigate(ImageGalleryFragmentDirections.openGallery(imageUrls, imageUrl))
     }
 }
