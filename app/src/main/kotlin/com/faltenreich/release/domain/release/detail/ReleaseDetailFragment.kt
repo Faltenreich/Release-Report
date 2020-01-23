@@ -13,7 +13,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.ImageListFragment
 import com.faltenreich.release.domain.media.ImageUrlObserver
-import com.faltenreich.release.domain.release.ReleaseProvider
+import com.faltenreich.release.domain.release.ReleaseObserver
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -119,7 +119,7 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun invalidateTabs() {
         viewPagerAdapter.children.forEach { (_, fragment) ->
-            (fragment as? ReleaseProvider)?.apply { this.release = viewModel.release }
+            (fragment as? ReleaseObserver)?.apply { this.release = viewModel.release }
             (fragment as? ImageUrlObserver)?.apply { this.imageUrls = viewModel.release?.imageUrls }
         }
     }
