@@ -6,9 +6,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.domain.media.ImageListFragment
 import com.faltenreich.release.framework.android.viewpager.ViewPager2FragmentAdapter
 
-class ReleaseDetailFragmentAdapter(
-    host: Fragment
-) : ViewPager2FragmentAdapter(host) {
+class ReleaseDetailFragmentAdapter(host: Fragment) : ViewPager2FragmentAdapter(host) {
 
     private enum class Pages(@StringRes val titleRes: Int) {
         INFO(R.string.info),
