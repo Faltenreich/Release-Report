@@ -12,6 +12,8 @@ import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.ImageListFragment
+import com.faltenreich.release.domain.media.ImageUrlObserver
+import com.faltenreich.release.domain.release.ReleaseProvider
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -30,13 +32,16 @@ class ReleaseDetailFragment : BaseFragment(
 
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
 
-    private val releaseId: String? by lazy {
-        arguments?.let { arguments ->
-            ReleaseDetailFragmentArgs.fromBundle(arguments).releaseId
-        }
+    private val releaseId by lazy {
+        ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
     }
 
     private lateinit var viewPagerAdapter: ViewPager2FragmentAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        init()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,6 +62,14 @@ class ReleaseDetailFragment : BaseFragment(
         menu.findItem(R.id.web_open).isVisible = viewModel.release?.externalUrl != null
     }
 
+    private fun init() {
+        val fragments = listOf(
+            getString(R.string.info) to ReleaseInfoFragment(),
+            getString(R.string.images) to ImageListFragment()
+        )
+        viewPagerAdapter = ViewPager2FragmentAdapter(this, fragments)
+    }
+
     private fun initLayout() {
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.fitSystemWindows()
@@ -69,13 +82,11 @@ class ReleaseDetailFragment : BaseFragment(
 
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
 
-        viewPagerAdapter = ViewPager2FragmentAdapter(this)
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager2(viewPager)
     }
 
     private fun fetchData() {
-        val releaseId = releaseId ?: return
         viewModel.observeRelease(releaseId, this) { release -> setRelease(release) }
     }
 
@@ -107,17 +118,10 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateTabs() {
-        val release = viewModel.release?.takeIf { viewPagerAdapter.children.isEmpty() } ?: return
-        val imageUrls = release.imageUrls ?: listOf()
-        val videoUrls = release.videoUrls ?: listOf()
-
-        val fragments = listOf(
-            getString(R.string.info) to ReleaseInfoFragment.newInstance(release),
-            getString(R.string.images) to ImageListFragment.newInstance(imageUrls)
-        )
-
-        viewPagerAdapter.children.addAll(fragments)
-        viewPagerAdapter.notifyDataSetChanged()
+        viewPagerAdapter.children.forEach { (_, fragment) ->
+            (fragment as? ReleaseProvider)?.apply { this.release = viewModel.release }
+            (fragment as? ImageUrlObserver)?.apply { this.imageUrls = viewModel.release?.imageUrls }
+        }
     }
 
     private fun setSubscription(isSubscribed: Boolean) {

@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.fragment_image_gallery.*
 
 class ImageGalleryFragment : BaseFragment(R.layout.fragment_image_gallery) {
 
+    private val viewModel by lazy { createViewModel(ImageGalleryViewModel::class) }
+
     private val imageUrls by lazy { ImageGalleryFragmentArgs.fromBundle(requireArguments()).imageUrls }
     private val imageUrl by lazy { ImageGalleryFragmentArgs.fromBundle(requireArguments()).imageUrl }
-
-    private val viewModel by lazy { createViewModel(ImageGalleryViewModel::class) }
 
     private lateinit var scrollGalleryView: ScrollGalleryView
 

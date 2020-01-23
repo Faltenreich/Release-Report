@@ -11,11 +11,17 @@ import com.faltenreich.release.framework.android.decoration.GridLayoutSpacingIte
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_image_list.*
 
-class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
-
-    private val imageUrls by lazy { arguments?.getStringArrayList(IMAGE_URLS)?.toList() }
+class ImageListFragment : BaseFragment(R.layout.fragment_image_list), ImageUrlObserver {
 
     private lateinit var imageListAdapter: ImageListAdapter
+
+    override var imageUrls: List<String>? = null
+        set(value) {
+            field = value
+            if (isAdded) {
+                setImages()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,18 +58,5 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
     private fun openGallery(imageUrl: String) {
         val imageUrls = imageUrls?.toTypedArray() ?: arrayOf()
         findNavController().navigate(ImageGalleryFragmentDirections.openGallery(imageUrls, imageUrl))
-    }
-
-    companion object {
-
-        private const val IMAGE_URLS = "imageUrls"
-
-        fun newInstance(imageUrls: List<String>): ImageListFragment {
-            val fragment = ImageListFragment()
-            fragment.arguments = Bundle().apply {
-                putStringArrayList(IMAGE_URLS, ArrayList(imageUrls))
-            }
-            return fragment
-        }
     }
 }

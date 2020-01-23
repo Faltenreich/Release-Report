@@ -13,15 +13,22 @@ import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
+import com.faltenreich.release.domain.release.ReleaseProvider
 import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_release_info.*
 
-class ReleaseInfoFragment : BaseFragment(R.layout.fragment_release_info), UrlOpener, DateOpener {
+class ReleaseInfoFragment : BaseFragment(
+    R.layout.fragment_release_info
+), UrlOpener, DateOpener, ReleaseProvider {
 
-    private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
+    private val viewModel by lazy { createViewModel(ReleaseInfoViewModel::class) }
 
-    private val releaseId by lazy { arguments?.getString(RELEASE_ID) }
+    override var release: Release?
+        get() = viewModel.release
+        set(value) {
+            viewModel.release = value
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,8 +42,7 @@ class ReleaseInfoFragment : BaseFragment(R.layout.fragment_release_info), UrlOpe
     }
 
     private fun fetchData() {
-        val releaseId = releaseId ?: return
-        viewModel.observeRelease(releaseId, this) { release -> setMetadata(release) }
+        viewModel.observeRelease(this) { release -> setMetadata(release) }
         viewModel.observePlatforms(this) { platforms -> setPlatforms(platforms ?: listOf()) }
         viewModel.observeGenres(this) { genres -> setGenres(genres ?: listOf()) }
     }
@@ -89,18 +95,5 @@ class ReleaseInfoFragment : BaseFragment(R.layout.fragment_release_info), UrlOpe
         val context = context ?: return
         if (url == null) return
         openUrl(context, url)
-    }
-
-    companion object {
-
-        private const val RELEASE_ID = "releaseId"
-
-        fun newInstance(release: Release): ReleaseInfoFragment {
-            val fragment = ReleaseInfoFragment()
-            fragment.arguments = Bundle().apply {
-                putString(RELEASE_ID, release.id)
-            }
-            return fragment
-        }
     }
 }

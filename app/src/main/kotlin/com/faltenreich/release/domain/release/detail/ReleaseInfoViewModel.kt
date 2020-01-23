@@ -4,13 +4,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
-import com.faltenreich.release.data.repository.ReleaseRepository
 import java.util.*
 
 class ReleaseInfoViewModel : ViewModel() {
@@ -31,19 +29,12 @@ class ReleaseInfoViewModel : ViewModel() {
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)
 
-    val color: Int
-        get() = release?.releaseType?.colorResId ?: R.color.colorPrimary
-
-    val colorDark
-        get() = release?.releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
-
-    fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
+    fun observeRelease(owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { release ->
             onObserve(release)
             release.genres?.let { ids -> fetchGenres(ids) }
             release.platforms?.let { ids -> fetchPlatforms(ids) }
         })
-        ReleaseRepository.getById(id) { release -> this.release = release }
     }
 
     private fun fetchPlatforms(ids: List<String>) {
