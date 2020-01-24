@@ -49,7 +49,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     override fun onPause() {
-        // FIXME: This resets everything
+        // FIXME: Fixes IllegalArgumentException on recreation but resets state
         viewPager.adapter = null
         super.onPause()
     }
@@ -83,7 +83,6 @@ class ReleaseDetailFragment : BaseFragment(
 
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
 
-        // FIXME: Leads to IllegalArgumentException on recreation
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager2(viewPager)
     }
