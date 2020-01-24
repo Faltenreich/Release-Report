@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlin = '1.3.50'
-        navigation = '2.2.0-rc04'
+        kotlin = '1.3.61'
+        navigation = '2.2.0'
 
         repos = {
             google()
