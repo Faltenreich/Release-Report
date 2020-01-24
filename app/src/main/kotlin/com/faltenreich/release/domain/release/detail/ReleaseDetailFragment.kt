@@ -35,23 +35,10 @@ class ReleaseDetailFragment : BaseFragment(
         ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
     }
 
-    private lateinit var viewPagerAdapter: ReleaseDetailFragmentAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        init()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         fetchData()
-    }
-
-    override fun onPause() {
-        // FIXME: Fixes IllegalArgumentException on recreation but resets state
-        viewPager.adapter = null
-        super.onPause()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -67,10 +54,6 @@ class ReleaseDetailFragment : BaseFragment(
         menu.findItem(R.id.web_open).isVisible = viewModel.release?.externalUrl != null
     }
 
-    private fun init() {
-        viewPagerAdapter = ReleaseDetailFragmentAdapter(this)
-    }
-
     private fun initLayout() {
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.fitSystemWindows()
@@ -83,7 +66,7 @@ class ReleaseDetailFragment : BaseFragment(
 
         fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
 
-        viewPager.adapter = viewPagerAdapter
+        viewPager.adapter = ReleaseDetailFragmentAdapter(this)
         tabLayout.setupWithViewPager2(viewPager)
     }
 
