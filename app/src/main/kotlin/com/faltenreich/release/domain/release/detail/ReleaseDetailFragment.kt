@@ -48,6 +48,12 @@ class ReleaseDetailFragment : BaseFragment(
         fetchData()
     }
 
+    override fun onPause() {
+        // FIXME: This resets everything
+        viewPager.adapter = null
+        super.onPause()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.web_search -> { searchInWeb(context, viewModel.release?.titleFull); return true }
