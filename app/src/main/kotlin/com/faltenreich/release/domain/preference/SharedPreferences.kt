@@ -2,7 +2,7 @@ package com.faltenreich.release.domain.preference
 
 import android.content.Context
 import android.content.SharedPreferences
-import org.jetbrains.anko.defaultSharedPreferences
+import androidx.preference.PreferenceManager
 import java.util.*
 
 abstract class SharedPreferences {
@@ -13,7 +13,7 @@ abstract class SharedPreferences {
 
     @Suppress("DEPRECATION")
     fun init(context: Context) {
-        preferences = context.defaultSharedPreferences
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
         locale = context.resources.configuration.locale
     }
 

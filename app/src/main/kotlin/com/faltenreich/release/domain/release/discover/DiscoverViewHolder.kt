@@ -12,7 +12,6 @@ import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.view.backgroundTint
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_image.*
-import org.jetbrains.anko.imageResource
 
 class DiscoverViewHolder(
     context: Context,
@@ -29,7 +28,7 @@ class DiscoverViewHolder(
 
         coverImageView.setCover(release)
 
-        typeImageView.imageResource = release.releaseType?.iconResId ?: android.R.color.transparent
+        typeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
         typeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)
 
         subscriptionImageView.visibility = if (release.isSubscribed) View.VISIBLE else View.GONE
