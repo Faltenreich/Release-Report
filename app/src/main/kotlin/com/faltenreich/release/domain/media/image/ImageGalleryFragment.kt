@@ -1,4 +1,4 @@
-package com.faltenreich.release.domain.media
+package com.faltenreich.release.domain.media.image
 
 import android.os.Bundle
 import android.view.View

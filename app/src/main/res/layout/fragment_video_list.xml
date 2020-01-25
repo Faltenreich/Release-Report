@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/videoListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/margin_padding_size_medium"
+        android:paddingTop="@dimen/margin_padding_size_small"
+        android:paddingEnd="@dimen/margin_padding_size_medium"
+        android:paddingBottom="@dimen/toolbar_height_padded"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_video"
+        tools:orientation="vertical" />
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

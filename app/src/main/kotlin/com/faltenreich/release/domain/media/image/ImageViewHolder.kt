@@ -1,10 +1,9 @@
-package com.faltenreich.release.domain.release.detail
+package com.faltenreich.release.domain.media.image
 
 import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
-import com.faltenreich.release.base.intent.UrlOpener
 import com.faltenreich.release.framework.android.view.setImageAsync
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_image.*
@@ -18,7 +17,7 @@ class ImageViewHolder(
     context,
     R.layout.list_item_image,
     parent
-), UrlOpener {
+) {
 
     init {
         imageView.setOnClickListener { onImageSelected(data) }

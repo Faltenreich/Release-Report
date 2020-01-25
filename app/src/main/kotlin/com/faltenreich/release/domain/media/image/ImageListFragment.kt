@@ -1,4 +1,4 @@
-package com.faltenreich.release.domain.media
+package com.faltenreich.release.domain.media.image
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrueOrNull
-import com.faltenreich.release.domain.release.detail.ImageListAdapter
 import com.faltenreich.release.framework.android.decoration.GridLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_image_list.*
@@ -16,7 +15,7 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
 
     private val viewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
 
-    private lateinit var imageListAdapter: ImageListAdapter
+    private lateinit var listAdapter: ImageListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +29,17 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
     }
 
     private fun init() {
-        imageListAdapter = ImageListAdapter(requireContext(), ::openGallery)
+        listAdapter = ImageListAdapter(
+            requireContext(),
+            ::openGallery
+        )
     }
 
     private fun initLayout() {
         val context = context ?: return
         imageListView.layoutManager = GridLayoutManager(context, 2)
         imageListView.addItemDecoration(GridLayoutSpacingItemDecoration(context))
-        imageListView.adapter = imageListAdapter
+        imageListView.adapter = listAdapter
     }
 
     private fun fetchData() {
@@ -45,9 +47,9 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
     }
 
     private fun setImages(imageUrls: List<String>?) {
-        imageListAdapter.removeListItems()
-        imageListAdapter.addListItems(imageUrls ?: listOf())
-        imageListAdapter.notifyDataSetChanged()
+        listAdapter.removeListItems()
+        listAdapter.addListItems(imageUrls ?: listOf())
+        listAdapter.notifyDataSetChanged()
 
         emptyView.isVisible = imageUrls?.isEmpty().isTrueOrNull
     }

@@ -11,7 +11,8 @@ import com.faltenreich.release.base.intent.WebSearchOpener
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
-import com.faltenreich.release.domain.media.ImageListViewModel
+import com.faltenreich.release.domain.media.image.ImageListViewModel
+import com.faltenreich.release.domain.media.video.VideoListViewModel
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -30,6 +31,7 @@ class ReleaseDetailFragment : BaseFragment(
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val infoViewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
     private val imageListViewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
+    private val videoListViewModel by lazy { createSharedViewModel(VideoListViewModel::class) }
 
     private val releaseId by lazy {
         ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
@@ -103,6 +105,7 @@ class ReleaseDetailFragment : BaseFragment(
 
         infoViewModel.release = release
         imageListViewModel.imageUrls = release?.imageUrls
+        videoListViewModel.videoUrls = release?.videoUrls
     }
 
     private fun setSubscription(isSubscribed: Boolean) {

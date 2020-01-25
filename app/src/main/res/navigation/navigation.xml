@@ -122,7 +122,7 @@
 
     <fragment
         android:id="@+id/gallery"
-        android:name="com.faltenreich.release.domain.media.ImageGalleryFragment"
+        android:name="com.faltenreich.release.domain.media.image.ImageGalleryFragment"
         tools:layout="@layout/fragment_image_gallery">
         <argument
             android:name="imageUrls"

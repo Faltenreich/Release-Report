@@ -1,4 +1,4 @@
-package com.faltenreich.release.domain.media
+package com.faltenreich.release.domain.media.image
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
