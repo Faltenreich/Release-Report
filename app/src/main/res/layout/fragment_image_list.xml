@@ -14,7 +14,7 @@
         android:paddingStart="@dimen/margin_padding_size_medium"
         android:paddingTop="@dimen/margin_padding_size_small"
         android:paddingEnd="@dimen/margin_padding_size_medium"
-        android:paddingBottom="@dimen/margin_padding_size_small"
+        android:paddingBottom="@dimen/toolbar_height_padded"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/list_item_image"
         tools:orientation="vertical"
