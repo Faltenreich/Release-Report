@@ -3,11 +3,10 @@ package com.faltenreich.release.domain.media.video
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrueOrNull
+import com.faltenreich.release.framework.android.decoration.LinearLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_video_list.*
 
@@ -35,7 +34,7 @@ class VideoListFragment : BaseFragment(R.layout.fragment_video_list) {
     private fun initLayout() {
         val context = context ?: return
         videoListView.layoutManager = LinearLayoutManager(context)
-        videoListView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        videoListView.addItemDecoration(LinearLayoutSpacingItemDecoration(context))
         videoListView.adapter = listAdapter
     }
 
