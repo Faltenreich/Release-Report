@@ -23,7 +23,13 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun initLayout() {
         appCompatActivity?.setSupportActionBar(bottomAppBar)
-        navigationController.addOnDestinationChangedListener { _, _, _ -> bottomAppBar.performShow() }
+        navigationController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.gallery) {
+                bottomAppBar.performHide()
+            } else {
+                bottomAppBar.performShow()
+            }
+        }
         bottomAppBar.setNavigationOnClickListener { openNavigation() }
     }
 
