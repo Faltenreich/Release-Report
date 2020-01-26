@@ -11,12 +11,12 @@ import com.faltenreich.release.domain.date.DateProvider
 import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {
-    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>>
+    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>?>
 
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 
-    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>) -> Unit) {
+    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>?) -> Unit) {
         val dataSource = ReleaseListDataSource(date)
         val dataFactory = PagingDataFactory(dataSource)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()

@@ -11,13 +11,13 @@ import com.veinhorn.scrollgalleryview.builder.GallerySettings
 
 class ImageGalleryViewModel : ViewModel() {
 
-    private val mediaLiveData = MutableLiveData<List<MediaInfo>>()
+    private val mediaLiveData = MutableLiveData<List<MediaInfo>?>()
 
     var media: List<MediaInfo>?
         get() = mediaLiveData.value
         set(value) = mediaLiveData.postValue(value)
 
-    fun observeMedia(imageUrls: Array<String>, owner: LifecycleOwner, onObserve: (List<MediaInfo>) -> Unit) {
+    fun observeMedia(imageUrls: Array<String>, owner: LifecycleOwner, onObserve: (List<MediaInfo>?) -> Unit) {
         mediaLiveData.observe(owner, Observer(onObserve))
         media = imageUrls.map { imageUrl -> MediaInfo.mediaLoader(GlideImageLoader(imageUrl)) }
     }

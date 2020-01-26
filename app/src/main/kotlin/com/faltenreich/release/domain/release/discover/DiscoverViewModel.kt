@@ -9,8 +9,8 @@ import com.faltenreich.release.domain.release.list.ReleaseListDataSource
 import org.threeten.bp.LocalDate
 
 class DiscoverViewModel : ViewModel() {
-    private val dateLiveData = MutableLiveData<LocalDate>()
-    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>>
+    private val dateLiveData = MutableLiveData<LocalDate?>()
+    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>?>
 
     var date: LocalDate?
         get() = dateLiveData.value
@@ -19,7 +19,7 @@ class DiscoverViewModel : ViewModel() {
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 
-    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>) -> Unit) {
+    fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>?) -> Unit) {
         val dataSource = ReleaseListDataSource(date)
         val dataFactory = PagingDataFactory(dataSource)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()

@@ -70,7 +70,6 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         listAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
-                val listAdapter = listAdapter ?: return
                 val start = listAdapter.getListItemAt(positionStart)?.date ?: return
                 val end = listAdapter.getListItemAt(positionStart + itemCount - 1)?.date ?: return
                 fetchReleases(start, end)
@@ -88,21 +87,21 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     }
 
     private fun initData(yearMonth: YearMonth) {
-        viewModel.observeReleases(yearMonth, this) { list -> listAdapter?.submitList(list) }
+        viewModel.observeReleases(yearMonth, this) { list -> listAdapter.submitList(list) }
     }
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {
         ReleaseRepository.getSubscriptions(start, end) { subscriptions ->
             GlobalScope.launch {
-                val items = listAdapter?.listItems?.filterIsInstance<CalendarDayItem>()
+                val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
                 val itemsByDay = subscriptions.groupBy(Release::releaseDate)
                 itemsByDay.forEach { (day, releases) ->
-                    val indexedItem = items?.withIndex()?.firstOrNull { item ->
+                    val indexedItem = items.withIndex().firstOrNull { item ->
                         item.value.date == day
                     } ?: return@forEach
                     val (index, item) = indexedItem.index to indexedItem.value
                     item.releases = releases
-                    listView.post { listAdapter?.notifyItemChanged(index) }
+                    listView.post { listAdapter.notifyItemChanged(index) }
                 }
             }
         }

@@ -68,12 +68,13 @@ class SpotlightFragment : BaseFragment(
         }
     }
 
-    private fun setData(data: List<SpotlightItem>) {
+    private fun setData(data: List<SpotlightItem>?) {
+        val items = data ?: listOf()
         listAdapter.apply {
             removeListItems()
-            addListItems(data)
+            addListItems(items)
             notifyDataSetChanged()
         }
-        emptyView.isVisible = data.isEmpty()
+        emptyView.isVisible = items.isEmpty()
     }
 }

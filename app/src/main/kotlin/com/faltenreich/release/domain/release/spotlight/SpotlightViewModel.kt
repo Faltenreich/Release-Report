@@ -13,13 +13,13 @@ import com.faltenreich.release.domain.release.list.ReleaseItem
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
-    private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>>()
+    private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>?>()
 
     private var spotlightItems: List<SpotlightItem>?
         get() = spotlightItemsLiveData.value
         set(value) = spotlightItemsLiveData.postValue(value)
 
-    fun observeData(owner: LifecycleOwner, onObserve: (List<SpotlightItem>) -> Unit) {
+    fun observeData(owner: LifecycleOwner, onObserve: (List<SpotlightItem>?) -> Unit) {
         spotlightItemsLiveData.observe(owner, Observer(onObserve))
 
         val today = LocalDate.now()

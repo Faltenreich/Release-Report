@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 
 class ImageListViewModel : ViewModel() {
 
-    private val imageUrlsLiveData = MutableLiveData<List<String>>()
+    private val imageUrlsLiveData = MutableLiveData<List<String>?>()
 
     var imageUrls: List<String>?
         get() = imageUrlsLiveData.value
         set(value) = imageUrlsLiveData.postValue(value)
 
-    fun observeImageUrls(owner: LifecycleOwner, onObserve: (List<String>) -> Unit) {
+    fun observeImageUrls(owner: LifecycleOwner, onObserve: (List<String>?) -> Unit) {
         imageUrlsLiveData.observe(owner, Observer(onObserve))
     }
 }

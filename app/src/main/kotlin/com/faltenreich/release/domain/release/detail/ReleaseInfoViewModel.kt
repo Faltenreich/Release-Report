@@ -13,9 +13,9 @@ import java.util.*
 
 class ReleaseInfoViewModel : ViewModel() {
 
-    private val releaseLiveData = MutableLiveData<Release>()
-    private val genreLiveData = MutableLiveData<List<Genre>>()
-    private val platformLiveData = MutableLiveData<List<Platform>>()
+    private val releaseLiveData = MutableLiveData<Release?>()
+    private val genreLiveData = MutableLiveData<List<Genre>?>()
+    private val platformLiveData = MutableLiveData<List<Platform>?>()
 
     var release: Release?
         get() = releaseLiveData.value
@@ -32,8 +32,8 @@ class ReleaseInfoViewModel : ViewModel() {
     fun observeRelease(owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { release ->
             onObserve(release)
-            release.genres?.let { ids -> fetchGenres(ids) }
-            release.platforms?.let { ids -> fetchPlatforms(ids) }
+            release?.genres?.let { ids -> fetchGenres(ids) }
+            release?.platforms?.let { ids -> fetchPlatforms(ids) }
         })
     }
 

@@ -5,9 +5,10 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
+import com.faltenreich.release.base.primitive.isTrueOrNull
 import com.faltenreich.release.base.primitive.nonBlank
-import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.decoration.DividerItemDecoration
+import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.hideKeyboard
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import com.lapism.searchview.Search
@@ -58,11 +59,11 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
             }
         }
 
-        viewModel.observe(this, onObserve = { list ->
+        viewModel.observeQuery(this, onObserve = { list ->
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
         }, afterInitialLoad = { list ->
-            emptyView.isVisible = list.isEmpty()
+            emptyView.isVisible = list?.isEmpty().isTrueOrNull
         })
     }
 

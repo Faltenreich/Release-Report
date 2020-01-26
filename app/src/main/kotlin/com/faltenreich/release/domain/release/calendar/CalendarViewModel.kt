@@ -8,8 +8,8 @@ import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {
 
-    private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>>
-    private val yearMonthLiveData = MutableLiveData<YearMonth>()
+    private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>?>
+    private val yearMonthLiveData = MutableLiveData<YearMonth?>()
 
     var yearMonth: YearMonth?
         get() = yearMonthLiveData.value
@@ -18,7 +18,7 @@ class CalendarViewModel : ViewModel() {
     fun observeReleases(
         yearMonth: YearMonth,
         owner: LifecycleOwner,
-        onObserve: (PagedList<CalendarItem>) -> Unit
+        onObserve: (PagedList<CalendarItem>?) -> Unit
     ) {
         val dataSource = CalendarDataSource(yearMonth)
         val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE_IN_MONTHS)

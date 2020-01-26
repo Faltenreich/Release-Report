@@ -10,7 +10,7 @@ import com.faltenreich.release.data.repository.ReleaseRepository
 
 class ReleaseDetailViewModel : ViewModel() {
 
-    private val releaseLiveData = MutableLiveData<Release>()
+    private val releaseLiveData = MutableLiveData<Release?>()
 
     var release: Release?
         get() = releaseLiveData.value
