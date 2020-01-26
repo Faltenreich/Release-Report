@@ -18,7 +18,7 @@ class VideoViewHolder(
 ), UrlOpener {
 
     init {
-        videoView.setOnClickListener { openUrl(context, data) }
+        rootView.setOnClickListener { openUrl(context, data) }
     }
 
     override fun onBind(data: String) {

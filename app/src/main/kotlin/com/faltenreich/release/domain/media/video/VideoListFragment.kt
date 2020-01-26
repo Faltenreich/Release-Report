@@ -34,7 +34,7 @@ class VideoListFragment : BaseFragment(R.layout.fragment_video_list) {
     private fun initLayout() {
         val context = context ?: return
         videoListView.layoutManager = LinearLayoutManager(context)
-        videoListView.addItemDecoration(LinearLayoutSpacingItemDecoration(context))
+        videoListView.addItemDecoration(LinearLayoutSpacingItemDecoration(context, R.dimen.margin_padding_size_xxsmall))
         videoListView.adapter = listAdapter
     }
 
