@@ -22,7 +22,7 @@ class VideoViewHolder(
     }
 
     override fun onBind(data: String) {
-        data.thumbnailUrl()?.let { imageUrl ->
+        VideoThumbnailFactory.createThumbnail(data)?.let { imageUrl ->
             videoView.setImageAsync(imageUrl, videoView.width)
         } ?: videoView.setImageResource(android.R.color.black)
     }
