@@ -21,7 +21,9 @@ import com.faltenreich.release.framework.android.tablayout.setupWithViewPager2
 import com.faltenreich.release.framework.android.view.backgroundTintResource
 import com.faltenreich.release.framework.android.view.fitSystemWindows
 import com.faltenreich.release.framework.android.view.tintResource
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_release_detail.*
+import kotlin.math.abs
 
 class ReleaseDetailFragment : BaseFragment(
     R.layout.fragment_release_detail,
@@ -59,6 +61,14 @@ class ReleaseDetailFragment : BaseFragment(
     private fun initLayout() {
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.fitSystemWindows()
+
+        appbarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appbarLayout, verticalOffset ->
+            val currentOffset = abs(verticalOffset.toFloat())
+            val maxOffset = appbarLayout.height.toFloat() - toolbar.height
+            val scale = (maxOffset - currentOffset) / maxOffset
+            videoIndicatorView.scaleX = scale
+            videoIndicatorView.scaleY = scale
+        })
 
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
