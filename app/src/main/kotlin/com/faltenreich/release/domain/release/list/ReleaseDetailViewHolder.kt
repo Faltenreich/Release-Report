@@ -33,7 +33,7 @@ class ReleaseDetailViewHolder(
         typeImageView.tintResource = release.releaseType?.colorResId ?: R.color.colorPrimary
 
         titleTextView.text = release.title
-        descriptionTextView.text = release.subtitle
+        descriptionTextView.text = release.artistIfRelevant ?: release.description
 
         subscriptionImageView.isVisible = release.isSubscribed
     }

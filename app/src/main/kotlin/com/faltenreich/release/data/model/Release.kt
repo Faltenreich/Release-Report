@@ -27,21 +27,18 @@ data class Release(
     var platforms: List<String>? = null
 ) : Model, ReleaseDateProvider, TitleProvider {
 
-    val titleFull: String?
-        get() = when (releaseType) {
-            ReleaseType.MUSIC -> "$artist - $title"
-            else -> title
-        }
-
-    val subtitle: String?
-        get() = when (releaseType) {
-            ReleaseType.MUSIC -> artist
-            else -> description
-        }
-
     var releaseType: ReleaseType?
         get() = type?.let { type -> ReleaseType.valueForKey(type) }
         set(value) { type = value?.key }
+
+    val artistIfRelevant: String?
+        get() = when (releaseType) {
+            ReleaseType.MUSIC -> artist
+            else -> null
+        }
+
+    val titleFull: String?
+        get() = artistIfRelevant?.let { artist -> "$artist - $title" } ?: title
 
     var isSubscribed: Boolean
         get() = ReleaseRepository.isSubscribed(this)

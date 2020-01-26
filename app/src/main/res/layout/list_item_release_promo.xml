@@ -35,14 +35,14 @@
         app:layout_constraintEnd_toEndOf="@+id/coverImageView">
 
         <TextView
-            android:id="@+id/dateView"
+            android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="?android:textColorTertiaryInverse"
             tools:text="@tools:sample/date/ddmmyy"/>
 
         <TextView
-            android:id="@+id/titleView"
+            android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
@@ -52,7 +52,7 @@
             tools:text="@tools:sample/lorem"/>
 
         <TextView
-            android:id="@+id/artistView"
+            android:id="@+id/artistTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"

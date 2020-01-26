@@ -35,7 +35,7 @@ class DiscoverViewHolder(
 
         titleTextView.text = release.title
 
-        artistTextView.text = release.artist
+        artistTextView.text = release.artistIfRelevant
         artistTextView.isVisible = artistTextView.text.isNotBlank()
     }
 

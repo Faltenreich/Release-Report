@@ -25,7 +25,7 @@ class SpotlightReleaseViewHolder(
     }
 
     override fun onBind(data: SpotlightReleaseItem) {
-        titleView.text = data.print(context)
+        titleTextView.text = data.print(context)
         listAdapter.removeListItems()
         listAdapter.addListItems(data.releases)
         listAdapter.notifyDataSetChanged()

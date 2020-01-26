@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
-import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
@@ -19,10 +18,10 @@ class SpotlightPromoViewHolder(
         val release = data.release
         container.setOnClickListener { openRelease(navigationController, release) }
 
-        dateView.text = release.releaseDateForUi(context)
-        titleView.text = release.title
-        artistView.text = release.artist
-        artistView.isVisible = release.artist?.isNotBlank().isTrue
+        dateTextView.text = release.releaseDateForUi(context)
+        titleTextView.text = release.title
+        artistTextView.text = release.artistIfRelevant
+        artistTextView.isVisible = artistTextView.text.isNotBlank()
 
         imageView.setWallpaper(release)
     }
