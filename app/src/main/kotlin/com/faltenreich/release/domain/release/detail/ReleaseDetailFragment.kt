@@ -49,8 +49,8 @@ class ReleaseDetailFragment : BaseFragment(
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.web_search -> { searchInWeb(context, viewModel.release?.titleFull); return true }
-            R.id.web_open -> { openUrl(viewModel.release?.externalUrl); return true }
+            R.id.web_search -> { searchInWeb(context, viewModel.release?.titleFull); true }
+            R.id.web_open -> { openUrl(viewModel.release?.externalUrl); true }
             else -> super.onOptionsItemSelected(item)
         }
     }

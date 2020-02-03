@@ -12,9 +12,7 @@ import kotlinx.android.synthetic.main.fragment_navigation.*
 class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navigation) {
 
     private val previousDestinationId: Int? by lazy {
-        arguments?.let { bundle ->
-            NavigationFragmentArgs.fromBundle(bundle).previousDestinationId
-        }
+        arguments?.let { bundle -> NavigationFragmentArgs.fromBundle(bundle).previousDestinationId }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,7 +24,9 @@ class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navig
 
     // Workaround: Preselect current destination manually, since selection does not work due to checked destination being NavigationFragment
     private fun selectCurrentDestination() {
-        navigationView.menu.children.forEach { menuItem -> menuItem.isChecked = previousDestinationId == menuItem.itemId }
+        navigationView.menu.children.forEach { menuItem ->
+            menuItem.isChecked = previousDestinationId == menuItem.itemId
+        }
     }
 
     companion object {
