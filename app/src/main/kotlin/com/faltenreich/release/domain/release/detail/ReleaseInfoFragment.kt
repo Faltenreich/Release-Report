@@ -44,7 +44,7 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun setMetadata(release: Release?) {
-        coverImageView.setCover(release) {  startPostponedEnterTransition() }
+        coverImageView.setCover(release)
 
         titleTextView.text = release?.title
         artistTextView.text = release?.artist

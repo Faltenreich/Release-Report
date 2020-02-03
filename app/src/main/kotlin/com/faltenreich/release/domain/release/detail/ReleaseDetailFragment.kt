@@ -58,6 +58,13 @@ class ReleaseDetailFragment : BaseFragment(
         menu.findItem(R.id.web_open).isVisible = viewModel.release?.externalUrl != null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        infoViewModel.release = null
+        imageListViewModel.imageUrls = null
+        videoListViewModel.videoUrls = null
+    }
+
     private fun initLayout() {
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.fitSystemWindows()
