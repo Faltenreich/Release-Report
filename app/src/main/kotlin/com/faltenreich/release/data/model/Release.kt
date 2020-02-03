@@ -56,6 +56,14 @@ data class Release(
             PopularityRating.ofPopularity(popularity)
         }
 
+    val imageUrlsFull: List<String>
+        get() = listOfNotNull(
+            imageUrlForCover,
+            imageUrlForWallpaper
+        ).run {
+            imageUrls?.let { imageUrls -> plus(imageUrls) } ?: this
+        }
+
     override fun fromParseObject(parseObject: ParseObject) {
         id = parseObject.getString(Model.ID)
         type = parseObject.getString(TYPE)

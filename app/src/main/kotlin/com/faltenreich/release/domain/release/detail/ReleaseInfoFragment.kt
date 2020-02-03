@@ -8,13 +8,13 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.R
-import com.faltenreich.release.base.intent.UrlOpener
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.enum.PopularityRating
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
+import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_release_info.*
 
 class ReleaseInfoFragment : BaseFragment(
     R.layout.fragment_release_info
-), UrlOpener, DateOpener {
+), DateOpener, ReleaseImageOpener {
 
     private val viewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
 
@@ -33,7 +33,7 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun initLayout() {
-        coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
+        coverImageView.setOnClickListener { openImage(findNavController(), viewModel.release, viewModel.release?.imageUrlForCover) }
         dateChip.setOnClickListener { openDate() }
         popularityChip.setOnClickListener { context?.showToast(getString(R.string.popularity)) }
     }
@@ -92,12 +92,6 @@ class ReleaseInfoFragment : BaseFragment(
             setOnClickListener { onClick?.invoke() }
         }
         container.addView(chip)
-    }
-
-    private fun openUrl(url: String?) {
-        val context = context ?: return
-        if (url == null) return
-        openUrl(context, url)
     }
 
     private fun openDate() {

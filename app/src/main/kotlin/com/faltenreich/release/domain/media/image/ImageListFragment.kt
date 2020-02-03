@@ -11,7 +11,7 @@ import com.faltenreich.release.framework.android.decoration.GridLayoutSpacingIte
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_image_list.*
 
-class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
+class ImageListFragment : BaseFragment(R.layout.fragment_image_list), ImageOpener {
 
     private val viewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
 
@@ -56,6 +56,6 @@ class ImageListFragment : BaseFragment(R.layout.fragment_image_list) {
 
     private fun openGallery(imageUrl: String) {
         val imageUrls = viewModel.imageUrls?.toTypedArray() ?: arrayOf()
-        findNavController().navigate(ImageGalleryFragmentDirections.openGallery(imageUrls, imageUrl))
+        openImage(findNavController(), imageUrls, imageUrl)
     }
 }

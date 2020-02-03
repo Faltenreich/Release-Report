@@ -52,9 +52,11 @@
         app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="imageUrls"
+            app:nullable="true"
             app:argType="string[]"/>
         <argument
             android:name="imageUrl"
+            app:nullable="true"
             app:argType="string"/>
     </action>
 

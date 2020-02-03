@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
 import com.faltenreich.release.base.intent.WebSearchOpener
@@ -13,6 +14,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.image.ImageListViewModel
 import com.faltenreich.release.domain.media.video.VideoListViewModel
+import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -28,7 +30,7 @@ import kotlin.math.abs
 class ReleaseDetailFragment : BaseFragment(
     R.layout.fragment_release_detail,
     R.menu.release
-), DateOpener, UrlOpener, WebSearchOpener {
+), DateOpener, UrlOpener, WebSearchOpener, ReleaseImageOpener {
 
     private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
     private val infoViewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
@@ -80,10 +82,10 @@ class ReleaseDetailFragment : BaseFragment(
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
             val url = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
-            openUrl(url)
+            openImage(findNavController(), release, url)
         }
 
-        fab.setOnClickListener { setSubscription(!(viewModel.release?.isSubscribed.isTrue)) }
+        fab.setOnClickListener { toggleSubscription() }
 
         viewPager.adapter = ReleaseDetailFragmentAdapter(this)
         tabLayout.setupWithViewPager2(viewPager)
@@ -121,11 +123,12 @@ class ReleaseDetailFragment : BaseFragment(
         invalidateOptionsMenu()
 
         infoViewModel.release = release
-        imageListViewModel.imageUrls = release?.imageUrls
+        imageListViewModel.imageUrls = release?.imageUrlsFull
         videoListViewModel.videoUrls = release?.videoUrls
     }
 
-    private fun setSubscription(isSubscribed: Boolean) {
+    private fun toggleSubscription() {
+        val isSubscribed = !(viewModel.release?.isSubscribed.isTrue)
         viewModel.release?.isSubscribed = isSubscribed
         // FIXME: Replace with Snackbar when being placed behind BottomAppBar
         context?.showToast(if (isSubscribed) R.string.subscription_added else R.string.subscription_removed)
