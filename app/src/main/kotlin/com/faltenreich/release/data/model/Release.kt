@@ -1,6 +1,7 @@
 package com.faltenreich.release.data.model
 
 import com.faltenreich.release.base.date.localDate
+import com.faltenreich.release.data.enum.PopularityRating
 import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.provider.ReleaseDateProvider
 import com.faltenreich.release.data.provider.TitleProvider
@@ -48,6 +49,11 @@ data class Release(
             } else {
                 ReleaseRepository.unsubscribe(this)
             }
+        }
+
+    val popularityRating: PopularityRating?
+        get() = popularity?.let { popularity ->
+            PopularityRating.ofPopularity(popularity)
         }
 
     override fun fromParseObject(parseObject: ParseObject) {

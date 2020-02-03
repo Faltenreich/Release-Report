@@ -32,8 +32,12 @@ val Context.versionCode: Int?
         null
     }
 
+fun Context.showToast(text: String) {
+    Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+}
+
 fun Context.showToast(textRes: Int) {
-    Toast.makeText(this, textRes, Toast.LENGTH_LONG).show()
+    showToast(getString(textRes))
 }
 
 val Context.screenSize: Point

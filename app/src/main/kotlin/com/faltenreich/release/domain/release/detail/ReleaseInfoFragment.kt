@@ -9,11 +9,13 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
+import com.faltenreich.release.data.enum.PopularityRating
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.release.setCover
+import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_release_info.*
 
@@ -31,7 +33,8 @@ class ReleaseInfoFragment : BaseFragment(
 
     private fun initLayout() {
         coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
-        dateChip.setOnClickListener { viewModel.release?.releaseDate?.let { date -> openDate(findNavController(), date) } }
+        dateChip.setOnClickListener { openDate() }
+        popularityChip.setOnClickListener { showPopularity() }
     }
 
     private fun fetchData() {
@@ -52,8 +55,14 @@ class ReleaseInfoFragment : BaseFragment(
             if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC
         )
 
+        val chipColor = release?.releaseType?.colorResId ?: R.color.colorPrimary
+
         dateChip.text = release?.releaseDateForUi(context)
-        dateChip.setChipBackgroundColorResource(release?.releaseType?.colorResId ?: R.color.colorPrimary)
+        dateChip.setChipBackgroundColorResource(chipColor)
+
+        popularityChip.text = release?.popularity?.toInt()?.toString() ?: "-"
+        popularityChip.setChipBackgroundColorResource(chipColor)
+        popularityChip.setChipIconResource(release?.popularityRating?.iconRes ?: PopularityRating.LOW.iconRes)
     }
 
     private fun setPlatforms(platforms: List<Platform>) {
@@ -88,5 +97,15 @@ class ReleaseInfoFragment : BaseFragment(
         val context = context ?: return
         if (url == null) return
         openUrl(context, url)
+    }
+
+    private fun openDate() {
+        val date = viewModel.release?.releaseDate ?: return
+        openDate(findNavController(), date)
+    }
+
+    private fun showPopularity() {
+        val popularity = viewModel.release?.popularity ?: 0f
+        context?.showToast("%s: %d".format(getString(R.string.popularity), popularity.toInt()))
     }
 }
