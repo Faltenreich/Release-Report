@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
+import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.enum.PopularityRating
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
@@ -38,9 +39,9 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun fetchData() {
-        viewModel.observeRelease(this) { release -> setMetadata(release) }
-        viewModel.observePlatforms(this) { platforms -> setPlatforms(platforms ?: listOf()) }
-        viewModel.observeGenres(this) { genres -> setGenres(genres ?: listOf()) }
+        viewModel.observeRelease(this, ::setMetadata)
+        viewModel.observePlatforms(this, ::setPlatforms)
+        viewModel.observeGenres(this, ::setGenres)
     }
 
     private fun setMetadata(release: Release?) {
@@ -65,16 +66,16 @@ class ReleaseInfoFragment : BaseFragment(
         popularityChip.setChipIconResource(release?.popularityRating?.iconRes ?: PopularityRating.LOW.iconRes)
     }
 
-    private fun setPlatforms(platforms: List<Platform>) {
+    private fun setPlatforms(platforms: List<Platform>?) {
         platformChipContainer.removeAllViews()
-        platforms.forEach { platform -> addChip(platformChipContainer, platform.title) }
-        platformChipScrollContainer.isVisible = platforms.isNotEmpty()
+        platforms?.forEach { platform -> addChip(platformChipContainer, platform.title) }
+        platformChipScrollContainer.isVisible = platforms?.isNotEmpty().isTrue
     }
 
-    private fun setGenres(genres: List<Genre>) {
+    private fun setGenres(genres: List<Genre>?) {
         genreChipContainer.removeAllViews()
-        genres.forEach { genre -> addChip(genreChipContainer, genre.title) }
-        genreChipScrollContainer.isVisible = genres.isNotEmpty()
+        genres?.forEach { genre -> addChip(genreChipContainer, genre.title) }
+        genreChipScrollContainer.isVisible = genres?.isNotEmpty().isTrue
     }
 
     private fun addChip(

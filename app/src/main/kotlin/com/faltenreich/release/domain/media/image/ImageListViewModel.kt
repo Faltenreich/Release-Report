@@ -1,14 +1,13 @@
 package com.faltenreich.release.domain.media.image
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.faltenreich.release.framework.androidx.LiveDataFix
 
 class ImageListViewModel : ViewModel() {
 
-    private val imageUrlsLiveData = MutableLiveData<List<String>?>()
-
+    private val imageUrlsLiveData = LiveDataFix<List<String>?>()
     var imageUrls: List<String>?
         get() = imageUrlsLiveData.value
         set(value) = imageUrlsLiveData.postValue(value)

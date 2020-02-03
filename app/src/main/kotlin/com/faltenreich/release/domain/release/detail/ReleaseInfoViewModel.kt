@@ -1,7 +1,6 @@
 package com.faltenreich.release.domain.release.detail
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.data.model.Genre
@@ -9,23 +8,23 @@ import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
+import com.faltenreich.release.framework.androidx.LiveDataFix
 import java.util.*
 
 class ReleaseInfoViewModel : ViewModel() {
 
-    private val releaseLiveData = MutableLiveData<Release?>()
-    private val genreLiveData = MutableLiveData<List<Genre>?>()
-    private val platformLiveData = MutableLiveData<List<Platform>?>()
-
+    private val releaseLiveData = LiveDataFix<Release?>()
     var release: Release?
         get() = releaseLiveData.value
         set(value) = releaseLiveData.postValue(value)
 
-    var genres: List<Genre>?
+    private val genreLiveData = LiveDataFix<List<Genre>?>()
+    private var genres: List<Genre>?
         get() = genreLiveData.value
         set(value) = genreLiveData.postValue(value)
 
-    var platforms: List<Platform>?
+    private val platformLiveData = LiveDataFix<List<Platform>?>()
+    private var platforms: List<Platform>?
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)
 

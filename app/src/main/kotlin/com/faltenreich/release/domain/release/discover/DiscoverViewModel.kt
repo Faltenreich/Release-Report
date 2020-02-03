@@ -1,6 +1,9 @@
 package com.faltenreich.release.domain.release.discover
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
@@ -9,13 +12,8 @@ import com.faltenreich.release.domain.release.list.ReleaseListDataSource
 import org.threeten.bp.LocalDate
 
 class DiscoverViewModel : ViewModel() {
-    private val dateLiveData = MutableLiveData<LocalDate?>()
+
     private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>?>
-
-    var date: LocalDate?
-        get() = dateLiveData.value
-        set(value) = dateLiveData.postValue(value)
-
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 

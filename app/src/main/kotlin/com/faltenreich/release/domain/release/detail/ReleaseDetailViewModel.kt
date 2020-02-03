@@ -1,17 +1,16 @@
 package com.faltenreich.release.domain.release.detail
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
+import com.faltenreich.release.framework.androidx.LiveDataFix
 
 class ReleaseDetailViewModel : ViewModel() {
 
-    private val releaseLiveData = MutableLiveData<Release?>()
-
+    private val releaseLiveData = LiveDataFix<Release?>()
     var release: Release?
         get() = releaseLiveData.value
         set(value) = releaseLiveData.postValue(value)

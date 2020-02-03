@@ -1,19 +1,23 @@
 package com.faltenreich.release.domain.release.calendar
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
+import com.faltenreich.release.framework.androidx.LiveDataFix
 import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {
 
-    private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>?>
-    private val yearMonthLiveData = MutableLiveData<YearMonth?>()
-
+    private val yearMonthLiveData = LiveDataFix<YearMonth?>()
     var yearMonth: YearMonth?
         get() = yearMonthLiveData.value
         set(value) = yearMonthLiveData.postValue(value)
+
+    private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>?>
 
     fun observeReleases(
         yearMonth: YearMonth,

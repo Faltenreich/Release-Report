@@ -1,7 +1,6 @@
 package com.faltenreich.release.domain.release.spotlight
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.R
@@ -10,11 +9,12 @@ import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
+import com.faltenreich.release.framework.androidx.LiveDataFix
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
-    private val spotlightItemsLiveData = MutableLiveData<List<SpotlightItem>?>()
 
+    private val spotlightItemsLiveData = LiveDataFix<List<SpotlightItem>?>()
     private var spotlightItems: List<SpotlightItem>?
         get() = spotlightItemsLiveData.value
         set(value) = spotlightItemsLiveData.postValue(value)
