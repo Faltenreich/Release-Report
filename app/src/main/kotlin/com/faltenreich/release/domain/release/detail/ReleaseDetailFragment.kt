@@ -59,8 +59,12 @@ class ReleaseDetailFragment : BaseFragment(
         menu.findItem(R.id.web_open).isVisible = viewModel.release?.externalUrl != null
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         mainViewModel.fabConfig = null
+        super.onPause()
+    }
+
+    override fun onDestroy() {
         super.onDestroy()
         infoViewModel.release = null
         imageListViewModel.imageUrls = null
