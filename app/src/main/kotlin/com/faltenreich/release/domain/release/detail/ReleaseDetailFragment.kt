@@ -46,6 +46,11 @@ class ReleaseDetailFragment : BaseFragment(
         fetchData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        invalidateSubscription()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.web_search -> { searchInWeb(context, viewModel.release?.titleFull); true }

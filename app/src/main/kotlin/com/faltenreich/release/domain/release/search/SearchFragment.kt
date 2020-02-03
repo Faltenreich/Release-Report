@@ -63,7 +63,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
         }, afterInitialLoad = { list ->
-            emptyView.isVisible = list?.isEmpty().isTrueOrNull
+            if (isAdded) {
+                emptyView.isVisible = list?.isEmpty().isTrueOrNull
+            }
         })
     }
 
