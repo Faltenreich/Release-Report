@@ -35,7 +35,7 @@ class ReleaseInfoFragment : BaseFragment(
     private fun initLayout() {
         coverImageView.setOnClickListener { openUrl(viewModel.release?.imageUrlForCover) }
         dateChip.setOnClickListener { openDate() }
-        popularityChip.setOnClickListener { showPopularity() }
+        popularityChip.setOnClickListener { context?.showToast(getString(R.string.popularity)) }
     }
 
     private fun fetchData() {
@@ -103,10 +103,5 @@ class ReleaseInfoFragment : BaseFragment(
     private fun openDate() {
         val date = viewModel.release?.releaseDate ?: return
         openDate(findNavController(), date)
-    }
-
-    private fun showPopularity() {
-        val popularity = viewModel.release?.popularity ?: 0f
-        context?.showToast("%s: %d".format(getString(R.string.popularity), popularity.toInt()))
     }
 }
