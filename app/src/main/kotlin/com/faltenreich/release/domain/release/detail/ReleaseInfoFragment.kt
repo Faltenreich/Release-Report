@@ -34,8 +34,6 @@ class ReleaseInfoFragment : BaseFragment(
 
     private fun initLayout() {
         coverImageView.setOnClickListener { openImage(findNavController(), viewModel.release, viewModel.release?.imageUrlForCover) }
-        dateChip.setOnClickListener { openDate() }
-        popularityChip.setOnClickListener { context?.showToast(getString(R.string.popularity)) }
     }
 
     private fun fetchData() {
@@ -56,14 +54,39 @@ class ReleaseInfoFragment : BaseFragment(
             if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC
         )
 
-        val chipColor = release?.releaseType?.colorResId ?: R.color.colorPrimary
+        metaChipContainer.removeAllViews()
+        setType(release)
+        setDate(release)
+    }
 
-        dateChip.text = release?.releaseDateForUi(context)
-        dateChip.setChipBackgroundColorResource(chipColor)
+    private fun setType(release: Release?) {
+        val type = release?.releaseType ?: return
+        addChip(
+            metaChipContainer,
+            title = getString(type.singularStringRes),
+            iconResId = type.iconResId
+        )
+    }
 
-        popularityChip.text = release?.popularity?.toInt()?.toString() ?: "-"
-        popularityChip.setChipBackgroundColorResource(chipColor)
-        popularityChip.setChipIconResource(release?.popularityRating?.iconRes ?: PopularityRating.LOW.iconRes)
+    private fun setDate(release: Release?) {
+        val date = release?.releaseDateForUi(context) ?: return
+        addChip(
+            metaChipContainer,
+            title = date,
+            iconResId = R.drawable.ic_date,
+            onClick = ::openDate
+        )
+    }
+
+    // TODO: Where to place?
+    private fun setPopularity(release: Release?) {
+        val popularity = release?.popularity ?: return
+        addChip(
+            metaChipContainer,
+            title = popularity.toInt().toString(),
+            iconResId = PopularityRating.ofPopularity(popularity).iconRes,
+            onClick = { context?.showToast(getString(R.string.popularity)) }
+        )
     }
 
     private fun setPlatforms(platforms: List<Platform>?) {
