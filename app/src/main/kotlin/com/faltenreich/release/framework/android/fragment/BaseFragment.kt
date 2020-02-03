@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.data.provider.ViewModelCreator
+import com.faltenreich.release.domain.navigation.MainViewModel
 import kotlin.reflect.KClass
 
 abstract class BaseFragment(
@@ -21,6 +22,8 @@ abstract class BaseFragment(
     @MenuRes private val menuResId: Int? = null,
     @StringRes private val titleResId: Int? = null
 ) : Fragment(), ViewModelCreator {
+
+    protected val mainViewModel by lazy { createSharedViewModel(MainViewModel::class) }
 
     protected var isViewCreated: Boolean = false
 

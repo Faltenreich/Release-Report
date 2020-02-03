@@ -37,6 +37,13 @@ var FloatingActionButton.backgroundTintResource: Int
     get() = throw java.lang.UnsupportedOperationException()
     set(value) { backgroundTint = ContextCompat.getColor(context, value) }
 
+var FloatingActionButton.foregroundTint: Int
+    get() = throw java.lang.UnsupportedOperationException()
+    set(value) = setColorFilter(value)
+
+var FloatingActionButton.foregroundTintResource: Int
+    get() = throw java.lang.UnsupportedOperationException()
+    set(value) { foregroundTint = ContextCompat.getColor(context, value) }
 
 fun <T> PagedList<T>.onInserted(onInserted: (position: Int, count: Int) -> Unit) {
     addWeakCallback(this, object : PagedList.Callback() {

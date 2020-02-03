@@ -22,4 +22,10 @@
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_navigation"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/bottomAppBar" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

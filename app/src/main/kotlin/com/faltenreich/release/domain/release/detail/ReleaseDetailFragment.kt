@@ -14,15 +14,14 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.image.ImageListViewModel
 import com.faltenreich.release.domain.media.video.VideoListViewModel
+import com.faltenreich.release.domain.navigation.FabConfig
 import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.tablayout.setupWithViewPager2
-import com.faltenreich.release.framework.android.view.backgroundTintResource
 import com.faltenreich.release.framework.android.view.fitSystemWindows
-import com.faltenreich.release.framework.android.view.tintResource
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 import kotlin.math.abs
@@ -61,6 +60,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     override fun onDestroy() {
+        mainViewModel.fabConfig = null
         super.onDestroy()
         infoViewModel.release = null
         imageListViewModel.imageUrls = null
@@ -84,8 +84,6 @@ class ReleaseDetailFragment : BaseFragment(
             val url = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
             openImage(findNavController(), release, url)
         }
-
-        fab.setOnClickListener { toggleSubscription() }
 
         viewPager.adapter = ReleaseDetailFragmentAdapter(this)
         tabLayout.setupWithViewPager2(viewPager)
@@ -111,9 +109,12 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun invalidateSubscription() {
         val isSubscribed = viewModel.release?.isSubscribed ?: false
-        fab.backgroundTintResource = if (isSubscribed) R.color.yellow else viewModel.color
-        fab.tintResource = if (isSubscribed) R.color.brown else android.R.color.white
-        fab.setImageResource(if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off)
+        mainViewModel.fabConfig = FabConfig(
+            iconRes = if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off,
+            backgroundColorRes = if (isSubscribed) R.color.yellow else R.color.colorPrimaryDark,
+            foregroundColorRes = if (isSubscribed) R.color.brown else android.R.color.white,
+            onClick = ::toggleSubscription
+        )
     }
 
     private fun setRelease(release: Release?) {
@@ -132,10 +133,7 @@ class ReleaseDetailFragment : BaseFragment(
         viewModel.release?.isSubscribed = isSubscribed
         // FIXME: Replace with Snackbar when being placed behind BottomAppBar
         context?.showToast(if (isSubscribed) R.string.subscription_added else R.string.subscription_removed)
-        // Workaround for broken icon: https://issuetracker.google.com/issues/111316656
-        fab.hide()
         invalidateSubscription()
-        fab.show()
     }
 
     private fun openUrl(url: String?) {
