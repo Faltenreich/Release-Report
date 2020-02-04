@@ -1,6 +1,5 @@
 package com.faltenreich.release.domain.release.detail
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -48,10 +47,6 @@ class ReleaseInfoFragment : BaseFragment(
         artistTextView.text = release?.artist
         artistTextView.isVisible = artistTextView.text.isNotBlank()
         descriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
-        descriptionTextView.setTypeface(
-            descriptionTextView.typeface,
-            if (release?.description != null) Typeface.NORMAL else Typeface.ITALIC
-        )
 
         metaChipContainer.removeAllViews()
         setType(release)
