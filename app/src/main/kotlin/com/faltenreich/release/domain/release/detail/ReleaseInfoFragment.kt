@@ -85,14 +85,14 @@ class ReleaseInfoFragment : BaseFragment(
 
     private fun setPlatforms(platforms: List<Platform>?) {
         platformChipContainer.removeAllViews()
+        platformChipContainer.isVisible = platforms?.isNotEmpty().isTrue
         platforms?.forEach { platform -> addChip(platformChipContainer, platform.title) }
-        platformChipScrollContainer.isVisible = platforms?.isNotEmpty().isTrue
     }
 
     private fun setGenres(genres: List<Genre>?) {
         genreChipContainer.removeAllViews()
+        genreChipContainer.isVisible = genres?.isNotEmpty().isTrue
         genres?.forEach { genre -> addChip(genreChipContainer, genre.title) }
-        genreChipScrollContainer.isVisible = genres?.isNotEmpty().isTrue
     }
 
     private fun addChip(

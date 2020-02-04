@@ -7,6 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:paddingStart="@dimen/margin_padding_size_medium"
+    android:paddingTop="@dimen/margin_padding_size_small"
+    android:paddingEnd="@dimen/margin_padding_size_medium"
     android:paddingBottom="@dimen/toolbar_height_padded">
 
     <LinearLayout
@@ -14,30 +17,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <HorizontalScrollView
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/metaChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:scrollbars="none">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/metaChipContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
-                app:singleLine="true" />
-
-        </HorizontalScrollView>
+            app:chipSpacing="@dimen/margin_padding_size_small" />
 
         <ImageView
             android:id="@+id/coverImageView"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginTop="@dimen/margin_padding_size_xxxsmall"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:foreground="?selectableItemBackground"
@@ -47,9 +37,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:layout_marginTop="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:textColor="?android:textColorPrimaryInverse"
             android:textIsSelectable="true"
             android:textSize="@dimen/text_size_large"
@@ -59,73 +47,32 @@
             android:id="@+id/artistTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:textColor="?android:textColorPrimaryInverse"
             android:textIsSelectable="true"
             tools:text="@tools:sample/lorem" />
 
-        <HorizontalScrollView
-            android:id="@+id/platformChipScrollContainer"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/platformChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:scrollbars="none">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/platformChipContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
-                app:singleLine="true" />
-
-        </HorizontalScrollView>
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            app:chipSpacing="@dimen/margin_padding_size_small" />
 
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_size_small"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:textColor="?android:textColorPrimaryInverse"
             android:textIsSelectable="true"
             tools:text="@tools:sample/lorem" />
 
-        <HorizontalScrollView
-            android:id="@+id/genreChipScrollContainer"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/genreChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_size_small"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            android:scrollbars="none">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/genreChipContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="@dimen/margin_padding_size_small"
-                app:singleLine="true" />
-
-        </HorizontalScrollView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/imageListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
-            android:paddingStart="@dimen/margin_padding_size_medium"
-            android:paddingEnd="@dimen/margin_padding_size_medium"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/list_item_image"
-            tools:orientation="vertical"
-            tools:spanCount="3" />
+            app:chipSpacing="@dimen/margin_padding_size_small" />
 
     </LinearLayout>
 

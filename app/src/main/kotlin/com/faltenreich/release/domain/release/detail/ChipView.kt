@@ -17,5 +17,6 @@ class ChipView @JvmOverloads constructor(
         setChipCornerRadiusResource(R.dimen.card_corner_radius)
         setChipIconTintResource(R.color.light)
         setIconStartPaddingResource(R.dimen.margin_padding_size_xxsmall)
+        setEnsureMinTouchTargetSize(false)
     }
 }
