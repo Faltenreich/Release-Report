@@ -26,26 +26,34 @@
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <FrameLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7">
 
+                <!-- FIXME: centerCrops does not work correctly -->
                 <ImageView
                     android:id="@+id/wallpaperImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_size_wallpaper_large"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:contentDescription="@null"
                     android:foreground="?selectableItemBackground"
-                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="16:9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/scrim_height"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/scrim_bottom" />
+                    android:background="@drawable/scrim_bottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:id="@+id/videoIndicatorView"
@@ -54,9 +62,13 @@
                     android:layout_gravity="center"
                     android:background="@drawable/scrim_round"
                     android:contentDescription="@string/video_play"
-                    android:src="@drawable/ic_play" />
+                    android:src="@drawable/ic_play"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
