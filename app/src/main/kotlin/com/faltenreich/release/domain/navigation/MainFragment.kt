@@ -8,6 +8,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.backgroundTintResource
 import com.faltenreich.release.framework.android.view.foregroundTintResource
+import com.faltenreich.release.framework.android.view.showSnackbar
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
@@ -42,16 +43,21 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun observeData() {
         viewModel.observeFabConfig(this, ::setFabConfig)
+        viewModel.onMessageReceived = ::showMessage
     }
 
     private fun setFabConfig(fabConfig: FabConfig?) {
         if (fabConfig != null) {
-            fab.show()
+            if (fab.isOrWillBeHidden) {
+                fab.show()
+            }
             fab.setImageResource(fabConfig.iconRes)
             fab.backgroundTintResource = fabConfig.backgroundColorRes
             fab.foregroundTintResource = fabConfig.foregroundColorRes
         } else {
-            fab.hide()
+            if (fab.isOrWillBeShown) {
+                fab.hide()
+            }
         }
     }
 
@@ -60,5 +66,9 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
             Bundle().apply { putInt(NavigationFragment.ARGUMENT_PREVIOUS_DESTINATION_ID, id) }
         }
         navigationController.navigate(R.id.navigation, arguments)
+    }
+
+    private fun showMessage(message: String) {
+        view?.showSnackbar(message, anchor = fab)
     }
 }

@@ -10,28 +10,30 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-private const val FALLBACK_COVER_COLOR_RES = R.color.colorPrimary
-
 private fun ImageView.setImage(
     url: String?,
     size: Int,
+    fallbackColor: Int?,
     callback: ((Drawable?) -> Unit)?
 ) {
     url?.let {
         setImageAsync(url, size) { drawable ->
             GlobalScope.launch(Dispatchers.Main) {
                 if (drawable == null) {
-                    onImageNotFound(callback)
+                    onImageNotFound(fallbackColor, callback)
                 } else {
-                    callback?.invoke(null)
+                    callback?.invoke(drawable)
                 }
             }
         }
-    } ?: onImageNotFound(callback)
+    } ?: onImageNotFound(fallbackColor, callback)
 }
 
-private fun ImageView.onImageNotFound(callback: ((Drawable?) -> Unit)?) {
-    setImageResource(FALLBACK_COVER_COLOR_RES)
+private fun ImageView.onImageNotFound(
+    fallbackColor: Int?,
+    callback: ((Drawable?) -> Unit)?
+) {
+    setImageResource(fallbackColor ?: R.color.colorPrimary)
     callback?.invoke(null)
 }
 
@@ -40,7 +42,7 @@ fun ImageView.setWallpaper(
     size: Int = context.screenSize.x,
     callback: ((Drawable?) -> Unit)? = null
 ) {
-    setImage(release?.imageUrlForWallpaper, size, callback)
+    setImage(release?.imageUrlForWallpaper, size, release?.releaseType?.colorResId, callback)
 }
 
 fun ImageView.setCover(
@@ -48,7 +50,7 @@ fun ImageView.setCover(
     size: Int = context.screenSize.x / 2,
     callback: ((Drawable?) -> Unit)? = null
 ) {
-    setImage(release?.imageUrlForCover, size, callback)
+    setImage(release?.imageUrlForCover, size, release?.releaseType?.colorResId, callback)
 }
 
 fun ImageView.setThumbnail(
@@ -56,5 +58,5 @@ fun ImageView.setThumbnail(
     size: Int = context.screenSize.x / 4,
     callback: ((Drawable?) -> Unit)? = null
 ) {
-    setImage(release?.imageUrlForThumbnail, size, callback)
+    setImage(release?.imageUrlForThumbnail, size, release?.releaseType?.colorResId, callback)
 }

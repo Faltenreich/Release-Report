@@ -16,7 +16,6 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setCover
-import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_release_info.*
 
@@ -85,7 +84,7 @@ class ReleaseInfoFragment : BaseFragment(
             metaChipContainer,
             title = popularity.toInt().toString(),
             iconResId = PopularityRating.ofPopularity(popularity).iconRes,
-            onClick = { context?.showToast(getString(R.string.popularity)) }
+            onClick = { mainViewModel.showMessage(getString(R.string.popularity)) }
         )
     }
 

@@ -17,7 +17,6 @@ import com.faltenreich.release.domain.media.video.VideoListViewModel
 import com.faltenreich.release.domain.navigation.FabConfig
 import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setWallpaper
-import com.faltenreich.release.framework.android.context.showToast
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.tablayout.setupWithViewPager2
@@ -120,8 +119,8 @@ class ReleaseDetailFragment : BaseFragment(
         val isSubscribed = viewModel.release?.isSubscribed ?: false
         mainViewModel.fabConfig = FabConfig(
             iconRes = if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off,
-            backgroundColorRes = if (isSubscribed) R.color.yellow else R.color.colorPrimaryDark,
-            foregroundColorRes = if (isSubscribed) R.color.brown else android.R.color.white,
+            backgroundColorRes = if (isSubscribed) R.color.yellow else android.R.color.white,
+            foregroundColorRes = if (isSubscribed) R.color.brown else R.color.colorPrimaryDark,
             onClick = ::toggleSubscription
         )
     }
@@ -141,7 +140,11 @@ class ReleaseDetailFragment : BaseFragment(
         val isSubscribed = !(viewModel.release?.isSubscribed.isTrue)
         viewModel.release?.isSubscribed = isSubscribed
         // FIXME: Replace with Snackbar when being placed behind BottomAppBar
-        context?.showToast(if (isSubscribed) R.string.subscription_added else R.string.subscription_removed)
+        val message = getString(
+            if (isSubscribed) R.string.subscription_added
+            else R.string.subscription_removed
+        )
+        mainViewModel.showMessage(message)
         invalidateSubscription()
     }
 

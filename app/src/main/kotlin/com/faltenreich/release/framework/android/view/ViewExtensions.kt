@@ -10,7 +10,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
-import androidx.paging.PagedList
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -45,23 +44,14 @@ var FloatingActionButton.foregroundTintResource: Int
     get() = throw java.lang.UnsupportedOperationException()
     set(value) { foregroundTint = ContextCompat.getColor(context, value) }
 
-fun <T> PagedList<T>.onInserted(onInserted: (position: Int, count: Int) -> Unit) {
-    addWeakCallback(this, object : PagedList.Callback() {
-        override fun onInserted(position: Int, count: Int) {
-            onInserted(position, count)
-            removeWeakCallback(this)
-        }
-        override fun onChanged(position: Int, count: Int) = Unit
-        override fun onRemoved(position: Int, count: Int) = Unit
-    })
+fun View.showSnackbar(text: String, anchor: View? = null) {
+    val snackbar = Snackbar.make(this, text, Snackbar.LENGTH_LONG)
+    snackbar.anchorView = anchor
+    snackbar.show()
 }
 
-fun View.showSnackbar(text: String) {
-    Snackbar.make(this, text, Snackbar.LENGTH_LONG).show()
-}
-
-fun View.showSnackbar(@StringRes textRes: Int) {
-    showSnackbar(context.getString(textRes))
+fun View.showSnackbar(@StringRes textRes: Int, anchor: View? = null) {
+    showSnackbar(context.getString(textRes), anchor)
 }
 
 val View.activity: Activity?

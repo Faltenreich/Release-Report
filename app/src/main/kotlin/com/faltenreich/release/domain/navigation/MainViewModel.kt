@@ -12,7 +12,13 @@ class MainViewModel : ViewModel() {
         get() = fabConfigLiveData.value
         set(value) = fabConfigLiveData.postValue(value)
 
+    var onMessageReceived: ((String) -> Unit)? = null
+
     fun observeFabConfig(owner: LifecycleOwner, onObserve: (FabConfig?) -> Unit) {
         fabConfigLiveData.observe(owner, Observer(onObserve))
+    }
+
+    fun showMessage(message: String) {
+        onMessageReceived?.invoke(message)
     }
 }
