@@ -10,7 +10,7 @@
     android:paddingStart="@dimen/margin_padding_size_medium"
     android:paddingTop="@dimen/margin_padding_size_small"
     android:paddingEnd="@dimen/margin_padding_size_medium"
-    android:paddingBottom="@dimen/toolbar_height_padded">
+    android:paddingBottom="@dimen/bottom_bar_height_padded">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -10,7 +10,7 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/toolbar_height_padded"
+        android:paddingBottom="@dimen/bottom_bar_height_padded"
         android:clipToPadding="false"
         tools:listitem="@layout/list_item_spotlight"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
