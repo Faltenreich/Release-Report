@@ -29,12 +29,13 @@
 
     <dimen name="image_size_xxsmall">16dp</dimen>
     <dimen name="image_size_xsmall">20dp</dimen>
-    <dimen name="image_size_small">30dp</dimen>
+    <dimen name="image_size_small">40dp</dimen>
     <dimen name="image_size_medium">48dp</dimen>
     <dimen name="image_size_large">72dp</dimen>
     <dimen name="image_size_wallpaper">160dp</dimen>
     <dimen name="image_size_wallpaper_large">220dp</dimen>
     <dimen name="dogear">28dp</dimen>
     <dimen name="dogear_padding">6dp</dimen>
+    <dimen name="scrim_height">74dp</dimen>
 
 </resources>

@@ -41,11 +41,18 @@
                     android:scaleType="centerCrop"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scrim_height"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/scrim_bottom" />
+
                 <ImageView
                     android:id="@+id/videoIndicatorView"
-                    android:layout_width="@dimen/image_size_medium"
-                    android:layout_height="@dimen/image_size_medium"
+                    android:layout_width="@dimen/image_size_small"
+                    android:layout_height="@dimen/image_size_small"
                     android:layout_gravity="center"
+                    android:background="@drawable/scrim_round"
                     android:contentDescription="@string/video_play"
                     android:src="@drawable/ic_play" />
 
