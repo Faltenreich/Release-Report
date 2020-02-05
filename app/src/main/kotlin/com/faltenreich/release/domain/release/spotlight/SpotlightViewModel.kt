@@ -11,6 +11,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import com.faltenreich.release.framework.androidx.LiveDataFix
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
@@ -27,7 +28,7 @@ class SpotlightViewModel : ViewModel() {
     }
 
     private fun fetchData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val today = LocalDate.now()
             val (startOfWeek, endOfWeek) = today.atStartOfWeek to today.atEndOfWeek
 

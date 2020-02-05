@@ -10,6 +10,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
 import com.faltenreich.release.framework.androidx.LiveDataFix
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -47,7 +48,7 @@ class ReleaseInfoViewModel : ViewModel() {
     }
 
     private fun fetchPlatforms(ids: List<String>) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             platforms = PlatformRepository.getByIds(ids).sortedBy { platform ->
                 platform.title?.toLowerCase(Locale.getDefault())
             }
@@ -55,7 +56,7 @@ class ReleaseInfoViewModel : ViewModel() {
     }
 
     private fun fetchGenres(ids: List<String>) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             genres = GenreRepository.getByIds(ids).sortedBy { genre ->
                 genre.title?.toLowerCase(Locale.getDefault())
             }

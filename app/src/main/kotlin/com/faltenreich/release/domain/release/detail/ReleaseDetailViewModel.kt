@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.framework.androidx.LiveDataFix
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ReleaseDetailViewModel : ViewModel() {
@@ -18,6 +19,6 @@ class ReleaseDetailViewModel : ViewModel() {
 
     fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer(onObserve))
-        viewModelScope.launch { release = ReleaseRepository.getById(id) }
+        viewModelScope.launch(Dispatchers.IO) { release = ReleaseRepository.getById(id) }
     }
 }

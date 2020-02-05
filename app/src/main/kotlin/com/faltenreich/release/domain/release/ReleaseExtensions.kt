@@ -6,9 +6,6 @@ import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.framework.android.context.screenSize
 import com.faltenreich.release.framework.android.view.setImageAsync
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 private fun ImageView.setImage(
     url: String?,
@@ -18,12 +15,10 @@ private fun ImageView.setImage(
 ) {
     url?.let {
         setImageAsync(url, size) { drawable ->
-            GlobalScope.launch(Dispatchers.Main) {
-                if (drawable == null) {
-                    onImageNotFound(fallbackColor, callback)
-                } else {
-                    callback?.invoke(drawable)
-                }
+            if (drawable == null) {
+                onImageNotFound(fallbackColor, callback)
+            } else {
+                callback?.invoke(drawable)
             }
         }
     } ?: onImageNotFound(fallbackColor, callback)

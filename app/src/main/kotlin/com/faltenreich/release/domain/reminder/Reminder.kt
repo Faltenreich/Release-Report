@@ -15,7 +15,6 @@ import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
 import com.faltenreich.release.framework.glide.toBitmap
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -84,28 +83,26 @@ object Reminder {
     private fun showNotification(context: Context, title: String, releases: List<Release>) {
         releases.takeIf(List<*>::isNotEmpty) ?: return
 
-        GlobalScope.launch {
-            val releaseCount = releases.size
-            val release = releases.first()
+        val releaseCount = releases.size
+        val release = releases.first()
 
-            val message = if (releaseCount > 1) {
-                context.getString(R.string.reminder_notification_message).format(release.titleFull, releaseCount)
-            } else {
-                release.titleFull
-            }
-
-            // Must be executed within background thread
-            val image = release.imageUrlForThumbnail?.toBitmap(context)
-
-            val notification = Notification(
-                ID,
-                context,
-                NotificationChannel.MAIN,
-                title = title,
-                message = message,
-                largeIcon = image
-            )
-            NotificationManager.showNotification(notification)
+        val message = if (releaseCount > 1) {
+            context.getString(R.string.reminder_notification_message).format(release.titleFull, releaseCount)
+        } else {
+            release.titleFull
         }
+
+        // Must be executed within background thread
+        val image = release.imageUrlForThumbnail?.toBitmap(context)
+
+        val notification = Notification(
+            ID,
+            context,
+            NotificationChannel.MAIN,
+            title = title,
+            message = message,
+            largeIcon = image
+        )
+        NotificationManager.showNotification(notification)
     }
 }
