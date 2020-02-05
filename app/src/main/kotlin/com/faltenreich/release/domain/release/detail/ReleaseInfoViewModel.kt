@@ -21,12 +21,12 @@ class ReleaseInfoViewModel : ViewModel() {
         set(value) = releaseLiveData.postValue(value)
 
     private val genreLiveData = LiveDataFix<List<Genre>?>()
-    private var genres: List<Genre>?
+    var genres: List<Genre>?
         get() = genreLiveData.value
         set(value) = genreLiveData.postValue(value)
 
     private val platformLiveData = LiveDataFix<List<Platform>?>()
-    private var platforms: List<Platform>?
+    var platforms: List<Platform>?
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)
 
@@ -36,6 +36,14 @@ class ReleaseInfoViewModel : ViewModel() {
             release?.genres?.let { ids -> fetchGenres(ids) }
             release?.platforms?.let { ids -> fetchPlatforms(ids) }
         })
+    }
+
+    fun observeGenres(owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
+        genreLiveData.observe(owner, Observer(onObserve))
+    }
+
+    fun observePlatforms(owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
+        platformLiveData.observe(owner, Observer(onObserve))
     }
 
     private fun fetchPlatforms(ids: List<String>) {
@@ -52,13 +60,5 @@ class ReleaseInfoViewModel : ViewModel() {
                 genre.title?.toLowerCase(Locale.getDefault())
             }
         }
-    }
-
-    fun observeGenres(owner: LifecycleOwner, onObserve: (List<Genre>?) -> Unit) {
-        genreLiveData.observe(owner, Observer(onObserve))
-    }
-
-    fun observePlatforms(owner: LifecycleOwner, onObserve: (List<Platform>?) -> Unit) {
-        platformLiveData.observe(owner, Observer(onObserve))
     }
 }
