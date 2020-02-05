@@ -1,17 +1,18 @@
 package com.faltenreich.release.data.dao.demo
 
-import com.faltenreich.release.data.dao.ReleaseDao
-import com.faltenreich.release.data.dao.preference.ReleasePreferenceDao
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.base.date.isAfterOrEqual
 import com.faltenreich.release.base.date.isBeforeOrEqual
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.base.primitive.isTrueOrNull
+import com.faltenreich.release.data.dao.ReleaseDao
+import com.faltenreich.release.data.dao.preference.ReleasePreferenceDao
+import com.faltenreich.release.data.model.Release
 import org.threeten.bp.LocalDate
 import kotlin.math.max
 import kotlin.math.min
 
 class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
+
     private val releases by lazy { DemoFactory.releases }
 
     override fun getById(id: String, onResult: (Release?) -> Unit) {

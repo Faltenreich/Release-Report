@@ -7,6 +7,7 @@ import com.faltenreich.release.data.model.Release
 import org.threeten.bp.LocalDate
 
 object DemoFactory {
+
     private const val VIDEO_PROVIDER = "https://www.youtube.com"
     private const val IMAGE_PROVIDER = "https://picsum.photos"
 
