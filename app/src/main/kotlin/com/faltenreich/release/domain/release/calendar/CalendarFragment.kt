@@ -98,7 +98,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
             val itemsByDay = subscriptions.groupBy(Release::releaseDate)
             itemsByDay.forEach { (day, releases) ->
                 val indexedItem = items.withIndex().firstOrNull { item ->
-                    item.value.date == day
+                    item.value.date == day && item.value.isInSameMonth
                 } ?: return@forEach
                 val (index, item) = indexedItem.index to indexedItem.value
                 item.releases = releases
