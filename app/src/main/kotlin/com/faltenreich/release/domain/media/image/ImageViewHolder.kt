@@ -7,7 +7,6 @@ import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.view.setImageAsync
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_image.*
-import kotlinx.android.synthetic.main.list_item_release_promo.imageView
 
 class ImageViewHolder(
     context: Context,
