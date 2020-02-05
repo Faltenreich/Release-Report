@@ -71,7 +71,7 @@
             android:id="@+id/genreChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_size_small"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
             app:chipSpacing="@dimen/margin_padding_size_small" />
 
     </LinearLayout>

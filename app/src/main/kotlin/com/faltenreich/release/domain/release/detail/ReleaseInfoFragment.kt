@@ -31,7 +31,13 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun initLayout() {
-        coverImageView.setOnClickListener { openImage(findNavController(), viewModel.release, viewModel.release?.imageUrlForCover) }
+        coverImageView.setOnClickListener {
+            openImage(
+                findNavController(),
+                viewModel.release,
+                viewModel.release?.imageUrlForCover
+            )
+        }
     }
 
     private fun fetchData() {
@@ -46,7 +52,8 @@ class ReleaseInfoFragment : BaseFragment(
         titleTextView.text = release?.title
         artistTextView.text = release?.artist
         artistTextView.isVisible = artistTextView.text.isNotBlank()
-        descriptionTextView.text = release?.description ?: getString(R.string.unknown_description)
+        descriptionTextView.text = release?.description?.takeIf(String::isNotBlank)
+            ?: getString(R.string.unknown_description)
 
         metaChipContainer.removeAllViews()
         setType(release)
@@ -105,7 +112,9 @@ class ReleaseInfoFragment : BaseFragment(
         val chip = ChipView(context).apply {
             text = title
             iconResId?.let { setChipIconResource(iconResId) }
-            setChipBackgroundColorResource(viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary)
+            setChipBackgroundColorResource(
+                viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary
+            )
             setOnClickListener { onClick?.invoke() }
         }
         container.addView(chip)

@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
@@ -53,19 +52,16 @@ class SpotlightFragment : BaseFragment(
     }
 
     private fun initLayout() {
-        listView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        listView.addItemDecoration(SpotlightItemDecoration(requireContext()))
+        val context = context ?: return
+        listView.layoutManager = LinearLayoutManager(context)
+        listView.addItemDecoration(SpotlightItemDecoration(context))
         listView.adapter = listAdapter
     }
 
     private fun fetchData() {
         skeletonLayout.isVisible = true
         skeletonLayout.showSkeleton()
-        viewModel.observeData(this) { data ->
-            skeletonLayout.showOriginal()
-            skeletonLayout.isVisible = false
-            setData(data)
-        }
+        viewModel.observeData(this, ::setData)
     }
 
     private fun setData(data: List<SpotlightItem>?) {
@@ -75,6 +71,8 @@ class SpotlightFragment : BaseFragment(
             addListItems(items)
             notifyDataSetChanged()
         }
+        skeletonLayout.showOriginal()
+        skeletonLayout.isVisible = false
         emptyView.isVisible = items.isEmpty()
     }
 }
