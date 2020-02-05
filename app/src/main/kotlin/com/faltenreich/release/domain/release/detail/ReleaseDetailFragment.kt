@@ -10,6 +10,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
 import com.faltenreich.release.base.intent.WebSearchOpener
 import com.faltenreich.release.base.primitive.isTrue
+import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.image.ImageListViewModel
@@ -38,10 +39,16 @@ class ReleaseDetailFragment : BaseFragment(
     private val releaseId by lazy {
         ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
     }
+    private val releaseType by lazy {
+        ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseTypeKey?.let { key ->
+            ReleaseType.valueForKey(key)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+        invalidateTint()
         fetchData()
     }
 
@@ -109,7 +116,8 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateTint() {
-        val (color, colorDark) = viewModel.color to viewModel.colorDark
+        val color = releaseType?.colorResId ?: R.color.colorPrimary
+        val colorDark = releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
         layoutContainer.setBackgroundResource(colorDark)
         collapsingToolbarLayout.setContentScrimResource(color)
         collapsingToolbarLayout.setStatusBarScrimResource(color)
@@ -127,7 +135,6 @@ class ReleaseDetailFragment : BaseFragment(
 
     private fun setRelease(release: Release?) {
         invalidateMetadata()
-        invalidateTint()
         invalidateSubscription()
         invalidateOptionsMenu()
 

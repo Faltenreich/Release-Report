@@ -16,7 +16,11 @@
         app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="releaseId"
-            app:argType="string"/>
+            app:argType="string" />
+        <argument
+            android:name="releaseTypeKey"
+            app:nullable="true"
+            app:argType="string" />
     </action>
 
     <action
@@ -28,7 +32,7 @@
         app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="date"
-            app:argType="string"/>
+            app:argType="string" />
     </action>
 
     <action
@@ -40,7 +44,7 @@
         app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="query"
-            app:argType="string"/>
+            app:argType="string" />
     </action>
 
     <action
@@ -52,12 +56,12 @@
         app:popExitAnim="@android:anim/fade_out">
         <argument
             android:name="imageUrls"
-            app:nullable="true"
-            app:argType="string[]"/>
+            app:argType="string[]"
+            app:nullable="true" />
         <argument
             android:name="imageUrl"
-            app:nullable="true"
-            app:argType="string"/>
+            app:argType="string"
+            app:nullable="true" />
     </action>
 
     <dialog
@@ -66,14 +70,14 @@
         tools:layout="@layout/fragment_navigation">
         <argument
             android:name="previousDestinationId"
-            app:argType="integer"/>
+            app:argType="integer" />
     </dialog>
 
     <fragment
         android:id="@+id/spotlight"
         android:name="com.faltenreich.release.domain.release.spotlight.SpotlightFragment"
         android:label="@string/spotlight"
-        tools:layout="@layout/fragment_spotlight"/>
+        tools:layout="@layout/fragment_spotlight" />
 
     <fragment
         android:id="@+id/discover"
@@ -83,15 +87,15 @@
         <argument
             android:name="date"
             android:defaultValue="@null"
-            app:nullable="true"
-            app:argType="string"/>
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/calendar"
         android:name="com.faltenreich.release.domain.release.calendar.CalendarFragment"
         android:label="@string/calendar"
-        tools:layout="@layout/fragment_calendar"/>
+        tools:layout="@layout/fragment_calendar" />
 
     <fragment
         android:id="@+id/release"
@@ -99,7 +103,11 @@
         tools:layout="@layout/fragment_release_detail">
         <argument
             android:name="releaseId"
-            app:argType="string"/>
+            app:argType="string" />
+        <argument
+            android:name="releaseTypeKey"
+            app:nullable="true"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -108,9 +116,9 @@
         tools:layout="@layout/fragment_release_list">
         <argument
             android:name="date"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -119,7 +127,7 @@
         tools:layout="@layout/fragment_search">
         <argument
             android:name="query"
-            app:argType="string"/>
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -128,16 +136,16 @@
         tools:layout="@layout/fragment_image_gallery">
         <argument
             android:name="imageUrls"
-            app:argType="string[]"/>
+            app:argType="string[]" />
         <argument
             android:name="imageUrl"
-            app:argType="string"/>
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/preferences"
         android:name="com.faltenreich.release.domain.preference.PreferenceFragment"
         android:label="@string/preferences"
-        tools:layout="@layout/fragment_preference"/>
+        tools:layout="@layout/fragment_preference" />
 
 </navigation>

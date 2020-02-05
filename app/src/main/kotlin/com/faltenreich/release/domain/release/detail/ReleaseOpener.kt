@@ -11,7 +11,7 @@ interface ReleaseOpener {
 
     fun openRelease(navigationController: NavController, release: Release, sharedElement: View? = null) {
         release.id?.also { id ->
-            val destination = MainNavigationDirections.openRelease(id)
+            val destination = MainNavigationDirections.openRelease(id, release.releaseType?.key)
             sharedElement?.let { sharedElement ->
                 ViewCompat.setTransitionName(sharedElement, SHARED_ELEMENT_NAME)
                 navigationController.navigate(
