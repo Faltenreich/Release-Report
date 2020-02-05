@@ -21,11 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:theme="@style/Toolbar"
-            app:titleTextAppearance="@style/ToolbarTitle"
-            app:popupTheme="@style/ToolbarPopup"
-            app:navigationIcon="@drawable/ic_arrow_back"
             app:contentInsetStartWithNavigation="0dp"
-            tools:title="@tools:sample/date/mmddyy"/>
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:popupTheme="@style/ToolbarPopup"
+            app:titleTextAppearance="@style/ToolbarTitle"
+            tools:title="@tools:sample/date/mmddyy" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,10 +33,11 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/standard_element_size_large"
         android:clipToPadding="false"
-        tools:listitem="@layout/list_item_release_detail"
+        android:paddingBottom="@dimen/standard_element_size_large"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        tools:listitem="@layout/list_item_release_detail" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

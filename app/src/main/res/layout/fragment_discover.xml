@@ -20,9 +20,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_marginBottom="@dimen/margin_padding_size_small"/>
-            <!-- FIXME: Breaks behavior of BottomAppBar -->
-            <!-- app:layout_scrollFlags="scroll|enterAlways|snap" -->
+            android:layout_marginBottom="@dimen/margin_padding_size_small" />
+        <!-- FIXME: Breaks behavior of BottomAppBar -->
+        <!-- app:layout_scrollFlags="scroll|enterAlways|snap" -->
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,25 +35,26 @@
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/standard_element_size_large"
             android:clipToPadding="false"
-            tools:listitem="@layout/list_item_release_image"
+            android:paddingBottom="@dimen/standard_element_size_large"
+            android:scrollbars="none"
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:spanCount="2"/>
+            tools:listitem="@layout/list_item_release_image"
+            tools:spanCount="2" />
 
         <TextView
-            style="@style/ListHeader"
             android:id="@+id/headerTextView"
+            style="@style/ListHeader"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
             android:background="@drawable/dogear_header_overlay"
-            tools:text="@tools:sample/date/mmddyy"/>
+            tools:text="@tools:sample/date/mmddyy" />
 
         <include
-            layout="@layout/view_empty"
             android:id="@+id/emptyView"
+            layout="@layout/view_empty"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
@@ -61,8 +62,8 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="com.faltenreich.release.domain.release.search.SearchBehavior"
         app:search_hint="@string/search_hint"
-        app:search_hint_color="@color/gray_dark"
-        app:layout_behavior="com.faltenreich.release.domain.release.search.SearchBehavior"/>
+        app:search_hint_color="@color/gray_dark" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

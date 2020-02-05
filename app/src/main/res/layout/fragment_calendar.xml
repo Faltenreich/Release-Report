@@ -11,9 +11,10 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_calendar_day"
+        android:scrollbars="none"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:spanCount="7"/>
+        tools:listitem="@layout/list_item_calendar_day"
+        tools:spanCount="7" />
 
     <LinearLayout
         android:id="@+id/header"
@@ -25,17 +26,17 @@
             android:id="@+id/headerMonthLabel"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
+            android:background="?colorPrimary"
+            android:gravity="center_vertical"
             android:paddingStart="@dimen/margin_padding_size_large"
             android:paddingEnd="@dimen/margin_padding_size_large"
-            android:gravity="center_vertical"
             android:textColor="?android:textColorPrimaryInverse"
-            android:background="?colorPrimary"
-            tools:text="@tools:sample/date/mmddyy"/>
+            tools:text="@tools:sample/date/mmddyy" />
 
         <com.faltenreich.release.domain.release.calendar.WeekView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"/>
+            android:background="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
