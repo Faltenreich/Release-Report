@@ -14,7 +14,9 @@ import com.faltenreich.release.domain.reminder.notification.Notification
 import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
 import com.faltenreich.release.framework.glide.toBitmap
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
@@ -58,21 +60,22 @@ object Reminder {
     }
 
     private fun remindAboutNextWeek(context: Context) {
-        val today = LocalDate.now()
-        val startOfWeek = today.atStartOfWeek
-        val showReminder = today == startOfWeek
-        if (showReminder) {
-            val endOfWeek = today.atEndOfWeek
-            ReleaseRepository.getBetween(startOfWeek, endOfWeek) { releases ->
+        MainScope().launch(Dispatchers.IO) {
+            val today = LocalDate.now()
+            val startOfWeek = today.atStartOfWeek
+            val showReminder = today == startOfWeek
+            if (showReminder) {
+                val endOfWeek = today.atEndOfWeek
+                val releases = ReleaseRepository.getBetween(startOfWeek, endOfWeek)
                 val title = context.getString(R.string.reminder_weekly_notification)
                 showNotification(context, title, releases)
-
             }
         }
     }
 
     private fun remindAboutSubscriptions(context: Context) {
-        ReleaseRepository.getSubscriptions(LocalDate.now()) { releases ->
+        MainScope().launch(Dispatchers.IO) {
+            val releases = ReleaseRepository.getSubscriptions(LocalDate.now())
             val title = context.getString(R.string.reminder_subscriptions_notification).format(releases.size)
             showNotification(context, title, releases)
         }

@@ -4,14 +4,14 @@ import com.faltenreich.release.data.model.Release
 import org.threeten.bp.LocalDate
 
 interface ReleaseDao : Dao<Release> {
-    fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit)
-    fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit)
-    fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit)
-    fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null, onResult: (List<Release>) -> Unit)
-    fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit)
-    fun getSubscriptions(startAt: LocalDate, pageSize: Int, onResult: (List<Release>) -> Unit)
-    fun getSubscriptions(startAt: LocalDate, endAt: LocalDate, onResult: (List<Release>) -> Unit)
-    fun getSubscriptions(date: LocalDate, onResult: (List<Release>) -> Unit)
+    suspend fun getByIds(ids: Collection<String>, startAt: LocalDate?): List<Release>
+    suspend fun getBefore(date: LocalDate, page: Int, pageSize: Int): List<Release>
+    suspend fun getAfter(date: LocalDate, page: Int, pageSize: Int): List<Release>
+    suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null): List<Release>
+    suspend fun search(string: String, page: Int, pageSize: Int): List<Release>
+    suspend fun getSubscriptions(startAt: LocalDate, pageSize: Int): List<Release>
+    suspend fun getSubscriptions(startAt: LocalDate, endAt: LocalDate): List<Release>
+    suspend fun getSubscriptions(date: LocalDate): List<Release>
     fun isSubscribed(release: Release): Boolean
     fun subscribe(release: Release)
     fun unsubscribe(release: Release)

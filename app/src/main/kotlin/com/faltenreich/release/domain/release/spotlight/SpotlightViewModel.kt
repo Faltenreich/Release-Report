@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.spotlight
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
@@ -10,6 +11,7 @@ import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import com.faltenreich.release.framework.androidx.LiveDataFix
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
@@ -21,22 +23,28 @@ class SpotlightViewModel : ViewModel() {
 
     fun observeData(owner: LifecycleOwner, onObserve: (List<SpotlightItem>?) -> Unit) {
         spotlightItemsLiveData.observe(owner, Observer(onObserve))
+        fetchData()
+    }
 
-        val today = LocalDate.now()
-        val (startOfWeek, endOfWeek) = today.atStartOfWeek to today.atEndOfWeek
-        // Plus one for the promo
-        ReleaseRepository.getBetween(startOfWeek, endOfWeek, PAGE_SIZE + 1) { weekly ->
+    private fun fetchData() {
+        viewModelScope.launch {
+            val today = LocalDate.now()
+            val (startOfWeek, endOfWeek) = today.atStartOfWeek to today.atEndOfWeek
+
+            // Plus one for the promo
+            val weekly = ReleaseRepository.getBetween(startOfWeek, endOfWeek, PAGE_SIZE + 1)
+
             val lastMonth = today.minusMonths(1)
             val endOfLastWeek = startOfWeek.minusDays(1)
-            ReleaseRepository.getBetween(lastMonth, endOfLastWeek, PAGE_SIZE) { recent ->
-                ReleaseRepository.getSubscriptions(LocalDate.now(), PAGE_SIZE) { subscriptions ->
-                    setData(
-                        weekly.sortedByDescending(Release::popularity),
-                        recent.sortedByDescending(Release::popularity),
-                        subscriptions
-                    )
-                }
-            }
+            val recent = ReleaseRepository.getBetween(lastMonth, endOfLastWeek, PAGE_SIZE)
+
+            val subscriptions = ReleaseRepository.getSubscriptions(LocalDate.now(), PAGE_SIZE)
+
+            setData(
+                weekly.sortedByDescending(Release::popularity),
+                recent.sortedByDescending(Release::popularity),
+                subscriptions
+            )
         }
     }
 

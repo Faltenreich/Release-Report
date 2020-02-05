@@ -3,12 +3,14 @@ package com.faltenreich.release.domain.release.detail
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
 import com.faltenreich.release.framework.androidx.LiveDataFix
+import kotlinx.coroutines.launch
 import java.util.*
 
 class ReleaseInfoViewModel : ViewModel() {
@@ -37,14 +39,18 @@ class ReleaseInfoViewModel : ViewModel() {
     }
 
     private fun fetchPlatforms(ids: List<String>) {
-        PlatformRepository.getByIds(ids) { platforms ->
-            this.platforms = platforms.sortedBy { platform -> platform.title?.toLowerCase(Locale.getDefault()) }
+        viewModelScope.launch {
+            platforms = PlatformRepository.getByIds(ids).sortedBy { platform ->
+                platform.title?.toLowerCase(Locale.getDefault())
+            }
         }
     }
 
     private fun fetchGenres(ids: List<String>) {
-        GenreRepository.getByIds(ids) { genres ->
-            this.genres = genres.sortedBy { genre -> genre.title?.toLowerCase(Locale.getDefault()) }
+        viewModelScope.launch {
+            genres = GenreRepository.getByIds(ids).sortedBy { genre ->
+                genre.title?.toLowerCase(Locale.getDefault())
+            }
         }
     }
 

@@ -4,6 +4,9 @@ import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import com.faltenreich.release.domain.release.list.ReleaseProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class SearchDataSource(
     private val query: String,
@@ -26,7 +29,8 @@ class SearchDataSource(
     }
 
     private fun load(page: Int, pageSize: Int, callback: LoadCallback<Int, ReleaseProvider>) {
-        ReleaseRepository.search(query, page, pageSize) { releases ->
+        MainScope().launch(Dispatchers.IO) {
+            val releases = ReleaseRepository.search(query, page, pageSize)
             val items = releases.mapNotNull { release ->
                 release.releaseDate?.let { date ->
                     ReleaseItem(

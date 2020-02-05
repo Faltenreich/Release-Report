@@ -15,52 +15,48 @@ class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
 
     private val releases by lazy { DemoFactory.releases }
 
-    override fun getById(id: String, onResult: (Release?) -> Unit) {
-        onResult(releases.firstOrNull { release -> release.id == id })
+    override suspend fun getById(id: String): Release? {
+        return releases.firstOrNull { release -> release.id == id }
     }
 
-    override fun getByIds(ids: Collection<String>, onResult: (List<Release>) -> Unit) {
-        onResult(releases.filter { release -> ids.contains(release.id) })
+    override suspend fun getByIds(ids: Collection<String>): List<Release> {
+        return releases.filter { release -> ids.contains(release.id) }
     }
 
-    override fun getByIds(ids: Collection<String>, startAt: LocalDate?, onResult: (List<Release>) -> Unit) {
-        onResult(releases.filter { release ->
+    override suspend fun getByIds(ids: Collection<String>, startAt: LocalDate?): List<Release> {
+        return releases.filter { release ->
             ids.contains(release.id) && startAt?.let { release.releaseDate?.isAfterOrEqual(startAt).isTrue }.isTrueOrNull
-        })
+        }
     }
 
-    override fun getBefore(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override suspend fun getBefore(date: LocalDate, page: Int, pageSize: Int): List<Release> {
         val filtered = releases.filter { release -> release.releaseDate?.isBeforeOrEqual(date).isTrue }
         val sorted = filtered.sortedWith(compareBy(Release::releaseDate).thenByDescending(Release::popularity))
         val endIndex = sorted.size - 1 - page * pageSize
         val startIndex = max(0, endIndex - pageSize + 1)
-        val limited = sorted.slice(startIndex..endIndex)
-        onResult(limited)
+        return sorted.slice(startIndex..endIndex)
     }
 
-    override fun getAfter(date: LocalDate, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override suspend fun getAfter(date: LocalDate, page: Int, pageSize: Int): List<Release> {
         val filtered = releases.filter { release -> release.releaseDate?.isAfterOrEqual(date).isTrue }
         val sorted = filtered.sortedWith(compareBy(Release::releaseDate).thenByDescending(Release::popularity))
         val startIndex = page * pageSize
         val endIndex = min(sorted.size - 1, startIndex + pageSize - 1)
-        val limited = sorted.slice(startIndex..endIndex)
-        onResult(limited)
+        return sorted.slice(startIndex..endIndex)
     }
 
-    override fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?, onResult: (List<Release>) -> Unit) {
+    override suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?): List<Release> {
         val filtered = releases.filter { release ->
             release.releaseDate?.let { date ->
                 date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
             }.isTrue
         }
         val sorted = filtered.sortedByDescending(Release::popularity)
-        val paged = pageSize?.let { sorted.take(pageSize) } ?: sorted
-        onResult(paged)
+        return pageSize?.let { sorted.take(pageSize) } ?: sorted
     }
 
-    override fun search(string: String, page: Int, pageSize: Int, onResult: (List<Release>) -> Unit) {
+    override suspend fun search(string: String, page: Int, pageSize: Int): List<Release> {
         val filtered = if (page == 0) releases.filter { release -> release.title?.contains(string, ignoreCase = true).isTrue } else listOf()
-        val sorted = filtered.sortedByDescending(Release::popularity)
-        onResult(sorted)
+        return filtered.sortedByDescending(Release::popularity)
     }
 }

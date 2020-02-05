@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.calendar
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -14,7 +15,6 @@ import com.faltenreich.release.domain.date.YearMonthPickerOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_calendar.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
@@ -91,18 +91,17 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     }
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {
-        ReleaseRepository.getSubscriptions(start, end) { subscriptions ->
-            GlobalScope.launch {
-                val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
-                val itemsByDay = subscriptions.groupBy(Release::releaseDate)
-                itemsByDay.forEach { (day, releases) ->
-                    val indexedItem = items.withIndex().firstOrNull { item ->
-                        item.value.date == day
-                    } ?: return@forEach
-                    val (index, item) = indexedItem.index to indexedItem.value
-                    item.releases = releases
-                    listView.post { listAdapter.notifyItemChanged(index) }
-                }
+        lifecycleScope.launch {
+            val subscriptions = ReleaseRepository.getSubscriptions(start, end)
+            val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
+            val itemsByDay = subscriptions.groupBy(Release::releaseDate)
+            itemsByDay.forEach { (day, releases) ->
+                val indexedItem = items.withIndex().firstOrNull { item ->
+                    item.value.date == day
+                } ?: return@forEach
+                val (index, item) = indexedItem.index to indexedItem.value
+                item.releases = releases
+                listView.post { listAdapter.notifyItemChanged(index) }
             }
         }
     }

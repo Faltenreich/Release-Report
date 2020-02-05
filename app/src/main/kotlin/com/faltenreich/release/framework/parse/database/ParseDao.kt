@@ -1,12 +1,12 @@
 package com.faltenreich.release.framework.parse.database
 
 import android.text.format.DateUtils
-import android.util.Log
-import com.faltenreich.release.base.log.tag
 import com.faltenreich.release.data.dao.Dao
 import com.faltenreich.release.data.model.Model
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.reflect.KClass
 
 interface ParseDao<T : Model> : Dao<T> {
@@ -17,29 +17,26 @@ interface ParseDao<T : Model> : Dao<T> {
         return ParseQuery.getQuery(modelName)
     }
 
-    fun ParseQuery<ParseObject>.findInBackground(onResult: (List<T>) -> Unit) = this
-        .setCachePolicy(CACHE_POLICY)
-        .setMaxCacheAge(CACHE_AGE_MAX)
-        .findInBackground { parseObjects, exception ->
-            if (exception == null) {
-                val entities = parseObjects.mapNotNull { parseObject ->
-                    ParseObjectFactory.createEntity(clazz, parseObject)
-                }
-                onResult(entities)
-            } else {
-                Log.e(tag, exception.message)
-                onResult(listOf())
+    suspend fun ParseQuery<ParseObject>.query(): List<T> {
+        val query = this
+        return withContext(Dispatchers.IO) {
+            val parseObjects = query
+                .setCachePolicy(CACHE_POLICY)
+                .setMaxCacheAge(CACHE_AGE_MAX)
+                .find()
+            val entities = parseObjects?.mapNotNull { parseObject ->
+                ParseObjectFactory.createEntity(clazz, parseObject)
             }
-        }
-
-    override fun getById(id: String, onResult: (T?) -> Unit) {
-        getQuery().whereEqualTo(Model.ID, id).findInBackground { entities ->
-            onResult(entities.firstOrNull())
+            return@withContext entities ?: listOf()
         }
     }
 
-    override fun getByIds(ids: Collection<String>, onResult: (List<T>) -> Unit) {
-        getQuery().whereContainedIn(Model.ID, ids).findInBackground(onResult)
+    override suspend fun getById(id: String): T? {
+        return getQuery().whereEqualTo(Model.ID, id).query().firstOrNull()
+    }
+
+    override suspend fun getByIds(ids: Collection<String>): List<T> {
+        return getQuery().whereContainedIn(Model.ID, ids).query()
     }
 
     companion object {

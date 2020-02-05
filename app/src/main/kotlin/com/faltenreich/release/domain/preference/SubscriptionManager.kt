@@ -2,6 +2,9 @@ package com.faltenreich.release.domain.preference
 
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // Caches subscriptions whose ids are stored via shared preferences
 object SubscriptionManager {
@@ -9,11 +12,12 @@ object SubscriptionManager {
     private var subscriptions: MutableMap<String, Release> = mutableMapOf()
 
     fun init() {
-        val subscribedReleaseIds = UserPreferences.subscribedReleaseIds
-        // TODO: Clean subscriptions at some point to prevent exploding data set
-        ReleaseRepository.getByIds(subscribedReleaseIds) { releases ->
-            val subscriptions = releases.mapNotNull { release -> release.id?.let { id -> id to release } }
-            this.subscriptions.putAll(subscriptions)
+        GlobalScope.launch(Dispatchers.IO) {
+            val subscribedReleaseIds = UserPreferences.subscribedReleaseIds
+            // TODO: Clean subscriptions at some point to prevent exploding data set
+            val releases = ReleaseRepository.getByIds(subscribedReleaseIds)
+            val releasesById = releases.mapNotNull { release -> release.id?.let { id -> id to release } }
+            subscriptions.putAll(releasesById)
         }
     }
 
