@@ -38,7 +38,6 @@ class ReleaseDetailFragment : BaseFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        invalidateTint()
         fetchData()
     }
 
@@ -129,6 +128,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun setRelease(release: Release?) {
+        invalidateTint()
         invalidateMetadata()
         invalidateSubscription()
         invalidateOptionsMenu()
