@@ -47,21 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <include
-            layout="@layout/list_item_release_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <include
-            layout="@layout/list_item_release_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <include
-            layout="@layout/list_item_release_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
 
 </com.faltenreich.skeletonlayout.SkeletonLayout>

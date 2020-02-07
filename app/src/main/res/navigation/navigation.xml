@@ -15,11 +15,7 @@
         app:popEnterAnim="@android:anim/fade_in"
         app:popExitAnim="@android:anim/fade_out">
         <argument
-            android:name="releaseId"
-            app:argType="string" />
-        <argument
-            android:name="releaseTypeKey"
-            app:nullable="true"
+            android:name="releaseAsJson"
             app:argType="string" />
     </action>
 
@@ -102,11 +98,7 @@
         android:name="com.faltenreich.release.domain.release.detail.ReleaseDetailFragment"
         tools:layout="@layout/fragment_release_detail">
         <argument
-            android:name="releaseId"
-            app:argType="string" />
-        <argument
-            android:name="releaseTypeKey"
-            app:nullable="true"
+            android:name="releaseAsJson"
             app:argType="string" />
     </fragment>
 

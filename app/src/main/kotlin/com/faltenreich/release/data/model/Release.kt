@@ -7,7 +7,9 @@ import com.faltenreich.release.data.provider.TitleProvider
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.framework.parse.database.getJSONArrayValues
 import com.parse.ParseObject
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Release(
     override var id: String? = null,
     override var releasedAt: String? = null,

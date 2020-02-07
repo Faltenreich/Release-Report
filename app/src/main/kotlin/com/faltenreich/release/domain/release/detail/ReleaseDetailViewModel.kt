@@ -3,12 +3,9 @@ package com.faltenreich.release.domain.release.detail
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.framework.androidx.LiveDataFix
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.faltenreich.release.framework.kotlinx.JsonParser
 
 class ReleaseDetailViewModel : ViewModel() {
 
@@ -17,8 +14,8 @@ class ReleaseDetailViewModel : ViewModel() {
         get() = releaseLiveData.value
         set(value) = releaseLiveData.postValue(value)
 
-    fun observeRelease(id: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
+    fun observeRelease(releaseAsJson: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer(onObserve))
-        viewModelScope.launch(Dispatchers.IO) { release = ReleaseRepository.getById(id) }
+        release = JsonParser.parseFromJson(Release.serializer(), releaseAsJson)
     }
 }

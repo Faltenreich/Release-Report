@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
@@ -77,6 +78,7 @@ ext {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:core:1.2.0'

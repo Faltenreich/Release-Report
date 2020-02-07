@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import kotlin.reflect.KClass
 
 interface ParseDao<T : Model> : Dao<T> {
+
     val clazz: KClass<T>
     val modelName: String
 

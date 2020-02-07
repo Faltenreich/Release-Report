@@ -10,7 +10,6 @@ import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
 import com.faltenreich.release.base.intent.WebSearchOpener
 import com.faltenreich.release.base.primitive.isTrue
-import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.media.image.ImageListViewModel
@@ -35,15 +34,6 @@ class ReleaseDetailFragment : BaseFragment(
     private val infoViewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
     private val imageListViewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
     private val videoListViewModel by lazy { createSharedViewModel(VideoListViewModel::class) }
-
-    private val releaseId by lazy {
-        ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseId
-    }
-    private val releaseType by lazy {
-        ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseTypeKey?.let { key ->
-            ReleaseType.valueForKey(key)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -108,7 +98,8 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun fetchData() {
-        viewModel.observeRelease(releaseId, this, ::setRelease)
+        val releaseAsJson = ReleaseDetailFragmentArgs.fromBundle(requireArguments()).releaseAsJson
+        viewModel.observeRelease(releaseAsJson, this, ::setRelease)
     }
 
     private fun invalidateMetadata() {
@@ -119,6 +110,7 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateTint() {
+        val releaseType = viewModel.release?.releaseType
         val color = releaseType?.colorResId ?: R.color.colorPrimary
         val colorDark = releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
         layoutContainer.setBackgroundResource(colorDark)
