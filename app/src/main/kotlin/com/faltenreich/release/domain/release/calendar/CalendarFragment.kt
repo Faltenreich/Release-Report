@@ -10,7 +10,6 @@ import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.date.yearMonth
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.date.YearMonthPickerOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -93,7 +92,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val subscriptions = ReleaseRepository.getSubscriptions(start, end)
+            val subscriptions = viewModel.getSubscriptions(start, end)
             val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
             val itemsByDay = subscriptions.groupBy(Release::releaseDate)
             itemsByDay.forEach { (day, releases) ->
