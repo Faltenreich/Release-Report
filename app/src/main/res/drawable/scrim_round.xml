@@ -6,7 +6,7 @@
 
     <gradient
         android:type="radial"
-        android:startColor="#66000000"
+        android:startColor="@color/translucent_dark"
         android:gradientRadius="1000"
         android:endColor="@android:color/transparent" />
 
