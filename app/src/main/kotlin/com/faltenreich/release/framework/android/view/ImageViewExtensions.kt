@@ -19,6 +19,7 @@ fun ImageView.setImageAsync(
         .dontAnimate()
         .override(size)
         .listener(object : RequestListener<Drawable> {
+
             override fun onResourceReady(
                 resource: Drawable?,
                 model: Any?,

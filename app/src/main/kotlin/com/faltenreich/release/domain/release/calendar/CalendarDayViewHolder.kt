@@ -1,7 +1,6 @@
 package com.faltenreich.release.domain.release.calendar
 
 import android.content.Context
-import android.graphics.Typeface
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
@@ -35,19 +34,25 @@ class CalendarDayViewHolder(
         dayLabel.setTextColor(
             ContextCompat.getColor(
                 context,
-                if (isInSameMonth) android.R.color.white
+                if (isInSameMonth) if (isToday) R.color.colorPrimary else android.R.color.white
                 else R.color.gray
             )
         )
-        dayLabel.setTypeface(
-            dayLabel.typeface,
-            if (isToday) Typeface.BOLD else Typeface.NORMAL
-        )
+        todayIndicator.isVisible = isInSameMonth && isToday
 
+        coverScrim.isGone = true
         val subscription = releases?.firstOrNull { release -> release.isSubscribed }
         subscription?.imageUrlForCover?.let { url ->
+            // Must be visible for Glide's callback to work
             coverView.isVisible = true
-            coverView.setImageAsync(url, itemView.width)
+            coverView.setImageResource(android.R.color.transparent)
+            coverView.setImageAsync(url, itemView.width) { drawable ->
+                if (drawable != null) {
+                    coverScrim.isVisible = true
+                } else {
+                    coverView.isGone = true
+                }
+            }
         } ?: run {
             coverView.isGone = true
         }

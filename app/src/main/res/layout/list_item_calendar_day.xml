@@ -18,21 +18,37 @@
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/dayLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="?android:textColorPrimaryInverse"
-            android:textSize="@dimen/text_size_large"
-            tools:text="@tools:sample/date/day_of_week" />
-
         <ImageView
             android:id="@+id/coverView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/avatars" />
+
+        <View
+            android:id="@+id/coverScrim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translucent_dark" />
+
+        <View
+            android:id="@+id/todayIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:background="@drawable/background_round_white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/dayLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:gravity="center"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:textSize="@dimen/text_size_large"
+            tools:text="@tools:sample/date/day_of_week" />
 
     </FrameLayout>
 
