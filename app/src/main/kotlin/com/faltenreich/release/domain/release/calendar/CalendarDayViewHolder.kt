@@ -34,7 +34,7 @@ class CalendarDayViewHolder(
         dayLabel.setTextColor(
             ContextCompat.getColor(
                 context,
-                if (isInSameMonth) if (isToday) R.color.colorPrimary else android.R.color.white
+                if (isInSameMonth) if (isToday) R.color.colorPrimaryDark else android.R.color.white
                 else R.color.gray
             )
         )
