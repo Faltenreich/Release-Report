@@ -17,11 +17,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/metaChipContainer"
-            android:layout_width="match_parent"
+        <com.faltenreich.release.domain.release.detail.ChipView
+            android:id="@+id/dateChip"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chipSpacing="@dimen/margin_padding_size_small" />
+            tools:text="@tools:sample/date/ddmmyy" />
 
         <ImageView
             android:id="@+id/coverImageView"
@@ -33,12 +33,12 @@
             android:foreground="?selectableItemBackground"
             tools:src="@tools:sample/avatars" />
 
-        <com.faltenreich.release.domain.release.detail.ChipView
-            android:id="@+id/dateChip"
-            android:layout_width="wrap_content"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/metaChipContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_size_small"
-            tools:text="@tools:sample/date/ddmmyy" />
+            app:chipSpacing="@dimen/margin_padding_size_small" />
 
         <TextView
             android:id="@+id/titleTextView"
