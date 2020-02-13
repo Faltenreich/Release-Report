@@ -38,6 +38,7 @@ class ReleaseInfoFragment : BaseFragment(
                 viewModel.release?.imageUrlForCover
             )
         }
+        dateChip.setOnClickListener { openDate() }
     }
 
     private fun fetchData() {
@@ -57,6 +58,7 @@ class ReleaseInfoFragment : BaseFragment(
 
         metaChipContainer.removeAllViews()
         setType(release)
+        setPopularity(release)
         setDate(release)
     }
 
@@ -70,21 +72,15 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun setDate(release: Release?) {
-        val date = release?.releaseDateForUi(context) ?: return
-        addChip(
-            metaChipContainer,
-            title = date,
-            iconResId = R.drawable.ic_date,
-            onClick = ::openDate
-        )
+        dateChip.text = release?.releaseDateForUi(context)
+        dateChip.setChipBackgroundColorResource(viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary)
     }
 
-    // TODO: Where to place?
     private fun setPopularity(release: Release?) {
-        val popularity = release?.popularity ?: return
+        val popularity = release?.popularity ?: 0f
         addChip(
             metaChipContainer,
-            title = popularity.toInt().toString(),
+            title = "%.0f°".format(popularity),
             iconResId = PopularityRating.ofPopularity(popularity).iconRes,
             onClick = { mainViewModel.showMessage(getString(R.string.popularity)) }
         )

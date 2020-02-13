@@ -33,6 +33,13 @@
             android:foreground="?selectableItemBackground"
             tools:src="@tools:sample/avatars" />
 
+        <com.faltenreich.release.domain.release.detail.ChipView
+            android:id="@+id/dateChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_small"
+            tools:text="@tools:sample/date/ddmmyy" />
+
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"

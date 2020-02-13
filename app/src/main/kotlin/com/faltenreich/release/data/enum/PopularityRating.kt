@@ -5,11 +5,11 @@ import com.faltenreich.release.R
 
 enum class PopularityRating(
     val min: Float,
-    @DrawableRes val iconRes: Int
+    @DrawableRes val iconRes: Int = R.drawable.ic_popularity
 ) {
-    LOW(0f, R.drawable.ic_popularity_low),
-    MEDIUM(40f, R.drawable.ic_popularity_medium),
-    HIGH(80f, R.drawable.ic_popularity_high);
+    LOW(0f),
+    MEDIUM(40f),
+    HIGH(80f);
 
     companion object {
 
