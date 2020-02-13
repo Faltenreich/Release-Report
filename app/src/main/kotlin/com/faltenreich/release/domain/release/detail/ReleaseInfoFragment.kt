@@ -81,8 +81,7 @@ class ReleaseInfoFragment : BaseFragment(
         addChip(
             metaChipContainer,
             title = "%.0f°".format(popularity),
-            iconResId = PopularityRating.ofPopularity(popularity).iconRes,
-            onClick = { mainViewModel.showMessage(getString(R.string.popularity)) }
+            iconResId = PopularityRating.ofPopularity(popularity).iconRes
         )
     }
 
