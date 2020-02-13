@@ -45,14 +45,22 @@ class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
         return sorted.slice(startIndex..endIndex)
     }
 
-    override suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int?): List<Release> {
+    override suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int): List<Release> {
         val filtered = releases.filter { release ->
             release.releaseDate?.let { date ->
                 date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
             }.isTrue
         }
         val sorted = filtered.sortedByDescending(Release::popularity)
-        return pageSize?.let { sorted.take(pageSize) } ?: sorted
+        return sorted.take(pageSize)
+    }
+
+    override suspend fun getPopular(startAt: LocalDate, endAt: LocalDate): List<Release> {
+        return releases.filter { release ->
+            release.releaseDate?.let { date ->
+                date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
+            }.isTrue
+        }.sortedWith(compareBy(Release::releaseDate).thenBy(Release::popularity))
     }
 
     override suspend fun search(string: String, page: Int, pageSize: Int): List<Release> {

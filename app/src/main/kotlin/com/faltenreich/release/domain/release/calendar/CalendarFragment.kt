@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.date.yearMonth
-import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.date.YearMonthPickerOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -92,15 +91,14 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val subscriptions = viewModel.getSubscriptions(start, end)
+            val releasesByDate = viewModel.getReleases(start, end)
             val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
-            val itemsByDay = subscriptions.groupBy(Release::releaseDate)
-            itemsByDay.forEach { (day, releases) ->
+            releasesByDate.forEach { release ->
                 val indexedItem = items.withIndex().firstOrNull { item ->
-                    item.value.date == day && item.value.isInSameMonth
+                    item.value.date == release.releaseDate && item.value.isInSameMonth
                 } ?: return@forEach
                 val (index, item) = indexedItem.index to indexedItem.value
-                item.releases = releases
+                item.release = release
                 listView.post { listAdapter.notifyItemChanged(index) }
             }
         }

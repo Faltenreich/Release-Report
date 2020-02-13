@@ -30,11 +30,16 @@ class CalendarViewModel : ViewModel() {
         val dataSource = CalendarDataSource(yearMonth)
         val dataFactory = PagingDataFactory(dataSource, PAGE_SIZE_IN_MONTHS)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
-        releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        releasesLiveData.observe(owner, Observer(onObserve))
     }
 
-    suspend fun getSubscriptions(start: LocalDate, end: LocalDate): List<Release> {
-        return ReleaseRepository.getSubscriptions(start, end)
+    suspend fun getReleases(start: LocalDate, end: LocalDate): List<Release> {
+        val releases = ReleaseRepository.getPopular(start, end).associateBy(Release::releaseDate).toMutableMap()
+        val subscriptions = ReleaseRepository.getSubscriptions(start, end)
+            .sortedBy(Release::popularity)
+            .associateBy(Release::releaseDate)
+        subscriptions.values.forEach { release -> releases[release.releaseDate] = release }
+        return releases.values.toList()
     }
 
     companion object {

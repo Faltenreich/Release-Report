@@ -26,7 +26,7 @@ class CalendarDayViewHolder(
     }
 
     override fun onBind(data: CalendarDayItem) {
-        val (date, _, releases) = data
+        val (date, _, release) = data
         val isToday = date.isToday
         val isInSameMonth = data.isInSameMonth
 
@@ -41,8 +41,7 @@ class CalendarDayViewHolder(
         todayIndicator.isVisible = isInSameMonth && isToday
 
         coverScrim.isGone = true
-        val subscription = releases?.firstOrNull { release -> release.isSubscribed }
-        subscription?.imageUrlForCover?.let { url ->
+        release?.imageUrlForThumbnail?.let { url ->
             // Must be visible for Glide's callback to work
             coverView.isVisible = true
             coverView.setImageResource(android.R.color.transparent)

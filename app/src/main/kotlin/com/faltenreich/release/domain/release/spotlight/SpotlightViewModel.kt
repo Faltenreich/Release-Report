@@ -66,7 +66,7 @@ class SpotlightViewModel : ViewModel() {
                 )
             }
 
-            spotlightItems = listOfNotNull(promo, weekly, subscription, recent)
+            spotlightItems = listOfNotNull(promo, subscription, weekly, recent)
         }
     }
 

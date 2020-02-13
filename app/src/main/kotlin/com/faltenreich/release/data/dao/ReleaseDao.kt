@@ -7,7 +7,8 @@ interface ReleaseDao : Dao<Release> {
     suspend fun getByIds(ids: Collection<String>, startAt: LocalDate?): List<Release>
     suspend fun getBefore(date: LocalDate, page: Int, pageSize: Int): List<Release>
     suspend fun getAfter(date: LocalDate, page: Int, pageSize: Int): List<Release>
-    suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int? = null): List<Release>
+    suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int): List<Release>
+    suspend fun getPopular(startAt: LocalDate, endAt: LocalDate): List<Release>
     suspend fun search(string: String, page: Int, pageSize: Int): List<Release>
     suspend fun getSubscriptions(startAt: LocalDate, pageSize: Int): List<Release>
     suspend fun getSubscriptions(startAt: LocalDate, endAt: LocalDate): List<Release>
