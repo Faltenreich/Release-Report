@@ -17,3 +17,11 @@ val Boolean?.isFalseOrNull
 
 val String?.nonBlank: String?
     get() = this?.takeIf(String::isNotBlank)
+
+fun <T, U> Pair<T?, U?>.takeIfNotEmpty(): Pair<T, U>? {
+    return if (first != null && second != null) {
+        first!! to second!!
+    } else {
+        null
+    }
+}

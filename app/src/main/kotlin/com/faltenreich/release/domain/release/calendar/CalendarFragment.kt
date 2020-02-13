@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.date.yearMonth
+import com.faltenreich.release.base.primitive.takeIfNotEmpty
 import com.faltenreich.release.domain.date.YearMonthPickerOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -93,13 +94,19 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         lifecycleScope.launch(Dispatchers.IO) {
             val releasesByDate = viewModel.getReleases(start, end)
             val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
-            releasesByDate.forEach { release ->
+            val indexes = releasesByDate.mapNotNull { release ->
                 val indexedItem = items.withIndex().firstOrNull { item ->
                     item.value.date == release.releaseDate && item.value.isInSameMonth
-                } ?: return@forEach
+                } ?: return@mapNotNull null
                 val (index, item) = indexedItem.index to indexedItem.value
                 item.release = release
-                listView.post { listAdapter.notifyItemChanged(index) }
+                return@mapNotNull index
+            }
+            lifecycleScope.launch(Dispatchers.Main) {
+                // Workaround: notifyItemChanged() does not update all items if called frequently
+                (indexes.min() to indexes.max()).takeIfNotEmpty()?.let { (min, max) ->
+                    listAdapter.notifyItemRangeChanged(min, max)
+                }
             }
         }
     }
