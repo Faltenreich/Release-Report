@@ -25,7 +25,7 @@ class VideoViewHolder(
     override fun onBind(data: String) {
         VideoThumbnailFactory.createThumbnail(data)?.let { imageUrl ->
             progressView.isVisible = true
-            videoView.setImageAsync(imageUrl, videoView.width) {
+            videoView.setImageAsync(imageUrl) {
                 progressView.isVisible = false
             }
         } ?: videoView.setImageResource(android.R.color.black)

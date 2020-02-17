@@ -10,14 +10,11 @@ import com.faltenreich.release.framework.glide.GlideApp
 
 fun ImageView.setImageAsync(
     url: String,
-    size: Int,
     callback: ((Drawable?) -> Unit)? = null
 ) {
     GlideApp
         .with(this)
         .load(url)
-        .dontAnimate()
-        .override(size)
         .listener(object : RequestListener<Drawable> {
 
             override fun onResourceReady(

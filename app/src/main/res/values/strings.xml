@@ -18,7 +18,7 @@
     <string name="movie">Movie</string>
     <string name="movies">Watch</string>
     <string name="music">Listen</string>
-    <string name="nothing_found">Nothing found</string>
+    <string name="nothing_found">Nothing reported yet</string>
     <string name="notifications">Notifications</string>
     <string name="placeholder">-</string>
     <string name="preferences">Preferences</string>

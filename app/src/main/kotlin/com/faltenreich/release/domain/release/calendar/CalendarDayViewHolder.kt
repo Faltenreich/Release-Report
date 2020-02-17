@@ -45,7 +45,7 @@ class CalendarDayViewHolder(
             // Must be visible for Glide's callback to work
             coverView.isVisible = true
             coverView.setImageResource(android.R.color.transparent)
-            coverView.setImageAsync(url, itemView.width) { drawable ->
+            coverView.setImageAsync(url) { drawable ->
                 if (drawable != null) {
                     coverScrim.isVisible = true
                 } else {

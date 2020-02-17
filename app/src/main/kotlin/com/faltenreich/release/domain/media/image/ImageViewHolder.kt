@@ -24,7 +24,7 @@ class ImageViewHolder(
 
     override fun onBind(data: String) {
         progressView.isVisible = true
-        imageView.setImageAsync(data, imageView.width) {
+        imageView.setImageAsync(data) {
             progressView.isVisible = false
         }
     }
