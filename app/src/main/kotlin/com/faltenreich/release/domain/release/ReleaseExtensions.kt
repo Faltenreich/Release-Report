@@ -1,32 +1,37 @@
 package com.faltenreich.release.domain.release
 
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.framework.android.view.setImageAsync
 
 private fun ImageView.setImage(
     url: String?,
-    fallbackColor: Int?,
+    placeholderColorRes: Int?,
     callback: ((Drawable?) -> Unit)?
 ) {
     url?.let {
-        setImageAsync(url) { drawable ->
+        val placeholder: Drawable? = placeholderColorRes?.let { res ->
+            ColorDrawable(ContextCompat.getColor(context, res))
+        }
+        setImageAsync(url, placeholder) { drawable ->
             if (drawable == null) {
-                onImageNotFound(fallbackColor, callback)
+                onImageNotFound(placeholderColorRes, callback)
             } else {
                 callback?.invoke(drawable)
             }
         }
-    } ?: onImageNotFound(fallbackColor, callback)
+    } ?: onImageNotFound(placeholderColorRes, callback)
 }
 
 private fun ImageView.onImageNotFound(
-    fallbackColor: Int?,
+    placeholderColorRes: Int?,
     callback: ((Drawable?) -> Unit)?
 ) {
-    setImageResource(fallbackColor ?: R.color.colorPrimary)
+    setImageResource(placeholderColorRes ?: R.color.colorPrimary)
     callback?.invoke(null)
 }
 
