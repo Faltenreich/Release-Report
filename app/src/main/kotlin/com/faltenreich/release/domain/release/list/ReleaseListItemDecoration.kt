@@ -5,13 +5,13 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.framework.android.decoration.LinearLayoutItemDecoration
 
 class ReleaseListItemDecoration(
     context: Context,
     private val spacing: Int
 ) : LinearLayoutItemDecoration() {
+
     private val divider: Int = context.resources.getDimension(R.dimen.margin_padding_size_xxxxsmall).toInt()
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
