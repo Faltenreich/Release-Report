@@ -5,4 +5,4 @@
     android:id="@+id/mainFragment"
     android:name="com.faltenreich.release.domain.navigation.MainFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent" />
