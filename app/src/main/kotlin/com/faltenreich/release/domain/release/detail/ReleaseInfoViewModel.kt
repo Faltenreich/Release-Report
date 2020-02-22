@@ -1,9 +1,11 @@
 package com.faltenreich.release.domain.release.detail
 
+import androidx.annotation.ColorRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
@@ -30,6 +32,14 @@ class ReleaseInfoViewModel : ViewModel() {
     var platforms: List<Platform>?
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)
+
+    @get:ColorRes
+    val color: Int
+        get() = release?.releaseType?.colorResId ?: R.color.colorPrimary
+
+    @get:ColorRes
+    val colorDark: Int
+        get() = release?.releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
 
     fun observeRelease(owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer { release ->

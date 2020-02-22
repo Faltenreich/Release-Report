@@ -56,33 +56,28 @@ class ReleaseInfoFragment : BaseFragment(
         descriptionTextView.text = release?.description?.takeIf(String::isNotBlank)
             ?: getString(R.string.unknown_description)
 
-        metaChipContainer.removeAllViews()
         setType(release)
         setPopularity(release)
         setDate(release)
     }
 
-    private fun setType(release: Release?) {
-        val type = release?.releaseType ?: return
-        addChip(
-            metaChipContainer,
-            title = getString(type.singularStringRes),
-            iconResId = type.iconResId
-        )
-    }
-
     private fun setDate(release: Release?) {
         dateChip.text = release?.releaseDateForUi(context)
-        dateChip.setChipBackgroundColorResource(viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary)
+        dateChip.setChipBackgroundColorResource(viewModel.color)
+    }
+
+    private fun setType(release: Release?) {
+        val type = release?.releaseType ?: return
+        typeChip.text = getString(type.singularStringRes)
+        typeChip.setChipIconResource(type.iconResId)
+        typeChip.setChipBackgroundColorResource(viewModel.color)
     }
 
     private fun setPopularity(release: Release?) {
         val popularity = release?.popularity ?: 0f
-        addChip(
-            metaChipContainer,
-            title = "%.0f°".format(popularity),
-            iconResId = PopularityRating.ofPopularity(popularity).iconRes
-        )
+        popularityChip.text = "%.0f°".format(popularity)
+        popularityChip.setChipIconResource(PopularityRating.ofPopularity(popularity).iconRes)
+        popularityChip.setChipBackgroundColorResource(viewModel.color)
     }
 
     private fun setPlatforms(platforms: List<Platform>?) {

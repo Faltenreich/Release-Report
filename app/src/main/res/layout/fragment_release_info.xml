@@ -34,11 +34,26 @@
             tools:src="@tools:sample/avatars" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/metaChipContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_size_small"
-            app:chipSpacing="@dimen/margin_padding_size_small" />
+            app:chipSpacing="@dimen/margin_padding_size_small">
+
+            <com.faltenreich.release.domain.release.detail.ChipView
+                android:id="@+id/typeChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:chipIcon="@drawable/ic_movie"
+                tools:text="@string/movie" />
+
+            <com.faltenreich.release.domain.release.detail.ChipView
+                android:id="@+id/popularityChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:chipIcon="@drawable/ic_popularity"
+                tools:text="@tools:sample/us_zipcodes" />
+
+        </com.google.android.material.chip.ChipGroup>
 
         <TextView
             android:id="@+id/titleTextView"
