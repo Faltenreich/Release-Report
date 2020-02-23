@@ -1,9 +1,6 @@
 package com.faltenreich.release.domain.release.discover
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
@@ -18,7 +15,7 @@ class DiscoverViewModel : ViewModel() {
         get() = releasesLiveData.value ?: listOf()
 
     fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>?) -> Unit) {
-        val dataSource = ReleaseListDataSource(date)
+        val dataSource = ReleaseListDataSource(viewModelScope, date)
         val dataFactory = PagingDataFactory(dataSource)
         releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
         releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })

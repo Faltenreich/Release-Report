@@ -1,9 +1,6 @@
 package com.faltenreich.release.domain.release.search
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
@@ -24,7 +21,7 @@ class SearchViewModel : ViewModel() {
     fun observeQuery(owner: LifecycleOwner, onObserve: (PagedList<ReleaseProvider>?) -> Unit, afterInitialLoad: (List<ReleaseProvider>?) -> Unit) {
         queryLiveData.observe(owner, Observer { query ->
             query?.let {
-                val dataSource = SearchDataSource(query, afterInitialLoad)
+                val dataSource = SearchDataSource(query, viewModelScope, afterInitialLoad)
                 val dataFactory = PagingDataFactory(dataSource)
                 releaseLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
                 releaseLiveData.observe(owner, Observer(onObserve))

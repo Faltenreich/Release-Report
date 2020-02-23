@@ -63,10 +63,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
         viewModel.observeQuery(this, onObserve = { list ->
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
-        }, afterInitialLoad = { list ->
-            if (isAdded) {
-                emptyView.isVisible = list?.isEmpty().isTrueOrNull
-            }
+        }, afterInitialLoad = { results ->
+            emptyView.isVisible = results?.isEmpty().isTrueOrNull
         })
     }
 

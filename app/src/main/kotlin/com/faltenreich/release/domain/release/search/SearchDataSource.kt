@@ -4,12 +4,13 @@ import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import com.faltenreich.release.domain.release.list.ReleaseProvider
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class SearchDataSource(
     private val query: String,
+    private val scope: CoroutineScope,
     private val afterInitialLoad: (data: List<ReleaseProvider>) -> Unit
 ) : PageKeyedDataSource<Int, ReleaseProvider>() {
 
@@ -29,7 +30,7 @@ class SearchDataSource(
     }
 
     private fun load(page: Int, pageSize: Int, callback: LoadCallback<Int, ReleaseProvider>) {
-        MainScope().launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             val releases = ReleaseRepository.search(query, page, pageSize)
             val items = releases.mapNotNull { release ->
                 release.releaseDate?.let { date ->
@@ -39,7 +40,9 @@ class SearchDataSource(
                     )
                 }
             }
-            callback.onResult(items, page + 1)
+            scope.launch(Dispatchers.Main) {
+                callback.onResult(items, page + 1)
+            }
         }
     }
 }

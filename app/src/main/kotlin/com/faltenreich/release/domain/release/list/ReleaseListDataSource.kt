@@ -5,12 +5,13 @@ import com.faltenreich.release.base.pagination.PaginationInfo
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.date.DateProvider
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
 class ReleaseListDataSource(
+    private val scope: CoroutineScope,
     private val startAt: LocalDate
 ) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
@@ -66,11 +67,13 @@ class ReleaseListDataSource(
         info: PaginationInfo,
         callback: LoadCallback<PaginationInfo, DateProvider>
     ) {
-        MainScope().launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             val releases =
                 if (info.descending) ReleaseRepository.getAfter(startAt, info.page, info.pageSize)
                 else ReleaseRepository.getBefore(startAt.minusDays(1), info.page, info.pageSize)
-            onResponse(releases, info, callback)
+            scope.launch(Dispatchers.Main) {
+                onResponse(releases, info, callback)
+            }
         }
     }
 
