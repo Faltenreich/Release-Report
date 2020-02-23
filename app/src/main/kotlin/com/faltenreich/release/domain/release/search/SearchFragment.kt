@@ -39,16 +39,18 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     }
 
     private fun initLayout() {
-        context?.let { context ->
-            listLayoutManager = LinearLayoutManager(context)
-            listView.layoutManager = listLayoutManager
-            listView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-            listView.adapter = listAdapter
+        val context = context ?: return
 
-            searchView.logo = Search.Logo.ARROW
-            searchView.setOnLogoClickListener { finish() }
-            searchView.setOnQueryTextListener(this)
-        }
+        listLayoutManager = LinearLayoutManager(context)
+        listView.layoutManager = listLayoutManager
+        listView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        listView.adapter = listAdapter
+
+        searchView.logo = Search.Logo.ARROW
+        searchView.setOnLogoClickListener { finish() }
+        searchView.setOnQueryTextListener(this)
+
+        emptyLabel.text = getString(R.string.nothing_found_search)
     }
 
     private fun initData() {

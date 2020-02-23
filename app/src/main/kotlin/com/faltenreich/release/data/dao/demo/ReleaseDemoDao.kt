@@ -64,7 +64,10 @@ class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
     }
 
     override suspend fun search(string: String, page: Int, pageSize: Int): List<Release> {
-        val filtered = if (page == 0) releases.filter { release -> release.title?.contains(string, ignoreCase = true).isTrue } else listOf()
+        val filtered = if (page == 0) releases.filter { release ->
+            release.artist?.contains(string, ignoreCase = true).isTrue
+                    || release.title?.contains(string, ignoreCase = true).isTrue
+        } else listOf()
         return filtered.sortedByDescending(Release::popularity)
     }
 }

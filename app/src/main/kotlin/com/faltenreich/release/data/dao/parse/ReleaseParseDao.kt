@@ -7,6 +7,7 @@ import com.faltenreich.release.data.model.Model
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.framework.parse.database.ParseDao
 import com.faltenreich.release.framework.parse.database.whereContainsText
+import com.parse.ParseQuery
 import org.threeten.bp.LocalDate
 import kotlin.reflect.KClass
 
@@ -63,8 +64,9 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
     }
 
     override suspend fun search(string: String, page: Int, pageSize: Int): List<Release> {
-        return getQuery()
-            .whereContainsText(Release.TITLE, string)
+        val keys = listOf(Release.ARTIST, Release.TITLE)
+        val queries = keys.map { key -> getQuery().whereContainsText(key, string) }
+        return ParseQuery.or(queries)
             .orderByDescending(Release.POPULARITY)
             .setSkip(page * pageSize)
             .setLimit(pageSize)
