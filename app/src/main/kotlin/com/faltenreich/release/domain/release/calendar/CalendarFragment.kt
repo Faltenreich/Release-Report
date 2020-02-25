@@ -51,7 +51,9 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
                 }
                 true
             }
-            R.id.search -> { openSearch(findNavController()); true }
+            R.id.search -> {
+                openSearch(findNavController()); true
+            }
             else -> false
         }
     }
@@ -64,6 +66,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         val context = context ?: return
 
         listLayoutManager = CalendarLayoutManager(context, listAdapter)
+        listView.addItemDecoration(CalendarItemDecoration(context))
         listView.layoutManager = listLayoutManager
         listView.adapter = listAdapter
 
@@ -113,7 +116,12 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
 
     private fun invalidateListHeader() {
         val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val upcomingItems = listAdapter.listItems.let { items -> items.subList(firstVisibleItemPosition, items.size) }
+        val upcomingItems = listAdapter.listItems.let { items ->
+            items.subList(
+                firstVisibleItemPosition,
+                items.size
+            )
+        }
         val firstVisibleItem = upcomingItems.firstOrNull()
         val firstVisibleYearMonth = firstVisibleItem?.yearMonth
         val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
@@ -121,7 +129,8 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
 
         val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthItem }
         val translationY = if (upcomingHeaderIndex >= 0) {
-            val upcomingHeaderOffset = listLayoutManager.getChildAt(upcomingHeaderIndex)?.top?.toFloat() ?: 0f
+            val upcomingHeaderOffset =
+                listLayoutManager.getChildAt(upcomingHeaderIndex)?.top?.toFloat() ?: 0f
             val top = if (upcomingHeaderOffset > 0f) upcomingHeaderOffset - header.height else 0f
             min(top, 0f)
         } else {
