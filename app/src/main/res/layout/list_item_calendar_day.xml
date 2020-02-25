@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="@string/aspect_ratio_portrait"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
@@ -31,14 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/translucent_dark" />
-
-        <View
-            android:id="@+id/todayIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:background="@drawable/background_round_white"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/dayLabel"

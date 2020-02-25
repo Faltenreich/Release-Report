@@ -38,7 +38,6 @@ class CalendarDayViewHolder(
                 else R.color.gray
             )
         )
-        todayIndicator.isVisible = isInSameMonth && isToday
 
         coverScrim.isGone = true
         release?.imageUrlForThumbnail?.let { url ->

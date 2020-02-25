@@ -2,6 +2,9 @@
 
 <resources>
 
+    <string name="aspect_ratio_portrait">9:16</string>
+    <string name="aspect_ratio_landscape">16:9</string>
+
     <dimen name="toolbar_height">48dp</dimen>
     <dimen name="bottom_bar_height_padded">100dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
