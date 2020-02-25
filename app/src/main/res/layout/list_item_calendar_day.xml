@@ -9,39 +9,52 @@
     android:layout_height="wrap_content"
     android:foreground="?selectableItemBackground">
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/coverView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="@string/aspect_ratio_portrait"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/coverView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/avatars" />
+    <View
+        android:id="@+id/coverScrim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/translucent_dark"
+        app:layout_constraintBottom_toBottomOf="@id/coverView"
+        app:layout_constraintEnd_toEndOf="@id/coverView"
+        app:layout_constraintStart_toStartOf="@id/coverView"
+        app:layout_constraintTop_toTopOf="@id/coverView" />
 
-        <View
-            android:id="@+id/coverScrim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/translucent_dark" />
+    <View
+        android:id="@+id/todayIndicator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/background_round_white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/dayLabel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:gravity="center"
-            android:textColor="?android:textColorPrimaryInverse"
-            android:textSize="@dimen/text_size_large"
-            tools:text="@tools:sample/date/day_of_week" />
-
-    </FrameLayout>
+    <TextView
+        android:id="@+id/dayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/date/day_of_week" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
