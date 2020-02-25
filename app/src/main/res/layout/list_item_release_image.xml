@@ -18,71 +18,72 @@
             android:id="@+id/coverImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="@string/aspect_ratio_portrait"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            tools:src="@tools:sample/avatars"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
         <ImageView
             android:id="@+id/typeImageView"
             android:layout_width="@dimen/dogear"
             android:layout_height="@dimen/dogear"
-            android:padding="@dimen/dogear_padding"
             android:background="@drawable/dogear_type"
             android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="@+id/coverImageView"
+            android:padding="@dimen/dogear_padding"
             app:layout_constraintStart_toStartOf="@+id/coverImageView"
+            app:layout_constraintTop_toTopOf="@+id/coverImageView"
             tools:src="@drawable/ic_music"
-            tools:tint="?attr/colorPrimary"/>
+            tools:tint="?attr/colorPrimary" />
 
         <ImageView
             android:id="@+id/subscriptionImageView"
             android:layout_width="@dimen/dogear"
             android:layout_height="@dimen/dogear"
-            android:padding="@dimen/dogear_padding"
             android:background="@drawable/dogear_subscription"
             android:contentDescription="@null"
+            android:padding="@dimen/dogear_padding"
             android:src="@drawable/ic_subscription_on"
             android:tint="@color/brown"
-            app:layout_constraintTop_toTopOf="@+id/coverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/coverImageView"/>
+            app:layout_constraintEnd_toEndOf="@+id/coverImageView"
+            app:layout_constraintTop_toTopOf="@+id/coverImageView" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@drawable/scrim_bottom"
-            android:paddingTop="@dimen/margin_padding_size_xxlarge"
-            android:paddingBottom="@dimen/margin_padding_size_small"
+            android:orientation="vertical"
             android:paddingStart="@dimen/margin_padding_size_small"
+            android:paddingTop="@dimen/margin_padding_size_xxlarge"
             android:paddingEnd="@dimen/margin_padding_size_small"
+            android:paddingBottom="@dimen/margin_padding_size_small"
             app:layout_constraintBottom_toBottomOf="@+id/coverImageView"
-            app:layout_constraintStart_toStartOf="@+id/coverImageView"
-            app:layout_constraintEnd_toEndOf="@+id/coverImageView">
+            app:layout_constraintEnd_toEndOf="@+id/coverImageView"
+            app:layout_constraintStart_toStartOf="@+id/coverImageView">
 
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
                 android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="?android:textColorPrimaryInverse"
                 android:textSize="@dimen/text_size_medium"
-                tools:text="@tools:sample/lorem"/>
+                tools:text="@tools:sample/lorem" />
 
             <TextView
                 android:id="@+id/artistTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="?android:textColorTertiaryInverse"
                 android:textSize="@dimen/text_size_medium"
-                tools:text="@tools:sample/lorem"/>
+                tools:text="@tools:sample/lorem" />
 
         </LinearLayout>
 

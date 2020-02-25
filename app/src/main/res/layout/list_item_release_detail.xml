@@ -12,12 +12,14 @@
 
     <ImageView
         android:id="@+id/coverImageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="68dp"
+        android:layout_height="0dp"
         android:layout_margin="@dimen/margin_padding_size_small"
+        android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/aspect_ratio_portrait"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -82,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_padding_size_medium"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="3"
         android:textColor="?android:textColorTertiary"
         app:layout_constraintEnd_toEndOf="@id/typeImageView"
         app:layout_constraintStart_toEndOf="@id/coverImageView"

@@ -24,6 +24,6 @@ class DiscoverLayoutManager(
     }
 
     companion object {
-        private const val SPAN_COUNT = 2
+        private const val SPAN_COUNT = 3
     }
 }
