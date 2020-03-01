@@ -16,7 +16,7 @@ data class Notification(
     override val title: String,
     override val message: String? = null,
     override val smallIconRes: Int = R.drawable.ic_notification,
-    override val largeIcon: Bitmap?,
+    override val largeIcon: Bitmap? = null,
     override val intent: Intent = Intent(context, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP },
     override val isGroup: Boolean = false,
     override val sortKey: String? = null,
