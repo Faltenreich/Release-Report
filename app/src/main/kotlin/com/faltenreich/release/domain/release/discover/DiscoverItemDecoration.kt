@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.framework.android.recycler.decoration.GridLayoutItemDecoration
+import com.faltenreich.release.framework.android.recyclerview.decoration.GridLayoutItemDecoration
 
 class DiscoverItemDecoration(context: Context) : GridLayoutItemDecoration() {
 

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
-import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_spotlight.*
 
 class SpotlightReleaseViewHolder(

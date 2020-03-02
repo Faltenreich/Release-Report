@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrueOrNull
-import com.faltenreich.release.framework.android.recycler.decoration.LinearLayoutSpacingItemDecoration
+import com.faltenreich.release.framework.android.recyclerview.decoration.LinearLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_video_list.*
 

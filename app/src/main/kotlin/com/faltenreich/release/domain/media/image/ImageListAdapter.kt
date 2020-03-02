@@ -2,7 +2,7 @@ package com.faltenreich.release.domain.media.image
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.framework.android.recycler.adapter.MutableListAdapter
+import com.faltenreich.release.framework.android.recyclerview.adapter.MutableListAdapter
 
 class ImageListAdapter(
     context: Context,

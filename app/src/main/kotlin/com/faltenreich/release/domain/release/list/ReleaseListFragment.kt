@@ -11,7 +11,7 @@ import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
-import com.faltenreich.release.framework.android.recycler.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
+import com.faltenreich.release.framework.android.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_release_list.*

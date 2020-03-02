@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrueOrNull
-import com.faltenreich.release.framework.android.recycler.decoration.GridLayoutSpacingItemDecoration
+import com.faltenreich.release.framework.android.recyclerview.decoration.GridLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_image_list.*
 

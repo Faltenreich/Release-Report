@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import com.faltenreich.release.domain.release.list.ReleaseDetailViewHolder
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.list.ReleaseProviderDiffUtilCallback
-import com.faltenreich.release.framework.android.recycler.adapter.PagedListAdapter
-import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recyclerview.adapter.PagedListAdapter
+import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
 
 class SearchListAdapter(
     context: Context

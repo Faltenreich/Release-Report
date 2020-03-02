@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import com.faltenreich.release.domain.release.list.ReleaseDetailViewHolder
 import com.faltenreich.release.domain.release.list.ReleaseProvider
-import com.faltenreich.release.framework.android.recycler.adapter.MutableListAdapter
+import com.faltenreich.release.framework.android.recyclerview.adapter.MutableListAdapter
 
 class SpotlightContainerListAdapter(
     context: Context

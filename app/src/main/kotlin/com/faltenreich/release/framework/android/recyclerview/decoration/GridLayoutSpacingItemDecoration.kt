@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.recycler.decoration
+package com.faltenreich.release.framework.android.recyclerview.decoration
 
 import android.content.Context
 import android.graphics.Rect

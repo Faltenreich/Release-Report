@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
-import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_calendar_month.*
 
 class CalendarMonthViewHolder(
