@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.domain.date.DateProvider
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_header.*
 
 class HeaderViewHolder(

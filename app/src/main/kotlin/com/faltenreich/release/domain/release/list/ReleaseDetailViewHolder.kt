@@ -7,7 +7,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.setThumbnail
 import com.faltenreich.release.framework.android.image.tintResource
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_detail.*
 
 class ReleaseDetailViewHolder(

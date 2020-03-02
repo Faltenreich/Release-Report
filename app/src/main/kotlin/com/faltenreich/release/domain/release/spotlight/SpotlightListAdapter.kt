@@ -2,8 +2,8 @@ package com.faltenreich.release.domain.release.spotlight
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
-import com.faltenreich.release.framework.android.adapter.MutableListAdapter
+import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recycler.adapter.MutableListAdapter
 
 class SpotlightListAdapter(context: Context) : MutableListAdapter<SpotlightItem, BaseViewHolder<SpotlightItem>>(context) {
 

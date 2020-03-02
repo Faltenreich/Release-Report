@@ -2,8 +2,8 @@ package com.faltenreich.release.domain.release.calendar
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
-import com.faltenreich.release.framework.android.adapter.PagedListAdapter
+import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recycler.adapter.PagedListAdapter
 
 class CalendarListAdapter(context: Context) : PagedListAdapter<CalendarItem, BaseViewHolder<CalendarItem>>(context,
     CalendarItemDiffUtilCallback()

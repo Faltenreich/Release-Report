@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.ViewGroup
 import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.date.DateProviderDiffUtilCallback
-import com.faltenreich.release.framework.android.adapter.PagedListAdapter
-import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.recycler.adapter.PagedListAdapter
+import com.faltenreich.release.framework.android.recycler.viewholder.BaseViewHolder
 import org.threeten.bp.LocalDate
 
 class ReleaseListAdapter(

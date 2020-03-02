@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.adapter
+package com.faltenreich.release.framework.android.recycler.adapter
 
 interface CollectionAdapter <ITEM : Any> {
     val listItems: List<ITEM>

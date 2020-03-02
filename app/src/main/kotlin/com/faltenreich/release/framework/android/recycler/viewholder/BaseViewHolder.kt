@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.viewholder
+package com.faltenreich.release.framework.android.recycler.viewholder
 
 import android.content.Context
 import android.view.LayoutInflater

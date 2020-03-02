@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.framework.android.decoration.GridLayoutItemDecoration
+import com.faltenreich.release.framework.android.recycler.decoration.GridLayoutItemDecoration
 
 class CalendarItemDecoration(context: Context) : GridLayoutItemDecoration() {
 

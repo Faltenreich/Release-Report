@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.decoration
+package com.faltenreich.release.framework.android.recycler.decoration
 
 import androidx.recyclerview.widget.LinearLayoutManager
 

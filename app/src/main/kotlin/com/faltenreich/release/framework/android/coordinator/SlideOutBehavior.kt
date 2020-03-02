@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.behavior
+package com.faltenreich.release.framework.android.coordinator
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+import com.faltenreich.release.framework.android.coordinator.StepAsideBehavior
 import kotlin.math.max
 import kotlin.math.min
 

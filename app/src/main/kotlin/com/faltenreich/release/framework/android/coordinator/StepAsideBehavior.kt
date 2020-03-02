@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.behavior
+package com.faltenreich.release.framework.android.coordinator
 
 import android.content.Context
 import android.util.AttributeSet

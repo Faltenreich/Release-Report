@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.faltenreich.release.framework.android.decoration.LinearLayoutItemDecoration
+import com.faltenreich.release.framework.android.recycler.decoration.LinearLayoutItemDecoration
 
 class SpotlightItemDecoration(context: Context) : LinearLayoutItemDecoration() {
 
