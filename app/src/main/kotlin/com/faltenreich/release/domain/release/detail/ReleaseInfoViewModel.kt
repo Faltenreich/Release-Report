@@ -11,24 +11,27 @@ import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.GenreRepository
 import com.faltenreich.release.data.repository.PlatformRepository
-import com.faltenreich.release.framework.androidx.LiveDataFix
+import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
 class ReleaseInfoViewModel : ViewModel() {
 
-    private val releaseLiveData = LiveDataFix<Release?>()
+    private val releaseLiveData =
+        LiveDataFix<Release?>()
     var release: Release?
         get() = releaseLiveData.value
         set(value) = releaseLiveData.postValue(value)
 
-    private val genreLiveData = LiveDataFix<List<Genre>?>()
+    private val genreLiveData =
+        LiveDataFix<List<Genre>?>()
     var genres: List<Genre>?
         get() = genreLiveData.value
         set(value) = genreLiveData.postValue(value)
 
-    private val platformLiveData = LiveDataFix<List<Platform>?>()
+    private val platformLiveData =
+        LiveDataFix<List<Platform>?>()
     var platforms: List<Platform>?
         get() = platformLiveData.value
         set(value) = platformLiveData.postValue(value)

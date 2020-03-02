@@ -5,11 +5,12 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
 import com.faltenreich.release.domain.release.list.ReleaseProvider
-import com.faltenreich.release.framework.androidx.LiveDataFix
+import com.faltenreich.release.framework.android.architecture.LiveDataFix
 
 class SearchViewModel : ViewModel() {
 
-    private val queryLiveData = LiveDataFix<String?>()
+    private val queryLiveData =
+        LiveDataFix<String?>()
     var query: String?
         get() = queryLiveData.value
         set(value) = queryLiveData.postValue(value)

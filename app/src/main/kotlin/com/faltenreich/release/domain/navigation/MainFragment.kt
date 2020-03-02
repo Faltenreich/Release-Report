@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.framework.android.view.backgroundTintResource
-import com.faltenreich.release.framework.android.view.foregroundTintResource
+import com.faltenreich.release.framework.android.fab.backgroundTintResource
+import com.faltenreich.release.framework.android.fab.foregroundTintResource
 import com.faltenreich.release.framework.android.view.showSnackbar
 import kotlinx.android.synthetic.main.fragment_main.*
 

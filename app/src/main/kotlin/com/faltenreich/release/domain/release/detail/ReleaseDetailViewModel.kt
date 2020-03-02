@@ -4,12 +4,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.framework.androidx.LiveDataFix
+import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import com.faltenreich.release.framework.kotlinx.JsonParser
 
 class ReleaseDetailViewModel : ViewModel() {
 
-    private val releaseLiveData = LiveDataFix<Release?>()
+    private val releaseLiveData =
+        LiveDataFix<Release?>()
     var release: Release?
         get() = releaseLiveData.value
         set(value) = releaseLiveData.postValue(value)

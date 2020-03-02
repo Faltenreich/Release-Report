@@ -9,13 +9,14 @@ import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.data.repository.ReleaseRepository
-import com.faltenreich.release.framework.androidx.LiveDataFix
+import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
 class CalendarViewModel : ViewModel() {
 
-    private val yearMonthLiveData = LiveDataFix<YearMonth?>()
+    private val yearMonthLiveData =
+        LiveDataFix<YearMonth?>()
     var yearMonth: YearMonth?
         get() = yearMonthLiveData.value
         set(value) = yearMonthLiveData.postValue(value)

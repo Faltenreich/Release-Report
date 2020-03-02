@@ -9,14 +9,15 @@ import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.release.list.ReleaseItem
-import com.faltenreich.release.framework.androidx.LiveDataFix
+import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
 
-    private val spotlightItemsLiveData = LiveDataFix<List<SpotlightItem>?>()
+    private val spotlightItemsLiveData =
+        LiveDataFix<List<SpotlightItem>?>()
     private var spotlightItems: List<SpotlightItem>?
         get() = spotlightItemsLiveData.value
         set(value) = spotlightItemsLiveData.postValue(value)

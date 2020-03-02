@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.androidx
+package com.faltenreich.release.framework.android.architecture
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
