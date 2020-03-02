@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.glide.setImageAsync
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_image.*
 

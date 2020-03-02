@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.glide.setImageAsync
 
 private fun ImageView.setImage(
     url: String?,

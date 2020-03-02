@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.view
+package com.faltenreich.release.framework.glide
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
@@ -6,7 +6,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.faltenreich.release.framework.glide.GlideApp
 
 fun ImageView.setImageAsync(
     url: String,

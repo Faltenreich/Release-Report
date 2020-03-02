@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.isToday
 import com.faltenreich.release.domain.date.DateOpener
-import com.faltenreich.release.framework.android.view.setImageAsync
+import com.faltenreich.release.framework.glide.setImageAsync
 import com.faltenreich.release.framework.android.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_calendar_day.*
 
