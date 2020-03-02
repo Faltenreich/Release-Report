@@ -2,14 +2,26 @@ package com.faltenreich.release.framework.glide
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.faltenreich.release.base.log.tag
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-fun String.toBitmap(context: Context): Bitmap? {
-    return try {
-        GlideApp.with(context).asBitmap().load(this).submit().get()
-    } catch (exception: Exception) {
-        Log.e(tag, exception.message)
-        return null
+suspend fun String.toBitmap(context: Context): Bitmap? {
+    return suspendCoroutine { continuation ->
+        try {
+            GlideApp.with(context).asBitmap().load(this).into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    continuation.resume(resource)
+                }
+                override fun onLoadCleared(placeholder: Drawable?) = Unit
+            })
+        } catch (exception: Exception) {
+            Log.e(tag, exception.message)
+            continuation.resume(null)
+        }
     }
 }

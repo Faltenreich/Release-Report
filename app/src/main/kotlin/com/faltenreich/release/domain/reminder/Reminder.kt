@@ -54,45 +54,36 @@ object Reminder {
     }
 
     fun remind(context: Context) {
-        remindAboutNextWeek(context)
-        remindAboutSubscriptions(context)
+        MainScope().launch(Dispatchers.IO) {
+            remindAboutNextWeek(context)
+            remindAboutSubscriptions(context)
+        }
     }
 
-    private fun remindAboutNextWeek(context: Context) {
+    private suspend fun remindAboutNextWeek(context: Context) {
         val today = LocalDate.now()
         val startOfWeek = today.atStartOfWeek
         val showReminder = today == startOfWeek
         if (showReminder) {
-            MainScope().launch(Dispatchers.IO) {
-                val endOfWeek = today.atEndOfWeek
-                val releases = ReleaseRepository.getBetween(startOfWeek, endOfWeek, 10)
-                val title = context.getString(R.string.reminder_weekly_notification)
-                MainScope().launch(Dispatchers.Main) {
-                    showNotification(context, title, releases)
-                }
-            }
+            val endOfWeek = today.atEndOfWeek
+            val releases = ReleaseRepository.getBetween(startOfWeek, endOfWeek, 10)
+            val title = context.getString(R.string.reminder_weekly_notification)
+            showNotification(context, title, releases)
         }
     }
 
-    private fun remindAboutSubscriptions(context: Context) {
-        MainScope().launch(Dispatchers.IO) {
-            val releases = ReleaseRepository.getSubscriptions(LocalDate.now())
-            val title = context.getString(R.string.reminder_subscriptions_notification)
-                .format(releases.size)
-            MainScope().launch(Dispatchers.Main) {
-                showNotification(context, title, releases)
-            }
-        }
+    private suspend fun remindAboutSubscriptions(context: Context) {
+        val releases = ReleaseRepository.getSubscriptions(LocalDate.now())
+        val title = context.getString(R.string.reminder_subscriptions_notification).format(releases.size)
+        showNotification(context, title, releases)
     }
 
-    private fun showNotification(context: Context, title: String, releases: List<Release>) {
+    private suspend fun showNotification(context: Context, title: String, releases: List<Release>) {
         releases.takeIf(List<*>::isNotEmpty) ?: return
 
-        // Must be executed within background thread
-        val image = releases.first().imageUrlForThumbnail?.toBitmap(context)
-
         val message = releases.mapNotNull(Release::titleFull).joinToString()
-
+        val image = releases.first().imageUrlForThumbnail?.toBitmap(context)
+        
         val notification = Notification(
             ID,
             context,
