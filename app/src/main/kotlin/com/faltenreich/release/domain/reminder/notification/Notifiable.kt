@@ -13,7 +13,7 @@ interface Notifiable {
     val channel: NotifiableChannel
     val category: String?
     val title: String?
-    val message: String?
+    val text: String?
     val smallIconRes: Int
     val largeIcon: Bitmap?
     val intent: Intent
@@ -39,8 +39,8 @@ interface Notifiable {
                 setSmallIcon(smallIconRes)
                 setLargeIcon(largeIcon)
                 setContentTitle(title)
-                setContentText(message)
-                setTicker(message)
+                setContentText(text)
+                setTicker(text)
                 setStyle(style)
                 setSortKey(sortKey)
                 setLocalOnly(localOnly)

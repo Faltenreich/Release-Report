@@ -2,6 +2,9 @@ package com.faltenreich.release.domain.reminder
 
 import android.content.Context
 import android.util.Log
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
@@ -24,6 +27,9 @@ import org.threeten.bp.temporal.ChronoUnit
 object Reminder {
 
     private const val ID = 1337
+
+    private const val NOTIFICATION_ICON_SIZE_IN_PIXELS = 1024
+    private const val NOTIFICATION_ICON_CORNER_RADIUS_IN_DP = 128
 
     fun refresh(context: Context) {
         if (UserPreferences.reminderIsEnabled) {
@@ -80,16 +86,24 @@ object Reminder {
 
     private suspend fun showNotification(context: Context, title: String, releases: List<Release>) {
         releases.takeIf(List<*>::isNotEmpty) ?: return
+        val promo = releases.first()
 
-        val message = releases.mapNotNull(Release::titleFull).joinToString()
-        val image = releases.first().imageUrlForThumbnail?.toBitmap(context)
-        
+        val image = promo.imageUrlForThumbnail?.toBitmap(
+            context,
+            NOTIFICATION_ICON_SIZE_IN_PIXELS,
+            RequestOptions().transform(
+                CenterCrop(),
+                RoundedCorners(NOTIFICATION_ICON_CORNER_RADIUS_IN_DP)
+            )
+        )
+        val text = releases.mapNotNull(Release::titleFull).joinToString()
+
         val notification = Notification(
             ID,
             context,
             NotificationChannel.MAIN,
             title = title,
-            message = message,
+            text = text,
             largeIcon = image
         )
         NotificationManager.showNotification(notification)
