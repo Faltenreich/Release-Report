@@ -1,7 +1,7 @@
-package com.faltenreich.release.framework.android.tablayout
+package com.faltenreich.release.framework.android.view.tablayout
 
 import androidx.viewpager2.widget.ViewPager2
-import com.faltenreich.release.framework.android.viewpager.PageTitleProvider
+import com.faltenreich.release.framework.android.view.viewpager.PageTitleProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

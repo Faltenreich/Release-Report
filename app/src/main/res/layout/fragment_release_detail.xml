@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.faltenreich.release.framework.android.coordinator.NestedCoordinatorLayout
+<com.faltenreich.release.framework.android.view.coordinator.NestedCoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -117,4 +117,4 @@
 
     </LinearLayout>
 
-</com.faltenreich.release.framework.android.coordinator.NestedCoordinatorLayout>
+</com.faltenreich.release.framework.android.view.coordinator.NestedCoordinatorLayout>

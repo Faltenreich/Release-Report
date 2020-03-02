@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.recyclerview.adapter
+package com.faltenreich.release.framework.android.view.recyclerview.adapter
 
 import android.util.Log
 import com.faltenreich.release.base.primitive.className

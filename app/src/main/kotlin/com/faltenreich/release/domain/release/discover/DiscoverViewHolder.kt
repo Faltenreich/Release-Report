@@ -10,7 +10,7 @@ import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.view.backgroundTint
-import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_image.*
 
 class DiscoverViewHolder(

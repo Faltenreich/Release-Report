@@ -1,9 +1,9 @@
-package com.faltenreich.release.framework.android.recyclerview.adapter
+package com.faltenreich.release.framework.android.view.recyclerview.adapter
 
 import android.content.Context
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 
 abstract class PagedListAdapter <ITEM : Any, VIEWHOLDER : BaseViewHolder<ITEM>>(
     val context: Context,

@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.image
+package com.faltenreich.release.framework.android.view.image
 
 import android.content.res.ColorStateList
 import android.widget.ImageView

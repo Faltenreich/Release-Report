@@ -7,8 +7,8 @@ import com.faltenreich.release.domain.date.DateProviderDiffUtilCallback
 import com.faltenreich.release.domain.release.list.HeaderViewHolder
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.list.ReleaseItem
-import com.faltenreich.release.framework.android.recyclerview.adapter.PagedListAdapter
-import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.view.recyclerview.adapter.PagedListAdapter
+import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 
 class DiscoverListAdapter(
     context: Context

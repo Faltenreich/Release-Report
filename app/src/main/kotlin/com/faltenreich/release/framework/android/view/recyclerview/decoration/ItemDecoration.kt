@@ -1,11 +1,11 @@
-package com.faltenreich.release.framework.android.recyclerview.decoration
+package com.faltenreich.release.framework.android.view.recyclerview.decoration
 
 import android.graphics.Rect
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
-import com.faltenreich.release.framework.android.recyclerview.adapter.ListAdapter
+import com.faltenreich.release.framework.android.view.recyclerview.adapter.ListAdapter
 
 abstract class ItemDecoration<LAYOUT : RecyclerView.LayoutManager> : RecyclerView.ItemDecoration() {
 

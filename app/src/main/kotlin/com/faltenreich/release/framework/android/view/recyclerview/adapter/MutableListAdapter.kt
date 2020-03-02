@@ -1,8 +1,8 @@
-package com.faltenreich.release.framework.android.recyclerview.adapter
+package com.faltenreich.release.framework.android.view.recyclerview.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import com.faltenreich.release.framework.android.recyclerview.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 
 abstract class MutableListAdapter <ITEM : Any, VIEW : BaseViewHolder<ITEM>>(
     val context: Context

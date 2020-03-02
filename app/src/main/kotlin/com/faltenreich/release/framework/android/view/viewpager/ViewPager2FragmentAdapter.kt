@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.viewpager
+package com.faltenreich.release.framework.android.view.viewpager
 
 import android.content.Context
 import androidx.fragment.app.Fragment

@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.framework.android.toolbar.fitSystemWindows
-import com.faltenreich.release.framework.android.viewpager.emptyOnPageChangeListener
+import com.faltenreich.release.framework.android.view.toolbar.fitSystemWindows
+import com.faltenreich.release.framework.android.view.viewpager.emptyOnPageChangeListener
 import com.faltenreich.release.framework.scrollgalleryview.currentItemWithThumbnail
 import com.veinhorn.scrollgalleryview.MediaInfo
 import com.veinhorn.scrollgalleryview.ScrollGalleryView

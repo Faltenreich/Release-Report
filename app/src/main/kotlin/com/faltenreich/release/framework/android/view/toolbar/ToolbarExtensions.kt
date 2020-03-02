@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.toolbar
+package com.faltenreich.release.framework.android.view.toolbar
 
 import android.graphics.Rect
 import androidx.appcompat.widget.Toolbar

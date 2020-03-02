@@ -2,7 +2,7 @@ package com.faltenreich.release.domain.media.video
 
 import android.content.Context
 import android.view.ViewGroup
-import com.faltenreich.release.framework.android.recyclerview.adapter.MutableListAdapter
+import com.faltenreich.release.framework.android.view.recyclerview.adapter.MutableListAdapter
 
 class VideoListAdapter(
     context: Context

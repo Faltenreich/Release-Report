@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.fab
+package com.faltenreich.release.framework.android.view.fab
 
 import android.content.res.ColorStateList
 import androidx.core.content.ContextCompat

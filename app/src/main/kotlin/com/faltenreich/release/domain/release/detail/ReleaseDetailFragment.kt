@@ -19,8 +19,8 @@ import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setWallpaper
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
-import com.faltenreich.release.framework.android.tablayout.setupWithViewPager2
-import com.faltenreich.release.framework.android.toolbar.fitSystemWindows
+import com.faltenreich.release.framework.android.view.tablayout.setupWithViewPager2
+import com.faltenreich.release.framework.android.view.toolbar.fitSystemWindows
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_release_detail.*
 import kotlin.math.abs

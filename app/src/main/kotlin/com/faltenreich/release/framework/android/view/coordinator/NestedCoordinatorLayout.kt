@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.coordinator
+package com.faltenreich.release.framework.android.view.coordinator
 
 import android.annotation.SuppressLint
 import android.content.Context

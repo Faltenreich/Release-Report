@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.media.image.ImageListFragment
 import com.faltenreich.release.domain.media.video.VideoListFragment
-import com.faltenreich.release.framework.android.viewpager.ViewPager2FragmentAdapter
+import com.faltenreich.release.framework.android.view.viewpager.ViewPager2FragmentAdapter
 
 class ReleaseDetailFragmentAdapter(host: Fragment) : ViewPager2FragmentAdapter(host) {
 
