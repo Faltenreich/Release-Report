@@ -1,6 +1,7 @@
 package com.faltenreich.release.data.dao.demo
 
 import com.faltenreich.release.data.enum.ReleaseType
+import com.faltenreich.release.data.model.Calendar
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
@@ -27,6 +28,15 @@ object DemoFactory {
                 imageUrlForWallpaper = getImageUrl(index, 1920 to 1080)
                 genres = listOfNotNull(this@DemoFactory.genres.getOrNull(index / 10)?.id)
                 platforms = if (releaseType == ReleaseType.GAME) listOfNotNull(this@DemoFactory.platforms.getOrNull(index / 10)?.id) else null
+            }
+        }
+    }
+
+    val calendarItems: List<Calendar> by lazy {
+        releases.map { release ->
+            Calendar().apply {
+                date = release.releaseDate
+                releaseId = release.id
             }
         }
     }
