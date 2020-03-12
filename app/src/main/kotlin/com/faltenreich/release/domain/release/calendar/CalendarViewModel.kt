@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
+import com.faltenreich.release.data.model.Calendar
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.data.repository.CalendarRepository
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import org.threeten.bp.LocalDate
@@ -35,12 +37,15 @@ class CalendarViewModel : ViewModel() {
     }
 
     suspend fun getReleases(start: LocalDate, end: LocalDate): List<Release> {
-        val releases = ReleaseRepository.getPopular(start, end).associateBy(Release::releaseDate).toMutableMap()
+        val calendarItems = CalendarRepository.getBetween(start, end)
+        val releaseIds = calendarItems.mapNotNull(Calendar::releaseId)
+        val releases = ReleaseRepository.getByIds(releaseIds)
+        val releasesByDate = releases.associateBy(Release::releaseDate).toMutableMap()
         val subscriptions = ReleaseRepository.getSubscriptions(start, end)
             .sortedBy(Release::popularity)
             .associateBy(Release::releaseDate)
-        subscriptions.values.forEach { release -> releases[release.releaseDate] = release }
-        return releases.values.toList()
+        subscriptions.values.forEach { release -> releasesByDate[release.releaseDate] = release }
+        return releasesByDate.values.toList()
     }
 
     companion object {

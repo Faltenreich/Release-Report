@@ -55,14 +55,6 @@ class ReleaseDemoDao : ReleaseDao, ReleasePreferenceDao {
         return sorted.take(pageSize)
     }
 
-    override suspend fun getPopular(startAt: LocalDate, endAt: LocalDate): List<Release> {
-        return releases.filter { release ->
-            release.releaseDate?.let { date ->
-                date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
-            }.isTrue
-        }.sortedWith(compareBy(Release::releaseDate).thenBy(Release::popularity))
-    }
-
     override suspend fun search(string: String, page: Int, pageSize: Int): List<Release> {
         val filtered = if (page == 0) releases.filter { release ->
             release.artist?.contains(string, ignoreCase = true).isTrue

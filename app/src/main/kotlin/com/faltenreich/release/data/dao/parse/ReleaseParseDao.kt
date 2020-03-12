@@ -53,16 +53,6 @@ class ReleaseParseDao : ReleaseDao, ParseDao<Release>, ReleasePreferenceDao {
             .query()
     }
 
-    override suspend fun getPopular(startAt: LocalDate, endAt: LocalDate): List<Release> {
-        return getQuery()
-            .whereGreaterThanOrEqualTo(Release.RELEASED_AT, startAt.date)
-            .whereLessThanOrEqualTo(Release.RELEASED_AT, endAt.date)
-            .whereExists(Release.IMAGE_URL_FOR_THUMBNAIL)
-            .orderByAscending(Release.RELEASED_AT)
-            .addAscendingOrder(Release.POPULARITY)
-            .query()
-    }
-
     override suspend fun search(string: String, page: Int, pageSize: Int): List<Release> {
         val keys = listOf(Release.ARTIST, Release.TITLE)
         val queries = keys.map { key -> getQuery().whereContainsText(key, string) }
