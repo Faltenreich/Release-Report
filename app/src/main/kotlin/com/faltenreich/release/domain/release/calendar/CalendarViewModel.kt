@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
-import com.faltenreich.release.data.model.Calendar
+import com.faltenreich.release.data.model.CalendarEvent
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.repository.CalendarRepository
+import com.faltenreich.release.data.repository.CalendarEventRepository
 import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import org.threeten.bp.LocalDate
@@ -36,16 +36,17 @@ class CalendarViewModel : ViewModel() {
         releasesLiveData.observe(owner, Observer(onObserve))
     }
 
-    suspend fun getReleases(start: LocalDate, end: LocalDate): List<Release> {
-        val calendarItems = CalendarRepository.getBetween(start, end)
-        val releaseIds = calendarItems.mapNotNull(Calendar::releaseId)
-        val releases = ReleaseRepository.getByIds(releaseIds)
-        val releasesByDate = releases.associateBy(Release::releaseDate).toMutableMap()
+    suspend fun getCalendarEvents(start: LocalDate, end: LocalDate): List<CalendarEvent> {
+        val calendarItems = CalendarEventRepository.getBetween(start, end)
+            .associateBy(CalendarEvent::date)
+            .toMutableMap()
         val subscriptions = ReleaseRepository.getSubscriptions(start, end)
             .sortedBy(Release::popularity)
             .associateBy(Release::releaseDate)
-        subscriptions.values.forEach { release -> releasesByDate[release.releaseDate] = release }
-        return releasesByDate.values.toList()
+        subscriptions.values.forEach { release ->
+            calendarItems[release.releaseDate] = CalendarEvent.fromRelease(release)
+        }
+        return calendarItems.values.toList()
     }
 
     companion object {

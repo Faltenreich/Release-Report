@@ -1,7 +1,7 @@
 package com.faltenreich.release.data.dao.demo
 
 import com.faltenreich.release.data.enum.ReleaseType
-import com.faltenreich.release.data.model.Calendar
+import com.faltenreich.release.data.model.CalendarEvent
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
@@ -32,11 +32,11 @@ object DemoFactory {
         }
     }
 
-    val calendarItems: List<Calendar> by lazy {
+    val calendarEvents: List<CalendarEvent> by lazy {
         releases.map { release ->
-            Calendar().apply {
+            CalendarEvent().apply {
                 date = release.releaseDate
-                releaseId = release.id
+                imageUrl = release.imageUrlForThumbnail
             }
         }
     }

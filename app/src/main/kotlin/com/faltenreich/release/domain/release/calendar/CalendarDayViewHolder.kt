@@ -7,8 +7,8 @@ import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.isToday
 import com.faltenreich.release.domain.date.DateOpener
-import com.faltenreich.release.framework.glide.setImageAsync
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
+import com.faltenreich.release.framework.glide.setImageAsync
 import kotlinx.android.synthetic.main.list_item_calendar_day.*
 
 class CalendarDayViewHolder(
@@ -25,7 +25,7 @@ class CalendarDayViewHolder(
     }
 
     override fun onBind(data: CalendarDayItem) {
-        val (date, _, release) = data
+        val (date, _, calendarEvent) = data
         val isToday = date.isToday
         val isInSameMonth = data.isInSameMonth
 
@@ -43,7 +43,7 @@ class CalendarDayViewHolder(
 
         coverScrim.isVisible = false
         coverView.setImageResource(android.R.color.transparent)
-        release?.imageUrlForThumbnail?.let { url ->
+        calendarEvent?.imageUrl?.let { url ->
             coverView.setImageAsync(url) { drawable ->
                 if (drawable != null) {
                     coverScrim.isVisible = true

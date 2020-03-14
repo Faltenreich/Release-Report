@@ -95,14 +95,14 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
 
     private fun fetchReleases(start: LocalDate, end: LocalDate) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val releasesByDate = viewModel.getReleases(start, end)
+            val calendarEvents = viewModel.getCalendarEvents(start, end)
             val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
-            val indexes = releasesByDate.mapNotNull { release ->
+            val indexes = calendarEvents.mapNotNull { calendarEvent ->
                 val indexedItem = items.withIndex().firstOrNull { item ->
-                    item.value.date == release.releaseDate && item.value.isInSameMonth
+                    item.value.date == calendarEvent.date && item.value.isInSameMonth
                 } ?: return@mapNotNull null
                 val (index, item) = indexedItem.index to indexedItem.value
-                item.release = release
+                item.calendarEvent = calendarEvent
                 return@mapNotNull index
             }
             lifecycleScope.launch(Dispatchers.Main) {
