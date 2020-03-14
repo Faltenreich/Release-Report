@@ -30,11 +30,11 @@
 
         <ImageView
             android:id="@+id/typeImageView"
-            android:layout_width="@dimen/dogear"
-            android:layout_height="@dimen/dogear"
+            android:layout_width="@dimen/dogear_medium"
+            android:layout_height="@dimen/dogear_medium"
             android:background="@drawable/dogear_type"
             android:contentDescription="@null"
-            android:padding="@dimen/dogear_padding"
+            android:padding="@dimen/dogear_medium_padding"
             app:layout_constraintStart_toStartOf="@+id/coverImageView"
             app:layout_constraintTop_toTopOf="@+id/coverImageView"
             tools:src="@drawable/ic_music"
@@ -42,11 +42,11 @@
 
         <ImageView
             android:id="@+id/subscriptionImageView"
-            android:layout_width="@dimen/dogear"
-            android:layout_height="@dimen/dogear"
+            android:layout_width="@dimen/dogear_medium"
+            android:layout_height="@dimen/dogear_medium"
             android:background="@drawable/dogear_subscription"
             android:contentDescription="@null"
-            android:padding="@dimen/dogear_padding"
+            android:padding="@dimen/dogear_medium_padding"
             android:src="@drawable/ic_subscription_on"
             android:tint="@color/brown"
             app:layout_constraintEnd_toEndOf="@+id/coverImageView"

@@ -57,4 +57,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/date/day_of_week" />
 
+    <ImageView
+        android:id="@+id/subscriptionImageView"
+        android:layout_width="@dimen/dogear_small"
+        android:layout_height="@dimen/dogear_small"
+        android:background="@drawable/dogear_subscription"
+        android:contentDescription="@null"
+        android:padding="@dimen/dogear_small_padding"
+        android:src="@drawable/ic_subscription_on"
+        android:tint="@color/brown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

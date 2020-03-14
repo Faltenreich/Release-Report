@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.isToday
+import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.domain.date.DateOpener
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 import com.faltenreich.release.framework.glide.setImageAsync
@@ -50,5 +51,6 @@ class CalendarDayViewHolder(
                 }
             }
         }
+        subscriptionImageView.isVisible = calendarEvent?.isSubscribed.isTrue
     }
 }

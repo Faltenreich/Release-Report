@@ -44,7 +44,11 @@ class CalendarViewModel : ViewModel() {
             .sortedBy(Release::popularity)
             .associateBy(Release::releaseDate)
         subscriptions.values.forEach { release ->
-            calendarItems[release.releaseDate] = CalendarEvent.fromRelease(release)
+            calendarItems[release.releaseDate] = CalendarEvent().apply {
+                date = release.releaseDate
+                imageUrl = release.imageUrlForThumbnail
+                isSubscribed = true
+            }
         }
         return calendarItems.values.toList()
     }

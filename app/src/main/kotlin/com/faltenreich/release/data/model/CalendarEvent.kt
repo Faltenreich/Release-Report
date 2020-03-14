@@ -6,7 +6,8 @@ import org.threeten.bp.LocalDate
 
 data class CalendarEvent(
     var date: LocalDate? = null,
-    var imageUrl: String? = null
+    var imageUrl: String? = null,
+    var isSubscribed: Boolean = false
 ) : Model {
 
     override var id: String?
@@ -23,12 +24,5 @@ data class CalendarEvent(
     companion object {
         const val DATE = "date"
         const val IMAGE_URL = "imageUrl"
-
-        fun fromRelease(release: Release): CalendarEvent {
-            return CalendarEvent().apply {
-                date = release.releaseDate
-                imageUrl = release.imageUrlForThumbnail
-            }
-        }
     }
 }

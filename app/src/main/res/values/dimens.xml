@@ -37,8 +37,10 @@
     <dimen name="image_size_large">72dp</dimen>
     <dimen name="image_size_wallpaper">160dp</dimen>
     <dimen name="image_size_wallpaper_large">220dp</dimen>
-    <dimen name="dogear">28dp</dimen>
-    <dimen name="dogear_padding">6dp</dimen>
+    <dimen name="dogear_medium">28dp</dimen>
+    <dimen name="dogear_medium_padding">6dp</dimen>
+    <dimen name="dogear_small">18dp</dimen>
+    <dimen name="dogear_small_padding">3dp</dimen>
     <dimen name="scrim_height">74dp</dimen>
 
 </resources>
