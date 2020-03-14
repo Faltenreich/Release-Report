@@ -43,7 +43,6 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun observeData() {
         viewModel.observeFabConfig(this, ::setFabConfig)
-        viewModel.onMessageReceived = ::showMessage
     }
 
     private fun setFabConfig(fabConfig: FabConfig?) {

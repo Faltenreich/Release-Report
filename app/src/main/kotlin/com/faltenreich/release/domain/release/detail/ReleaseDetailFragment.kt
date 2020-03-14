@@ -141,12 +141,6 @@ class ReleaseDetailFragment : BaseFragment(
     private fun toggleSubscription() {
         val isSubscribed = !(viewModel.release?.isSubscribed.isTrue)
         viewModel.release?.isSubscribed = isSubscribed
-        // FIXME: Replace with Snackbar when being placed behind BottomAppBar
-        val message = getString(
-            if (isSubscribed) R.string.subscription_added
-            else R.string.subscription_removed
-        )
-        mainViewModel.showMessage(message)
         invalidateSubscription()
     }
 

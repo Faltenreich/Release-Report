@@ -39,8 +39,6 @@
     <string name="spotlight">Spotlight</string>
     <string name="subscription">Subscription</string>
     <string name="subscriptions">Subscriptions</string>
-    <string name="subscription_added">You will be reminded about this release upon its release date</string>
-    <string name="subscription_removed">You will not be reminded about this release anymore</string>
     <string name="this_week">This week</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>

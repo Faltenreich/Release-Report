@@ -75,7 +75,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
                 super.onItemRangeInserted(positionStart, itemCount)
                 val start = listAdapter.getListItemAt(positionStart)?.date ?: return
                 val end = listAdapter.getListItemAt(positionStart + itemCount - 1)?.date ?: return
-                fetchReleases(start, end)
+                fetchCalendarEvents(start, end)
             }
         })
 
@@ -93,7 +93,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         viewModel.observeReleases(yearMonth, this) { list -> listAdapter.submitList(list) }
     }
 
-    private fun fetchReleases(start: LocalDate, end: LocalDate) {
+    private fun fetchCalendarEvents(start: LocalDate, end: LocalDate) {
         lifecycleScope.launch(Dispatchers.IO) {
             val calendarEvents = viewModel.getCalendarEvents(start, end)
             val items = listAdapter.listItems.filterIsInstance<CalendarDayItem>()
