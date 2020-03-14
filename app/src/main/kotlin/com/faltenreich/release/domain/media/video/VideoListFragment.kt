@@ -6,8 +6,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrueOrNull
-import com.faltenreich.release.framework.android.view.recyclerview.decoration.LinearLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.LinearLayoutSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_video_list.*
 
 class VideoListFragment : BaseFragment(R.layout.fragment_video_list) {
@@ -34,7 +35,7 @@ class VideoListFragment : BaseFragment(R.layout.fragment_video_list) {
     private fun initLayout() {
         val context = context ?: return
         videoListView.layoutManager = LinearLayoutManager(context)
-        videoListView.addItemDecoration(LinearLayoutSpacingItemDecoration(context, R.dimen.margin_padding_size_xxsmall))
+        videoListView.addItemDecoration(LinearLayoutSpacingItemDecoration(context, ItemDecoration.SPACING_RES_DEFAULT))
         videoListView.adapter = listAdapter
     }
 
