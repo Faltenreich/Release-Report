@@ -1,14 +1,17 @@
 package com.faltenreich.release.domain.navigation
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.framework.android.view.fab.backgroundTintResource
+import com.faltenreich.release.framework.android.view.fab.backgroundTint
 import com.faltenreich.release.framework.android.view.fab.foregroundTintResource
-import com.faltenreich.release.framework.android.view.showSnackbar
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
@@ -46,13 +49,31 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun setFabConfig(fabConfig: FabConfig?) {
+        val context = context ?: return
+        val shouldAnimate = fab.isVisible
         if (fabConfig != null) {
             if (fab.isOrWillBeHidden) {
                 fab.show()
             }
             fab.setImageResource(fabConfig.iconRes)
-            fab.backgroundTintResource = fabConfig.backgroundColorRes
             fab.foregroundTintResource = fabConfig.foregroundColorRes
+
+            val backgroundColorFrom = fab.backgroundTint
+            val backgroundColorTo = ContextCompat.getColor(context, fabConfig.backgroundColorRes)
+            if (backgroundColorFrom != backgroundColorTo) {
+                if (shouldAnimate) {
+                    ValueAnimator.ofObject(ArgbEvaluator(), backgroundColorFrom, backgroundColorTo).apply {
+                        duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+                        addUpdateListener { animator ->
+                            fab.backgroundTint = animator.animatedValue as Int
+                        }
+
+                    }.start()
+                } else {
+                    fab.backgroundTint = backgroundColorTo
+                }
+
+            }
         } else {
             if (fab.isOrWillBeShown) {
                 fab.hide()
@@ -65,9 +86,5 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
             Bundle().apply { putInt(NavigationFragment.ARGUMENT_PREVIOUS_DESTINATION_ID, id) }
         }
         navigationController.navigate(R.id.navigation, arguments)
-    }
-
-    private fun showMessage(message: String) {
-        view?.showSnackbar(message, anchor = fab)
     }
 }
