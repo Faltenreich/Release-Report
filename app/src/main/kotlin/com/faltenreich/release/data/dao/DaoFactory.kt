@@ -5,7 +5,7 @@ import com.faltenreich.release.data.dao.demo.CalendarDemoEventDao
 import com.faltenreich.release.data.dao.demo.GenreDemoDao
 import com.faltenreich.release.data.dao.demo.PlatformDemoDao
 import com.faltenreich.release.data.dao.demo.ReleaseDemoDao
-import com.faltenreich.release.data.dao.parse.CalendarParseEventDao
+import com.faltenreich.release.data.dao.parse.CalendarEventParseDao
 import com.faltenreich.release.data.dao.parse.GenreParseDao
 import com.faltenreich.release.data.dao.parse.PlatformParseDao
 import com.faltenreich.release.data.dao.parse.ReleaseParseDao
@@ -17,7 +17,7 @@ object DaoFactory {
             ReleaseDao::class -> if (Application.isDemo) ReleaseDemoDao() else ReleaseParseDao()
             GenreDao::class -> if (Application.isDemo) GenreDemoDao() else GenreParseDao()
             PlatformDao::class -> if (Application.isDemo) PlatformDemoDao() else PlatformParseDao()
-            CalendarEventDao::class -> if (Application.isDemo) CalendarDemoEventDao() else CalendarParseEventDao()
+            CalendarEventDao::class -> if (Application.isDemo) CalendarDemoEventDao() else CalendarEventParseDao()
             else -> throw IllegalArgumentException("Unknown type: $clazz")
         } as T
     }
