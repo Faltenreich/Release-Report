@@ -2,16 +2,19 @@ package com.faltenreich.release.domain.reminder
 
 import android.content.Context
 import androidx.work.*
+import kotlinx.coroutines.coroutineScope
 import java.util.concurrent.TimeUnit
 
 class ReminderWorker(
     applicationContext: Context,
     params: WorkerParameters
-) : Worker(applicationContext, params) {
+) : CoroutineWorker(applicationContext, params) {
 
-    override fun doWork(): Result {
-        Reminder.remind(applicationContext)
-        return Result.success()
+    override suspend fun doWork(): Result {
+        return coroutineScope {
+            Reminder.remind(applicationContext)
+            Result.success()
+        }
     }
 
     companion object {

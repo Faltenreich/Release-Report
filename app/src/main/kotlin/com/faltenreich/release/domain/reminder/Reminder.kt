@@ -17,9 +17,6 @@ import com.faltenreich.release.domain.reminder.notification.Notification
 import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
 import com.faltenreich.release.framework.glide.toBitmap
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit
@@ -59,11 +56,9 @@ object Reminder {
         Log.d(tag, "Cancelled reminder")
     }
 
-    fun remind(context: Context) {
-        MainScope().launch(Dispatchers.IO) {
-            remindAboutNextWeek(context)
-            remindAboutSubscriptions(context)
-        }
+    suspend fun remind(context: Context) {
+        remindAboutNextWeek(context)
+        remindAboutSubscriptions(context)
     }
 
     private suspend fun remindAboutNextWeek(context: Context) {
