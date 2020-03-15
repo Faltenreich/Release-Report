@@ -81,9 +81,9 @@ object Reminder {
 
     private suspend fun showNotification(context: Context, title: String, releases: List<Release>) {
         releases.takeIf(List<*>::isNotEmpty) ?: return
-        val promo = releases.first()
+        val promo = releases.firstOrNull { release -> release.imageUrlForThumbnail != null }
 
-        val image = promo.imageUrlForThumbnail?.toBitmap(
+        val image = promo?.imageUrlForThumbnail?.toBitmap(
             context,
             NOTIFICATION_ICON_SIZE_IN_PIXELS,
             RequestOptions().transform(
