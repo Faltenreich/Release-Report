@@ -11,9 +11,9 @@
     <color name="background_dark_secondary">#424242</color>
     <color name="background_dark_tertiary">#292929</color>
 
-    <color name="colorPrimary">#718792</color>
-    <color name="colorPrimaryDark">#455a64</color>
-    <color name="colorAccent">@color/colorPrimaryDark</color>
+    <color name="colorPrimary">#006d8c</color>
+    <color name="colorPrimaryDark">#00425f</color>
+    <color name="colorAccent">@color/colorPrimary</color>
 
     <color name="translucent_dark">#66000000</color>
     <color name="light">#eeeeee</color>
