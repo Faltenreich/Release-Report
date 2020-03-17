@@ -17,16 +17,11 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_empty.*
 
 class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
-    private val viewModel by lazy { createViewModel(SearchViewModel::class) }
-    private val query: String? by lazy { arguments?.let { arguments -> SearchFragmentArgs.fromBundle(
-        arguments
-    ).query.nonBlank } }
 
-    private val listAdapter by lazy { context?.let { context ->
-        SearchListAdapter(
-            context
-        )
-    } }
+    private val viewModel by lazy { createViewModel(SearchViewModel::class) }
+    private val query: String? by lazy { SearchFragmentArgs.fromBundle(requireArguments()).query.nonBlank }
+
+    private val listAdapter by lazy { SearchListAdapter(requireContext()) }
     private lateinit var listLayoutManager: LinearLayoutManager
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 6) }
 
@@ -64,7 +59,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
 
         viewModel.observeQuery(this, onObserve = { list ->
             listSkeleton.showOriginal()
-            listAdapter?.submitList(list)
+            listAdapter.submitList(list)
         }, afterInitialLoad = { results ->
             emptyView.isVisible = results?.isEmpty().isTrueOrNull
         })

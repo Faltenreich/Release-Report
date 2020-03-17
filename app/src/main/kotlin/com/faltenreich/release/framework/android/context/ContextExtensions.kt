@@ -5,10 +5,14 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import com.faltenreich.release.base.log.tag
 
 fun Context.hideKeyboard(view: View) {
@@ -45,3 +49,15 @@ val Context.screenSize: Point
         val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         windowManager.defaultDisplay.getSize(point)
     }
+
+
+@ColorInt
+fun Context.getColorFromAttribute(@AttrRes attrRes: Int): Int {
+    val typedValue = TypedValue()
+    val theme = theme
+    val wasResolved = theme.resolveAttribute(attrRes, typedValue, true)
+    return if (wasResolved)
+        if (typedValue.resourceId == 0) typedValue.data
+        else ContextCompat.getColor(this, typedValue.resourceId)
+    else -1
+}

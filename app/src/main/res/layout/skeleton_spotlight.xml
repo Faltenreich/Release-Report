@@ -6,9 +6,9 @@
     android:id="@+id/skeletonLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:maskColor="?colorPrimary"
+    app:maskColor="?backgroundColorPrimary"
     app:maskCornerRadius="@dimen/card_corner_radius"
-    app:shimmerColor="?colorPrimaryDark">
+    app:shimmerColor="?backgroundColorTertiary">
 
     <LinearLayout
         android:layout_width="match_parent"
