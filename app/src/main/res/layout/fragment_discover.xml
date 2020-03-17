@@ -48,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
             android:background="@drawable/dogear_header_overlay"
+            android:lines="1"
             tools:text="@tools:sample/date/mmddyy" />
 
         <include

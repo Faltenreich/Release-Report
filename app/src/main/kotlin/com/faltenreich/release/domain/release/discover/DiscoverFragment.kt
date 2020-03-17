@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -117,8 +118,12 @@ class DiscoverFragment : BaseFragment(
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleListItem = listAdapter.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date ?: LocalDate.now()
-        headerTextView.doOnPreDraw { headerTextView.text = currentDate?.print(context) }
+        firstVisibleListItem?.date?.let { currentDate ->
+            headerTextView.text = currentDate.print(context)
+            headerTextView.isVisible = true
+        } ?: run {
+            headerTextView.isVisible = false
+        }
 
         val firstCompletelyVisibleListItemPosition = listLayoutManager.findFirstCompletelyVisibleItemPosition()
         val secondVisibleListItem = listAdapter.currentList?.getOrNull(firstCompletelyVisibleListItemPosition)
