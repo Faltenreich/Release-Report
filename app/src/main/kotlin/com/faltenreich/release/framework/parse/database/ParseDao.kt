@@ -14,6 +14,7 @@ interface ParseDao<T : Model> : Dao<T> {
     val clazz: KClass<T>
     val modelName: String
 
+    // FIXME: Catch errors from backend like ParseRequestException: unauthorized
     fun getQuery(): ParseQuery<ParseObject> {
         return ParseQuery.getQuery(modelName)
     }
