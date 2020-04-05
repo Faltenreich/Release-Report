@@ -2,6 +2,7 @@ package com.faltenreich.release.domain.reminder
 
 import android.content.Context
 import androidx.work.*
+import com.faltenreich.release.framework.android.architecture.workManager
 import kotlinx.coroutines.coroutineScope
 import java.util.concurrent.TimeUnit
 
@@ -19,21 +20,25 @@ class ReminderWorker(
 
     companion object {
 
-        private const val NAME = "ReminderWorker"
+        private const val TAG = "ReminderWorker"
 
         fun enqueue(context: Context, delayInMillis: Long) {
             val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
                 .setInitialDelay(delayInMillis, TimeUnit.MILLISECONDS)
+                .addTag(TAG)
                 .build()
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-                NAME,
+            context.workManager.enqueueUniquePeriodicWork(
+                TAG,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 request
             )
         }
 
         fun cancel(context: Context) {
-            WorkManager.getInstance(context).cancelUniqueWork(NAME)
+            val workManager = context.workManager
+            workManager.pruneWork()
+            workManager.cancelAllWorkByTag(TAG)
+            workManager.cancelUniqueWork(TAG)
         }
     }
 }
