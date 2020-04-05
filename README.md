@@ -1,15 +1,45 @@
 # Release Report
 
-[![Release](https://img.shields.io/badge/Release-0.2.1-478063.svg)](https://play.google.com/store/apps/details?id=com.faltenreich.release)
+[![Release](https://img.shields.io/badge/Release-0.2.1-006d8c.svg)](https://play.google.com/store/apps/details?id=com.faltenreich.release)
 [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Release Report is an Android app that shows release dates for upcoming movies, music and video games.
+
+## Development
+
+#### Setup
+
+1. Complete setup for [Release Report Sync](https://github.com/Faltenreich/Release-Report-Sync)
+2. Clone or fork this repository
+3. Open project via Android Studio
+4. Create local.properties in the root directory with following properties from your [Parse Server](https://parseplatform.org) Core Settings:
+    * parse.serverUrl = "<Parse API Address>"
+    * parse.applicationId = "<App Id>"
+    * parse.clientKey = "<Client Key>"
+5. Gradle Sync
+6. Build
+
+#### Third-party licenses
+
+This software uses following technologies with great appreciation:
+
+* TODO
+
+These dependencies are bundled under the terms of their respective license.
+
+## Sync
+
+Release Report is just an empty shell without its content.
+
+Metadata for video games comes from the [IGDB API](https://www.igdb.com/api)
+
+Release Report uses [Parse Server](https://parseplatform.org/) as Mobile Backend as a service (MBaaS). Parse Database, Cloud Code and Job is used to supply the app with data.
 
 ## Legal
 
 #### Redistribution
 
-Additionally to the permissions, conditions and limitations of the GPLv3, the permission for redistribution must be manually requested in advance. This ensures that neither the original Diaguard app or any fork will be affected negatively by terms and conditions like the [Google Play Developer Distribution Agreement](https://play.google.com/about/developer-distribution-agreement.html). If you plan to redistribute this software, please contact the maintainer at [philipp.fahlteich@gmail.com](mailto:philipp.fahlteich@gmail.com).
+Additionally to the permissions, conditions and limitations of the GPLv3, the permission for redistribution must be manually requested in advance. This ensures that neither the original software or any fork will be affected negatively by terms and conditions like the [Google Play Developer Distribution Agreement](https://play.google.com/about/developer-distribution-agreement.html). If you plan to redistribute this software, please contact the maintainer at [philipp.fahlteich@gmail.com](mailto:philipp.fahlteich@gmail.com).
 
 #### License
 
