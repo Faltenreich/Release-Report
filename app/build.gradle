@@ -36,6 +36,9 @@ android {
         demo {
             dimension 'version'
             applicationIdSuffix '.demo'
+            buildConfigField("String", "PARSE_SERVER_URL", "")
+            buildConfigField("String", "PARSE_APPLICATION_ID", "")
+            buildConfigField("String", "PARSE_CLIENT_KEY", "")
         }
         beta {
             dimension 'version'
@@ -43,9 +46,6 @@ android {
             buildConfigField("String", "PARSE_SERVER_URL", getLocalProperty('parse.serverUrl'))
             buildConfigField("String", "PARSE_APPLICATION_ID", getLocalProperty('parse.applicationId'))
             buildConfigField("String", "PARSE_CLIENT_KEY", getLocalProperty('parse.clientKey'))
-        }
-        store {
-            dimension 'version'
         }
     }
 
