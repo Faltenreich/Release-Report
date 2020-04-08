@@ -13,9 +13,13 @@ Release Report is an Android app that shows release dates for upcoming movies, m
 2. Clone or fork this repository
 3. Open project via Android Studio
 4. Create local.properties in the root directory with following properties from your [Parse Server](https://parseplatform.org) Core Settings:
-    * parse.serverUrl = "<Parse API Address>"
-    * parse.applicationId = "<App Id>"
-    * parse.clientKey = "<Client Key>"
+
+    ```
+    parse.serverUrl = "<Parse API Address>"
+    parse.applicationId = "<App Id>"
+    parse.clientKey = "<Client Key>"
+    ```
+
 5. Gradle Sync
 6. Build
 
@@ -23,17 +27,19 @@ Release Report is an Android app that shows release dates for upcoming movies, m
 
 This software uses following technologies with great appreciation:
 
-* TODO
+* [AndroidX](https://developer.android.com/jetpack/androidx)
+* [Glide](https://github.com/bumptech/glide)
+* [JUnit](https://junit.org)
+* [Kotlin](https://kotlinlang.org)
+* [LicensesDialog](https://github.com/PSDev/LicensesDialog)
+* [Material Components for Android](https://material.io/components)
+* [MonthAndYearPicker](https://github.com/premkumarroyal/MonthAndYearPicker)
+* [Parse SDK for Android](https://github.com/parse-community/Parse-SDK-Android)
+* [ScrollGalleryView](https://github.com/VEINHORN/ScrollGalleryView)
+* [SearchView](https://github.com/lapism/SearchView)
+* [SkeletonLayout](https://github.com/Faltenreich/SkeletonLayout)
 
 These dependencies are bundled under the terms of their respective license.
-
-## Sync
-
-Release Report is just an empty shell without its content.
-
-Metadata for video games comes from the [IGDB API](https://www.igdb.com/api)
-
-Release Report uses [Parse Server](https://parseplatform.org/) as Mobile Backend as a service (MBaaS). Parse Database, Cloud Code and Job is used to supply the app with data.
 
 ## Legal
 
