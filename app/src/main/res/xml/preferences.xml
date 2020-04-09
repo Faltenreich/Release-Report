@@ -2,48 +2,43 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/reminder"
-        app:iconSpaceReserved="false">
+        android:title="@string/reminder">
 
         <com.faltenreich.release.domain.reminder.ReminderTimePreference
             android:key="@string/preference_reminder_time"
             android:title="@string/reminder_time"
-            app:iconSpaceReserved="false"
-            tools:summary="@string/reminder_time_desc"/>
+            tools:summary="@string/reminder_time_desc" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="@string/preference_reminder_weekly_is_enabled"
-            android:title="@string/weekly"
             android:summary="@string/reminder_weekly_desc"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"/>
+            android:title="@string/weekly" />
 
         <CheckBoxPreference
-            android:key="@string/preference_reminder_subscriptions_is_enabled"
-            android:title="@string/subscriptions"
-            android:summary="@string/reminder_subscriptions_desc"
             android:defaultValue="true"
-            app:iconSpaceReserved="false"/>
+            android:key="@string/preference_reminder_subscriptions_is_enabled"
+            android:summary="@string/reminder_subscriptions_desc"
+            android:title="@string/subscriptions" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/about"
-        app:iconSpaceReserved="false">
+        android:title="@string/about">
+
+        <com.faltenreich.release.domain.preference.LicensePreference
+            android:title="@string/licenses" />
 
         <Preference
             android:key="@string/preference_version_name"
-            android:title="@string/version_name"
-            app:iconSpaceReserved="false"/>
+            android:title="@string/version_name" />
 
         <Preference
             android:key="@string/preference_version_code"
-            android:title="@string/version_code"
-            app:iconSpaceReserved="false"/>
+            android:title="@string/version_code" />
 
     </PreferenceCategory>
 

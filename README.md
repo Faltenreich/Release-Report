@@ -31,7 +31,6 @@ This software uses following technologies with great appreciation:
 * [Glide](https://github.com/bumptech/glide)
 * [JUnit](https://junit.org)
 * [Kotlin](https://kotlinlang.org)
-* [LicensesDialog](https://github.com/PSDev/LicensesDialog)
 * [Material Components for Android](https://material.io/components)
 * [MonthAndYearPicker](https://github.com/premkumarroyal/MonthAndYearPicker)
 * [Parse SDK for Android](https://github.com/parse-community/Parse-SDK-Android)

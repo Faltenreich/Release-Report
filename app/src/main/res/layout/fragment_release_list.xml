@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:theme="@style/Toolbar"
-            app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:popupTheme="@style/ToolbarPopup"
             app:titleTextAppearance="@style/ToolbarTitle"
