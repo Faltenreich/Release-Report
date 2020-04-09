@@ -31,12 +31,15 @@ This software uses following technologies with great appreciation:
 * [Glide](https://github.com/bumptech/glide)
 * [JUnit](https://junit.org)
 * [Kotlin](https://kotlinlang.org)
+* [Kotlinx](https://ktor.io/kotlinx)
+* [LicensesDialog](https://github.com/PSDev/LicensesDialog)
 * [Material Components for Android](https://material.io/components)
 * [MonthAndYearPicker](https://github.com/premkumarroyal/MonthAndYearPicker)
 * [Parse SDK for Android](https://github.com/parse-community/Parse-SDK-Android)
 * [ScrollGalleryView](https://github.com/VEINHORN/ScrollGalleryView)
 * [SearchView](https://github.com/lapism/SearchView)
 * [SkeletonLayout](https://github.com/Faltenreich/SkeletonLayout)
+* [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP)
 
 These dependencies are bundled under the terms of their respective license.
 

@@ -89,6 +89,8 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 
+    implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
+
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
