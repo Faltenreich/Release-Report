@@ -1,8 +1,11 @@
 package com.faltenreich.release.framework.parse.database
 
 import android.text.format.DateUtils
+import android.util.Log
+import com.faltenreich.release.base.log.tag
 import com.faltenreich.release.data.dao.Dao
 import com.faltenreich.release.data.model.Model
+import com.parse.ParseException
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +17,6 @@ interface ParseDao<T : Model> : Dao<T> {
     val clazz: KClass<T>
     val modelName: String
 
-    // FIXME: Catch errors from backend like ParseRequestException: unauthorized
     fun getQuery(): ParseQuery<ParseObject> {
         return ParseQuery.getQuery(modelName)
     }
@@ -22,10 +24,15 @@ interface ParseDao<T : Model> : Dao<T> {
     suspend fun ParseQuery<ParseObject>.query(): List<T> {
         val query = this
         return withContext(Dispatchers.IO) {
-            val parseObjects = query
-                .setCachePolicy(CACHE_POLICY)
-                .setMaxCacheAge(CACHE_AGE_MAX)
-                .find()
+            val parseObjects = try {
+                query
+                    .setCachePolicy(CACHE_POLICY)
+                    .setMaxCacheAge(CACHE_AGE_MAX)
+                    .find()
+            } catch (exception: ParseException) {
+                Log.e(tag, "Parse Server: ${exception.message}")
+                null
+            }
             val entities = parseObjects?.mapNotNull { parseObject ->
                 ParseObjectFactory.createEntity(clazz, parseObject)
             }
