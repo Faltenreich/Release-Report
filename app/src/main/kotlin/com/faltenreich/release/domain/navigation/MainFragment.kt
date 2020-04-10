@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.release.R
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
 
-    private val viewModel by lazy { createSharedViewModel(MainViewModel::class) }
+    private val viewModel by activityViewModels<MainViewModel>()
 
     private val navigationHostFragment: NavHostFragment
         get() = childFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment

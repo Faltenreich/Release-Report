@@ -3,8 +3,8 @@ package com.faltenreich.release.domain.release.discover
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -28,7 +28,7 @@ class DiscoverFragment : BaseFragment(
     R.menu.main
 ), DatePickerOpener, SearchOpener {
 
-    private val viewModel by lazy { createViewModel(DiscoverViewModel::class) }
+    private val viewModel by viewModels<DiscoverViewModel>()
     private val searchable by lazy { SearchableObserver() }
     
     private lateinit var listAdapter: DiscoverListAdapter

@@ -5,6 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.R
 import com.faltenreich.release.base.intent.UrlOpener
@@ -30,10 +32,10 @@ class ReleaseDetailFragment : BaseFragment(
     R.menu.release
 ), DateOpener, UrlOpener, WebSearchOpener, ReleaseImageOpener {
 
-    private val viewModel by lazy { createViewModel(ReleaseDetailViewModel::class) }
-    private val infoViewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
-    private val imageListViewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
-    private val videoListViewModel by lazy { createSharedViewModel(VideoListViewModel::class) }
+    private val viewModel by viewModels<ReleaseDetailViewModel>()
+    private val infoViewModel by activityViewModels<ReleaseInfoViewModel>()
+    private val imageListViewModel by activityViewModels<ImageListViewModel>()
+    private val videoListViewModel by activityViewModels<VideoListViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.search
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.view_empty.*
 
 class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
 
-    private val viewModel by lazy { createViewModel(SearchViewModel::class) }
+    private val viewModel by viewModels<SearchViewModel>()
     private val query: String? by lazy { SearchFragmentArgs.fromBundle(requireArguments()).query.nonBlank }
 
     private val listAdapter by lazy { SearchListAdapter(requireContext()) }

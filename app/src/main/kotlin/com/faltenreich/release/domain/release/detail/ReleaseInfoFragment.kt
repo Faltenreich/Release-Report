@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrue
@@ -22,7 +23,7 @@ class ReleaseInfoFragment : BaseFragment(
     R.layout.fragment_release_info
 ), DateOpener, ReleaseImageOpener {
 
-    private val viewModel by lazy { createSharedViewModel(ReleaseInfoViewModel::class) }
+    private val viewModel by activityViewModels<ReleaseInfoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

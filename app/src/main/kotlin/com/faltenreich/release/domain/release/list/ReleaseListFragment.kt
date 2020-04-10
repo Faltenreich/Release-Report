@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.list
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,8 @@ import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
 import com.faltenreich.release.domain.release.search.SearchOpener
-import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.framework.android.fragment.BaseFragment
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
@@ -22,7 +23,7 @@ class ReleaseListFragment : BaseFragment(
     R.menu.main
 ), DatePickerOpener, SearchOpener {
 
-    private val viewModel by lazy { createViewModel(ReleaseListViewModel::class) }
+    private val viewModel by viewModels<ReleaseListViewModel>()
 
     private val date: LocalDate? by lazy {
         arguments?.run { ReleaseListFragmentArgs.fromBundle(this).date?.asLocalDate }

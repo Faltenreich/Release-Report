@@ -9,21 +9,18 @@ import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.faltenreich.release.base.primitive.isTrue
-import com.faltenreich.release.data.provider.ViewModelCreator
 import com.faltenreich.release.domain.navigation.MainViewModel
-import kotlin.reflect.KClass
 
 abstract class BaseFragment(
     @LayoutRes private val layoutResId: Int,
     @MenuRes private val menuResId: Int? = null,
     @StringRes private val titleResId: Int? = null
-) : Fragment(), ViewModelCreator {
+) : Fragment() {
 
-    protected val mainViewModel by lazy { createSharedViewModel(MainViewModel::class) }
+    protected val mainViewModel by activityViewModels<MainViewModel>()
 
     protected var isViewCreated: Boolean = false
 
@@ -66,14 +63,6 @@ abstract class BaseFragment(
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menuResId?.let { menuResId -> inflater.inflate(menuResId, menu) }
-    }
-
-    override fun <T : ViewModel> createViewModel(clazz: KClass<T>): T {
-        return ViewModelProviders.of(this).get(clazz.java)
-    }
-
-    override fun <T : ViewModel> createSharedViewModel(clazz: KClass<T>): T {
-        return ViewModelProviders.of(requireActivity()).get(clazz.java)
     }
 
     private fun init() {

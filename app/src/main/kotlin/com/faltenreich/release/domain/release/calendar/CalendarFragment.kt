@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.calendar
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
     YearMonthPickerOpener,
     SearchOpener {
 
-    private val viewModel by lazy { createViewModel(CalendarViewModel::class) }
+    private val viewModel by viewModels<CalendarViewModel>()
 
     private lateinit var listAdapter: CalendarListAdapter
     private lateinit var listLayoutManager: CalendarLayoutManager

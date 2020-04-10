@@ -3,17 +3,18 @@ package com.faltenreich.release.domain.media.image
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.base.primitive.isTrueOrNull
-import com.faltenreich.release.framework.android.view.recyclerview.decoration.GridLayoutSpacingItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.GridLayoutSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_image_list.*
 
 class ImageListFragment : BaseFragment(R.layout.fragment_image_list), ImageOpener {
 
-    private val viewModel by lazy { createSharedViewModel(ImageListViewModel::class) }
+    private val viewModel by activityViewModels<ImageListViewModel>()
 
     private lateinit var listAdapter: ImageListAdapter
 

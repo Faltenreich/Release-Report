@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
@@ -20,7 +21,7 @@ class SpotlightFragment : BaseFragment(
     R.menu.main
 ), ReleaseOpener, SearchOpener {
 
-    private val viewModel by lazy { createViewModel(SpotlightViewModel::class) }
+    private val viewModel by viewModels<SpotlightViewModel>()
 
     private lateinit var listAdapter: SpotlightListAdapter
 
