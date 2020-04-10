@@ -1,7 +1,6 @@
 package com.faltenreich.release.domain.date
 
 import androidx.fragment.app.FragmentManager
-import com.faltenreich.release.domain.date.YearMonthPickerFragment
 import org.threeten.bp.YearMonth
 
 interface YearMonthPickerOpener {

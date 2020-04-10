@@ -16,7 +16,6 @@ import java.util.*
 
 private const val FORMAT_TIME = "HH:mm"
 private const val FORMAT_DATE = "yyyy-MM-dd"
-private const val FORMAT_YEAR_MONTH = "MM/yyyy"
 
 val LocalDate.isToday: Boolean
     get() = isEqual(LocalDate.now())
@@ -33,7 +32,7 @@ val String.asLocalDate: LocalDate?
     get() = try {
         LocalDate.parse(this, DateTimeFormatter.ofPattern(FORMAT_DATE))
     } catch (exception: DateTimeParseException) {
-        Log.e(tag, exception.message)
+        Log.e(tag, exception.message ?: "Failed to parse String to LocalDate")
         null
     }
 
@@ -45,15 +44,6 @@ val LocalDate.date: Date
 
 val Date.localDate: LocalDate
     get() = Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
-
-val LocalDate.calendarWeek: Int
-    get() = get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear())
-
-val LocalDateTime.millis: Long
-    get() = atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-
-val LocalDate.millis: Long
-    get() = atTime(0, 0).millis
 
 val LocalTime.asString: String
     get() = format(DateTimeFormatter.ofPattern(FORMAT_TIME))
@@ -72,8 +62,7 @@ val String.asLocalTime: LocalTime?
 
 fun LocalDate.print(context: Context?): String? {
     val today = LocalDate.now()
-    val daysBetween = ChronoUnit.DAYS.between(today, this)
-    return when (daysBetween) {
+    return when (ChronoUnit.DAYS.between(today, this)) {
         0L -> context?.getString(R.string.today)
         -1L -> context?.getString(R.string.yesterday)
         1L -> context?.getString(R.string.tomorrow)
@@ -96,20 +85,8 @@ fun YearMonth.print(): String? {
 val LocalDate.yearMonth: YearMonth
     get() = YearMonth.of(year, month)
 
-val LocalDate.atStartOfMonth: LocalDate
-    get() = withDayOfMonth(1)
-
-val LocalDate.atEndOfMonth: LocalDate
-    get() = withDayOfMonth(lengthOfMonth())
-
 val LocalDate.atStartOfWeek: LocalDate
     get() = with(WeekFields.of(UserPreferences.locale).dayOfWeek(), 1)
 
 val LocalDate.atEndOfWeek: LocalDate
     get() = with(WeekFields.of(UserPreferences.locale).dayOfWeek(), 7)
-
-val YearMonth.asString: String
-    get() = format(DateTimeFormatter.ofPattern(FORMAT_YEAR_MONTH))
-
-val String.asYearMonth: YearMonth
-    get() = YearMonth.parse(this, DateTimeFormatter.ofPattern(FORMAT_YEAR_MONTH))
