@@ -10,7 +10,7 @@ import java.util.*
 class DateTest {
 
     @Test
-    fun `Successfully casts date to local date`() {
+    fun `Date can be converted to LocalDate`() {
         val date = Date()
         val localDate = date.localDate
         assertEquals(date.year + 1900, localDate.year)
@@ -19,7 +19,7 @@ class DateTest {
     }
 
     @Test
-    fun `Successfully casts local date to date`() {
+    fun `LocalDate can be converted to Date`() {
         val localDate = LocalDate.now()
         val date = localDate.date
         assertEquals(date.year + 1900, localDate.year)
