@@ -3,7 +3,19 @@
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) [![Release](https://img.shields.io/badge/Release-0.2.1-006d8c.svg)](https://play.google.com/store/apps/details?id=com.faltenreich.release)
 [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Release Report is an Android app that shows release dates for upcoming movies, music and video games.
+<img src="./resource/image/marketing/showcase.png" width="750"> 
+
+Release Report is an Android app that shows release dates for upcoming media.
+
+It merges movies, music and video games into one cohesive user experience. Thanks to different kinds of dashboards, the user has always the complete overview about what is next in the world of entertainment. Additionally one can subscribe to specific releases in order to be reminded about their release when their time has come.
+
+* Get a glance of recent and upcoming movies, music albums and video games
+* Read through descriptions and watch images or trailers of releases as soon as they become available
+* Subscribe to releases that you are interested in to get notified upon their release date
+* Get weekly updates about upcoming releases
+* Browse hundreds of releases via full text search
+
+<img src="./resource/image/screenshot/spotlight.png" width="100"> <img src="./resource/image/screenshot/discover.png" width="100"> <img src="./resource/image/screenshot/calendar.png" width="100"> <img src="./resource/image/screenshot/release_detail.png" width="100"> <img src="./resource/image/screenshot/release_list.png" width="100"> <img src="./resource/image/screenshot/search.png" width="100"> 
 
 ## Development
 
