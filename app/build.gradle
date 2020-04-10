@@ -16,6 +16,10 @@ android {
         versionName '0.2.1'
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        buildConfigField("String", "PARSE_SERVER_URL", getLocalProperty('parse.serverUrl'))
+        buildConfigField("String", "PARSE_APPLICATION_ID", getLocalProperty('parse.applicationId'))
+        buildConfigField("String", "PARSE_CLIENT_KEY", getLocalProperty('parse.clientKey'))
     }
 
     buildTypes {
@@ -36,16 +40,10 @@ android {
         demo {
             dimension 'version'
             applicationIdSuffix '.demo'
-            buildConfigField("String", "PARSE_SERVER_URL", "")
-            buildConfigField("String", "PARSE_APPLICATION_ID", "")
-            buildConfigField("String", "PARSE_CLIENT_KEY", "")
         }
         beta {
             dimension 'version'
             applicationIdSuffix '.beta'
-            buildConfigField("String", "PARSE_SERVER_URL", getLocalProperty('parse.serverUrl'))
-            buildConfigField("String", "PARSE_APPLICATION_ID", getLocalProperty('parse.applicationId'))
-            buildConfigField("String", "PARSE_CLIENT_KEY", getLocalProperty('parse.clientKey'))
         }
     }
 
