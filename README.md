@@ -1,6 +1,6 @@
 # Release Report
 
-[![Release](https://img.shields.io/badge/Release-0.2.1-006d8c.svg)](https://play.google.com/store/apps/details?id=com.faltenreich.release)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) [![Release](https://img.shields.io/badge/Release-0.2.1-006d8c.svg)](https://play.google.com/store/apps/details?id=com.faltenreich.release)
 [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Release Report is an Android app that shows release dates for upcoming movies, music and video games.
