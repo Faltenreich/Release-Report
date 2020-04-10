@@ -18,8 +18,9 @@ object DemoFactory {
             Release().apply {
                 id = index.toString()
                 title = "Release ${index + 1}"
+                description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
                 artist = "Artist ${index + 1}"
-                releaseDate = startDate.plusDays((index / 10).toLong())
+                releaseDate = startDate.plusDays((index / 3).toLong())
                 releaseType = if (index % 3 == 0) ReleaseType.MOVIE else if (index % 2 == 0) ReleaseType.MUSIC else ReleaseType.GAME
                 popularity = 100f - index
                 externalUrl = "https://www.google.de"
