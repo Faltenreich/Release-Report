@@ -55,6 +55,14 @@ This software uses following technologies with great appreciation:
 
 These dependencies are bundled under the terms of their respective license.
 
+## Donations
+
+If you want to buy me a beer or support me in general, please use the donate button and be aware of my thanks.
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AM6HG633T4BWY&source=url">
+ <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" width="100"/>
+</a>
+
 ## Legal
 
 #### Redistribution
