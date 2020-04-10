@@ -11,8 +11,8 @@ import com.veinhorn.scrollgalleryview.builder.GallerySettings
 
 class ImageGalleryViewModel : ViewModel() {
 
-    private val mediaLiveData =
-        LiveDataFix<List<MediaInfo>?>()
+    private val mediaLiveData = LiveDataFix<List<MediaInfo>?>()
+
     private var media: List<MediaInfo>?
         get() = mediaLiveData.value
         set(value) = mediaLiveData.postValue(value)

@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import org.threeten.bp.LocalDate
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
+
     private val date by lazy { arguments?.getSerializable(ARGUMENT_DATE) as? LocalDate }
 
     var onValueChanged: ((LocalDate) -> Unit)? = null

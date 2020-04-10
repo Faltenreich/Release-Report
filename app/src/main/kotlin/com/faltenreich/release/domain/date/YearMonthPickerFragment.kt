@@ -7,6 +7,7 @@ import com.whiteelephant.monthpicker.MonthPickerDialog
 import org.threeten.bp.YearMonth
 
 class YearMonthPickerFragment : DialogFragment(), MonthPickerDialog.OnDateSetListener {
+
     private val yearMonth by lazy { arguments?.getSerializable(ARGUMENT_YEAR_MONTH) as? YearMonth }
 
     var onValueChanged: ((YearMonth) -> Unit)? = null

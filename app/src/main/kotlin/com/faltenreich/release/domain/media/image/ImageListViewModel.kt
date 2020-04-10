@@ -7,8 +7,8 @@ import com.faltenreich.release.framework.android.architecture.LiveDataFix
 
 class ImageListViewModel : ViewModel() {
 
-    private val imageUrlsLiveData =
-        LiveDataFix<List<String>?>()
+    private val imageUrlsLiveData = LiveDataFix<List<String>?>()
+
     var imageUrls: List<String>?
         get() = imageUrlsLiveData.value
         set(value) = imageUrlsLiveData.postValue(value)
