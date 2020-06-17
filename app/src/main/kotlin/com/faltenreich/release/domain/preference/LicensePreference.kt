@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.Preference
 import com.faltenreich.release.R
-import de.psdev.licensesdialog.LicensesDialog
+import com.mikepenz.aboutlibraries.LibsBuilder
 
 class LicensePreference @JvmOverloads constructor(
     context: Context,
@@ -13,11 +13,16 @@ class LicensePreference @JvmOverloads constructor(
 
     override fun onClick() {
         super.onClick()
-        LicensesDialog.Builder(context)
-            .setNotices(R.raw.licenses)
-            .setTitle(R.string.licenses)
-            .setIncludeOwnLicense(true)
-            .build()
-            .show()
+        openLicenses()
+    }
+
+    private fun openLicenses() {
+        LibsBuilder().apply {
+            withFields(R.string::class.java.fields)
+            activityTitle = context.getString(R.string.licenses)
+            aboutShowIcon = false
+            aboutShowVersionName = false
+            aboutShowVersionCode = false
+        }.start(context)
     }
 }
