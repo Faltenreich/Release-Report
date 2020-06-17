@@ -17,7 +17,6 @@ class NavigationFragment : BaseBottomSheetDialogFragment(R.layout.fragment_navig
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Workaround: Selection does not work, since checked destination is NavigationFragment
         navigationView.setupWithNavController(findNavController())
         selectCurrentDestination()
     }
