@@ -67,7 +67,6 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
         val context = context ?: return
 
         listLayoutManager = CalendarLayoutManager(context, listAdapter)
-        listView.addItemDecoration(CalendarItemDecoration(context))
         listView.layoutManager = listLayoutManager
         listView.adapter = listAdapter
 

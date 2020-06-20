@@ -19,7 +19,7 @@ class SearchableObserver: LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         searchView.doOnPreDraw {
-            // FIXME: Workaround to reset shadow after onRestoreInstanceState
+            // Workaround to reset shadow after onRestoreInstanceState
             searchView.setShadow(true)
         }
     }
@@ -30,14 +30,14 @@ class SearchableObserver: LifecycleObserver {
         searchView.clearFocus()
         fragment.view?.requestFocus()
         searchView.hideKeyboard()
-        // FIXME: Workaround to reset shadow after onPause
+        // Workaround to reset shadow after onPause
         searchView.setShadow(true)
     }
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
-        // FIXME: Workaround to prevent visible shadow onResume
+        // Workaround to prevent visible shadow onResume
         searchView.setShadow(false)
     }
 }

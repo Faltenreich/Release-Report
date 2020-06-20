@@ -68,7 +68,6 @@ class ReleaseDetailFragment : BaseFragment(
 
     override fun onDestroy() {
         super.onDestroy()
-        // TODO: Find a better way
         infoViewModel.release = null
         infoViewModel.genres = null
         infoViewModel.platforms = null

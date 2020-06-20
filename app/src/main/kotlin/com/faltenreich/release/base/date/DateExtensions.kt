@@ -56,7 +56,7 @@ val String.asLocalTime: LocalTime?
     get() = try {
         LocalTime.parse(this, DateTimeFormatter.ofPattern(FORMAT_TIME))
     } catch (exception: DateTimeParseException) {
-        Log.e(tag, exception.message)
+        Log.e(tag, exception.toString())
         null
     }
 
