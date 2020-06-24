@@ -41,7 +41,7 @@
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?android:textColorTertiaryInverse"
+            android:textColor="@android:color/darker_gray"
             tools:text="@tools:sample/date/ddmmyy" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_medium"
             tools:text="@tools:sample/lorem" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="?android:textColorTertiaryInverse"
+            android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/text_size_medium"
             tools:text="@tools:sample/lorem" />
 

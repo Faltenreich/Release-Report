@@ -1,6 +1,7 @@
 package com.faltenreich.release.domain.release.detail
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
@@ -12,10 +13,11 @@ class ChipView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : Chip(context, attributeSet, defStyleAttr) {
     init {
-        setTextColor(ContextCompat.getColor(context, R.color.light))
+        val foregroundColor = ContextCompat.getColor(context, android.R.color.white)
+        setTextColor(foregroundColor)
         setChipBackgroundColorResource(R.color.colorPrimary)
         setChipCornerRadiusResource(R.dimen.card_corner_radius)
-        setChipIconTintResource(R.color.light)
+        chipIconTint = ColorStateList.valueOf(foregroundColor)
         setIconStartPaddingResource(R.dimen.margin_padding_size_xxsmall)
         setEnsureMinTouchTargetSize(false)
     }

@@ -16,7 +16,6 @@
     <color name="colorAccent">@color/colorPrimary</color>
 
     <color name="translucent_dark">#66000000</color>
-    <color name="light">#eeeeee</color>
     <color name="gray">#ababab</color>
 
     <color name="green">#478063</color>

@@ -25,6 +25,8 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="backgroundColorPrimary">@color/background_dark_primary</item>
         <item name="backgroundColorPrimaryTranslucent">@color/background_dark_primary_translucent</item>
+        <item name="backgroundColorSecondary">@color/background_dark_secondary</item>
+        <item name="backgroundColorTertiary">@color/background_dark_tertiary</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 

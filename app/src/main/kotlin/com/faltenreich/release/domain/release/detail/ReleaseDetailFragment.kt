@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -19,6 +20,7 @@ import com.faltenreich.release.domain.media.video.VideoListViewModel
 import com.faltenreich.release.domain.navigation.FabConfig
 import com.faltenreich.release.domain.release.ReleaseImageOpener
 import com.faltenreich.release.domain.release.setWallpaper
+import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.invalidateOptionsMenu
 import com.faltenreich.release.framework.android.view.tablayout.setupWithViewPager2
@@ -119,13 +121,21 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateSubscription() {
+        val context = context ?: return
         val isSubscribed = viewModel.release?.isSubscribed ?: false
-        mainViewModel.fabConfig = FabConfig(
-            iconRes = if (isSubscribed) R.drawable.ic_subscription_on else R.drawable.ic_subscription_off,
-            backgroundColorRes = if (isSubscribed) R.color.yellow else android.R.color.white,
-            foregroundColorRes = if (isSubscribed) R.color.brown else R.color.colorPrimaryDark,
-            onClick = ::toggleSubscription
-        )
+
+        val icon = ContextCompat.getDrawable(context,
+            if (isSubscribed) R.drawable.ic_subscription_on
+            else R.drawable.ic_subscription_off
+        ) ?: return
+        val backgroundColor =
+            if (isSubscribed) ContextCompat.getColor(context, R.color.yellow)
+            else context.getColorFromAttribute(R.attr.backgroundColorPrimary)
+        val foregroundColor =
+            if (isSubscribed) ContextCompat.getColor(context, R.color.brown)
+            else context.getColorFromAttribute(R.attr.colorPrimaryDark)
+
+        mainViewModel.fabConfig = FabConfig(icon, backgroundColor, foregroundColor, ::toggleSubscription)
     }
 
     private fun setRelease(release: Release?) {

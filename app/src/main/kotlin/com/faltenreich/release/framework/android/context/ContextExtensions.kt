@@ -3,13 +3,10 @@ package com.faltenreich.release.framework.android.context
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Point
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
@@ -24,7 +21,7 @@ val Context.versionName: String?
     get() = try {
         packageManager.getPackageInfo(packageName, 0).versionName
     } catch (exception: PackageManager.NameNotFoundException) {
-        Log.e(tag, exception.message)
+        Log.e(tag, exception.toString())
         null
     }
 
@@ -32,24 +29,9 @@ val Context.versionCode: Int?
     get() = try {
         packageManager.getPackageInfo(packageName, 0).versionCode
     } catch (exception: PackageManager.NameNotFoundException) {
-        Log.e(tag, exception.message)
+        Log.e(tag, exception.toString())
         null
     }
-
-fun Context.showToast(text: String) {
-    Toast.makeText(this, text, Toast.LENGTH_LONG).show()
-}
-
-fun Context.showToast(textRes: Int) {
-    showToast(getString(textRes))
-}
-
-val Context.screenSize: Point
-    get() = Point().also { point ->
-        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        windowManager.defaultDisplay.getSize(point)
-    }
-
 
 @ColorInt
 fun Context.getColorFromAttribute(@AttrRes attrRes: Int): Int {
