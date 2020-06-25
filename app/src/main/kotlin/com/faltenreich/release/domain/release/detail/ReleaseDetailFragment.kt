@@ -111,15 +111,6 @@ class ReleaseDetailFragment : BaseFragment(
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
     }
 
-    private fun invalidateTint() {
-        val releaseType = viewModel.release?.releaseType
-        val color = releaseType?.colorResId ?: R.color.colorPrimary
-        val colorDark = releaseType?.colorDarkResId ?: R.color.colorPrimaryDark
-        layoutContainer.setBackgroundResource(colorDark)
-        collapsingToolbarLayout.setContentScrimResource(color)
-        collapsingToolbarLayout.setStatusBarScrimResource(color)
-    }
-
     private fun invalidateSubscription() {
         val context = context ?: return
         val isSubscribed = viewModel.release?.isSubscribed ?: false
@@ -139,7 +130,6 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun setRelease(release: Release?) {
-        invalidateTint()
         invalidateMetadata()
         invalidateSubscription()
         invalidateOptionsMenu()

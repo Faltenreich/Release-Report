@@ -8,6 +8,7 @@ import com.faltenreich.release.R
 import com.faltenreich.release.base.date.isToday
 import com.faltenreich.release.base.primitive.isTrue
 import com.faltenreich.release.domain.date.DateOpener
+import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 import com.faltenreich.release.framework.glide.setImageAsync
 import kotlinx.android.synthetic.main.list_item_calendar_day.*
@@ -32,13 +33,10 @@ class CalendarDayViewHolder(
 
         dayLabel.text = date.dayOfMonth.toString()
         dayLabel.setTextColor(
-            ContextCompat.getColor(
-                context,
-                if (isInSameMonth)
-                    if (isToday) R.color.colorPrimaryDark
-                    else android.R.color.white
-                else R.color.gray
-            )
+            if (isInSameMonth)
+                if (isToday) ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                else context.getColorFromAttribute(android.R.attr.textColorPrimary)
+            else context.getColorFromAttribute(android.R.attr.textColorSecondary)
         )
         todayIndicator.isVisible = isInSameMonth && isToday
 

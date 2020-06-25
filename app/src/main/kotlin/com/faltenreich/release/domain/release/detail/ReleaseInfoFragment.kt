@@ -64,21 +64,18 @@ class ReleaseInfoFragment : BaseFragment(
 
     private fun setDate(release: Release?) {
         dateChip.text = release?.releaseDateForUi(context)
-        dateChip.setChipBackgroundColorResource(viewModel.color)
     }
 
     private fun setType(release: Release?) {
         val type = release?.releaseType ?: return
         typeChip.text = getString(type.singularStringRes)
         typeChip.setChipIconResource(type.iconResId)
-        typeChip.setChipBackgroundColorResource(viewModel.color)
     }
 
     private fun setPopularity(release: Release?) {
         val popularity = release?.popularity ?: 0f
         popularityChip.text = "%.0f°".format(popularity)
         popularityChip.setChipIconResource(PopularityRating.ofPopularity(popularity).iconRes)
-        popularityChip.setChipBackgroundColorResource(viewModel.color)
     }
 
     private fun setPlatforms(platforms: List<Platform>?) {
@@ -103,9 +100,6 @@ class ReleaseInfoFragment : BaseFragment(
         val chip = ChipView(context).apply {
             text = title
             iconResId?.let { setChipIconResource(iconResId) }
-            setChipBackgroundColorResource(
-                viewModel.release?.releaseType?.colorResId ?: R.color.colorPrimary
-            )
             setOnClickListener { onClick?.invoke() }
         }
         container.addView(chip)

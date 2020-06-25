@@ -3,10 +3,7 @@
 <resources>
 
     <attr name="backgroundColorPrimary" format="color"/>
-    <attr name="backgroundColorPrimaryTranslucent" format="color"/>
     <attr name="backgroundColorSecondary" format="color"/>
-    <attr name="backgroundColorSecondaryInverse" format="color"/>
     <attr name="backgroundColorTertiary" format="color"/>
-    <attr name="backgroundColorTertiaryInverse" format="color"/>
 
 </resources>

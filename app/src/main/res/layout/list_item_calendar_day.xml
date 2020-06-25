@@ -49,13 +49,13 @@
         android:id="@+id/dayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?android:textColorPrimaryInverse"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/date/day_of_week" />
+        tools:text="@tools:sample/date/day_of_week"
+        tools:textColor="?android:textColorPrimary" />
 
     <ImageView
         android:id="@+id/subscriptionImageView"
@@ -65,8 +65,8 @@
         android:contentDescription="@null"
         android:padding="@dimen/dogear_small_padding"
         android:src="@drawable/ic_subscription_on"
-        android:tint="@color/brown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/brown" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

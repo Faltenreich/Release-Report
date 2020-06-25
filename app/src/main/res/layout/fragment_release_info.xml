@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_size_medium"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textColor="?android:textColorPrimary"
             android:textIsSelectable="true"
             android:textSize="@dimen/text_size_large"
             tools:text="@tools:sample/lorem" />
@@ -69,7 +69,7 @@
             android:id="@+id/artistTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textColor="?android:textColorPrimary"
             android:textIsSelectable="true"
             tools:text="@tools:sample/lorem" />
 
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_size_small"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textColor="?android:textColorPrimary"
             android:textIsSelectable="true"
             tools:text="@tools:sample/lorem" />
 
