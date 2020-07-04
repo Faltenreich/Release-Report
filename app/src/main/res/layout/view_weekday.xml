@@ -7,6 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:textColor="?android:textColorSecondaryInverse"
     android:textSize="@dimen/text_size_xsmall"
     tools:text="@tools:sample/date/day_of_week"/>

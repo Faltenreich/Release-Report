@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:background="@android:color/transparent"
         app:elevation="0dp">
 
         <!-- Workaround: Adds bottom padding to AppBarLayout -->
@@ -42,10 +43,10 @@
         <TextView
             android:id="@+id/headerTextView"
             style="@style/ListHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/toolbar_height"
-            android:background="@drawable/dogear_header_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:lines="1"
+            android:background="?backgroundColorPrimary"
             tools:text="@tools:sample/date/mmddyy" />
 
         <include

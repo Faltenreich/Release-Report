@@ -20,23 +20,22 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?backgroundColorPrimary">
 
         <TextView
             android:id="@+id/headerMonthLabel"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            android:background="?colorPrimary"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/margin_padding_size_large"
             android:paddingEnd="@dimen/margin_padding_size_large"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textColor="?android:textColorPrimary"
             tools:text="@tools:sample/date/mmddyy" />
 
         <com.faltenreich.release.domain.release.calendar.WeekView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

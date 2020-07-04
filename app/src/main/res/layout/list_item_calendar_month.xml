@@ -11,16 +11,15 @@
         android:id="@+id/monthLabel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/margin_padding_size_large"
         android:paddingEnd="@dimen/margin_padding_size_large"
-        android:gravity="center_vertical"
-        android:textColor="?android:textColorPrimaryInverse"
-        android:background="?colorPrimary"
-        tools:text="@tools:sample/date/mmddyy"/>
+        android:textColor="?android:textColorPrimary"
+        tools:text="@tools:sample/date/mmddyy" />
 
     <com.faltenreich.release.domain.release.calendar.WeekView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal" />
 
 </LinearLayout>

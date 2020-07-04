@@ -33,6 +33,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:textColorTertiary"
+        android:textSize="@dimen/text_size_xsmall"
         app:layout_constraintEnd_toStartOf="@id/typeImageView"
         app:layout_constraintStart_toEndOf="@id/coverImageView"
         app:layout_constraintTop_toTopOf="@id/coverImageView"

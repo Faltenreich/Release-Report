@@ -2,12 +2,12 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.Light"/>
+    <style name="AppTheme" parent="Theme.Light" />
 
     <style name="Theme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/background_dark_tertiary</item>
+        <item name="colorPrimaryDark">@color/background_dark_secondary</item>
+        <item name="colorAccent">@color/background_dark_tertiary</item>
         <item name="android:windowBackground">@color/background_light_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="backgroundColorPrimary">@color/background_light_primary</item>
@@ -17,9 +17,9 @@
     </style>
 
     <style name="Theme.Dark" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/background_light_tertiary</item>
+        <item name="colorPrimaryDark">@color/background_light_secondary</item>
+        <item name="colorAccent">@color/background_light_tertiary</item>
         <item name="android:windowBackground">@color/background_dark_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="backgroundColorPrimary">@color/background_dark_primary</item>
@@ -33,7 +33,7 @@
         <item name="android:textStyle">italic</item>
     </style>
 
-    <style name="ToolbarTitle" parent="@android:style/TextAppearance.Medium"/>
+    <style name="ToolbarTitle" parent="@android:style/TextAppearance.Medium" />
 
     <style name="ToolbarPopup" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@android:color/black</item>
@@ -52,8 +52,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingStart">@dimen/margin_padding_size_medium</item>
         <item name="android:paddingEnd">@dimen/margin_padding_size_medium</item>
-        <item name="android:background">@drawable/dogear_header</item>
-        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:paddingTop">@dimen/margin_padding_size_small</item>
+        <item name="android:paddingBottom">@dimen/margin_padding_size_small</item>
     </style>
 
 </resources>
