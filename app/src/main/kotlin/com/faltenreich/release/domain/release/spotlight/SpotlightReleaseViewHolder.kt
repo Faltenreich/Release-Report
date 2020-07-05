@@ -2,11 +2,11 @@ package com.faltenreich.release.domain.release.spotlight
 
 import android.content.Context
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.DividerItemDecoration
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_spotlight.*
 

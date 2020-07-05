@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -12,6 +11,7 @@ import com.faltenreich.release.base.primitive.isTrueOrNull
 import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.hideKeyboard
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.DividerItemDecoration
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import com.lapism.searchview.Search
 import kotlinx.android.synthetic.main.fragment_search.*
