@@ -13,11 +13,11 @@ import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.fragment.hideKeyboard
 import com.faltenreich.release.framework.android.view.recyclerview.decoration.DividerItemDecoration
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
-import com.lapism.searchview.Search
+import com.lapism.search.internal.SearchLayout
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_empty.*
 
-class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTextListener {
+class SearchFragment : BaseFragment(R.layout.fragment_search), SearchLayout.OnQueryTextListener {
 
     private val viewModel by viewModels<SearchViewModel>()
     private val query: String? by lazy { SearchFragmentArgs.fromBundle(requireArguments()).query.nonBlank }
@@ -40,10 +40,19 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
         listLayoutManager = LinearLayoutManager(context)
         listView.layoutManager = listLayoutManager
         listView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        listView.adapter = listAdapter
 
-        searchView.logo = Search.Logo.ARROW
-        searchView.setOnLogoClickListener { finish() }
+        searchView.setAdapterLayoutManager(LinearLayoutManager(context))
+        searchView.setAdapter(listAdapter)
+        searchView.setOnFocusChangeListener(object : SearchLayout.OnFocusChangeListener {
+            override fun onFocusChange(hasFocus: Boolean) {
+                if (!hasFocus) {
+                    finish()
+                }
+            }
+        })
+        searchView.setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
+            override fun onNavigationClick() = finish()
+        })
         searchView.setOnQueryTextListener(this)
 
         emptyLabel.text = getString(R.string.nothing_found_search)
@@ -52,9 +61,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
     private fun initData() {
         if (viewModel.query == null) {
             if (query != null) {
-                searchView.setQuery(query, true)
+                searchView.setTextQuery(query, true)
             } else {
-                searchView.open(null)
+                // searchView.open(null)
             }
         }
 
@@ -66,12 +75,12 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), Search.OnQueryTex
         })
     }
 
-    override fun onQueryTextChange(newText: CharSequence?) = Unit
+    override fun onQueryTextChange(newText: CharSequence): Boolean = true
 
-    override fun onQueryTextSubmit(query: CharSequence?): Boolean {
+    override fun onQueryTextSubmit(query: CharSequence): Boolean {
         hideKeyboard()
         listSkeleton.showSkeleton()
-        viewModel.query = query?.toString().nonBlank
+        viewModel.query = query.toString().nonBlank
         return true
     }
 }

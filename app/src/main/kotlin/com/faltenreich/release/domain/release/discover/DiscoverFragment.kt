@@ -6,18 +6,19 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.domain.date.DatePickerOpener
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
+import com.faltenreich.release.domain.release.search.SearchListAdapter
 import com.faltenreich.release.domain.release.search.SearchOpener
-import com.faltenreich.release.domain.release.search.SearchableObserver
-import com.faltenreich.release.domain.release.search.SearchableProperties
+import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
-import com.lapism.searchview.Search
+import com.lapism.search.internal.SearchLayout
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.threeten.bp.LocalDate
 import kotlin.math.abs
@@ -29,7 +30,6 @@ class DiscoverFragment : BaseFragment(
 ), DatePickerOpener, SearchOpener {
 
     private val viewModel by viewModels<DiscoverViewModel>()
-    private val searchable by lazy { SearchableObserver() }
     
     private lateinit var listAdapter: DiscoverListAdapter
     private lateinit var listLayoutManager: DiscoverLayoutManager
@@ -37,6 +37,8 @@ class DiscoverFragment : BaseFragment(
     private val listSkeleton by lazy {
         SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10)
     }
+
+    private lateinit var searchListAdapter: SearchListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,28 +62,40 @@ class DiscoverFragment : BaseFragment(
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.date -> { openDatePicker(childFragmentManager) { date -> initData(date) }; true }
-            R.id.search -> { openSearch(findNavController(), searchView.query.toString()); true }
+            R.id.search -> { openSearch(findNavController(), searchView.getTextQuery().toString()); true }
             else -> false
         }
     }
 
     private fun init() {
-        lifecycle.addObserver(searchable)
         listAdapter = DiscoverListAdapter(requireContext())
+        searchListAdapter = SearchListAdapter(requireContext())
     }
 
     private fun initSearch() {
-        searchable.properties = SearchableProperties(this, searchView)
-        searchView.setLogoIcon(R.drawable.ic_search)
-        searchView.setOnLogoClickListener {  }
-        searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence?) = Unit
-            override fun onQueryTextSubmit(query: CharSequence?): Boolean {
-                val searchQuery = query?.toString()?.nonBlank ?: return true
-                openSearch(findNavController(), searchQuery)
+        val context = context ?: return
+        searchView.setBackgroundColor(context.getColorFromAttribute(R.attr.backgroundColorSecondary))
+        searchView.setAdapterLayoutManager(LinearLayoutManager(context))
+        searchView.setAdapter(searchListAdapter)
+        searchView.setOnQueryTextListener(object : SearchLayout.OnQueryTextListener {
+            override fun onQueryTextChange(newText: CharSequence) = true
+            override fun onQueryTextSubmit(query: CharSequence): Boolean {
+                viewModel.query = query.toString().nonBlank
                 return true
             }
         })
+        searchView.setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
+            override fun onNavigationClick() {
+                searchView.requestFocus()
+            }
+        })
+        searchView.setOnFocusChangeListener(object : SearchLayout.OnFocusChangeListener {
+            override fun onFocusChange(hasFocus: Boolean) {
+                val icon = if (hasFocus) R.drawable.ic_arrow_back else R.drawable.ic_search
+                searchView.setNavigationIconImageResource(icon)
+            }
+        })
+        searchView.setNavigationIconImageResource(R.drawable.ic_search)
     }
 
     private fun initList() {
@@ -113,6 +127,7 @@ class DiscoverFragment : BaseFragment(
             listItemDecoration.isSkeleton = false
             listAdapter.submitList(list)
         }
+        viewModel.observeQuery(this) { list -> searchListAdapter.submitList(list) }
     }
 
     private fun invalidateListHeader() {

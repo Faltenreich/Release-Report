@@ -32,7 +32,7 @@ suspend fun String.toBitmap(
 
             })
         } catch (exception: Exception) {
-            Log.e(tag, exception.message)
+            Log.e(tag, exception.toString())
             continuation.resume(null)
         }
     }
