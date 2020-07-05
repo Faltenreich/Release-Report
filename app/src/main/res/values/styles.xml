@@ -7,7 +7,7 @@
     <style name="Theme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/background_dark_tertiary</item>
         <item name="colorPrimaryDark">@color/background_dark_secondary</item>
-        <item name="colorAccent">@color/background_dark_tertiary</item>
+        <item name="colorAccent">@color/background_dark_secondary</item>
         <item name="android:windowBackground">@color/background_light_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:textColorPrimary">@color/text_light_primary</item>
@@ -20,7 +20,7 @@
     <style name="Theme.Dark" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/background_light_tertiary</item>
         <item name="colorPrimaryDark">@color/background_light_secondary</item>
-        <item name="colorAccent">@color/background_light_tertiary</item>
+        <item name="colorAccent">@color/background_light_secondary</item>
         <item name="android:windowBackground">@color/background_dark_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:textColorPrimary">@color/text_dark_primary</item>

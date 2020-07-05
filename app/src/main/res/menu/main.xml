@@ -8,7 +8,6 @@
         android:id="@+id/date"
         android:title="@string/date_select"
         android:icon="@drawable/ic_date"
-        app:iconTint="?android:textColorPrimary"
         app:showAsAction="ifRoom"/>
 
 </menu>
