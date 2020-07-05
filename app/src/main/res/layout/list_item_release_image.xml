@@ -9,7 +9,8 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="8dp"
-    app:cardBackgroundColor="@android:color/black">
+    app:cardBackgroundColor="@android:color/black"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

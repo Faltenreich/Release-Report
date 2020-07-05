@@ -3,6 +3,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="?backgroundColorSecondary"
-        android:foregroundTint="?android:textColorSecondary"
+        app:elevation="0dp"
+        app:backgroundTint="?backgroundColorPrimary"
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_navigation" />
 
@@ -29,6 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:backgroundTint="?backgroundColorSecondary"
-        app:layout_anchor="@id/bottomAppBar" />
+        app:layout_anchor="@id/bottomAppBar"
+        app:elevation="0dp"
+        tools:src="@drawable/ic_subscription_on" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
