@@ -5,14 +5,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.date.yearMonth
 import com.faltenreich.release.base.primitive.takeIfNotEmpty
 import com.faltenreich.release.domain.date.YearMonthPickerOpener
-import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.coroutines.Dispatchers
@@ -21,9 +19,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import kotlin.math.min
 
-class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
-    YearMonthPickerOpener,
-    SearchOpener {
+class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), YearMonthPickerOpener{
 
     private val viewModel by viewModels<CalendarViewModel>()
 
@@ -51,9 +47,6 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main),
                     initData(yearMonth)
                 }
                 true
-            }
-            R.id.search -> {
-                openSearch(findNavController()); true
             }
             else -> false
         }

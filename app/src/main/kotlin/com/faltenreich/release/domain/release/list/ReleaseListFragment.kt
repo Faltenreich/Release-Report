@@ -4,24 +4,19 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
-import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_release_list.*
 import org.threeten.bp.LocalDate
 
-class ReleaseListFragment : BaseFragment(
-    R.layout.fragment_release_list,
-    R.menu.main
-), DatePickerOpener, SearchOpener {
+class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.main), DatePickerOpener {
 
     private val viewModel by viewModels<ReleaseListViewModel>()
 
@@ -37,7 +32,6 @@ class ReleaseListFragment : BaseFragment(
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.date -> { openDatePicker(); true }
-            R.id.search -> { openSearch(); true }
             else -> false
         }
     }
@@ -109,9 +103,5 @@ class ReleaseListFragment : BaseFragment(
 
     private fun openDatePicker() {
         openDatePicker(childFragmentManager) { date -> initData(date) }
-    }
-
-    private fun openSearch() {
-        openSearch(findNavController())
     }
 }

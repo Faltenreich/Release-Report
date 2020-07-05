@@ -2,24 +2,18 @@ package com.faltenreich.release.domain.release.spotlight
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
-import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_spotlight.*
 import kotlinx.android.synthetic.main.skeleton_spotlight.*
 import kotlinx.android.synthetic.main.view_empty.*
 
-class SpotlightFragment : BaseFragment(
-    R.layout.fragment_spotlight,
-    R.menu.main
-), ReleaseOpener, SearchOpener {
+class SpotlightFragment : BaseFragment(R.layout.fragment_spotlight, R.menu.main), ReleaseOpener {
 
     private val viewModel by viewModels<SpotlightViewModel>()
 
@@ -39,13 +33,6 @@ class SpotlightFragment : BaseFragment(
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.findItem(R.id.date).isVisible = false
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.search -> { openSearch(findNavController()); true }
-            else -> false
-        }
     }
 
     private fun init() {

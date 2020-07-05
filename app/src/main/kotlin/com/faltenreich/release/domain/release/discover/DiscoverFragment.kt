@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -14,7 +13,6 @@ import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.domain.date.DatePickerOpener
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.search.SearchListAdapter
-import com.faltenreich.release.domain.release.search.SearchOpener
 import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
@@ -24,10 +22,7 @@ import org.threeten.bp.LocalDate
 import kotlin.math.abs
 import kotlin.math.min
 
-class DiscoverFragment : BaseFragment(
-    R.layout.fragment_discover,
-    R.menu.main
-), DatePickerOpener, SearchOpener {
+class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), DatePickerOpener {
 
     private val viewModel by viewModels<DiscoverViewModel>()
     
@@ -62,7 +57,6 @@ class DiscoverFragment : BaseFragment(
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.date -> { openDatePicker(childFragmentManager) { date -> initData(date) }; true }
-            R.id.search -> { openSearch(findNavController(), searchView.getTextQuery().toString()); true }
             else -> false
         }
     }
@@ -75,6 +69,7 @@ class DiscoverFragment : BaseFragment(
     private fun initSearch() {
         val context = context ?: return
         searchView.setBackgroundColor(context.getColorFromAttribute(R.attr.backgroundColorSecondary))
+        searchView.setTextHint(R.string.search_hint)
         searchView.setAdapterLayoutManager(LinearLayoutManager(context))
         searchView.setAdapter(searchListAdapter)
         searchView.setOnQueryTextListener(object : SearchLayout.OnQueryTextListener {
