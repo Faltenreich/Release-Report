@@ -19,10 +19,6 @@ class ReleaseListItemDecoration(
 
         val position = parent.getChildAdapterPosition(view)
         when (adapter?.getListItemAt(position)) {
-            is ReleaseDateItem -> {
-                outRect.top = spacing
-                outRect.bottom = spacing
-            }
             is ReleaseItem -> {
                 outRect.left = spacing
                 outRect.right = spacing

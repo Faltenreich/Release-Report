@@ -33,12 +33,13 @@ class CalendarDayViewHolder(
 
         dayLabel.text = date.dayOfMonth.toString()
         dayLabel.setTextColor(
-            context.getColorFromAttribute(
-                if (isInSameMonth)
-                    if (isToday) android.R.attr.textColorPrimaryInverse
-                    else android.R.attr.textColorPrimary
-                else android.R.attr.textColorSecondary
-            )
+            if (isInSameMonth)
+                when {
+                    isToday -> context.getColorFromAttribute(android.R.attr.textColorPrimaryInverse)
+                    calendarEvent?.imageUrl != null -> ContextCompat.getColor(context, android.R.color.white)
+                    else -> context.getColorFromAttribute(android.R.attr.textColorPrimary)
+                }
+            else context.getColorFromAttribute(android.R.attr.textColorSecondary)
         )
         todayIndicator.isVisible = isInSameMonth && isToday
 
