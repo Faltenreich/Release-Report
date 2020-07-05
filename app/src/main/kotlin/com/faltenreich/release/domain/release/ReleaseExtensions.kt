@@ -4,53 +4,45 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.framework.glide.setImageAsync
 
 private fun ImageView.setImage(
     url: String?,
-    placeholderColorRes: Int?,
     callback: ((Drawable?) -> Unit)?
 ) {
+    val placeholder = ColorDrawable(ContextCompat.getColor(context, R.color.background_dark_tertiary))
     url?.let {
-        val placeholder: Drawable? = placeholderColorRes?.let { res ->
-            ColorDrawable(ContextCompat.getColor(context, res))
-        }
         setImageAsync(url, placeholder) { drawable ->
             if (drawable == null) {
-                onImageNotFound(placeholderColorRes, callback)
+                onImageNotFound(placeholder, callback)
             } else {
                 callback?.invoke(drawable)
             }
         }
-    } ?: onImageNotFound(placeholderColorRes, callback)
+    } ?: onImageNotFound(placeholder, callback)
 }
 
 private fun ImageView.onImageNotFound(
-    placeholderColorRes: Int?,
+    placeholder: Drawable,
     callback: ((Drawable?) -> Unit)?
 ) {
-    setImageResource(placeholderColorRes ?: android.R.color.transparent)
+    setImageDrawable(placeholder)
     callback?.invoke(null)
 }
 
 fun ImageView.setWallpaper(
     release: Release?,
     callback: ((Drawable?) -> Unit)? = null
-) {
-    setImage(release?.imageUrlForWallpaper, release?.releaseType?.colorResId, callback)
-}
+) = setImage(release?.imageUrlForWallpaper, callback)
 
 fun ImageView.setCover(
     release: Release?,
     callback: ((Drawable?) -> Unit)? = null
-) {
-    setImage(release?.imageUrlForCover, release?.releaseType?.colorResId, callback)
-}
+) = setImage(release?.imageUrlForCover, callback)
 
 fun ImageView.setThumbnail(
     release: Release?,
     callback: ((Drawable?) -> Unit)? = null
-) {
-    setImage(release?.imageUrlForThumbnail, release?.releaseType?.colorResId, callback)
-}
+) = setImage(release?.imageUrlForThumbnail, callback)
