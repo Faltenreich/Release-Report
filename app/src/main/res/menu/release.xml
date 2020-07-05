@@ -8,14 +8,14 @@
         android:id="@+id/web_open"
         android:icon="@drawable/ic_exit"
         android:title="@string/web_open"
-        app:iconTint="@color/colorPrimaryDark"
+        app:iconTint="?android:textColorPrimary"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/web_search"
         android:icon="@drawable/ic_research"
         android:title="@string/web_search"
-        app:iconTint="@color/colorPrimaryDark"
+        app:iconTint="?android:textColorPrimary"
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -29,7 +29,7 @@ class DiscoverViewHolder(
         coverImageView.setCover(release)
 
         typeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
-        typeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: R.color.colorPrimary)
+        typeImageView.backgroundTint = ContextCompat.getColor(context, release.releaseType?.colorResId ?: android.R.color.transparent)
 
         subscriptionImageView.visibility = if (release.isSubscribed) View.VISIBLE else View.GONE
 

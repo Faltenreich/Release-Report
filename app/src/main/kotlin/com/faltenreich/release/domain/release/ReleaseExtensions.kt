@@ -4,7 +4,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.framework.glide.setImageAsync
 
@@ -31,7 +30,7 @@ private fun ImageView.onImageNotFound(
     placeholderColorRes: Int?,
     callback: ((Drawable?) -> Unit)?
 ) {
-    setImageResource(placeholderColorRes ?: R.color.colorPrimary)
+    setImageResource(placeholderColorRes ?: android.R.color.transparent)
     callback?.invoke(null)
 }
 

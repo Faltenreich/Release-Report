@@ -8,7 +8,7 @@
         android:id="@+id/date"
         android:title="@string/date_select"
         android:icon="@drawable/ic_date"
-        app:iconTint="@color/colorPrimaryDark"
+        app:iconTint="?android:textColorPrimary"
         app:showAsAction="ifRoom"/>
 
     <item
@@ -16,6 +16,6 @@
         android:title="@string/search"
         android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"
-        app:iconTint="@color/colorPrimaryDark"/>
+        app:iconTint="?android:textColorPrimary"/>
 
 </menu>
