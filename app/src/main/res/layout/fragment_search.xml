@@ -46,7 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:search_hint="@string/search_hint"
-            app:search_hint_color="?android:textColorTertiary"
+            app:search_hint_color="?android:textColorSecondary"
             app:search_shadow="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

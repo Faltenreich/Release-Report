@@ -15,7 +15,7 @@ object SkeletonFactory {
             layoutResId,
             itemCount = itemCount,
             maskColor = context.getColorFromAttribute(R.attr.backgroundColorPrimary),
-            shimmerColor = context.getColorFromAttribute(R.attr.backgroundColorTertiary),
+            shimmerColor = context.getColorFromAttribute(R.attr.backgroundColorSecondary),
             cornerRadius = context?.resources?.getDimensionPixelSize(R.dimen.card_corner_radius)?.toFloat() ?: 0f)
     }
 }

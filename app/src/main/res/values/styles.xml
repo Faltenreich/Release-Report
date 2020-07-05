@@ -10,9 +10,10 @@
         <item name="colorAccent">@color/background_dark_tertiary</item>
         <item name="android:windowBackground">@color/background_light_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:textColorPrimary">@color/text_light_primary</item>
+        <item name="android:textColorSecondary">@color/text_light_secondary</item>
         <item name="backgroundColorPrimary">@color/background_light_primary</item>
         <item name="backgroundColorSecondary">@color/background_light_secondary</item>
-        <item name="backgroundColorTertiary">@color/background_light_tertiary</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
@@ -22,9 +23,10 @@
         <item name="colorAccent">@color/background_light_tertiary</item>
         <item name="android:windowBackground">@color/background_dark_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:textColorPrimary">@color/text_dark_primary</item>
+        <item name="android:textColorSecondary">@color/text_dark_secondary</item>
         <item name="backgroundColorPrimary">@color/background_dark_primary</item>
         <item name="backgroundColorSecondary">@color/background_dark_secondary</item>
-        <item name="backgroundColorTertiary">@color/background_dark_tertiary</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 

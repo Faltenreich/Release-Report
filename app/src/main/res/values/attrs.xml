@@ -4,6 +4,5 @@
 
     <attr name="backgroundColorPrimary" format="color"/>
     <attr name="backgroundColorSecondary" format="color"/>
-    <attr name="backgroundColorTertiary" format="color"/>
 
 </resources>

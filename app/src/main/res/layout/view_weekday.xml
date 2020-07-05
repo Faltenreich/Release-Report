@@ -8,4 +8,5 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:textSize="@dimen/text_size_xsmall"
+    android:textColor="?android:textColorSecondary"
     tools:text="@tools:sample/date/day_of_week"/>

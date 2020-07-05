@@ -32,7 +32,7 @@
         android:layout_marginBottom="@dimen/margin_padding_size_xxxsmall"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="?android:textColorTertiary"
+        android:textColor="?android:textColorSecondary"
         app:layout_constraintEnd_toStartOf="@id/typeImageView"
         app:layout_constraintStart_toEndOf="@id/coverImageView"
         app:layout_constraintTop_toTopOf="@id/coverImageView"
@@ -61,7 +61,7 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:tint="?android:textColorSecondary"
+        tools:tint="@color/red"
         tools:src="@drawable/ic_music" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
         android:ellipsize="end"
         android:maxLines="3"
-        android:textColor="?android:textColorTertiary"
+        android:textColor="?android:textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/typeImageView"
         app:layout_constraintStart_toEndOf="@id/coverImageView"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
