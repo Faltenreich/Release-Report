@@ -1,5 +1,7 @@
 package com.faltenreich.release.data.enum
 
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import com.faltenreich.release.R
 import com.faltenreich.release.data.provider.IconProvider
 import com.faltenreich.release.data.provider.NameResProvider
@@ -9,16 +11,14 @@ enum class ReleaseType(
     override val key: String,
     override val singularStringRes: Int,
     override val pluralStringRes: Int,
-    override val colorResId: Int,
-    override val colorDarkResId: Int,
-    override val iconResId: Int
+    @ColorRes override val colorResId: Int,
+    @DrawableRes override val iconResId: Int
 ) : StorableEnum, NameResProvider, TintProvider, IconProvider {
     MOVIE(
         "movie",
         R.string.movie,
         R.string.movies,
         R.color.blue,
-        R.color.blue_dark,
         R.drawable.ic_movie
     ),
     MUSIC(
@@ -26,7 +26,6 @@ enum class ReleaseType(
         R.string.music,
         R.string.music,
         R.color.red,
-        R.color.red_dark,
         R.drawable.ic_music
     ),
     GAME(
@@ -34,7 +33,6 @@ enum class ReleaseType(
         R.string.game,
         R.string.games,
         R.color.green,
-        R.color.green_dark,
         R.drawable.ic_game
     );
 

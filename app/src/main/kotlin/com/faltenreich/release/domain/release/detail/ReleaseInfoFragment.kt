@@ -1,9 +1,11 @@
 package com.faltenreich.release.domain.release.detail
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -67,15 +69,23 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun setType(release: Release?) {
+        val context = context ?: return
         val type = release?.releaseType ?: return
         typeChip.text = getString(type.singularStringRes)
         typeChip.setChipIconResource(type.iconResId)
+        typeChip.setChipIconTintResource(type.colorResId)
+        typeChip.setTextColor(ContextCompat.getColor(context, type.colorResId))
     }
 
     private fun setPopularity(release: Release?) {
+        val context = context ?: return
         val popularity = release?.popularity ?: 0f
+        val rating = PopularityRating.ofPopularity(popularity)
+        val color = rating.getColor(context)
         popularityChip.text = "%.0f°".format(popularity)
-        popularityChip.setChipIconResource(PopularityRating.ofPopularity(popularity).iconRes)
+        popularityChip.setChipIconResource(rating.iconRes)
+        popularityChip.chipIconTint = ColorStateList.valueOf(color)
+        popularityChip.setTextColor(color)
     }
 
     private fun setPlatforms(platforms: List<Platform>?) {

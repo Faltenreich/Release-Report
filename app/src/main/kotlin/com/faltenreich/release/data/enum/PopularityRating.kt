@@ -1,7 +1,11 @@
 package com.faltenreich.release.data.enum
 
+import android.content.Context
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
+import com.faltenreich.release.framework.android.context.getColorFromAttribute
 
 enum class PopularityRating(
     val min: Float,
@@ -10,6 +14,15 @@ enum class PopularityRating(
     LOW(0f),
     MEDIUM(40f),
     HIGH(80f);
+
+    @ColorInt
+    fun getColor(context: Context): Int {
+        return when (this) {
+            LOW -> context.getColorFromAttribute(android.R.attr.textColorPrimary)
+            MEDIUM -> ContextCompat.getColor(context, R.color.yellow)
+            HIGH -> ContextCompat.getColor(context, R.color.red)
+        }
+    }
 
     companion object {
 

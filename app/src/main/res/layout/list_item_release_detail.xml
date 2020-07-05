@@ -62,7 +62,7 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:textColorSecondary"
+        tools:tint="?android:textColorSecondary"
         tools:src="@drawable/ic_music" />
 
     <TextView
