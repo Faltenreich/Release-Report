@@ -1,5 +1,6 @@
 package com.faltenreich.release.domain.release.discover
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -68,29 +69,35 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
 
     private fun initSearch() {
         val context = context ?: return
-        searchView.setBackgroundColor(context.getColorFromAttribute(R.attr.backgroundColorSecondary))
-        searchView.setTextHint(R.string.search_hint)
-        searchView.setAdapterLayoutManager(LinearLayoutManager(context))
-        searchView.setAdapter(searchListAdapter)
-        searchView.setOnQueryTextListener(object : SearchLayout.OnQueryTextListener {
-            override fun onQueryTextChange(newText: CharSequence) = true
-            override fun onQueryTextSubmit(query: CharSequence): Boolean {
-                viewModel.query = query.toString().nonBlank
-                return true
-            }
-        })
-        searchView.setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
-            override fun onNavigationClick() {
-                searchView.requestFocus()
-            }
-        })
-        searchView.setOnFocusChangeListener(object : SearchLayout.OnFocusChangeListener {
-            override fun onFocusChange(hasFocus: Boolean) {
-                val icon = if (hasFocus) R.drawable.ic_arrow_back else R.drawable.ic_search
-                searchView.setNavigationIconImageResource(icon)
-            }
-        })
-        searchView.setNavigationIconImageResource(R.drawable.ic_search)
+        searchView.apply {
+            setBackgroundColor(context.getColorFromAttribute(R.attr.backgroundColorSecondary))
+            elevation = 0f
+            setShadowColor(Color.TRANSPARENT)
+            setTextHint(R.string.search_hint)
+
+            setAdapterLayoutManager(LinearLayoutManager(context))
+            setAdapter(searchListAdapter)
+
+            setOnQueryTextListener(object : SearchLayout.OnQueryTextListener {
+                override fun onQueryTextChange(newText: CharSequence) = true
+                override fun onQueryTextSubmit(query: CharSequence): Boolean {
+                    viewModel.query = query.toString().nonBlank
+                    return true
+                }
+            })
+            setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
+                override fun onNavigationClick() {
+                    searchView.requestFocus()
+                }
+            })
+            setOnFocusChangeListener(object : SearchLayout.OnFocusChangeListener {
+                override fun onFocusChange(hasFocus: Boolean) {
+                    val icon = if (hasFocus) R.drawable.ic_arrow_back else R.drawable.ic_search
+                    searchView.setNavigationIconImageResource(icon)
+                }
+            })
+            setNavigationIconImageResource(R.drawable.ic_search)
+        }
     }
 
     private fun initList() {

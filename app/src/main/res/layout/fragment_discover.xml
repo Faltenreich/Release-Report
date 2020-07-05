@@ -57,10 +57,13 @@
 
     </FrameLayout>
 
+    <!-- Workaround: Hide BottomAppBar instead of setting vague padding -->
     <com.lapism.search.widget.MaterialSearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/bottom_bar_height"
         app:search_navigation_icon_support="search" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
