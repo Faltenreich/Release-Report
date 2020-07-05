@@ -70,7 +70,9 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private fun initSearch() {
         val context = context ?: return
         searchView.apply {
-            setBackgroundColor(context.getColorFromAttribute(R.attr.backgroundColorSecondary))
+            val backgroundColor = context.getColorFromAttribute(R.attr.backgroundColorSecondary)
+            val foregroundColor = context.getColorFromAttribute(android.R.attr.textColorSecondary)
+            setBackgroundColor(backgroundColor)
             elevation = 0f
             setShadowColor(Color.TRANSPARENT)
             setTextHint(R.string.search_hint)
@@ -94,9 +96,11 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
                 override fun onFocusChange(hasFocus: Boolean) {
                     val icon = if (hasFocus) R.drawable.ic_arrow_back else R.drawable.ic_search
                     searchView.setNavigationIconImageResource(icon)
+                    searchView.setNavigationIconColorFilter(foregroundColor)
                 }
             })
             setNavigationIconImageResource(R.drawable.ic_search)
+            searchView.setNavigationIconColorFilter(foregroundColor)
         }
     }
 
