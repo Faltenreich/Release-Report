@@ -6,8 +6,8 @@
     android:id="@+id/navigationView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?backgroundColorSecondary"
-    app:itemIconTint="?android:textColorPrimary"
+    android:background="?backgroundColorPrimary"
+    app:itemIconTint="?android:textColorSecondary"
     app:itemTextColor="?android:textColorPrimary"
     app:itemIconPadding="@dimen/margin_padding_size_large"
     app:menu="@menu/navigation"/>

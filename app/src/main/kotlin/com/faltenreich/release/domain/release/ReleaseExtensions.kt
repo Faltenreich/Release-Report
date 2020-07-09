@@ -12,7 +12,7 @@ private fun ImageView.setImage(
     url: String?,
     callback: ((Drawable?) -> Unit)?
 ) {
-    val placeholder = ColorDrawable(ContextCompat.getColor(context, R.color.background_dark_tertiary))
+    val placeholder = ColorDrawable(ContextCompat.getColor(context, R.color.text_light_secondary))
     url?.let {
         setImageAsync(url, placeholder) { drawable ->
             if (drawable == null) {
