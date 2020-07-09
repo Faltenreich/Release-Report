@@ -1,5 +1,6 @@
 package com.faltenreich.release.domain.preference
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -70,13 +71,16 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
         }
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-            invalidatePreferences()
-
             val context = context ?: return
+            invalidatePreferences()
             when (key) {
-                context.getString(R.string.preference_reminder_weekly_is_enabled) -> Reminder.refresh(context)
-                context.getString(R.string.preference_reminder_subscriptions_is_enabled) -> Reminder.refresh(context)
+                context.getString(R.string.preference_reminder_weekly_is_enabled) -> refreshReminder(context)
+                context.getString(R.string.preference_reminder_subscriptions_is_enabled) -> refreshReminder(context)
             }
+        }
+
+        private fun refreshReminder(context: Context) {
+            Reminder.refresh(context, replace = true)
         }
 
         private fun invalidatePreferences() {

@@ -28,15 +28,15 @@ object Reminder {
     private const val NOTIFICATION_ICON_SIZE_IN_PIXELS = 1024
     private const val NOTIFICATION_ICON_CORNER_RADIUS_IN_DP = 128
 
-    fun refresh(context: Context) {
+    fun refresh(context: Context, replace: Boolean = false) {
         if (UserPreferences.reminderIsEnabled) {
-            enqueue(context)
+            enqueue(context, replace)
         } else {
             cancel(context)
         }
     }
 
-    private fun enqueue(context: Context) {
+    private fun enqueue(context: Context, replace: Boolean) {
         val now = LocalDateTime.now()
         val today = LocalDate.now()
 
@@ -47,7 +47,7 @@ object Reminder {
         val target = LocalDateTime.of(reminderDate, reminderTime)
         val delayInMillis = ChronoUnit.MILLIS.between(now, target)
 
-        ReminderWorker.enqueue(context, delayInMillis)
+        ReminderWorker.enqueue(context, delayInMillis, replace)
         Log.d(tag, "Enqueued reminder for ${reminderTime.print()}")
     }
 

@@ -25,14 +25,14 @@ class ReminderWorker(
 
         private const val TAG = "ReminderWorker"
 
-        fun enqueue(context: Context, delayInMillis: Long) {
+        fun enqueue(context: Context, delayInMillis: Long, replace: Boolean) {
             val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
                 .setInitialDelay(delayInMillis, TimeUnit.MILLISECONDS)
                 .addTag(TAG)
                 .build()
             context.workManager.enqueueUniquePeriodicWork(
                 TAG,
-                ExistingPeriodicWorkPolicy.REPLACE,
+                if (replace) ExistingPeriodicWorkPolicy.REPLACE else ExistingPeriodicWorkPolicy.KEEP,
                 request
             )
         }
