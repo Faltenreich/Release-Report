@@ -1,11 +1,11 @@
 package com.faltenreich.release.data.dao.demo
 
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.data.enum.ReleaseType
 import com.faltenreich.release.data.model.CalendarEvent
 import com.faltenreich.release.data.model.Genre
 import com.faltenreich.release.data.model.Platform
 import com.faltenreich.release.data.model.Release
-import org.threeten.bp.LocalDate
 
 object DemoFactory {
 
@@ -13,7 +13,7 @@ object DemoFactory {
     private const val IMAGE_PROVIDER = "https://picsum.photos"
 
     val releases: List<Release> by lazy {
-        val startDate = LocalDate.now().minusWeeks(1)
+        val startDate = Now.localDate().minusWeeks(1)
         (0 until 100).map { index ->
             Release().apply {
                 id = index.toString()

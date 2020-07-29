@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
@@ -40,7 +41,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         if (!isViewCreated) {
-            initData(date ?: LocalDate.now())
+            initData(date ?: Now.localDate())
         }
     }
 
@@ -69,7 +70,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
                 val totalItemCount = listAdapter?.itemCount ?: 0
                 val isInitialLoad = itemCount > 0 && itemCount == totalItemCount
                 if (isInitialLoad) {
-                    scrollTo(date ?: LocalDate.now())
+                    scrollTo(date ?: Now.localDate())
                 }
             }
         })

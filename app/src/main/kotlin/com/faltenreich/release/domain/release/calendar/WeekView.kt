@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.LocalDateProgression
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.domain.preference.UserPreferences
 import kotlinx.android.synthetic.main.view_weekday.view.*
-import org.threeten.bp.LocalDate
 import org.threeten.bp.format.TextStyle
 
 class WeekView @JvmOverloads constructor(
@@ -23,7 +23,7 @@ class WeekView @JvmOverloads constructor(
         setPadding(0, padding, 0, padding)
         orientation = HORIZONTAL
 
-        val date = LocalDate.now()
+        val date = Now.localDate()
         val startOfWeek = date.atStartOfWeek
         val endOfWeek = date.atEndOfWeek
 

@@ -6,6 +6,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.base.date.print
@@ -17,7 +18,6 @@ import com.faltenreich.release.domain.reminder.notification.Notification
 import com.faltenreich.release.domain.reminder.notification.NotificationChannel
 import com.faltenreich.release.domain.reminder.notification.NotificationManager
 import com.faltenreich.release.framework.glide.toBitmap
-import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit
 
@@ -37,8 +37,8 @@ object Reminder {
     }
 
     private fun enqueue(context: Context, replace: Boolean) {
-        val now = LocalDateTime.now()
-        val today = LocalDate.now()
+        val now = Now.localDateTime()
+        val today = Now.localDate()
 
         val reminderTime = UserPreferences.reminderTime
         val remindToday = now.toLocalTime().isBefore(reminderTime)
@@ -62,7 +62,7 @@ object Reminder {
     }
 
     private suspend fun remindAboutNextWeek(context: Context) {
-        val today = LocalDate.now()
+        val today = Now.localDate()
         val startOfWeek = today.atStartOfWeek
         val showReminder = today == startOfWeek
         if (showReminder) {
@@ -74,7 +74,7 @@ object Reminder {
     }
 
     private suspend fun remindAboutSubscriptions(context: Context) {
-        val releases = ReleaseRepository.getSubscriptions(LocalDate.now())
+        val releases = ReleaseRepository.getSubscriptions(Now.localDate())
         val title = context.getString(R.string.reminder_subscriptions_notification).format(releases.size)
         showNotification(context, title, releases)
     }

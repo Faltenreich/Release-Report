@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.data.repository.ReleaseRepository
@@ -12,7 +13,6 @@ import com.faltenreich.release.domain.release.list.ReleaseItem
 import com.faltenreich.release.framework.android.architecture.LiveDataFix
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
 
 class SpotlightViewModel : ViewModel() {
 
@@ -29,7 +29,7 @@ class SpotlightViewModel : ViewModel() {
 
     private fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
-            val today = LocalDate.now()
+            val today = Now.localDate()
             val (startOfWeek, endOfWeek) = today.atStartOfWeek to today.atEndOfWeek
 
             // Plus one for the promo
@@ -45,7 +45,7 @@ class SpotlightViewModel : ViewModel() {
             }
 
             val subscriptionReleases =
-                ReleaseRepository.getSubscriptions(LocalDate.now(), PAGE_SIZE)
+                ReleaseRepository.getSubscriptions(Now.localDate(), PAGE_SIZE)
             val subscription = subscriptionReleases.takeIf(List<*>::isNotEmpty)?.let { releases ->
                 SpotlightReleaseItem(
                     R.string.for_you,

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.date.yearMonth
 import com.faltenreich.release.base.primitive.takeIfNotEmpty
@@ -117,7 +118,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), 
         }
         val firstVisibleItem = upcomingItems.firstOrNull()
         val firstVisibleYearMonth = firstVisibleItem?.yearMonth
-        val month = firstVisibleYearMonth ?: LocalDate.now().yearMonth
+        val month = firstVisibleYearMonth ?: Now.localDate().yearMonth
         headerMonthLabel.text = month.print()
 
         val upcomingHeaderIndex = upcomingItems.indexOfFirst { item -> item is CalendarMonthItem }

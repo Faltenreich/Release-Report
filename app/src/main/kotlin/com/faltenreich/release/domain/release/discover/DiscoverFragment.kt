@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.domain.date.DatePickerOpener
@@ -46,7 +47,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         initSearch()
         initList()
         if (!isViewCreated) {
-            initData(LocalDate.now())
+            initData(Now.localDate())
         }
     }
 

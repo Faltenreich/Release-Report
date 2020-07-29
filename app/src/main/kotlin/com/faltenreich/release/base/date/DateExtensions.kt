@@ -18,7 +18,7 @@ private const val FORMAT_TIME = "HH:mm"
 private const val FORMAT_DATE = "yyyy-MM-dd"
 
 val LocalDate.isToday: Boolean
-    get() = isEqual(LocalDate.now())
+    get() = isEqual(Now.localDate())
 
 fun LocalDate.isAfterOrEqual(date: LocalDate): Boolean {
     return !isBefore(date)
@@ -61,7 +61,7 @@ val String.asLocalTime: LocalTime?
     }
 
 fun LocalDate.print(context: Context?): String? {
-    val today = LocalDate.now()
+    val today = Now.localDate()
     return when (ChronoUnit.DAYS.between(today, this)) {
         0L -> context?.getString(R.string.today)
         -1L -> context?.getString(R.string.yesterday)
@@ -77,7 +77,7 @@ fun LocalDate.print(context: Context?): String? {
 
 fun YearMonth.print(): String? {
     val year = year
-    val isSameYear = year == LocalDate.now().year
+    val isSameYear = year == Now.localDate().year
     val monthText = month.getDisplayName(TextStyle.FULL, UserPreferences.locale)
     return if (isSameYear) monthText else "$monthText $year"
 }

@@ -1,10 +1,10 @@
 package com.faltenreich.release.data
 
+import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.date
 import com.faltenreich.release.base.date.localDate
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.threeten.bp.LocalDate
 import java.util.*
 
 class DateTest {
@@ -20,7 +20,7 @@ class DateTest {
 
     @Test
     fun `LocalDate can be converted to Date`() {
-        val localDate = LocalDate.now()
+        val localDate = Now.localDate()
         val date = localDate.date
         assertEquals(date.year + 1900, localDate.year)
         assertEquals(date.month + 1, localDate.month.value)
