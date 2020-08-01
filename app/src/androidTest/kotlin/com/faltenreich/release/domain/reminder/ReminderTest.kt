@@ -3,12 +3,17 @@ package com.faltenreich.release.domain.reminder
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiSelector
 import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
+import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.atStartOfWeek
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -20,20 +25,44 @@ import org.threeten.bp.ZoneOffset
 class ReminderTest {
 
     private lateinit var context: Context
+    private val worker by lazy { TestListenableWorkerBuilder<ReminderWorker>(context).build() }
+    private val uiDevice by lazy { UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()) }
 
     @Before
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
-        val startOfWeek = Now.localDate().atStartOfWeek.atTime(8, 0).toInstant(ZoneOffset.UTC)
-        Now.clock = Clock.fixed(startOfWeek, ZoneOffset.UTC)
+    }
+
+    @After
+    fun cleanup() {
+        Now.clock = Clock.systemDefaultZone()
     }
 
     @Test
-    fun reminderIsWorking() {
-        val worker = TestListenableWorkerBuilder<ReminderWorker>(context).build()
+    fun isSucceeding() {
         runBlocking {
             val result = worker.doWork()
             Assert.assertThat(result, `is`(ListenableWorker.Result.success()))
+        }
+    }
+
+    @Test
+    fun isShowingLocalNotificationForWeeklyReleasesAtStartOfWeek() {
+        val startOfWeek = Now.localDate().atStartOfWeek.atTime(8, 0).toInstant(ZoneOffset.UTC)
+        Now.clock = Clock.fixed(startOfWeek, ZoneOffset.UTC)
+
+        runBlocking {
+            worker.doWork()
+
+            val notificationAppName = uiDevice.findObject(UiSelector()
+                .resourceId("android:id/app_name_text")
+                .text(context.getString(R.string.app_name)))
+            Assert.assertTrue(notificationAppName.exists())
+
+            val notificationTitle = uiDevice.findObject(UiSelector()
+                .resourceId("android:id/title")
+                .text(context.getString(R.string.this_week)))
+            Assert.assertTrue(notificationTitle.exists())
         }
     }
 }

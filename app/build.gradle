@@ -83,6 +83,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:${versions.jUnitRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
     androidTestImplementation "androidx.work:work-testing:${versions.work}"
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
