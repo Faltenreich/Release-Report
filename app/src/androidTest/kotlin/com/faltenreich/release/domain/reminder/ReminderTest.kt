@@ -61,7 +61,25 @@ class ReminderTest {
 
             val notificationTitle = uiDevice.findObject(UiSelector()
                 .resourceId("android:id/title")
-                .text(context.getString(R.string.this_week)))
+                .text(context.getString(R.string.reminder_weekly_notification)))
+            Assert.assertTrue(notificationTitle.exists())
+        }
+    }
+
+    @Test
+    fun isShowingLocalNotificationForSubscriptions() {
+        runBlocking {
+            worker.doWork()
+
+            val notificationAppName = uiDevice.findObject(UiSelector()
+                .resourceId("android:id/app_name_text")
+                .text(context.getString(R.string.app_name)))
+            Assert.assertTrue(notificationAppName.exists())
+
+            // FIXME: Use DemoDaos by injecting them
+            val notificationTitle = uiDevice.findObject(UiSelector()
+                .resourceId("android:id/title")
+                .textContains(context.getString(R.string.reminder_subscriptions_notification)))
             Assert.assertTrue(notificationTitle.exists())
         }
     }
