@@ -10,16 +10,14 @@ import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
+import com.faltenreich.release.base.date.atEndOfWeek
 import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.data.dao.factory.DaoFactory
 import com.faltenreich.release.data.dao.factory.DemoDaoProvider
 import com.faltenreich.release.data.repository.ReleaseRepository
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.threeten.bp.Clock
 import org.threeten.bp.ZoneOffset
@@ -72,6 +70,27 @@ class ReminderTest {
     }
 
     @Test
+    fun isNotShowingLocalNotificationForWeeklyReleasesAtEndOfWeek() {
+        val startOfWeek = Now.localDate().atEndOfWeek.atTime(8, 0).toInstant(ZoneOffset.UTC)
+        Now.clock = Clock.fixed(startOfWeek, ZoneOffset.UTC)
+
+        runBlocking {
+            worker.doWork()
+
+            val notificationAppName = uiDevice.findObject(UiSelector()
+                .resourceId("android:id/app_name_text")
+                .text(context.getString(R.string.app_name)))
+            Assert.assertFalse(notificationAppName.exists())
+
+            val notificationTitle = uiDevice.findObject(UiSelector()
+                .resourceId("android:id/title")
+                .text(context.getString(R.string.reminder_weekly_notification)))
+            Assert.assertFalse(notificationTitle.exists())
+        }
+    }
+
+    @Test
+    @Ignore("Find way to mock subscriptions")
     fun isShowingLocalNotificationForSubscriptions() {
         runBlocking {
             val favorites = ReleaseRepository.getAfter(
