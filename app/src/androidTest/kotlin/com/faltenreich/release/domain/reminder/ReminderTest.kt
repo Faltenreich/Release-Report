@@ -13,6 +13,7 @@ import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.atStartOfWeek
 import com.faltenreich.release.data.dao.factory.DaoFactory
 import com.faltenreich.release.data.dao.factory.DemoDaoProvider
+import com.faltenreich.release.data.repository.ReleaseRepository
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -33,8 +34,8 @@ class ReminderTest {
     @Before
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
-        DaoFactory.provider =
-            DemoDaoProvider()
+        // FIXME: Too late to change provider
+        DaoFactory.provider = DemoDaoProvider()
     }
 
     @After
@@ -73,6 +74,14 @@ class ReminderTest {
     @Test
     fun isShowingLocalNotificationForSubscriptions() {
         runBlocking {
+            val favorites = ReleaseRepository.getAfter(
+                Now.localDate(),
+                0,
+                1
+            )
+            val favorite = favorites.first()
+            ReleaseRepository.subscribe(favorite)
+
             worker.doWork()
 
             val notificationAppName = uiDevice.findObject(UiSelector()
@@ -80,7 +89,6 @@ class ReminderTest {
                 .text(context.getString(R.string.app_name)))
             Assert.assertTrue(notificationAppName.exists())
 
-            // FIXME: Use DemoDaos by injecting them
             val notificationTitle = uiDevice.findObject(UiSelector()
                 .resourceId("android:id/title")
                 .textContains(context.getString(R.string.reminder_subscriptions_notification)))
