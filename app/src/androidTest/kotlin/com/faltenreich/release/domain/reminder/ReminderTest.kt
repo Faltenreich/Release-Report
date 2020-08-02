@@ -11,6 +11,8 @@ import androidx.work.testing.TestListenableWorkerBuilder
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.atStartOfWeek
+import com.faltenreich.release.data.dao.factory.DaoFactory
+import com.faltenreich.release.data.dao.factory.DemoDaoProvider
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -31,6 +33,8 @@ class ReminderTest {
     @Before
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
+        DaoFactory.provider =
+            DemoDaoProvider()
     }
 
     @After

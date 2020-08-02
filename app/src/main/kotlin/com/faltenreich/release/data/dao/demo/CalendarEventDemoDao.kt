@@ -5,7 +5,7 @@ import com.faltenreich.release.data.dao.CalendarEventDao
 import com.faltenreich.release.data.model.CalendarEvent
 import org.threeten.bp.LocalDate
 
-class CalendarDemoEventDao : CalendarEventDao {
+class CalendarEventDemoDao : CalendarEventDao {
 
     private val calendarItems by lazy { DemoFactory.calendarEvents }
 
