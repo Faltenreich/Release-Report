@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="?backgroundColorPrimary"
+        app:backgroundTint="?backgroundColorSecondary"
         app:elevation="0dp"
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_navigation" />
