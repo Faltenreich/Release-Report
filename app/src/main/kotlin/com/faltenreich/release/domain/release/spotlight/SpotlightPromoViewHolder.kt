@@ -2,7 +2,6 @@ package com.faltenreich.release.domain.release.spotlight
 
 import android.content.Context
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.setWallpaper
@@ -17,12 +16,8 @@ class SpotlightPromoViewHolder(
     override fun onBind(data: SpotlightPromoItem) {
         val release = data.release
         container.setOnClickListener { openRelease(navigationController, release) }
-
         dateTextView.text = release.releaseDateForUi(context)
-        titleTextView.text = release.title
-        artistTextView.text = release.artistIfRelevant
-        artistTextView.isVisible = artistTextView.text.isNotBlank()
-
+        titleTextView.text = release.titleFull
         imageView.setWallpaper(release)
     }
 }

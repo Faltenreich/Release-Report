@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.faltenreich.release.R
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.list.ReleaseProvider
@@ -25,7 +26,12 @@ class DiscoverViewHolder(
     override fun onBind(data: ReleaseProvider) {
         val release = data.release
 
-        coverImageView.setCover(release)
+        titleTextView.isVisible = true
+        titleTextView.text = data.release.titleFull
+
+        coverImageView.setCover(release) { cover ->
+            titleTextView.isVisible = cover == null
+        }
 
         typeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
         typeImageView.backgroundTint = ContextCompat.getColor(

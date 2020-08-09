@@ -8,8 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@android:color/black"
+    app:cardCornerRadius="8dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,9 +50,24 @@
             android:contentDescription="@null"
             android:padding="@dimen/dogear_medium_padding"
             android:src="@drawable/ic_subscription_on"
-            app:tint="@color/brown"
             app:layout_constraintEnd_toEndOf="@+id/coverImageView"
-            app:layout_constraintTop_toTopOf="@+id/coverImageView" />
+            app:layout_constraintTop_toTopOf="@+id/coverImageView"
+            app:tint="@color/brown" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:padding="@dimen/margin_padding_size_small"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/coverImageView"
+            app:layout_constraintEnd_toEndOf="@+id/coverImageView"
+            app:layout_constraintStart_toStartOf="@+id/coverImageView"
+            app:layout_constraintTop_toTopOf="@id/coverImageView"
+            tools:text="@tools:sample/lorem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
