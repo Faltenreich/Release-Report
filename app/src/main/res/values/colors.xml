@@ -10,7 +10,7 @@
     <color name="text_dark_primary">#fff</color>
     <color name="text_dark_secondary">#B3B3B3</color>
     <color name="background_dark_primary">#000000</color>
-    <color name="background_dark_secondary">#111111</color>
+    <color name="background_dark_secondary">#222</color>
 
     <color name="translucent_dark">#55000000</color>
     <color name="gray">#ababab</color>

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:collapsedTitleTextAppearance="@style/ToolbarTitle"
-            app:contentScrim="@color/text_light_secondary"
+            app:contentScrim="@color/background_dark_secondary"
             app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge"
             app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle"
@@ -48,6 +48,7 @@
                     tools:src="@tools:sample/backgrounds/scenic" />
 
                 <View
+                    android:id="@+id/wallpaperScrim"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/scrim_height"
                     android:layout_gravity="bottom"

@@ -3,16 +3,16 @@ package com.faltenreich.release.domain.release
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import com.faltenreich.release.R
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.glide.setImageAsync
 
 private fun ImageView.setImage(
     url: String?,
     callback: ((Drawable?) -> Unit)?
 ) {
-    val placeholder = ColorDrawable(ContextCompat.getColor(context, R.color.text_light_secondary))
+    val placeholder = ColorDrawable(context.getColorFromAttribute(R.attr.backgroundColorSecondary))
     url?.let {
         setImageAsync(url, placeholder) { drawable ->
             if (drawable == null) {

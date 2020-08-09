@@ -35,10 +35,11 @@ class ReleaseInfoFragment : BaseFragment(
 
     private fun initLayout() {
         coverImageView.setOnClickListener {
+            val imageUrl = viewModel.release?.imageUrlForCover ?: return@setOnClickListener
             openImage(
                 findNavController(),
                 viewModel.release,
-                viewModel.release?.imageUrlForCover
+                imageUrl
             )
         }
         dateChip.setOnClickListener { openDate() }

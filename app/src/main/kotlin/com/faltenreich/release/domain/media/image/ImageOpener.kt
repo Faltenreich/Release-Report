@@ -7,7 +7,7 @@ interface ImageOpener {
     fun openImage(
         navigationController: NavController,
         imageUrls: Array<String>?,
-        imageUrl: String?
+        imageUrl: String
     ) {
         navigationController.navigate(ImageGalleryFragmentDirections.openGallery(imageUrls, imageUrl))
     }

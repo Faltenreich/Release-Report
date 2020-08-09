@@ -91,8 +91,9 @@ class ReleaseDetailFragment : BaseFragment(
 
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
-            val url = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
-            openImage(findNavController(), release, url)
+            val imageUrl = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
+            imageUrl ?: return@setOnClickListener
+            openImage(findNavController(), release, imageUrl)
         }
 
         viewPager.adapter = ReleaseDetailFragmentAdapter(this)
@@ -107,7 +108,10 @@ class ReleaseDetailFragment : BaseFragment(
     private fun invalidateMetadata() {
         val release = viewModel.release
         collapsingToolbarLayout.title = release?.title
-        wallpaperImageView.setWallpaper(release)
+        wallpaperScrim.isVisible = false
+        wallpaperImageView.setWallpaper(release) { wallpaper ->
+            wallpaperScrim.isVisible = wallpaper != null
+        }
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
     }
 

@@ -9,7 +9,7 @@ interface ReleaseImageOpener : ImageOpener {
     fun openImage(
         navigationController: NavController,
         release: Release?,
-        imageUrl: String?
+        imageUrl: String
     ) {
         openImage(navigationController, release?.imageUrlsFull?.toTypedArray(), imageUrl)
     }
