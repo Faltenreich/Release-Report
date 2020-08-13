@@ -2,11 +2,9 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.Light" />
-
-    <style name="Theme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/background_dark_primary</item>
-        <item name="colorPrimaryDark">@color/background_dark_secondary</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/background_dark_secondary</item>
+        <item name="colorPrimaryDark">@color/background_dark_primary</item>
         <item name="colorAccent">@color/background_dark_secondary</item>
         <item name="android:windowBackground">@color/background_light_primary</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -17,29 +15,13 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="Theme.Dark" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/background_light_primary</item>
-        <item name="colorPrimaryDark">@color/background_light_secondary</item>
-        <item name="colorAccent">@color/background_light_secondary</item>
-        <item name="android:windowBackground">@color/background_dark_primary</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:textColorPrimary">@color/text_dark_primary</item>
-        <item name="android:textColorSecondary">@color/text_dark_secondary</item>
-        <item name="backgroundColorPrimary">@color/background_dark_primary</item>
-        <item name="backgroundColorSecondary">@color/background_dark_secondary</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    <style name="Toolbar">
+        <item name="titleTextColor">?android:textColorSecondary</item>
+        <item name="titleTextAppearance">@style/ToolbarTitle</item>
     </style>
 
-    <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textStyle">italic</item>
-    </style>
-
+    <!-- Changes collapsed title style from bold to normal in CollapsingToolbarLayout -->
     <style name="ToolbarTitle" parent="@android:style/TextAppearance.Medium" />
-
-    <style name="ToolbarPopup" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="android:textColorPrimary">@android:color/black</item>
-    </style>
 
     <style name="CollapsingToolbarTitle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">@dimen/text_size_xlarge</item>

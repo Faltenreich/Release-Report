@@ -125,10 +125,10 @@ class ReleaseDetailFragment : BaseFragment(
         ) ?: return
         val backgroundColor =
             if (isSubscribed) ContextCompat.getColor(context, R.color.yellow)
-            else context.getColorFromAttribute(android.R.attr.textColorSecondary)
+            else context.getColorFromAttribute(R.attr.backgroundColorSecondary)
         val foregroundColor =
             if (isSubscribed) ContextCompat.getColor(context, R.color.brown)
-            else context.getColorFromAttribute(R.attr.backgroundColorPrimary)
+            else context.getColorFromAttribute(android.R.attr.textColorSecondary)
 
         mainViewModel.fabConfig = FabConfig(icon, backgroundColor, foregroundColor, ::toggleSubscription)
     }

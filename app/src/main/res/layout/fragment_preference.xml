@@ -18,11 +18,11 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:theme="@style/Toolbar"
+                android:background="?backgroundColorSecondary"
                 app:navigationIcon="@drawable/ic_arrow_back"
-                app:popupTheme="@style/ToolbarPopup"
                 app:title="@string/preferences" />
 
         </com.google.android.material.appbar.AppBarLayout>

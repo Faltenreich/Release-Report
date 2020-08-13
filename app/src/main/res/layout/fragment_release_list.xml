@@ -17,12 +17,11 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:theme="@style/Toolbar"
+            android:background="?backgroundColorSecondary"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:popupTheme="@style/ToolbarPopup"
-            app:titleTextAppearance="@style/ToolbarTitle"
             tools:title="@tools:sample/date/mmddyy" />
 
     </com.google.android.material.appbar.AppBarLayout>

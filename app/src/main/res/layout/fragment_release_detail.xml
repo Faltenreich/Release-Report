@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:collapsedTitleTextAppearance="@style/ToolbarTitle"
-            app:contentScrim="@color/background_dark_secondary"
+            app:contentScrim="?backgroundColorSecondary"
             app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge"
             app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle"
@@ -81,7 +81,6 @@
                 android:theme="@style/Toolbar"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_arrow_back"
-                app:popupTheme="@style/ToolbarPopup"
                 tools:title="@string/app_name" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
