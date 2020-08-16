@@ -12,7 +12,6 @@
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0dp">
 
         <!-- FIXME: layout_scrollFlags break the immediate collapse of the BottomAppBar -->
@@ -20,11 +19,11 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:collapsedTitleTextAppearance="@style/ToolbarTitle"
+            app:collapsedTitleTextAppearance="@style/CollapsingToolbarTitleCollapsed"
             app:contentScrim="?backgroundColorSecondary"
             app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge"
             app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
-            app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleExpanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,8 +37,8 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:contentDescription="@null"
-                    android:scaleType="centerCrop"
                     android:foreground="?selectableItemBackground"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="@string/aspect_ratio_landscape"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -101,10 +100,12 @@
             style="@style/Widget.MaterialComponents.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:backgroundTint="@android:color/transparent"
             app:tabContentStart="30dp"
-            app:tabMode="scrollable" />
+            app:tabIndicatorColor="?android:textColorPrimary"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="?android:textColorPrimary"
+            app:tabTextColor="?android:textColorSecondary" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
