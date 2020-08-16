@@ -1,11 +1,11 @@
 package com.faltenreich.release.framework.android.view.toolbar
 
 import android.graphics.Rect
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import com.faltenreich.release.framework.android.view.activity
+import com.google.android.material.appbar.MaterialToolbar
 
-fun Toolbar.fitSystemWindows() {
+fun MaterialToolbar.fitSystemWindows() {
     // Workaround: Fixing fitsSystemWindows programmatically
     doOnPreDraw {
         val frame = Rect()
