@@ -15,12 +15,10 @@
     </style>
 
     <style name="Toolbar">
-        <item name="titleTextColor">?android:textColorSecondary</item>
-        <item name="titleTextAppearance">@style/ToolbarTitle</item>
+        <item name="titleTextColor">?android:textColorPrimary</item>
+        <!-- Changes title style from bold to normal -->
+        <item name="titleTextAppearance">@android:style/TextAppearance.Medium</item>
     </style>
-
-    <!-- Changes collapsed title style from bold to normal in CollapsingToolbarLayout -->
-    <style name="ToolbarTitle" parent="@android:style/TextAppearance.Medium" />
 
     <style name="CollapsingToolbarTitleExpanded" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/text_dark_primary</item>
@@ -29,7 +27,7 @@
     </style>
 
     <style name="CollapsingToolbarTitleCollapsed">
-        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="PaddingLayout">

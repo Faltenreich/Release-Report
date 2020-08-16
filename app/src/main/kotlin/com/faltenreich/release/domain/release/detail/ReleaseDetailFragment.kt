@@ -1,5 +1,6 @@
 package com.faltenreich.release.domain.release.detail
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -78,6 +79,8 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun initLayout() {
+        val context = context ?: return
+
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.fitSystemWindows()
 
@@ -89,12 +92,14 @@ class ReleaseDetailFragment : BaseFragment(
             videoIndicatorView.scaleY = scale
         })
 
+        collapsingToolbarLayout.setExpandedTitleColor(context.getColorFromAttribute(android.R.attr.textColorPrimary))
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
             val imageUrl = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
             imageUrl ?: return@setOnClickListener
             openImage(findNavController(), release, imageUrl)
         }
+        invalidateWallpaper(null)
 
         viewPager.adapter = ReleaseDetailFragmentAdapter(this)
         tabLayout.setupWithViewPager2(viewPager)
@@ -109,10 +114,17 @@ class ReleaseDetailFragment : BaseFragment(
         val release = viewModel.release
         collapsingToolbarLayout.title = release?.title
         wallpaperScrim.isVisible = false
-        wallpaperImageView.setWallpaper(release) { wallpaper ->
-            wallpaperScrim.isVisible = wallpaper != null
-        }
+        wallpaperImageView.setWallpaper(release, ::invalidateWallpaper)
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
+    }
+
+    private fun invalidateWallpaper(wallpaper: Drawable?) {
+        val context = context ?: return
+        val titleColor =
+            if (wallpaper != null) ContextCompat.getColor(context, R.color.text_dark_primary)
+            else context.getColorFromAttribute(android.R.attr.textColorPrimary)
+        collapsingToolbarLayout.setExpandedTitleColor(titleColor)
+        wallpaperScrim.isVisible = wallpaper != null
     }
 
     private fun invalidateSubscription() {
@@ -128,7 +140,7 @@ class ReleaseDetailFragment : BaseFragment(
             else context.getColorFromAttribute(R.attr.backgroundColorSecondary)
         val foregroundColor =
             if (isSubscribed) ContextCompat.getColor(context, R.color.brown)
-            else context.getColorFromAttribute(android.R.attr.textColorSecondary)
+            else context.getColorFromAttribute(android.R.attr.textColorPrimary)
 
         mainViewModel.fabConfig = FabConfig(icon, backgroundColor, foregroundColor, ::toggleSubscription)
     }
