@@ -119,11 +119,6 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun invalidateWallpaper(wallpaper: Drawable?) {
-        val context = context ?: return
-        val titleColor =
-            if (wallpaper != null) ContextCompat.getColor(context, R.color.text_dark_primary)
-            else context.getColorFromAttribute(android.R.attr.textColorPrimary)
-        collapsingToolbarLayout.setExpandedTitleColor(titleColor)
         wallpaperScrim.isVisible = wallpaper != null
     }
 
