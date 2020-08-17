@@ -1,6 +1,5 @@
 package com.faltenreich.release.domain.release.detail
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -99,7 +98,6 @@ class ReleaseDetailFragment : BaseFragment(
             imageUrl ?: return@setOnClickListener
             openImage(findNavController(), release, imageUrl)
         }
-        invalidateWallpaper(null)
 
         viewPager.adapter = ReleaseDetailFragmentAdapter(this)
         tabLayout.setupWithViewPager2(viewPager)
@@ -113,13 +111,8 @@ class ReleaseDetailFragment : BaseFragment(
     private fun invalidateMetadata() {
         val release = viewModel.release
         collapsingToolbarLayout.title = release?.title
-        wallpaperScrim.isVisible = false
-        wallpaperImageView.setWallpaper(release, ::invalidateWallpaper)
+        wallpaperImageView.setWallpaper(release)
         videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
-    }
-
-    private fun invalidateWallpaper(wallpaper: Drawable?) {
-        wallpaperScrim.isVisible = wallpaper != null
     }
 
     private fun invalidateSubscription() {
