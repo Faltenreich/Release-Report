@@ -7,6 +7,8 @@ import com.faltenreich.release.data.dao.ReleaseDao
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.preference.SubscriptionManager
 import org.threeten.bp.LocalDate
+import kotlin.math.max
+import kotlin.math.min
 
 interface ReleasePreferenceDao : ReleaseDao {
 
@@ -27,6 +29,34 @@ interface ReleasePreferenceDao : ReleaseDao {
             val date = release.releaseDate ?: return@filter false
             date.isAfterOrEqual(startAt) && date.isBeforeOrEqual(endAt)
         }.sortedBy(Release::releaseDate)
+    }
+
+    override suspend fun getSubscriptionsBefore(
+        date: LocalDate,
+        page: Int,
+        pageSize: Int
+    ): List<Release> {
+        val subscriptions = SubscriptionManager.getSubscriptions().filter { release ->
+            val releaseDate = release.releaseDate ?: return@filter false
+            releaseDate.isBeforeOrEqual(date)
+        }.sortedBy(Release::releaseDate)
+        val endIndex = subscriptions.size - 1 - page * pageSize
+        val startIndex = max(0, endIndex - pageSize + 1)
+        return subscriptions.slice(startIndex..endIndex)
+    }
+
+    override suspend fun getSubscriptionsAfter(
+        date: LocalDate,
+        page: Int,
+        pageSize: Int
+    ): List<Release> {
+        val subscriptions = SubscriptionManager.getSubscriptions().filter { release ->
+            val releaseDate = release.releaseDate ?: return@filter false
+            releaseDate.isAfterOrEqual(date)
+        }.sortedBy(Release::releaseDate)
+        val startIndex = page * pageSize
+        val endIndex = min(subscriptions.size - 1, startIndex + pageSize - 1)
+        return subscriptions.slice(IntRange(startIndex, endIndex))
     }
 
     override fun isSubscribed(release: Release): Boolean {

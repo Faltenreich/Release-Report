@@ -102,6 +102,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/subscription_list"
+        android:name="com.faltenreich.release.domain.release.subscription.SubscriptionListFragment"
+        tools:layout="@layout/fragment_subscription_list"/>
+
+    <fragment
         android:id="@+id/gallery"
         android:name="com.faltenreich.release.domain.media.image.ImageGalleryFragment"
         tools:layout="@layout/fragment_image_gallery">

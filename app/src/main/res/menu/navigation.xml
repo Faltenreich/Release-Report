@@ -33,6 +33,10 @@
             android:title="@string/releases" />
 
         <item
+            android:id="@+id/subscription_list"
+            android:title="@string/subscriptions" />
+
+        <item
             android:id="@+id/preferences"
             android:title="@string/preferences" />
 

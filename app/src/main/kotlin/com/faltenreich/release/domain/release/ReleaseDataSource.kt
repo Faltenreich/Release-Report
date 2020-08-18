@@ -1,17 +1,19 @@
-package com.faltenreich.release.domain.release.list
+package com.faltenreich.release.domain.release
 
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.base.pagination.PaginationInfo
 import com.faltenreich.release.data.model.Release
-import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.date.DateProvider
+import com.faltenreich.release.domain.release.list.ReleaseDateItem
+import com.faltenreich.release.domain.release.list.ReleaseItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
-class ReleaseListDataSource(
+class ReleaseDataSource(
     private val scope: CoroutineScope,
+    private val dataLoader: ReleaseDataLoader,
     private val startAt: LocalDate
 ) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
@@ -69,8 +71,8 @@ class ReleaseListDataSource(
     ) {
         scope.launch(Dispatchers.IO) {
             val releases =
-                if (info.descending) ReleaseRepository.getAfter(startAt, info.page, info.pageSize)
-                else ReleaseRepository.getBefore(startAt.minusDays(1), info.page, info.pageSize)
+                if (info.descending) dataLoader.getAfter(startAt, info.page, info.pageSize)
+                else dataLoader.getBefore(startAt.minusDays(1), info.page, info.pageSize)
             scope.launch(Dispatchers.Main) {
                 onResponse(releases, info, callback)
             }
@@ -107,7 +109,8 @@ class ReleaseListDataSource(
             }
         }
 
-        if (items.isEmpty()) {
+        if (items.size < info.pageSize) {
+            // FIXME: Missing for oldest subscription item
             if (!info.descending && info.previousDate != null) {
                 items.add(ReleaseDateItem(info.previousDate))
             }
