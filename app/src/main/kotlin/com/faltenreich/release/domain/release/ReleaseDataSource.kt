@@ -93,7 +93,7 @@ class ReleaseDataSource(
                     true -> info.previousDate == null || date != info.previousDate
                     false -> index != 0
                 }
-                if (appendDate) {
+                if (dataLoader.appendDateItems() && appendDate) {
                     items.add(ReleaseDateItem(date))
                 }
 
@@ -110,8 +110,7 @@ class ReleaseDataSource(
         }
 
         if (items.size < info.pageSize) {
-            // FIXME: Missing for oldest subscription item
-            if (!info.descending && info.previousDate != null) {
+            if (dataLoader.appendDateItems() && !info.descending && info.previousDate != null) {
                 items.add(ReleaseDateItem(info.previousDate))
             }
             callback.onResult(items, null)
@@ -130,7 +129,7 @@ class ReleaseDataSource(
                 val appendMissingDate = info.page == 0
                         && !info.descending
                         && items.lastOrNull()?.date != previousDate
-                if (appendMissingDate) {
+                if (dataLoader.appendDateItems() && appendMissingDate) {
                     items.add(ReleaseDateItem(previousDate))
                 }
             }

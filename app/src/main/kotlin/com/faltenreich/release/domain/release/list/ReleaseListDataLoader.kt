@@ -14,4 +14,8 @@ class ReleaseListDataLoader : ReleaseDataLoader {
     override suspend fun getAfter(date: LocalDate, page: Int, pageSize: Int): List<Release> {
         return ReleaseRepository.getAfter(date, page, pageSize)
     }
+
+    override fun appendDateItems(): Boolean {
+        return true
+    }
 }

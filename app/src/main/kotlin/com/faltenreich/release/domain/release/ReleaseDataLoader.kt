@@ -6,4 +6,5 @@ import org.threeten.bp.LocalDate
 interface ReleaseDataLoader {
     suspend fun getBefore(date: LocalDate, page: Int, pageSize: Int): List<Release>
     suspend fun getAfter(date: LocalDate, page: Int, pageSize: Int): List<Release>
+    fun appendDateItems(): Boolean
 }
