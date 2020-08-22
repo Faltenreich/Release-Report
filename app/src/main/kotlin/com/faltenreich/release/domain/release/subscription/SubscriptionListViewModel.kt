@@ -4,8 +4,10 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.faltenreich.release.base.pagination.PagingDataFactory
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.ReleaseDataSource
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
 class SubscriptionListViewModel : ViewModel() {
@@ -15,9 +17,15 @@ class SubscriptionListViewModel : ViewModel() {
         get() = releasesLiveData.value ?: listOf()
 
     fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>?) -> Unit) {
-        val dataSource = ReleaseDataSource(viewModelScope, SubscriptionListDataLoader(), date)
-        val dataFactory = PagingDataFactory(dataSource)
-        releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
-        releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+        viewModelScope.launch {
+            if (ReleaseRepository.countSubscriptions() > 0) {
+                val dataSource = ReleaseDataSource(viewModelScope, SubscriptionListDataLoader(), date)
+                val dataFactory = PagingDataFactory(dataSource)
+                releasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
+                releasesLiveData.observe(owner, Observer { releases -> onObserve(releases) })
+            } else {
+                onObserve(null)
+            }
+        }
     }
 }

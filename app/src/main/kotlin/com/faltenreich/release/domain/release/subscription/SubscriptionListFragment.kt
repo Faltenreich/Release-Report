@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.subscription
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,9 @@ import com.faltenreich.release.domain.release.list.ReleaseListItemDecoration
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
-import kotlinx.android.synthetic.main.fragment_release_list.*
+import kotlinx.android.synthetic.main.fragment_release_list.listView
+import kotlinx.android.synthetic.main.fragment_release_list.toolbar
+import kotlinx.android.synthetic.main.fragment_subscription_list.*
 import org.threeten.bp.LocalDate
 
 class SubscriptionListFragment : BaseFragment(R.layout.fragment_subscription_list, R.menu.main), DatePickerOpener {
@@ -75,6 +78,7 @@ class SubscriptionListFragment : BaseFragment(R.layout.fragment_subscription_lis
         viewModel.observeReleases(date, this) { list ->
             listSkeleton.showOriginal()
             listAdapter?.submitList(list)
+            emptyView.isVisible = list == null
         }
     }
 

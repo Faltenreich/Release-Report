@@ -25,6 +25,10 @@ object SubscriptionManager {
         UserPreferences.subscribedReleaseIds = subscriptions.keys
     }
 
+    fun countSubscriptions(): Int {
+        return subscriptions.size
+    }
+
     // FIXME: May be empty due to init() not being processed yet - make asynchronous
     fun getSubscriptions(): Collection<Release> {
         return subscriptions.values

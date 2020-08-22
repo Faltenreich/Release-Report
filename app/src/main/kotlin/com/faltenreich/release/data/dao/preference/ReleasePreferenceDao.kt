@@ -12,6 +12,10 @@ import kotlin.math.min
 
 interface ReleasePreferenceDao : ReleaseDao {
 
+    override suspend fun countSubscriptions(): Int {
+        return SubscriptionManager.countSubscriptions()
+    }
+
     override suspend fun getSubscriptions(startAt: LocalDate, pageSize: Int): List<Release> {
         return SubscriptionManager.getSubscriptions().filter { release ->
             release.releaseDate?.isAfterOrEqual(startAt).isTrue

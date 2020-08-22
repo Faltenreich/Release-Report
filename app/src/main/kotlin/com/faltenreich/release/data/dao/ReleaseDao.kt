@@ -9,6 +9,7 @@ interface ReleaseDao : Dao<Release> {
     suspend fun getAfter(date: LocalDate, page: Int, pageSize: Int): List<Release>
     suspend fun getBetween(startAt: LocalDate, endAt: LocalDate, pageSize: Int): List<Release>
     suspend fun search(string: String, page: Int, pageSize: Int): List<Release>
+    suspend fun countSubscriptions(): Int
     suspend fun getSubscriptions(startAt: LocalDate, pageSize: Int): List<Release>
     suspend fun getSubscriptions(startAt: LocalDate, endAt: LocalDate): List<Release>
     suspend fun getSubscriptions(date: LocalDate): List<Release>
