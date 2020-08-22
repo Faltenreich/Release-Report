@@ -5,12 +5,14 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.domain.date.DatePickerOpener
+import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.list.ReleaseListAdapter
 import com.faltenreich.release.domain.release.list.ReleaseListFragmentArgs
 import com.faltenreich.release.domain.release.list.ReleaseListItemDecoration
@@ -75,11 +77,17 @@ class SubscriptionListFragment : BaseFragment(R.layout.fragment_subscription_lis
 
     private fun initData(date: LocalDate) {
         listSkeleton.showSkeleton()
-        viewModel.observeReleases(date, this) { list ->
-            listSkeleton.showOriginal()
-            listAdapter?.submitList(list)
-            emptyView.isVisible = list == null
-        }
+        viewModel.observeReleases(date, this, ::setReleases)
+        viewModel.observeSubscriptionCount(this, ::setSubscriptionCount)
+    }
+
+    private fun setReleases(list: PagedList<DateProvider>?) {
+        listSkeleton.showOriginal()
+        listAdapter?.submitList(list)
+    }
+
+    private fun setSubscriptionCount(subscriptionCount: Int) {
+        emptyView.isVisible = subscriptionCount == 0
     }
 
     private fun scrollTo(date: LocalDate) {
