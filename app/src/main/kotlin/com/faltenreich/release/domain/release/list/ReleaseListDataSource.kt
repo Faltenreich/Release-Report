@@ -1,19 +1,17 @@
-package com.faltenreich.release.domain.release
+package com.faltenreich.release.domain.release.list
 
 import androidx.paging.PageKeyedDataSource
 import com.faltenreich.release.base.pagination.PaginationInfo
 import com.faltenreich.release.data.model.Release
+import com.faltenreich.release.data.repository.ReleaseRepository
 import com.faltenreich.release.domain.date.DateProvider
-import com.faltenreich.release.domain.release.list.ReleaseDateItem
-import com.faltenreich.release.domain.release.list.ReleaseItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
-class ReleaseDataSource(
+class ReleaseListDataSource(
     private val scope: CoroutineScope,
-    private val dataLoader: ReleaseDataLoader,
     private val startAt: LocalDate
 ) : PageKeyedDataSource<PaginationInfo, DateProvider>() {
 
@@ -71,8 +69,8 @@ class ReleaseDataSource(
     ) {
         scope.launch(Dispatchers.IO) {
             val releases =
-                if (info.descending) dataLoader.getAfter(startAt, info.page, info.pageSize)
-                else dataLoader.getBefore(startAt.minusDays(1), info.page, info.pageSize)
+                if (info.descending) ReleaseRepository.getAfter(startAt, info.page, info.pageSize)
+                else ReleaseRepository.getBefore(startAt.minusDays(1), info.page, info.pageSize)
             scope.launch(Dispatchers.Main) {
                 onResponse(releases, info, callback)
             }
@@ -93,7 +91,7 @@ class ReleaseDataSource(
                     true -> info.previousDate == null || date != info.previousDate
                     false -> index != 0
                 }
-                if (dataLoader.appendDateItems() && appendDate) {
+                if (appendDate) {
                     items.add(ReleaseDateItem(date))
                 }
 
@@ -110,7 +108,7 @@ class ReleaseDataSource(
         }
 
         if (items.size < info.pageSize) {
-            if (dataLoader.appendDateItems() && !info.descending && info.previousDate != null) {
+            if (!info.descending && info.previousDate != null) {
                 items.add(ReleaseDateItem(info.previousDate))
             }
             callback.onResult(items, null)
@@ -129,7 +127,7 @@ class ReleaseDataSource(
                 val appendMissingDate = info.page == 0
                         && !info.descending
                         && items.lastOrNull()?.date != previousDate
-                if (dataLoader.appendDateItems() && appendMissingDate) {
+                if (appendMissingDate) {
                     items.add(ReleaseDateItem(previousDate))
                 }
             }
