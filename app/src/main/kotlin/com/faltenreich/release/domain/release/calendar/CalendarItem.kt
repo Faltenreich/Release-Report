@@ -7,5 +7,5 @@ interface CalendarItem : DateProvider {
     // Used for list items whose date must not match the month (e.g. when filling up a month for a full row)
     val yearMonth: YearMonth
     val isInSameMonth: Boolean
-        get() = date.month == yearMonth.month
+        get() = date?.month == yearMonth.month
 }

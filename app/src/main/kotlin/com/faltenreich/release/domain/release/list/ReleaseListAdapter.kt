@@ -6,7 +6,6 @@ import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.date.DateProviderDiffUtilCallback
 import com.faltenreich.release.framework.android.view.recyclerview.adapter.PagedListAdapter
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
-import org.threeten.bp.LocalDate
 
 class ReleaseListAdapter(
     context: Context
@@ -29,25 +28,6 @@ class ReleaseListAdapter(
             VIEW_TYPE_RELEASE -> ReleaseDetailViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>
-    }
-
-    fun getFirstPositionForDate(date: LocalDate): Int? {
-        return listItems.indexOfFirst { item -> item.date.isEqual(date) }.takeIf { index -> index >= 0 }
-    }
-
-    /**
-     * @return Either the index of the last header item before or equal the given date, or the next one
-     */
-    fun getNearestPositionForDate(date: LocalDate): Int? {
-        return listItems.indexOfLast { item ->
-            item is ReleaseDateItem && (item.date.isEqual(date) || item.date.isBefore(date))
-        }.takeIf { index ->
-            index >= 0
-        } ?: listItems.indexOfFirst { item ->
-            item is ReleaseDateItem && item.date.isAfter(date)
-        }.takeIf { index ->
-            index >= 0
-        }
     }
 
     companion object {

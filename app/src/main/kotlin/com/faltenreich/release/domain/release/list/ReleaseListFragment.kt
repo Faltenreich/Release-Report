@@ -11,6 +11,7 @@ import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
+import com.faltenreich.release.domain.release.DateProviderNavigation
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
@@ -25,7 +26,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         arguments?.run { ReleaseListFragmentArgs.fromBundle(this).date?.asLocalDate }
     }
 
-    private val listAdapter: ReleaseListAdapter? by lazy { context?.let { context -> ReleaseListAdapter(context) } }
+    private val listAdapter: ReleaseListAdapter by lazy { ReleaseListAdapter(requireContext()) }
     private lateinit var listLayoutManager: LinearLayoutManager
     private val listSpacing by lazy { context?.resources?.getDimension(SPACING_RES_DEFAULT)?.toInt() ?: 0 }
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 8) }
@@ -64,11 +65,10 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
             }
         })
 
-        listAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+        listAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
-                val totalItemCount = listAdapter?.itemCount ?: 0
-                val isInitialLoad = itemCount > 0 && itemCount == totalItemCount
+                val isInitialLoad = itemCount > 0 && itemCount == listAdapter.itemCount
                 if (isInitialLoad) {
                     scrollTo(date ?: Now.localDate())
                 }
@@ -80,22 +80,21 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         listSkeleton.showSkeleton()
         viewModel.observeReleases(date, this) { list ->
             listSkeleton.showOriginal()
-            listAdapter?.submitList(list)
+            listAdapter.submitList(list)
         }
     }
 
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleListItem = listAdapter?.currentList?.getOrNull(firstVisibleListItemPosition)
+        val firstVisibleListItem = listAdapter.currentList?.getOrNull(firstVisibleListItemPosition)
         val currentDate = firstVisibleListItem?.date ?: return
         toolbar.title = currentDate.print(context)
     }
 
     private fun scrollTo(date: LocalDate) {
         if (isAdded) {
-            val position = listAdapter?.getFirstPositionForDate(date)
-                ?: listAdapter?.getNearestPositionForDate(date)
-                ?: return
+            val navigation = DateProviderNavigation(listAdapter)
+            val position = navigation.getNearestPositionForDate(date) ?: return
             listView.stopScroll()
             // Skip header since date is being displayed in Toolbar as well
             listLayoutManager.scrollToPositionWithOffset(position + 1, listSpacing)

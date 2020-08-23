@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
+import com.faltenreich.release.domain.release.DateProviderNavigation
 import com.faltenreich.release.domain.release.list.ReleaseListItemDecoration
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -27,6 +28,11 @@ class SubscriptionListFragment : BaseFragment(R.layout.fragment_subscription_lis
     private val listSpacing by lazy { requireContext().resources?.getDimension(SPACING_RES_DEFAULT)?.toInt() ?: 0 }
     private val listSkeleton by lazy { SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_detail, 8) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        init()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
@@ -35,12 +41,14 @@ class SubscriptionListFragment : BaseFragment(R.layout.fragment_subscription_lis
         }
     }
 
+    private fun init() {
+        listAdapter = SubscriptionListAdapter(requireContext())
+    }
+
     private fun initLayout() {
         toolbar.setNavigationOnClickListener { finish() }
 
-        listAdapter = SubscriptionListAdapter(requireContext())
         listLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-
         listView.layoutManager = listLayoutManager
         listView.adapter = listAdapter
         listView.addItemDecoration(ReleaseListItemDecoration(requireContext(), listSpacing))
@@ -64,7 +72,11 @@ class SubscriptionListFragment : BaseFragment(R.layout.fragment_subscription_lis
 
     private fun scrollTo(date: LocalDate) {
         if (isAdded) {
-            // TODO
+            val navigation = DateProviderNavigation(listAdapter)
+            val position = navigation.getNearestPositionForDate(date) ?: return
+            listView.stopScroll()
+            // Skip header since date is being displayed in Toolbar as well
+            listLayoutManager.scrollToPositionWithOffset(position + 1, listSpacing)
         }
     }
 }
