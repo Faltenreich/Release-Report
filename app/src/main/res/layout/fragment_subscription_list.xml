@@ -22,8 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@android:color/transparent"
-            app:title="@string/subscriptions"
-            app:titleTextColor="@color/text_light_primary" />
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/subscriptions" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
