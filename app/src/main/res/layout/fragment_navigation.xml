@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?backgroundColorPrimary"
-    app:itemIconTint="?android:textColorPrimary"
-    app:itemTextColor="?android:textColorPrimary"
     app:itemIconPadding="@dimen/margin_padding_size_large"
-    app:menu="@menu/navigation"/>
+    app:itemIconTint="?android:textColorPrimary"
+    app:itemShapeFillColor="@color/navigation_item_background"
+    app:itemTextColor="?android:textColorPrimary"
+    app:menu="@menu/navigation" />
