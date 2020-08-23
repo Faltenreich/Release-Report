@@ -32,6 +32,6 @@
         app:backgroundTint="?backgroundColorSecondary"
         app:elevation="0dp"
         app:layout_anchor="@id/bottomAppBar"
-        tools:src="@drawable/ic_subscription_on" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

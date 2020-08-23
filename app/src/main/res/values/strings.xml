@@ -49,8 +49,8 @@
     <string name="weekly">Weekly</string>
     <string name="yesterday">Yesterday</string>
     <string name="video_play">Play video</string>
-    <string name="web_search">Web search</string>
-    <string name="web_open">Open in web</string>
+    <string name="web_search">Search online</string>
+    <string name="web_open">Open homepage</string>
     <string name="info">Info</string>
     <string name="images">Images</string>
     <string name="videos">Videos</string>
