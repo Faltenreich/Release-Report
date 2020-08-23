@@ -57,7 +57,6 @@
 
     </FrameLayout>
 
-    <!-- Workaround: Hide BottomAppBar instead of setting vague padding -->
     <com.lapism.search.widget.MaterialSearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"

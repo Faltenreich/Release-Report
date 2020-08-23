@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -13,7 +14,9 @@ import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.base.primitive.nonBlank
 import com.faltenreich.release.domain.date.DatePickerOpener
+import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
+import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.search.SearchListAdapter
 import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.fragment.BaseFragment
@@ -128,13 +131,18 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private fun initData(date: LocalDate) {
         listSkeleton.showSkeleton()
         listItemDecoration.isSkeleton = true
+        viewModel.observeReleases(date, this, ::setReleases)
+        viewModel.observeQuery(this, ::setSearchResults)
+    }
 
-        viewModel.observeReleases(date, this) { list ->
-            listSkeleton.showOriginal()
-            listItemDecoration.isSkeleton = false
-            listAdapter.submitList(list)
-        }
-        viewModel.observeQuery(this) { list -> searchListAdapter.submitList(list) }
+    private fun setReleases(list: PagedList<DateProvider>?) {
+        listSkeleton.showOriginal()
+        listItemDecoration.isSkeleton = false
+        listAdapter.submitList(list)
+    }
+
+    private fun setSearchResults(list: PagedList<ReleaseProvider>?) {
+        searchListAdapter.submitList(list)
     }
 
     private fun invalidateListHeader() {
