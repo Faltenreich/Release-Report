@@ -60,6 +60,11 @@ abstract class BaseFragment(
         isViewCreated = true
     }
 
+    override fun onResume() {
+        super.onResume()
+        hideKeyboard()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menuResId?.let { menuResId -> inflater.inflate(menuResId, menu) }

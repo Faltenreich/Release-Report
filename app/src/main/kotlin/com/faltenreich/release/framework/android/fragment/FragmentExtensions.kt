@@ -12,7 +12,3 @@ fun Fragment.hideKeyboard() {
 fun DialogFragment.showSafely(manager: FragmentManager?, tag: String? = null) {
     manager?.let { show(it, tag) }
 }
-
-fun Fragment.invalidateOptionsMenu() {
-    activity?.invalidateOptionsMenu()
-}
