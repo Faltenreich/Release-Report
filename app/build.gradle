@@ -13,8 +13,8 @@ android {
         applicationId 'com.faltenreich.release'
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName '0.3.0'
+        versionCode 5
+        versionName '0.4.0'
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
