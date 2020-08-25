@@ -90,7 +90,6 @@ class ReleaseDetailFragment : BaseFragment(
             videoIndicatorView.scaleY = scale
         })
 
-        collapsingToolbarLayout.setExpandedTitleColor(context.getColorFromAttribute(android.R.attr.textColorPrimary))
         wallpaperImageView.setOnClickListener {
             val release = viewModel.release
             val imageUrl = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper

@@ -46,16 +46,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
-                <View
-                    android:id="@+id/wallpaperScrim"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/scrim_height"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/scrim_bottom"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
                 <ImageView
                     android:id="@+id/videoIndicatorView"
                     android:layout_width="@dimen/image_size_small"

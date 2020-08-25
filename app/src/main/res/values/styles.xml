@@ -20,7 +20,8 @@
         <item name="titleTextAppearance">@android:style/TextAppearance.Medium</item>
     </style>
 
-    <style name="CollapsingToolbarTitleExpanded" parent="@android:style/TextAppearance.Medium">
+    <style name="CollapsingToolbarTitleExpanded" parent="@android:style/TextAppearance">>
+        <item name="android:textColor">@android:color/transparent</item>
         <item name="android:textSize">@dimen/text_size_xlarge</item>
         <item name="android:ellipsize">end</item>
     </style>
