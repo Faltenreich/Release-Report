@@ -19,8 +19,9 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
             app:collapsedTitleTextAppearance="@style/Toolbar"
-            app:contentScrim="?backgroundColorSecondary"
+            app:contentScrim="@color/background_dark_secondary"
             app:expandedTitleMarginBottom="@dimen/margin_padding_size_xlarge"
             app:expandedTitleMarginStart="@dimen/margin_padding_size_large"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleExpanded"
@@ -37,6 +38,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:contentDescription="@null"
+                    android:background="@color/background_dark_secondary"
                     android:foreground="?selectableItemBackground"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -45,6 +47,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/backgrounds/scenic" />
+
+                <View
+                    android:id="@+id/wallpaperScrim"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/scrim_height"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/scrim_bottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:id="@+id/videoIndicatorView"
@@ -82,16 +94,14 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Workaround: paddingEnd leaves enough space for fab
-        but adds strange scroll behavior when tabs do not occupy whole width,
-        so we leave it like that at this point -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             style="@style/Widget.MaterialComponents.TabLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
             android:backgroundTint="@android:color/transparent"
-            app:tabContentStart="30dp"
             app:tabIndicatorColor="?android:textColorPrimary"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="?android:textColorPrimary"

@@ -27,8 +27,10 @@
             android:id="@+id/coverImageView"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
+            android:minWidth="100dp"
             android:layout_marginTop="@dimen/margin_padding_size_small"
             android:adjustViewBounds="true"
+            android:background="?backgroundColorSecondary"
             android:contentDescription="@null"
             android:foreground="?selectableItemBackground"
             tools:src="@tools:sample/avatars" />

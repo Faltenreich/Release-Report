@@ -21,6 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
+            android:background="?backgroundColorSecondary"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -15,6 +15,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin_padding_size_small"
         android:adjustViewBounds="true"
+        android:background="?backgroundColorSecondary"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,8 +62,8 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:tint="@color/red"
-        tools:src="@drawable/ic_music" />
+        tools:src="@drawable/ic_music"
+        tools:tint="@color/red" />
 
     <TextView
         android:id="@+id/titleTextView"

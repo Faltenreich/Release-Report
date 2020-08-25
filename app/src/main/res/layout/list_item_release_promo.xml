@@ -14,6 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
+        android:background="@color/background_dark_secondary"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,6 +34,7 @@
         android:paddingTop="@dimen/margin_padding_size_xxlarge"
         android:paddingEnd="@dimen/margin_padding_size_medium"
         android:paddingBottom="@dimen/margin_padding_size_medium"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView">
