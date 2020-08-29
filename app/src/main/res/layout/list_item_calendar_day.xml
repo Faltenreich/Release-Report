@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="12dp"
-        android:background="@drawable/background_round_white"
+        android:background="@drawable/background_round_foreground"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
@@ -54,8 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/date/day_of_week"
-        tools:textColor="?android:textColorPrimary" />
+        tools:text="@tools:sample/date/day_of_week" />
 
     <ImageView
         android:id="@+id/subscriptionImageView"
