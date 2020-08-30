@@ -1,9 +1,11 @@
 package com.faltenreich.release.domain.release.detail
 
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -52,7 +54,7 @@ class ReleaseInfoFragment : BaseFragment(
     }
 
     private fun setMetadata(release: Release?) {
-        coverImageView.setCover(release)
+        coverImageView.setCover(release, ::setCoverWidth)
 
         titleTextView.text = release?.title
         artistTextView.text = release?.artist
@@ -63,6 +65,20 @@ class ReleaseInfoFragment : BaseFragment(
         setType(release)
         setPopularity(release)
         setDate(release)
+    }
+
+    private fun setCoverWidth(cover: Drawable?) {
+        val height = coverImageView.layoutParams.height
+        val width =
+            if (cover != null) ViewGroup.LayoutParams.WRAP_CONTENT
+            else calculateCoverWidth(height)
+        coverImageView.layoutParams = LinearLayout.LayoutParams(width, height)
+    }
+
+    private fun calculateCoverWidth(height: Int): Int {
+        val aspectWidth = resources.getInteger(R.integer.aspect_ratio_portrait_width)
+        val aspectHeight =  resources.getInteger(R.integer.aspect_ratio_portrait_height)
+        return (height.toFloat() * (aspectWidth.toFloat() / aspectHeight.toFloat())).toInt()
     }
 
     private fun setDate(release: Release?) {

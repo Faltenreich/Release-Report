@@ -2,7 +2,10 @@
 
 <resources>
 
+    <integer name="aspect_ratio_portrait_width">528</integer>
+    <integer name="aspect_ratio_portrait_height">704</integer>
     <string name="aspect_ratio_portrait">528:704</string>
+
     <string name="aspect_ratio_landscape">16:9</string>
 
     <dimen name="toolbar_height">48dp</dimen>
