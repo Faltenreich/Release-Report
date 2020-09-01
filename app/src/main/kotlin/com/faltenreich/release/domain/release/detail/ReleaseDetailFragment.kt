@@ -77,8 +77,6 @@ class ReleaseDetailFragment : BaseFragment(
     }
 
     private fun initLayout() {
-        val context = context ?: return
-
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.fitSystemWindows()
 
@@ -90,12 +88,7 @@ class ReleaseDetailFragment : BaseFragment(
             videoIndicatorView.scaleY = scale
         })
 
-        wallpaperImageView.setOnClickListener {
-            val release = viewModel.release
-            val imageUrl = release?.videoUrls?.firstOrNull() ?: release?.imageUrlForWallpaper
-            imageUrl ?: return@setOnClickListener
-            openImage(findNavController(), release, imageUrl)
-        }
+        wallpaperImageView.setOnClickListener { openVideoOrImage() }
 
         viewPager.adapter = ReleaseDetailFragmentAdapter(this)
         tabLayout.setupWithViewPager2(viewPager)
@@ -110,7 +103,7 @@ class ReleaseDetailFragment : BaseFragment(
         val release = viewModel.release
         collapsingToolbarLayout.title = release?.title
         wallpaperImageView.setWallpaper(release)
-        videoIndicatorView.isVisible = release?.videoUrls?.firstOrNull() != null
+        videoIndicatorView.isVisible = release?.videoUrls?.isNotEmpty().isTrue
     }
 
     private fun invalidateSubscription() {
@@ -145,6 +138,15 @@ class ReleaseDetailFragment : BaseFragment(
         val isSubscribed = !(viewModel.release?.isSubscribed.isTrue)
         viewModel.release?.isSubscribed = isSubscribed
         invalidateSubscription()
+    }
+
+    private fun openVideoOrImage() {
+        val release = viewModel.release
+        release?.videoUrls?.firstOrNull()?.let { videoUrl ->
+            openUrl(videoUrl)
+        } ?: release?.imageUrlForWallpaper?.let { imageUrl ->
+            openImage(findNavController(), release, imageUrl)
+        }
     }
 
     private fun openUrl(url: String?) {
