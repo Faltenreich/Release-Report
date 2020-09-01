@@ -32,6 +32,7 @@
     </style>
 
     <style name="ListHeader">
+        <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingStart">@dimen/margin_padding_size_medium</item>
         <item name="android:paddingEnd">@dimen/margin_padding_size_medium</item>
