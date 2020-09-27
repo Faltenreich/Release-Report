@@ -9,6 +9,7 @@ import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.list.ReleaseItem
 import com.faltenreich.release.framework.android.view.recyclerview.adapter.PagedListAdapter
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
+import org.threeten.bp.LocalDate
 
 class DiscoverListAdapter(
     context: Context
@@ -31,6 +32,10 @@ class DiscoverListAdapter(
             VIEW_TYPE_RELEASE -> DiscoverViewHolder(context, parent)
             else -> throw IllegalArgumentException("Unknown viewType: $viewType")
         } as BaseViewHolder<DateProvider>
+    }
+
+    fun findFirstVisibleDateForPosition(position: Int): LocalDate? {
+        return currentList?.getOrNull(position)?.date
     }
 
     companion object {

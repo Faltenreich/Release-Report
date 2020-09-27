@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
+import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
 import org.threeten.bp.LocalDate
 
@@ -16,12 +17,20 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val date = date ?: Now.localDate()
-        return DatePickerDialog(requireContext(), this, date.year, date.monthValue - 1, date.dayOfMonth)
+        return DatePickerDialog(
+            requireContext(),
+            R.style.DateTimePicker,
+            this,
+            date.year,
+            date.monthValue - 1,
+            date.dayOfMonth
+        )
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val onValueChanged = onValueChanged ?: return
         val date = LocalDate.of(year, month + 1, dayOfMonth)
-        onValueChanged?.invoke(date)
+        onValueChanged(date)
     }
 
     companion object {

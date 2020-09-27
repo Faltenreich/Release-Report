@@ -86,8 +86,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
 
     private fun invalidateListHeader() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleListItem = listAdapter.currentList?.getOrNull(firstVisibleListItemPosition)
-        val currentDate = firstVisibleListItem?.date ?: return
+        val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleListItemPosition)
+        val currentDate = firstVisibleDate ?: return
         toolbar.title = currentDate.print(context)
     }
 
@@ -102,6 +102,8 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     }
 
     private fun openDatePicker() {
-        openDatePicker(childFragmentManager) { date -> initData(date) }
+        val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
+        val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleListItemPosition)
+        openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::initData)
     }
 }

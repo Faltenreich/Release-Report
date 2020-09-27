@@ -61,9 +61,15 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> { openDatePicker(childFragmentManager) { date -> initData(date) }; true }
+            R.id.date -> { openDatePicker(); true }
             else -> false
         }
+    }
+
+    private fun openDatePicker() {
+        val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
+        val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleItemPosition)
+        openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::initData)
     }
 
     private fun init() {
@@ -146,9 +152,9 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     }
 
     private fun invalidateListHeader() {
-        val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleListItem = listAdapter.currentList?.getOrNull(firstVisibleListItemPosition)
-        firstVisibleListItem?.date?.let { currentDate ->
+        val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
+        val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleItemPosition)
+        firstVisibleDate?.let { currentDate ->
             headerTextView.text = currentDate.print(context)
             headerTextView.isVisible = true
         } ?: run {
@@ -160,7 +166,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         val approachingHeader = secondVisibleListItem is ReleaseDateItem
 
         headerTextView.translationY = if (approachingHeader) {
-            val headerIndexInLayoutManager = firstCompletelyVisibleListItemPosition - firstVisibleListItemPosition
+            val headerIndexInLayoutManager = firstCompletelyVisibleListItemPosition - firstVisibleItemPosition
             val headerHeight = headerTextView.height
             val secondVisibleListItemTop = listLayoutManager.getChildAt(headerIndexInLayoutManager)?.top ?: headerHeight
             val translateHeader = secondVisibleListItemTop != 0 && abs(secondVisibleListItemTop) < headerHeight
