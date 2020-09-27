@@ -42,13 +42,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.date -> {
-                openYearMonthPicker(childFragmentManager, viewModel.yearMonth) { yearMonth ->
-                    viewModel.yearMonth = yearMonth
-                    initData(yearMonth)
-                }
-                true
-            }
+            R.id.date -> { openYearMonthPicker(); true }
             else -> false
         }
     }
@@ -133,5 +127,12 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), 
         header.translationY = translationY
 
         viewModel.yearMonth = firstVisibleYearMonth
+    }
+
+    private fun openYearMonthPicker() {
+        openYearMonthPicker(childFragmentManager, viewModel.yearMonth) { yearMonth ->
+            viewModel.yearMonth = yearMonth
+            initData(yearMonth)
+        }
     }
 }

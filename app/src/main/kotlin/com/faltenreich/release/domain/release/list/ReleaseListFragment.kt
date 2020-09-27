@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
@@ -11,6 +12,7 @@ import com.faltenreich.release.base.date.Now
 import com.faltenreich.release.base.date.asLocalDate
 import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
+import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.DateProviderNavigation
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration.Companion.SPACING_RES_DEFAULT
@@ -42,7 +44,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         if (!isViewCreated) {
-            initData(date ?: Now.localDate())
+            setDate(date ?: Now.localDate())
         }
     }
 
@@ -76,12 +78,14 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         })
     }
 
-    private fun initData(date: LocalDate) {
+    private fun setDate(date: LocalDate) {
         listSkeleton.showSkeleton()
-        viewModel.observeReleases(date, this) { list ->
-            listSkeleton.showOriginal()
-            listAdapter.submitList(list)
-        }
+        viewModel.observeReleases(date, this, ::setReleases)
+    }
+
+    private fun setReleases(list: PagedList<DateProvider>?) {
+        listSkeleton.showOriginal()
+        listAdapter.submitList(list)
     }
 
     private fun invalidateListHeader() {
@@ -105,6 +109,6 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleListItemPosition)
         // FIXME: Date jumps back after selection
-        openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::initData)
+        openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::setDate)
     }
 }

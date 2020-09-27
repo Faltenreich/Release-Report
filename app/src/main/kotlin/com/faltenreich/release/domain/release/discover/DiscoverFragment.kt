@@ -50,7 +50,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         initSearch()
         initList()
         if (!isViewCreated) {
-            initData(Now.localDate())
+            setDate(Now.localDate())
         }
     }
 
@@ -64,12 +64,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             R.id.date -> { openDatePicker(); true }
             else -> false
         }
-    }
-
-    private fun openDatePicker() {
-        val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
-        val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleItemPosition)
-        openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::initData)
     }
 
     private fun init() {
@@ -134,7 +128,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         })
     }
 
-    private fun initData(date: LocalDate) {
+    private fun setDate(date: LocalDate) {
         listSkeleton.showSkeleton()
         listItemDecoration.isSkeleton = true
         viewModel.observeReleases(date, this, ::setReleases)
@@ -180,5 +174,11 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         } else {
             0f
         }
+    }
+
+    private fun openDatePicker() {
+        val firstVisibleItemPosition = listLayoutManager.findFirstVisibleItemPosition()
+        val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleItemPosition)
+        openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::setDate)
     }
 }
