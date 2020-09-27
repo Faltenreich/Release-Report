@@ -9,6 +9,7 @@ private fun ImageView.setImage(
     url: String?,
     callback: ((Drawable?) -> Unit)?
 ) {
+    // FIXME: Missing fallback
     url?.let {
         setImageAsync(url, null, callback)
     } ?: callback?.invoke(null)

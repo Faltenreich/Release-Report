@@ -1,14 +1,15 @@
 package com.faltenreich.release.domain.release.discover
 
 import android.content.Context
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.faltenreich.release.R
+import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.setCover
+import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.view.backgroundTint
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_image.*
@@ -21,6 +22,7 @@ class DiscoverViewHolder(
 
     init {
         container.setOnClickListener { openRelease() }
+        subscriptionImageView.setOnClickListener { toggleSubscription() }
     }
 
     override fun onBind(data: ReleaseProvider) {
@@ -39,10 +41,27 @@ class DiscoverViewHolder(
             release.releaseType?.colorResId ?: android.R.color.transparent
         )
 
-        subscriptionImageView.visibility = if (release.isSubscribed) View.VISIBLE else View.GONE
+        invalidateSubscription(release)
+    }
+
+    private fun invalidateSubscription(release: Release) {
+        subscriptionImageView.setImageResource(
+            if (release.isSubscribed) R.drawable.ic_subscription_on
+            else R.drawable.ic_subscription_off
+        )
+        subscriptionImageView.backgroundTint =
+            if (release.isSubscribed) ContextCompat.getColor(context, R.color.yellow)
+            else context.getColorFromAttribute(R.attr.backgroundColorSecondary)
     }
 
     private fun openRelease() {
         openRelease(navigationController, data.release, coverImageView)
+    }
+
+    private fun toggleSubscription() {
+        val release = data.release
+        val isSubscribed = !(release.isSubscribed)
+        release.isSubscribed = isSubscribed
+        invalidateSubscription(release)
     }
 }

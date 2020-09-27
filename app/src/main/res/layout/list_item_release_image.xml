@@ -50,10 +50,10 @@
             android:background="@drawable/dogear_subscription"
             android:contentDescription="@null"
             android:padding="@dimen/dogear_medium_padding"
-            android:src="@drawable/ic_subscription_on"
             app:layout_constraintEnd_toEndOf="@+id/coverImageView"
             app:layout_constraintTop_toTopOf="@+id/coverImageView"
-            app:tint="@color/brown" />
+            app:tint="@color/brown"
+            tools:src="@drawable/ic_subscription_on" />
 
         <TextView
             android:id="@+id/titleTextView"
