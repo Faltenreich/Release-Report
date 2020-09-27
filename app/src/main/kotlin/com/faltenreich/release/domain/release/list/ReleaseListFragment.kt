@@ -104,6 +104,7 @@ class ReleaseListFragment : BaseFragment(R.layout.fragment_release_list, R.menu.
     private fun openDatePicker() {
         val firstVisibleListItemPosition = listLayoutManager.findFirstVisibleItemPosition()
         val firstVisibleDate = listAdapter.findFirstVisibleDateForPosition(firstVisibleListItemPosition)
+        // FIXME: Date jumps back after selection
         openDatePicker(childFragmentManager, firstVisibleDate, onValueSelected = ::initData)
     }
 }

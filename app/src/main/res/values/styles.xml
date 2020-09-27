@@ -29,6 +29,7 @@
 
     <style name="DateTimePicker" parent="Base.ThemeOverlay.AppCompat.Dialog">
         <item name="android:windowBackground">?backgroundColorPrimary</item>
+        <item name="colorPrimary">?android:textColorPrimary</item>
     </style>
 
     <style name="PaddingLayout">
