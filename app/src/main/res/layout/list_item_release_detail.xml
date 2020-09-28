@@ -34,47 +34,32 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
-        app:layout_constraintEnd_toStartOf="@id/typeImageView"
+        app:layout_constraintEnd_toStartOf="@id/subscriptionImageView"
         app:layout_constraintStart_toEndOf="@id/coverImageView"
         app:layout_constraintTop_toTopOf="@id/coverImageView"
         tools:text="@tools:sample/date/ddmmyy" />
 
     <ImageView
         android:id="@+id/subscriptionImageView"
-        android:layout_width="@dimen/image_size_xsmall"
-        android:layout_height="@dimen/image_size_xsmall"
-        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:layout_width="@dimen/standard_touch_size"
+        android:layout_height="@dimen/standard_touch_size"
+        android:background="?selectableItemBackgroundBorderless"
         android:contentDescription="@string/subscription"
-        android:src="@drawable/ic_subscription_on"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/typeImageView"
-        app:layout_constraintTop_toTopOf="@id/typeImageView"
-        app:tint="@color/yellow"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/typeImageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="@dimen/margin_padding_size_xsmall"
-        android:layout_marginEnd="@dimen/margin_padding_size_medium"
-        android:contentDescription="@null"
+        android:padding="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_music"
-        tools:tint="@color/red" />
+        tools:src="@drawable/ic_subscription_on"
+        tools:tint="@color/yellow" />
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_padding_size_medium"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:textColorPrimary"
-        app:layout_constraintEnd_toEndOf="@id/typeImageView"
-        app:layout_constraintStart_toEndOf="@id/coverImageView"
+        app:layout_constraintEnd_toEndOf="@id/releaseDateTextView"
+        app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
         app:layout_constraintTop_toBottomOf="@id/releaseDateTextView"
         tools:text="@tools:sample/lorem" />
 
@@ -82,13 +67,12 @@
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_padding_size_medium"
-        android:layout_marginTop="@dimen/margin_padding_size_xxsmall"
+        android:layout_marginTop="@dimen/margin_padding_size_xxxsmall"
         android:ellipsize="end"
         android:maxLines="3"
         android:textColor="?android:textColorSecondary"
-        app:layout_constraintEnd_toEndOf="@id/typeImageView"
-        app:layout_constraintStart_toEndOf="@id/coverImageView"
+        app:layout_constraintEnd_toEndOf="@id/subscriptionImageView"
+        app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         tools:text="@tools:sample/lorem/random" />
 

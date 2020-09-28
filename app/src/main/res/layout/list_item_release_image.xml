@@ -32,23 +32,12 @@
             tools:src="@tools:sample/avatars" />
 
         <ImageView
-            android:id="@+id/typeImageView"
-            android:layout_width="@dimen/dogear_medium"
-            android:layout_height="@dimen/dogear_medium"
-            android:background="@drawable/dogear_type"
-            android:contentDescription="@null"
-            android:padding="@dimen/dogear_medium_padding"
-            app:layout_constraintStart_toStartOf="@+id/coverImageView"
-            app:layout_constraintTop_toTopOf="@+id/coverImageView"
-            tools:src="@drawable/ic_music"
-            tools:tint="?attr/colorPrimary" />
-
-        <ImageView
             android:id="@+id/subscriptionImageView"
             android:layout_width="@dimen/dogear_medium"
             android:layout_height="@dimen/dogear_medium"
             android:background="@drawable/dogear_subscription"
             android:contentDescription="@null"
+            android:foreground="?android:selectableItemBackground"
             android:padding="@dimen/dogear_medium_padding"
             app:layout_constraintEnd_toEndOf="@+id/coverImageView"
             app:layout_constraintTop_toTopOf="@+id/coverImageView"

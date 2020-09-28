@@ -12,7 +12,6 @@ import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.animation.ColorAnimation
 import com.faltenreich.release.framework.android.animation.provider.ViewBackgroundTintProvider
 import com.faltenreich.release.framework.android.context.getColorFromAttribute
-import com.faltenreich.release.framework.android.view.backgroundTint
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_release_image.*
 
@@ -36,12 +35,6 @@ class DiscoverViewHolder(
         coverImageView.setCover(release) { cover ->
             titleTextView.isVisible = cover == null
         }
-
-        typeImageView.setImageResource(release.releaseType?.iconResId ?: android.R.color.transparent)
-        typeImageView.backgroundTint = ContextCompat.getColor(
-            context,
-            release.releaseType?.colorResId ?: android.R.color.transparent
-        )
 
         invalidateSubscription(release)
     }

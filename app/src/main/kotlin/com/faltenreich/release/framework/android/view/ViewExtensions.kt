@@ -9,6 +9,10 @@ var View.backgroundTint: Int?
     get() = backgroundTintList?.defaultColor
     set(value) { backgroundTintList = value?.let { ColorStateList.valueOf(value) } }
 
+var View.foregroundTint: Int?
+    get() = foregroundTintList?.defaultColor
+    set(value) { foregroundTintList = value?.let { ColorStateList.valueOf(value) } }
+
 val View.activity: Activity?
     get() {
         var context = context
