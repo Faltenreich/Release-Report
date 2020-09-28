@@ -10,6 +10,7 @@ import com.faltenreich.release.domain.release.detail.ReleaseOpener
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.setCover
 import com.faltenreich.release.framework.android.animation.ColorAnimation
+import com.faltenreich.release.framework.android.animation.provider.ImageViewTintProvider
 import com.faltenreich.release.framework.android.animation.provider.ViewBackgroundTintProvider
 import com.faltenreich.release.framework.android.context.getColorFromAttribute
 import com.faltenreich.release.framework.android.view.recyclerview.viewholder.BaseViewHolder
@@ -44,10 +45,16 @@ class DiscoverViewHolder(
             if (release.isSubscribed) R.drawable.ic_subscription_on
             else R.drawable.ic_subscription_off
         )
+
         val backgroundColor =
             if (release.isSubscribed) ContextCompat.getColor(context, R.color.yellow)
             else context.getColorFromAttribute(R.attr.backgroundColorSecondary)
         ColorAnimation(ViewBackgroundTintProvider(subscriptionImageView), backgroundColor).start()
+
+        val foregroundColor =
+            if (release.isSubscribed) ContextCompat.getColor(context, R.color.brown)
+            else context.getColorFromAttribute(android.R.attr.textColorSecondary)
+        ColorAnimation(ImageViewTintProvider(subscriptionImageView), foregroundColor).start()
     }
 
     private fun openRelease() {

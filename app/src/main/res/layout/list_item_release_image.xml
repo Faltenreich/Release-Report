@@ -41,8 +41,8 @@
             android:padding="@dimen/dogear_medium_padding"
             app:layout_constraintEnd_toEndOf="@+id/coverImageView"
             app:layout_constraintTop_toTopOf="@+id/coverImageView"
-            app:tint="@color/brown"
-            tools:src="@drawable/ic_subscription_on" />
+            tools:src="@drawable/ic_subscription_on"
+            tools:tint="@color/brown" />
 
         <TextView
             android:id="@+id/titleTextView"
