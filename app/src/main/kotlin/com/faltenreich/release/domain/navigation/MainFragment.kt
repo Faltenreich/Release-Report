@@ -1,16 +1,14 @@
 package com.faltenreich.release.domain.navigation
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.release.R
+import com.faltenreich.release.framework.android.animation.ColorAnimation
+import com.faltenreich.release.framework.android.animation.ViewBackgroundColorProvider
 import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.framework.android.view.fab.backgroundTint
 import com.faltenreich.release.framework.android.view.fab.foregroundTint
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -49,30 +47,13 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun setFabConfig(fabConfig: FabConfig?) {
-        val shouldAnimate = fab.isVisible
         if (fabConfig != null) {
             if (fab.isOrWillBeHidden) {
                 fab.show()
             }
             fab.setImageDrawable(fabConfig.icon)
             fab.foregroundTint = fabConfig.foregroundColor
-
-            val backgroundColorFrom = fab.backgroundTint
-            val backgroundColorTo = fabConfig.backgroundColor
-            if (backgroundColorFrom != backgroundColorTo) {
-                if (shouldAnimate) {
-                    ValueAnimator.ofObject(ArgbEvaluator(), backgroundColorFrom, backgroundColorTo).apply {
-                        duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
-                        addUpdateListener { animator ->
-                            fab.backgroundTint = animator.animatedValue as Int
-                        }
-
-                    }.start()
-                } else {
-                    fab.backgroundTint = backgroundColorTo
-                }
-
-            }
+            ColorAnimation(ViewBackgroundColorProvider(fab), fabConfig.backgroundColor).start()
         } else {
             if (fab.isOrWillBeShown) {
                 fab.hide()
