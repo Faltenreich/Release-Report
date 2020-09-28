@@ -15,7 +15,7 @@ fun ImageView.setImageAsync(
     GlideApp
         .with(this)
         .load(url)
-        .run { placeholder?.let { placeholder(it) } ?: this }
+        .placeholder(placeholder)
         .listener(object : RequestListener<Drawable> {
 
             override fun onResourceReady(

@@ -1,18 +1,35 @@
 package com.faltenreich.release.domain.release
 
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.faltenreich.release.data.model.Release
 import com.faltenreich.release.framework.glide.setImageAsync
+
 
 private fun ImageView.setImage(
     url: String?,
     callback: ((Drawable?) -> Unit)?
 ) {
-    // FIXME: Missing fallback
+    val placeholder = ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent))
     url?.let {
-        setImageAsync(url, null, callback)
-    } ?: callback?.invoke(null)
+        setImageAsync(url, placeholder) { drawable ->
+            if (drawable == null) {
+                onImageNotFound(placeholder, callback)
+            } else {
+                callback?.invoke(drawable)
+            }
+        }
+    } ?: onImageNotFound(placeholder, callback)
+}
+
+private fun ImageView.onImageNotFound(
+    placeholder: Drawable,
+    callback: ((Drawable?) -> Unit)?
+) {
+    setImageDrawable(placeholder)
+    callback?.invoke(null)
 }
 
 fun ImageView.setWallpaper(
