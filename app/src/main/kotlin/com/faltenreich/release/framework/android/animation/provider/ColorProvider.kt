@@ -1,4 +1,4 @@
-package com.faltenreich.release.framework.android.animation
+package com.faltenreich.release.framework.android.animation.provider
 
 import android.content.Context
 

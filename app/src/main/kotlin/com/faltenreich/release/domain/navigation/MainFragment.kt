@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.faltenreich.release.R
 import com.faltenreich.release.framework.android.animation.ColorAnimation
-import com.faltenreich.release.framework.android.animation.ViewBackgroundColorProvider
+import com.faltenreich.release.framework.android.animation.provider.ViewBackgroundTintProvider
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.fab.foregroundTint
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -53,7 +53,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
             }
             fab.setImageDrawable(fabConfig.icon)
             fab.foregroundTint = fabConfig.foregroundColor
-            ColorAnimation(ViewBackgroundColorProvider(fab), fabConfig.backgroundColor).start()
+            ColorAnimation(ViewBackgroundTintProvider(fab), fabConfig.backgroundColor).start()
         } else {
             if (fab.isOrWillBeShown) {
                 fab.hide()

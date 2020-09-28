@@ -1,11 +1,11 @@
-package com.faltenreich.release.framework.android.animation
+package com.faltenreich.release.framework.android.animation.provider
 
 import android.content.Context
 import android.view.View
 import androidx.core.view.isVisible
 import com.faltenreich.release.framework.android.view.backgroundTint
 
-class ViewBackgroundColorProvider(private val view: View) : ColorProvider {
+class ViewBackgroundTintProvider(private val view: View) : ColorProvider {
 
     override var color: Int?
         get() = view.backgroundTint
