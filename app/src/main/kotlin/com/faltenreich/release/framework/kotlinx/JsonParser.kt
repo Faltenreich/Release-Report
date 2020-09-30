@@ -1,18 +1,18 @@
 package com.faltenreich.release.framework.kotlinx
 
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
 object JsonParser {
 
-    private val parser = Json(JsonConfiguration.Stable)
+    @PublishedApi internal val parser = Json.Default
 
-    fun <T> parseToJson(serializer: KSerializer<T>, entity: T): String {
-        return parser.stringify(serializer, entity)
+    inline fun <reified T> parseToJson(entity: T): String {
+        return parser.encodeToString(entity)
     }
 
-    fun <T : Any> parseFromJson(serializer: KSerializer<T>, json: String): T {
-        return parser.parse(serializer, json)
+    inline fun <reified T : Any> parseFromJson(json: String): T {
+        return parser.decodeFromString(json)
     }
 }

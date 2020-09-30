@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@android:color/black"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="@dimen/card_corner_radius"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,12 +35,13 @@
             android:id="@+id/subscriptionImageView"
             android:layout_width="@dimen/dogear_medium"
             android:layout_height="@dimen/dogear_medium"
-            android:background="@drawable/dogear_subscription"
+            android:background="@drawable/dogear_bottom_left"
             android:contentDescription="@null"
             android:foreground="?android:selectableItemBackground"
             android:padding="@dimen/dogear_medium_padding"
             app:layout_constraintEnd_toEndOf="@+id/coverImageView"
             app:layout_constraintTop_toTopOf="@+id/coverImageView"
+            tools:backgroundTint="@color/yellow"
             tools:src="@drawable/ic_subscription_on"
             tools:tint="@color/brown" />
 

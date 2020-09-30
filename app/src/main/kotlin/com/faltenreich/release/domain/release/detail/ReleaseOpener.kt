@@ -9,7 +9,7 @@ import com.faltenreich.release.framework.kotlinx.JsonParser
 interface ReleaseOpener {
 
     fun openRelease(navigationController: NavController, release: Release, sharedElement: View? = null) {
-        val json = JsonParser.parseToJson(Release.serializer(), release)
+        val json = JsonParser.parseToJson(release)
         navigationController.navigate(MainNavigationDirections.openRelease(json))
     }
 }

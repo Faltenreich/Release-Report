@@ -17,6 +17,6 @@ class ReleaseDetailViewModel : ViewModel() {
 
     fun observeRelease(releaseAsJson: String, owner: LifecycleOwner, onObserve: (Release?) -> Unit) {
         releaseLiveData.observe(owner, Observer(onObserve))
-        release = JsonParser.parseFromJson(Release.serializer(), releaseAsJson)
+        release = JsonParser.parseFromJson(releaseAsJson)
     }
 }

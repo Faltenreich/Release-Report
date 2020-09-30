@@ -48,7 +48,7 @@ class DiscoverViewHolder(
 
         val backgroundColor =
             if (release.isSubscribed) ContextCompat.getColor(context, R.color.yellow)
-            else context.getColorFromAttribute(R.attr.backgroundColorSecondary)
+            else context.getColorFromAttribute(R.attr.backgroundColorPrimary)
         ColorAnimation(ViewBackgroundTintProvider(subscriptionImageView), backgroundColor).start()
 
         val foregroundColor =
