@@ -45,4 +45,17 @@
         <item name="android:paddingBottom">@dimen/margin_padding_size_small</item>
     </style>
 
+    <style name="MonthPickerDialogStyle" >
+        <item name="monthBgColor">?backgroundColorPrimary</item>
+        <item name="monthBgSelectedColor">?android:textColorSecondary</item>
+        <item name="monthFontColorSelected">?android:textColorPrimaryInverse</item>
+        <item name="monthFontColorNormal">?android:textColorPrimary</item>
+        <item name="monthFontColorDisabled">?android:textColorSecondary</item>
+        <item name="headerBgColor">?backgroundColorSecondary</item>
+        <item name="headerFontColorSelected">?android:textColorPrimary</item>
+        <item name="headerFontColorNormal">?android:textColorSecondary</item>
+        <item name="headerTitleColor">?android:textColorPrimary</item>
+        <item name="dialogActionButtonColor">?android:textColorPrimary</item>
+    </style>
+
 </resources>

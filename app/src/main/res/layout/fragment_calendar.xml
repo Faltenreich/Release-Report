@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?backgroundColorSecondary"
     android:fitsSystemWindows="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/list_item_calendar_day"
-        tools:spanCount="7" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?backgroundColorSecondary">
-
-        <TextView
-            android:id="@+id/headerMonthLabel"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/margin_padding_size_large"
-            android:paddingEnd="@dimen/margin_padding_size_large"
-            android:textColor="?android:textColorPrimary"
-            tools:text="@tools:sample/date/mmddyy" />
+            android:layout_height="match_parent"
+            android:background="?backgroundColorPrimary"
+            android:scrollbars="none"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/list_item_calendar_day"
+            tools:spanCount="7" />
 
-        <com.faltenreich.release.domain.release.calendar.WeekView
+        <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="?backgroundColorSecondary"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/headerMonthLabel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/margin_padding_size_large"
+                android:paddingEnd="@dimen/margin_padding_size_large"
+                android:textColor="?android:textColorPrimary"
+                tools:text="@tools:sample/date/mmddyy" />
 
-</FrameLayout>
+            <com.faltenreich.release.domain.release.calendar.WeekView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

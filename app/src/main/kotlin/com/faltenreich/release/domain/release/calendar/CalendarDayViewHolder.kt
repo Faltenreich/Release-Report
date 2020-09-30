@@ -36,7 +36,6 @@ class CalendarDayViewHolder(
             if (isInSameMonth)
                 when {
                     isToday -> context.getColorFromAttribute(android.R.attr.textColorPrimaryInverse)
-                    calendarEvent?.imageUrl != null -> ContextCompat.getColor(context, R.color.text_dark_primary)
                     else -> context.getColorFromAttribute(android.R.attr.textColorPrimary)
                 }
             else context.getColorFromAttribute(android.R.attr.textColorSecondary)
@@ -48,7 +47,9 @@ class CalendarDayViewHolder(
         calendarEvent?.imageUrl?.let { url ->
             coverView.setImageAsync(url) { drawable ->
                 if (drawable != null) {
-                    dayLabel.setTextColor(ContextCompat.getColor(context, R.color.text_dark_primary))
+                    if (!isToday) {
+                        dayLabel.setTextColor(ContextCompat.getColor(context, R.color.text_dark_primary))
+                    }
                     coverScrim.isVisible = true
                 }
             }
