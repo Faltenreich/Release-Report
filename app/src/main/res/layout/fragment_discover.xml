@@ -1,69 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.motion.widget.MotionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    app:layoutDescription="@xml/motion_discover">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarLayout"
-        android:layout_width="match_parent"
+    <View
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="@dimen/margin_padding_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/standard_element_size_large"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/list_item_release_image"
+        tools:spanCount="2" />
+
+    <TextView
+        android:id="@+id/headerTextView"
+        style="@style/ListHeader"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
+        android:background="?backgroundColorPrimary"
+        android:lines="1"
+        android:textColor="?android:textColorSecondary"
+        app:layout_constraintEnd_toEndOf="@id/listView"
+        app:layout_constraintStart_toStartOf="@id/listView"
+        app:layout_constraintTop_toTopOf="@id/listView"
+        tools:text="@tools:sample/date/mmddyy" />
 
-        <!-- Workaround: Adds bottom padding to AppBarLayout -->
-        <View
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/view_empty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/listView"
+        app:layout_constraintEnd_toEndOf="@id/listView"
+        app:layout_constraintStart_toStartOf="@id/listView"
+        app:layout_constraintTop_toTopOf="@id/listView" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/resultView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="?backgroundColorSecondary"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/topBar"
+        app:layout_constraintEnd_toEndOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="@id/topBar">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_marginBottom="@dimen/margin_padding_size_small" />
+            android:orientation="horizontal">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <Button
+                android:id="@+id/searchButton"
+                style="@style/IconButton"
+                android:layout_width="@dimen/standard_element_size"
+                android:layout_height="match_parent"
+                app:icon="@drawable/ic_arrow_back" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <EditText
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/search_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:padding="@dimen/margin_padding_size_small" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/standard_element_size_large"
-            android:scrollbars="none"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/list_item_release_image"
-            tools:spanCount="2" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/headerTextView"
-            style="@style/ListHeader"
-            android:textColor="?android:textColorSecondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?backgroundColorPrimary"
-            android:lines="1"
-            tools:text="@tools:sample/date/mmddyy" />
+    </androidx.cardview.widget.CardView>
 
-        <include
-            android:id="@+id/emptyView"
-            layout="@layout/view_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
-
-    <com.lapism.search.widget.MaterialSearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/bottom_bar_height"
-        app:search_navigation_icon_support="search" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

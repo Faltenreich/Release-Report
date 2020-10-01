@@ -12,6 +12,7 @@
         <item name="android:textColorPrimaryInverse">@color/text_light_primary</item>
         <item name="android:textColorSecondary">@color/text_dark_secondary</item>
         <item name="android:textColorSecondaryInverse">@color/text_light_secondary</item>
+        <item name="android:textColorHint">@color/text_dark_secondary</item>
         <item name="backgroundColorPrimary">@color/background_dark_primary</item>
         <item name="backgroundColorSecondary">@color/background_dark_secondary</item>
     </style>

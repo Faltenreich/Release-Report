@@ -12,6 +12,7 @@
         <item name="android:textColorPrimaryInverse">@color/text_dark_primary</item>
         <item name="android:textColorSecondary">@color/text_light_secondary</item>
         <item name="android:textColorSecondaryInverse">@color/text_dark_secondary</item>
+        <item name="android:textColorHint">@color/text_light_secondary</item>
         <item name="backgroundColorPrimary">@color/background_light_primary</item>
         <item name="backgroundColorSecondary">@color/background_light_secondary</item>
     </style>
@@ -56,6 +57,15 @@
         <item name="headerFontColorNormal">?android:textColorSecondary</item>
         <item name="headerTitleColor">?android:textColorPrimary</item>
         <item name="dialogActionButtonColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="IconButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
     </style>
 
 </resources>
