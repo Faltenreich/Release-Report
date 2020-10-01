@@ -78,7 +78,8 @@
                 style="@style/IconButton"
                 android:layout_width="@dimen/standard_element_size"
                 android:layout_height="match_parent"
-                app:icon="@drawable/ic_arrow_back" />
+                app:icon="@drawable/ic_arrow_back"
+                app:iconTint="?android:textColorSecondary" />
 
             <EditText
                 android:id="@+id/searchView"
