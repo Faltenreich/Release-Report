@@ -78,6 +78,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             // TODO: Toggle depending on state
             motionLayout.transitionToStart()
         }
+        clearButton.setOnClickListener { searchView.text = null }
     }
 
     private fun initList() {
