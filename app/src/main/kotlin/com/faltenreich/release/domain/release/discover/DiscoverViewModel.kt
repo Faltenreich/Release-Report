@@ -33,12 +33,14 @@ class DiscoverViewModel : ViewModel() {
 
     fun observeQuery(owner: LifecycleOwner, onObserve: (PagedList<ReleaseProvider>?) -> Unit) {
         queryLiveData.observe(owner, Observer { query ->
-            query?.let {
-                val dataSource = SearchDataSource(query, viewModelScope, {})
-                val dataFactory = PagingDataFactory(dataSource)
-                queriedReleasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
-                queriedReleasesLiveData.observe(owner, Observer(onObserve))
+            query?.takeIf(String::isNotBlank) ?: run {
+                onObserve(null)
+                return@Observer
             }
+            val dataSource = SearchDataSource(query, viewModelScope) {}
+            val dataFactory = PagingDataFactory(dataSource)
+            queriedReleasesLiveData = LivePagedListBuilder(dataFactory, dataFactory.config).build()
+            queriedReleasesLiveData.observe(owner, Observer(onObserve))
         })
     }
 }

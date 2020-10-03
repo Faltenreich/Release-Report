@@ -15,11 +15,9 @@ import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
 import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
-import com.faltenreich.release.domain.release.list.ReleaseListItemDecoration
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.search.SearchListAdapter
 import com.faltenreich.release.framework.android.fragment.BaseFragment
-import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.threeten.bp.LocalDate
@@ -36,7 +34,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private val listSkeleton by lazy {
         SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10)
     }
-    private val listSpacing by lazy { context?.resources?.getDimension(ItemDecoration.SPACING_RES_DEFAULT)?.toInt() ?: 0 }
 
     private lateinit var searchListAdapter: SearchListAdapter
 
