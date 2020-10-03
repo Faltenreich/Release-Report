@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.release.R
 import com.faltenreich.release.base.date.Now
@@ -14,9 +15,11 @@ import com.faltenreich.release.base.date.print
 import com.faltenreich.release.domain.date.DatePickerOpener
 import com.faltenreich.release.domain.date.DateProvider
 import com.faltenreich.release.domain.release.list.ReleaseDateItem
+import com.faltenreich.release.domain.release.list.ReleaseListItemDecoration
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.search.SearchListAdapter
 import com.faltenreich.release.framework.android.fragment.BaseFragment
+import com.faltenreich.release.framework.android.view.recyclerview.decoration.ItemDecoration
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.threeten.bp.LocalDate
@@ -33,6 +36,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     private val listSkeleton by lazy {
         SkeletonFactory.createSkeleton(listView, R.layout.list_item_release_image, 10)
     }
+    private val listSpacing by lazy { context?.resources?.getDimension(ItemDecoration.SPACING_RES_DEFAULT)?.toInt() ?: 0 }
 
     private lateinit var searchListAdapter: SearchListAdapter
 
@@ -68,6 +72,11 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     }
 
     private fun initSearch() {
+        val context = context ?: return
+
+        searchResultListView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        searchResultListView.adapter = searchListAdapter
+
         searchView.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) motionLayout.transitionToEnd()
             else motionLayout.transitionToStart()
