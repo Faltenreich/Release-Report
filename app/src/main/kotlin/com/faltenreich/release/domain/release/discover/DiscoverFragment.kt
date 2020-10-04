@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
@@ -116,8 +117,12 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
                 when (currentId) {
                     R.id.start -> {
+                        searchButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_search)
                         searchView.hideKeyboard()
                         view?.requestFocus()
+                    }
+                    R.id.end -> {
+                        searchButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back)
                     }
                 }
             }

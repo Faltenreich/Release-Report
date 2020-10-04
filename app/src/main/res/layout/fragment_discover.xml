@@ -69,12 +69,12 @@
         app:layout_constraintStart_toStartOf="@id/topBar"
         app:layout_constraintTop_toTopOf="@id/topBar" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/searchButton"
         style="@style/IconButton"
         android:layout_width="@dimen/standard_element_size"
         android:layout_height="?actionBarSize"
-        app:icon="@drawable/ic_arrow_back"
+        app:icon="@drawable/ic_search"
         app:iconTint="?android:textColorSecondary"
         app:layout_constraintStart_toStartOf="@id/resultView"
         app:layout_constraintTop_toTopOf="@id/resultView" />
