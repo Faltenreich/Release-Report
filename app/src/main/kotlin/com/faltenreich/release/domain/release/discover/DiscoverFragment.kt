@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.discover
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import com.faltenreich.release.domain.release.list.ReleaseDateItem
 import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.search.SearchListAdapter
 import com.faltenreich.release.framework.android.fragment.BaseFragment
+import com.faltenreich.release.framework.android.view.hideKeyboard
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.threeten.bp.LocalDate
@@ -68,25 +70,6 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         searchListAdapter = SearchListAdapter(requireContext())
     }
 
-    private fun initSearch() {
-        val context = context ?: return
-
-        searchResultListView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        searchResultListView.adapter = searchListAdapter
-
-        searchView.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) motionLayout.transitionToEnd()
-            else motionLayout.transitionToStart()
-        }
-        searchView.doOnTextChanged { text, _, _, _ -> viewModel.query = text?.toString() }
-        searchView.setOnClickListener { motionLayout.transitionToEnd() }
-        searchButton.setOnClickListener {
-            // TODO: Toggle depending on state
-            motionLayout.transitionToStart()
-        }
-        clearButton.setOnClickListener { searchView.text = null }
-    }
-
     private fun initList() {
         val context = context ?: return
 
@@ -105,6 +88,44 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
                 }
             }
         })
+    }
+
+    private fun initSearch() {
+        val context = context ?: return
+
+        searchResultListView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        searchResultListView.adapter = searchListAdapter
+
+        searchView.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) motionLayout.transitionToEnd()
+            else motionLayout.transitionToStart()
+        }
+        searchView.doOnTextChanged { text, _, _, _ -> viewModel.query = text?.toString() }
+        searchView.setOnClickListener { motionLayout.transitionToEnd() }
+        searchButton.setOnClickListener {
+            // TODO: Toggle depending on state
+            motionLayout.transitionToStart()
+        }
+
+        motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+
+            override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) = Unit
+
+            override fun onTransitionChange(motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float) = Unit
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                when (currentId) {
+                    R.id.start -> {
+                        searchView.hideKeyboard()
+                        view?.requestFocus()
+                    }
+                }
+            }
+
+            override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) = Unit
+        })
+
+        clearButton.setOnClickListener { searchView.text = null }
     }
 
     private fun setDate(date: LocalDate) {
