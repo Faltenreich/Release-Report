@@ -65,7 +65,7 @@
         app:cardBackgroundColor="?backgroundColorSecondary"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="@id/topBar"
-        app:layout_constraintEnd_toEndOf="@id/topBar"
+        app:layout_constraintEnd_toStartOf="@id/clearButton"
         app:layout_constraintStart_toStartOf="@id/topBar"
         app:layout_constraintTop_toTopOf="@id/topBar" />
 

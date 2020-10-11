@@ -3,6 +3,7 @@ package com.faltenreich.release.domain.release.discover
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -21,6 +22,7 @@ import com.faltenreich.release.domain.release.list.ReleaseProvider
 import com.faltenreich.release.domain.release.search.SearchListAdapter
 import com.faltenreich.release.framework.android.fragment.BaseFragment
 import com.faltenreich.release.framework.android.view.hideKeyboard
+import com.faltenreich.release.framework.android.view.showKeyboard
 import com.faltenreich.release.framework.skeleton.SkeletonFactory
 import kotlinx.android.synthetic.main.fragment_discover.*
 import org.threeten.bp.LocalDate
@@ -39,6 +41,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
     }
 
     private lateinit var searchListAdapter: SearchListAdapter
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,9 +107,17 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
         searchView.doOnTextChanged { text, _, _, _ -> viewModel.query = text?.toString() }
         searchView.setOnClickListener { motionLayout.transitionToEnd() }
         searchButton.setOnClickListener {
-            // TODO: Toggle depending on state
-            motionLayout.transitionToStart()
+            if (searchView.hasFocus()) motionLayout.transitionToStart()
+            else motionLayout.transitionToEnd()
         }
+
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (searchView.hasFocus()) motionLayout.transitionToStart()
+            }
+        }
+        onBackPressedCallback.isEnabled = false
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
 
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
 
@@ -118,11 +129,16 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover, R.menu.main), 
                 when (currentId) {
                     R.id.start -> {
                         searchButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_search)
+                        searchView.text = null
                         searchView.hideKeyboard()
                         view?.requestFocus()
+                        onBackPressedCallback.isEnabled = false
                     }
                     R.id.end -> {
                         searchButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back)
+                        searchView.requestFocus()
+                        searchView.showKeyboard()
+                        onBackPressedCallback.isEnabled = true
                     }
                 }
             }

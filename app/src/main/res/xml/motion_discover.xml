@@ -18,6 +18,9 @@
             app:layout_constraintEnd_toEndOf="@id/topBar"
             app:layout_constraintStart_toStartOf="@id/topBar"
             app:layout_constraintTop_toTopOf="@id/topBar" />
+        <Constraint android:id="@+id/clearButton">
+            <PropertySet android:visibility="gone" />
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -29,6 +32,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <Constraint android:id="@+id/clearButton">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
     </ConstraintSet>
 
 </MotionScene>
