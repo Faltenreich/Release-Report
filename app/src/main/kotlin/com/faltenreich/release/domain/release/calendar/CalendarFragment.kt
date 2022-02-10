@@ -95,7 +95,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar, R.menu.main), 
             }
             lifecycleScope.launch(Dispatchers.Main) {
                 // Workaround: notifyItemChanged() does not update all items if called frequently
-                (indexes.min() to indexes.max()).takeIfNotEmpty()?.let { (min, max) ->
+                (indexes.minOrNull() to indexes.maxOrNull()).takeIfNotEmpty()?.let { (min, max) ->
                     listAdapter.notifyItemRangeChanged(min, max)
                 }
             }

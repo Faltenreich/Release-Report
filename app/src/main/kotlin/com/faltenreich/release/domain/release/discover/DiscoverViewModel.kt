@@ -13,7 +13,7 @@ import org.threeten.bp.LocalDate
 
 class DiscoverViewModel : ViewModel() {
 
-    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>?>
+    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>>
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 
@@ -22,7 +22,7 @@ class DiscoverViewModel : ViewModel() {
         get() = queryLiveData.value
         set(value) = queryLiveData.postValue(value)
 
-    private lateinit var queriedReleasesLiveData: LiveData<PagedList<ReleaseProvider>?>
+    private lateinit var queriedReleasesLiveData: LiveData<PagedList<ReleaseProvider>>
 
     fun observeReleases(date: LocalDate, owner: LifecycleOwner, onObserve: (PagedList<DateProvider>?) -> Unit) {
         val dataSource = ReleaseListDataSource(viewModelScope, date)

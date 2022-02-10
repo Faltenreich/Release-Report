@@ -36,14 +36,11 @@ class ReleaseListDataSource(
     private fun loadInitial(
         params: LoadInitialParams<PaginationInfo>,
         descending: Boolean,
-        onResponse: (MutableList<DateProvider>, PaginationInfo?) -> Unit
+        onResponse: (List<DateProvider>, PaginationInfo?) -> Unit
     ) {
         val info = PaginationInfo(0, params.requestedLoadSize, descending, null)
         load(info, object : LoadCallback<PaginationInfo, DateProvider>() {
-            override fun onResult(
-                data: MutableList<DateProvider>,
-                adjacentPageKey: PaginationInfo?
-            ) {
+            override fun onResult(data: List<DateProvider>, adjacentPageKey: PaginationInfo?) {
                 onResponse(data, adjacentPageKey)
             }
         })

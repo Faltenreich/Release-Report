@@ -12,7 +12,7 @@ class CalendarDataSource(private val startAt: YearMonth) : PageKeyedDataSource<C
 
     override fun loadInitial(params: LoadInitialParams<CalendarKey>, callback: LoadInitialCallback<CalendarKey, CalendarItem>) {
         load(startAt, params.requestedLoadSize, true, object : LoadCallback<CalendarKey, CalendarItem>() {
-            override fun onResult(data: MutableList<CalendarItem>, adjacentPageKey: CalendarKey?) {
+            override fun onResult(data: List<CalendarItem>, adjacentPageKey: CalendarKey?) {
                 callback.onResult(data, startAt.minusMonths(1), adjacentPageKey)
             }
         })

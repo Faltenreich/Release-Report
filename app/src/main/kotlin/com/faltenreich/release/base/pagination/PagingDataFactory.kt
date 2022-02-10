@@ -3,7 +3,7 @@ package com.faltenreich.release.base.pagination
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 
-class PagingDataFactory<Key, Value : Any>(
+class PagingDataFactory<Key : Any, Value : Any>(
     private val dataSource: DataSource<Key, Value>,
     pageSize: Int = PAGE_SIZE
 ) : DataSource.Factory<Key, Value>() {

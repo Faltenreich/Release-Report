@@ -57,13 +57,13 @@ class PreferenceFragment : BaseFragment(R.layout.fragment_preference) {
 
         override fun onResume() {
             super.onResume()
-            preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
             invalidatePreferences()
         }
 
         override fun onPause() {
             super.onPause()
-            preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
         private fun findPreference(@StringRes stringRes: Int): Preference? {

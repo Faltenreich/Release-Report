@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDate
 
 class ReleaseListViewModel : ViewModel() {
 
-    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>?>
+    private lateinit var releasesLiveData: LiveData<PagedList<DateProvider>>
     val releases: List<DateProvider>
         get() = releasesLiveData.value ?: listOf()
 

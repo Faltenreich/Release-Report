@@ -16,7 +16,7 @@ class SearchDataSource(
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, ReleaseProvider>) {
         load(0, params.requestedLoadSize, object : LoadCallback<Int, ReleaseProvider>() {
-            override fun onResult(data: MutableList<ReleaseProvider>, adjacentPageKey: Int?) {
+            override fun onResult(data: List<ReleaseProvider>, adjacentPageKey: Int?) {
                 callback.onResult(data, 0, 1)
                 afterInitialLoad(data)
             }

@@ -23,7 +23,7 @@ class CalendarViewModel : ViewModel() {
         get() = yearMonthLiveData.value
         set(value) = yearMonthLiveData.postValue(value)
 
-    private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>?>
+    private lateinit var releasesLiveData: LiveData<PagedList<CalendarItem>>
 
     fun observeReleases(
         yearMonth: YearMonth,
